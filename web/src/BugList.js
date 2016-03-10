@@ -5,6 +5,7 @@ var Link = require('react-router').Link;
 
 var BugFilter = require('./BugFilter');
 var BugAdd = require('./BugAdd');
+var Demo = require('./Demo');
 
 var BugRow = React.createClass({
  render: function() {
@@ -56,6 +57,7 @@ var BugList = React.createClass({
    console.log("Rendering BugList, num items:", this.state.bugs.length);
    return (
      <div>
+        <Demo />
        <h1>Bug Tracker</h1>
        <BugFilter submitHandler={this.changeFilter} initFilter={this.props.location.query}/>
        <hr />
