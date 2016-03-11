@@ -1,8 +1,11 @@
 var React = require('react');
-var ReactDOM = require('react-dom');
 var $ = require('jQuery');
+var Router = require('react-router');
 
 var HomePage = React.createClass({
+  contextTypes: {
+    router: React.PropTypes.object.isRequired
+  },
 	getInitialState: function() {
     return {
       "serverStatus": "Server hasn't sent anything"
@@ -13,14 +16,18 @@ var HomePage = React.createClass({
      <div>
      	<div>{this.state.serverStatus}</div>
       <button onClick={this.testSlice}>Ping the server</button>
+      <button onClick={this.nextPage}>Go to next page!</button>
      </div>
     );
+  },
+  nextPage: function(e) {
+    this.context.router.push('secondPage');
   },
   testSlice: function() {
     var d = {
       sendTestToServer : "yo"
     };
-    
+
     $.ajax({
       url: "/test_slice",
       type: 'POST',
@@ -28,7 +35,6 @@ var HomePage = React.createClass({
       dataType: "json",
       data: d,
       success: function(data) {
-        console.log(data);
         this.setState({
           "serverStatus" : data.test
         });
@@ -36,7 +42,6 @@ var HomePage = React.createClass({
       error: function(xhr, status, err) {
         console.log(err);
         console.log(xhr);
-
         this.setState({
           "serverStatus" : "Error in server request."
         });

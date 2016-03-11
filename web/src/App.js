@@ -5,6 +5,7 @@ var Route = require('react-router').Route;
 var Redirect = require('react-router').Redirect;
 
 var HomePage = require('./HomePage.js');
+var SecondPage = require('./SecondPage.js');
 
 var BugList = require('./BugList');
 var BugEdit = require('./BugEdit');
@@ -21,6 +22,7 @@ ReactDOM.render(
  (
    <Router>
    	<Route path="/home" component={HomePage} />
+   	<Route path="/secondPage" component={SecondPage} />
      <Route path="/bugs" component={BugList} />
      <Route path="/bugs/:id" component={BugEdit} />
      <Redirect from="/" to="/home" />
