@@ -8,6 +8,15 @@ var db;
 
 app.use(express.static('static'));
 
+//Sample express route
+app.post('/test_slice', function(req, res){
+  console.log(req.data);
+  var payload = {
+    test: "Test is successful!"
+  };
+  res.json(payload);
+});
+
 /* Get a list of filtered records */
 app.get('/api/bugs', function(req, res) {
  console.log("Query string", req.query);

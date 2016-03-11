@@ -20,7 +20,7 @@ var Demo = React.createClass({
    //console.log("Rendering BugAdd");
    return (
      <div>
-      <div className="demo-first-div">THIS IS A GREAT DEMO</div>
+      <div className="demo-first-div">HELLO WORLD</div>
       <div className="demo-second-div">{this.state.counter}</div>
       <button id="button" className="demo-button" onClick={this.incrementCounter}>Increment Counter!!!!!</button>
      </div>
