@@ -8,7 +8,7 @@
 
 #import "AppDelegate.h"
 #import "LoginViewController.h"
-#import "LeftPanelTableViewController.h"
+#import "LeftPanelViewController.h"
 
 @interface AppDelegate ()<SWRevealViewControllerDelegate>
 
@@ -24,12 +24,12 @@
     self.window = window;
     
     LoginViewController *frontViewController = [[LoginViewController alloc] init];
-//    LeftPanelTableViewController *rearViewController = [[LeftPanelTableViewController alloc] init];
+    LeftPanelViewController *rearViewController = [[LeftPanelViewController alloc] init];
     
     UINavigationController *frontNavigationController = [[UINavigationController alloc] initWithRootViewController:frontViewController];
-//    UINavigationController *rearNavigationController = [[UINavigationController alloc] initWithRootViewController:rearViewController];
+    UINavigationController *rearNavigationController = [[UINavigationController alloc] initWithRootViewController:rearViewController];
     
-    SWRevealViewController *revealController = [[SWRevealViewController alloc] initWithRearViewController:nil frontViewController:frontNavigationController];
+    SWRevealViewController *revealController = [[SWRevealViewController alloc] initWithRearViewController:rearNavigationController frontViewController:frontNavigationController];
     revealController.delegate = self;
     
     //revealController.bounceBackOnOverdraw=NO;

@@ -10,7 +10,8 @@
 		658381D40B455AB211108C0F /* libPods-Deadeuce.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F8CEAF6A7C2AD9DC5D9B6BE5 /* libPods-Deadeuce.a */; };
 		AA8542641C93DF1A006EA952 /* LobbyTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AA8542631C93DF1A006EA952 /* LobbyTableViewController.m */; };
 		AA8542671C93DFAC006EA952 /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AA8542661C93DFAC006EA952 /* LoginViewController.m */; };
-		AA85426A1C93E0A5006EA952 /* LeftPanelTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AA8542691C93E0A5006EA952 /* LeftPanelTableViewController.m */; };
+		AA85426C1C93E3C3006EA952 /* FacebookSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AA85426B1C93E3C3006EA952 /* FacebookSDK.framework */; };
+		AA85426F1C93E8F6006EA952 /* LeftPanelViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AA85426E1C93E8F6006EA952 /* LeftPanelViewController.m */; };
 		AAF1297A1C93D73400BAE9F4 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = AAF129791C93D73400BAE9F4 /* main.m */; };
 		AAF1297D1C93D73400BAE9F4 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = AAF1297C1C93D73400BAE9F4 /* AppDelegate.m */; };
 		AAF129801C93D73400BAE9F4 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AAF1297F1C93D73400BAE9F4 /* ViewController.m */; };
@@ -25,8 +26,9 @@
 		AA8542631C93DF1A006EA952 /* LobbyTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LobbyTableViewController.m; sourceTree = "<group>"; };
 		AA8542651C93DFAC006EA952 /* LoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginViewController.h; sourceTree = "<group>"; };
 		AA8542661C93DFAC006EA952 /* LoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginViewController.m; sourceTree = "<group>"; };
-		AA8542681C93E0A5006EA952 /* LeftPanelTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LeftPanelTableViewController.h; sourceTree = "<group>"; };
-		AA8542691C93E0A5006EA952 /* LeftPanelTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LeftPanelTableViewController.m; sourceTree = "<group>"; };
+		AA85426B1C93E3C3006EA952 /* FacebookSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FacebookSDK.framework; sourceTree = "<group>"; };
+		AA85426D1C93E8F6006EA952 /* LeftPanelViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LeftPanelViewController.h; sourceTree = "<group>"; };
+		AA85426E1C93E8F6006EA952 /* LeftPanelViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LeftPanelViewController.m; sourceTree = "<group>"; };
 		AAF129751C93D73400BAE9F4 /* Deadeuce.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Deadeuce.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AAF129791C93D73400BAE9F4 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		AAF1297B1C93D73400BAE9F4 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -45,6 +47,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				658381D40B455AB211108C0F /* libPods-Deadeuce.a in Frameworks */,
+				AA85426C1C93E3C3006EA952 /* FacebookSDK.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -81,10 +84,10 @@
 		AAF129771C93D73400BAE9F4 /* Deadeuce */ = {
 			isa = PBXGroup;
 			children = (
+				AA85426D1C93E8F6006EA952 /* LeftPanelViewController.h */,
+				AA85426E1C93E8F6006EA952 /* LeftPanelViewController.m */,
 				AAF1297B1C93D73400BAE9F4 /* AppDelegate.h */,
 				AAF1297C1C93D73400BAE9F4 /* AppDelegate.m */,
-				AA8542681C93E0A5006EA952 /* LeftPanelTableViewController.h */,
-				AA8542691C93E0A5006EA952 /* LeftPanelTableViewController.m */,
 				AA8542651C93DFAC006EA952 /* LoginViewController.h */,
 				AA8542661C93DFAC006EA952 /* LoginViewController.m */,
 				AA8542621C93DF1A006EA952 /* LobbyTableViewController.h */,
@@ -110,6 +113,7 @@
 		C7629655C1F91A93CFBDFEAE /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				AA85426B1C93E3C3006EA952 /* FacebookSDK.framework */,
 				F8CEAF6A7C2AD9DC5D9B6BE5 /* libPods-Deadeuce.a */,
 			);
 			name = Frameworks;
@@ -235,10 +239,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AA85426F1C93E8F6006EA952 /* LeftPanelViewController.m in Sources */,
 				AA8542641C93DF1A006EA952 /* LobbyTableViewController.m in Sources */,
 				AAF129801C93D73400BAE9F4 /* ViewController.m in Sources */,
 				AAF1297D1C93D73400BAE9F4 /* AppDelegate.m in Sources */,
-				AA85426A1C93E0A5006EA952 /* LeftPanelTableViewController.m in Sources */,
 				AAF1297A1C93D73400BAE9F4 /* main.m in Sources */,
 				AA8542671C93DFAC006EA952 /* LoginViewController.m in Sources */,
 			);
@@ -343,6 +347,10 @@
 			baseConfigurationReference = 65D230B2EEA7C12EC178DBAB /* Pods-Deadeuce.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				INFOPLIST_FILE = Deadeuce/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.example.Deadeuce;
@@ -355,6 +363,10 @@
 			baseConfigurationReference = 65187E06181161CBCB33A22C /* Pods-Deadeuce.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				INFOPLIST_FILE = Deadeuce/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.example.Deadeuce;
