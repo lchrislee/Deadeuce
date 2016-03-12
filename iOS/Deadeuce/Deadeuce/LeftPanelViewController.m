@@ -1,37 +1,203 @@
 //
 //  LeftPanelViewController.m
-//  Deadeuce
+//  SlideoutNavigation
 //
-//  Created by Omar Khulusi on 3/11/16.
-//  Copyright © 2016 Deadeuce. All rights reserved.
+//  Created by Tammy Coron on 1/10/13.
+//  Copyright (c) 2013 Tammy L Coron. All rights reserved.
 //
 
 #import "LeftPanelViewController.h"
+#import "SWRevealViewController.h"
+#import "LobbyTableViewController.h"
 
+@interface LeftPanelTableViewCell : UITableViewCell
+@property (nonatomic, strong) UILabel *titleLabel;
+@end
+
+@implementation LeftPanelTableViewCell
+
+static const CGFloat kTitleLabelHeight = 40;
+static const CGFloat kLabelPadding = 8;
+int count = 0;
+
+- (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
+{
+    if (self = [super initWithStyle:style reuseIdentifier:reuseIdentifier])
+    {
+        self.titleLabel = [[UILabel alloc] init];
+        [self.contentView addSubview:self.titleLabel];
+    }
+    
+    return self;
+}
+
+- (void)layoutSubviews
+{
+    [super layoutSubviews];
+    
+    CGRect titleLabelFrame = self.contentView.bounds;
+    titleLabelFrame.origin.y += kLabelPadding;
+    titleLabelFrame.size.height = kTitleLabelHeight;
+    titleLabelFrame.origin.x += kLabelPadding;
+    titleLabelFrame.size.width -= 2*kLabelPadding;
+    self.titleLabel.frame = titleLabelFrame;
+}
+
++ (CGFloat)cellHeight
+{
+    return 2*kTitleLabelHeight + 2*kLabelPadding;
+}
+
+- (void)prepareForReuse
+{
+    /*   Keep this as is   */
+    self.titleLabel.text = @"";
+}
+
+@end
 @interface LeftPanelViewController ()
+
+@property (nonatomic, strong) NSMutableArray *rowTitles;
+@property int numberOfNights;
 
 @end
 
 @implementation LeftPanelViewController
+{
+    NSInteger _presentedRow;
+}
 
-- (void)viewDidLoad {
+#pragma mark -
+#pragma mark View Did Load/Unload
+
+- (void)viewDidLoad
+{
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
+    
+    [self setupArray];
 }
 
-- (void)didReceiveMemoryWarning {
+- (void)viewDidUnload
+{
+    [super viewDidUnload];
+}
+
+#pragma mark -
+#pragma mark View Will/Did Appear
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+}
+
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+}
+
+#pragma mark -
+#pragma mark View Will/Did Disappear
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+}
+
+- (void)viewDidDisappear:(BOOL)animated
+{
+    [super viewDidDisappear:animated];
+}
+
+#pragma mark -
+#pragma mark Array Setup
+
+- (void)setupArray
+{
+    _presentedRow = -1;
+    NSArray *data = @[@"Lobby", @"Next View"];
+    
+    self.rowTitles = [NSMutableArray arrayWithArray:data];
+    
+    [self.tableView reloadData];
+}
+
+#pragma mark -
+#pragma mark UITableView Datasource/Delegate
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+{
+    return 1;
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+    return [_rowTitles count];
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return 54;
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    LeftPanelTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"LPTableViewCell" forIndexPath:indexPath];
+    cell.titleLabel.text = self.rowTitles[indexPath.row];
+    
+    return cell;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    // Grab a handle to the reveal controller, as if you'd do with a navigtion controller via self.navigationController.
+    SWRevealViewController *revealController = self.revealViewController;
+    
+    // selecting row
+    NSInteger row = indexPath.row;
+    NSString* selection = self.rowTitles[indexPath.row];
+    
+    if(row == _presentedRow){
+        [revealController revealToggleAnimated:YES];
+        return;
+    }
+    // otherwise we'll create a new frontViewController and push it with animation
+    
+    UIViewController *newFrontController = nil;
+    
+    if ([selection  isEqual: @"Lobby"]) {
+        newFrontController = [[LobbyTableViewController alloc] init];
+    }
+    
+    UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:newFrontController];
+    navigationController.navigationBar.barTintColor = [UIColor colorWithRed:(40/255.0) green:(177/255.0) blue:(134/255.0) alpha:1.0];
+    [revealController pushFrontViewController:navigationController animated:YES];
+    
+    _presentedRow = row;  // <- store the presented row
+}
+
+-(void) adjustNumberOfNights:(int)payload
+{
+    _numberOfNights = payload;
+}
+#pragma mark -
+#pragma mark Default System Code
+
+- (instancetype)initWithStyle:(UITableViewStyle)style
+{
+    if (self = [super initWithStyle:style])
+    {
+        _numberOfNights = 0;
+        [self.tableView registerClass:[LeftPanelTableViewCell class] forCellReuseIdentifier:@"LPTableViewCell"];
+        self.tableView.estimatedRowHeight = UITableViewAutomaticDimension;
+        self.tableView.rowHeight = [LeftPanelTableViewCell cellHeight];
+    }
+    
+    return self;
+}
+
+- (void)didReceiveMemoryWarning
+{
     [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end
