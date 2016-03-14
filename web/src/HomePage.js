@@ -1,7 +1,6 @@
 var React = require('react');
 var $ = require('jQuery');
 var Router = require('react-router');
-var GameFeed = require('GameFeed');
 
 var HomePage = React.createClass({
   contextTypes: {
@@ -51,7 +50,7 @@ var HomePage = React.createClass({
   }
 });
 
-var GameFeed =React.createClass{
+var GameFeed = React.createClass{
   getInitialState: function() {
     return {
     };
@@ -82,3 +81,9 @@ module.exports = {
     homepage = HomePage,
     gamefeed =GameFeed;
 }
+
+ReactDOM.render(
+    <GameFeed />
+    document.getElementById('content')
+
+);
