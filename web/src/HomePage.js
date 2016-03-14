@@ -77,9 +77,14 @@ var GameFeed = React.createClass{
 });
 }
 
+/*module.exports = {
+    homepage = HomePage,
+    gamefeed =GameFeed;
+}
+*/
 
 ReactDOM.render(
-    <GameFeed />
+    <GameFeed />,
     document.getElementById('content')
 
 );
