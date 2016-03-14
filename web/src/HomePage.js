@@ -77,9 +77,7 @@ var GameFeed = React.createClass({
 });
 
 
-module.exports = {
-    homepage = HomePage,
-    gamefeed =GameFeed;
-};
+module.exports = HomePage
+
 
 
