@@ -8,7 +8,7 @@ var HomePage = React.createClass({
   },
 	getInitialState: function() {
     return {
-      "serverStatus": "Server hasn't sent anything"
+      "serverStatus": "Server hasn't sent anythingdd"
     };
   },
   render: function() {
@@ -50,7 +50,7 @@ var HomePage = React.createClass({
   }
 });
 
-var GameFeed = React.createClass{
+var GameFeed = React.createClass({
   getInitialState: function() {
     return {
     };
@@ -75,16 +75,11 @@ var GameFeed = React.createClass{
     );
   }
 });
-}
 
-/*module.exports = {
+
+module.exports = {
     homepage = HomePage,
     gamefeed =GameFeed;
-}
-*/
+};
 
-ReactDOM.render(
-    <GameFeed />,
-    document.getElementById('content')
 
-);
