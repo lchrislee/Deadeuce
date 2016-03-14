@@ -1,6 +1,7 @@
 var React = require('react');
 var $ = require('jQuery');
 var Router = require('react-router');
+var GameFeed = require('GameFeed');
 
 var HomePage = React.createClass({
   contextTypes: {
@@ -50,4 +51,34 @@ var HomePage = React.createClass({
   }
 });
 
-module.exports = HomePage;
+var GameFeed =React.createClass{
+  getInitialState: function() {
+    return {
+    };
+  },
+  render: function() {
+    return (
+        <div>
+
+            <div id="content" class="divFeedTable">
+                <div class="divFeedRow">
+                    <div class="divFeedColumn">
+                        <div>
+                            Game Feed
+                        </div>
+                        <div>
+                            hhhh
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    );
+  }
+});
+}
+
+module.exports = {
+    homepage = HomePage,
+    gamefeed =GameFeed;
+}

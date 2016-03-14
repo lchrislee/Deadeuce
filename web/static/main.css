@@ -4,3 +4,29 @@
 #hello {
 	border: 30px solid black;
 }
+
+/*********************************************
+Game Components
+*********************************************/
+
+.divFeedTable
+{
+    width: 100%;
+    display:block;
+    padding-top:10px;
+    padding-bottom:10px;
+    padding-right:10px;
+    padding-left:10px;
+}
+.divFeedRow
+{
+    width: 99%;
+    display:block;
+    padding-bottom:5px;
+}
+.divFeedColumn
+{
+    float: left;
+    width: 24%;
+    display:block;
+}
