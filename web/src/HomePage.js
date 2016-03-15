@@ -18,7 +18,7 @@ var HomePage = React.createClass({
       <button onClick={this.testSlice}>Ping the server</button>
       <button onClick={this.nextPage}>Go to next page!</button>
 
-         <div className="gamefeed">
+         <div className="gamefeed firstRow">
              <div className="FeedHeader">
                  <div className="divFeedRow-header">
                      <p id="header" className="gamefeed-header">Game Feed</p>
@@ -46,7 +46,7 @@ var HomePage = React.createClass({
                      <div className="divFeedColumn3 column">5 minutes ago </div>
                  </div>
 
-                 <div className="divFeedRow">
+                 <div className="divFeedRow lastRow">
                      <div className="divFeedColumn1 column" >
                          <svg className="gamefeed-svg"><img src="/assets/icons/fingerprint.svg" alt="fingerprint icon" className="icon" /></svg>
                      </div>
@@ -58,6 +58,81 @@ var HomePage = React.createClass({
                  </div>
              </div>
          </div>
+
+         <div className="gameMap">
+                 <div className="mapRow-header firstRow">
+                     <div className="mapColumn" >
+                         <p className="mapHeader">LYON CENTER</p>
+                     </div>
+                     <div className="mapColumn" >
+                         <p className="mapHeader">LEAVEY LIBRARY</p>
+                     </div>
+                     <div className="mapColumn" >
+                         <p className="mapHeader">TRADDIES</p>
+                     </div>
+                 </div>
+
+                 <div className="mapRow-content">
+                     <div className="mapColumn" >
+                         <p className="mapContent"> - </p>
+                     </div>
+                     <div className="mapColumn" >
+                         <p className="mapContent"> EVKitty <br/> George Tirebiter</p>
+                     </div>
+                     <div className="mapColumn" >
+                         <p className="mapContent"> - </p>
+                     </div>
+                 </div>
+
+                 <div className="mapRow-header">
+                     <div className="mapColumn" >
+                         <p className="mapHeader">GROUND ZERO</p>
+                     </div>
+                     <div className="mapColumn" >
+                         <p className="mapHeader">THE 90</p>
+                     </div>
+                     <div className="mapColumn" >
+                         <p className="mapHeader">BOVARD</p>
+                     </div>
+                 </div>
+
+                 <div className="mapRow-content">
+                     <div className="mapColumn" >
+                         <p className="mapContent"> - </p>
+                     </div>
+                     <div className="mapColumn" >
+                         <p className="mapContent"> - </p>
+                     </div>
+                     <div className="mapColumn" >
+                         <p className="mapContent">Pete Carroll</p>
+                     </div>
+                 </div>
+
+                 <div className="mapRow-header">
+                     <div className="mapColumn" >
+                         <p className="mapHeader">EVK</p>
+                     </div>
+                     <div className="mapColumn" >
+                         <p className="mapHeader">THE ROW</p>
+                     </div>
+                     <div className="mapColumn" >
+                         <p className="mapHeader">CAMPUS CENTER</p>
+                     </div>
+                 </div>
+
+                 <div className="mapRow-content lastRow">
+                     <div className="mapColumn" >
+                         <p className="mapContent"> Will Ferrell</p>
+                     </div>
+                     <div className="mapColumn" >
+                         <p className="mapContent"> President Nikias <br/> Tommy Trojan</p>
+                     </div>
+                     <div className="mapColumn" >
+                         <p className="mapContent"> - </p>
+                     </div>
+                 </div>
+         </div>
+
 
 
      </div>

@@ -1,14 +1,62 @@
 * {
     font-family: 'Montserrat', sans-serif;
 }
-
-#hello {
-	border: 30px solid black;
+/******************************************************************
+Game Feed "Map"
+*******************************************************************/
+.gameMap{
+    margin-top:30px;
+    width: 30%;
+    min-width:350px;
+    height: 400px;
+    display:block;
+    padding:0;
+    background-color:#CCC;
+    border-radius: 5px;
 }
+.mapHeader{
+    font-size:8.5pt;
+    font-weight:bold;
+    margin-bottom: auto 0;
+    color: #FFF;
+}
+.mapRow-header{
+    width: 100%;
+    height: 30px;
+    display:block;
+    background-color: #444;
+    clear: both;
+}
+.mapRow-content{
+    width: 100%;
+    height: 100px;
+    display:block;
+    background-color: #CCC;
+    clear: both;
+}
+.mapColumn{
+    float: left;
+    width: 31.33333%;
+    display:block;
+    padding: 0 .5%;
+    text-align:center;
+}
+.mapContent{
+    font-size:8.5pt;
+}
+
 
 /******************************************************************
 Game Components
 *******************************************************************/
+.firstRow{
+    border-top-left-radius:5px;
+    border-top-right-radius:5px;
+}
+.lastRow{
+    border-bottom-left-radius:5px;
+    border-bottom-right-radius:5px;
+}
 
 /******************************************************************
 Game Feed Table
@@ -16,18 +64,12 @@ Game Feed Table
 .gamefeed{
     margin-top:30px;
     width: 40%;
+    min-width:500px;
     height: 500px;
     display:block;
     padding:0;
     background-color:#CCC;
-    border-radius: 5px;
     overflow: hidden;
-}
-.gamefeed-header{
-    font-size:16pt;
-    font-weight:bold;
-    margin: 10px 0 10px;
-    padding-left:10px;
 }
 .divFeedTable {
     width: 103%;
@@ -38,14 +80,19 @@ Game Feed Table
     background-color:#CCC;
     overflow-y: scroll;
 }
+.gamefeed-header{
+    font-size:16pt;
+    font-weight:bold;
+    margin: 10px 0 10px;
+    padding-left:10px;
+}
+
 .FeedHeader{
     width: 100%;
     display:block;
     padding:0;
     margin:0;
     background-color:#CCC;
-    border-top-left-radius:5px;
-    border-top-right-radius:5px;
 }
 .divFeedRow-header{
     width: 100%;
