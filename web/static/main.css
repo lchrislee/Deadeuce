@@ -44,7 +44,11 @@ Game Feed "Map"
 .mapContent{
     font-size:8.5pt;
 }
-
+.mapContentBorder{
+    border-left: 1px solid gray;
+    border-right: 1px solid gray;
+    min-height:80px;
+}
 
 /******************************************************************
 Game Components
@@ -107,7 +111,6 @@ Game Feed Table
     height: 50px;
     display:block;
     padding-bottom:5px;
-    border-bottom: solid black 1px;
     clear: both;
 }
 .divFeedColumn1 {

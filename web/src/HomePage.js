@@ -76,7 +76,7 @@ var HomePage = React.createClass({
                      <div className="mapColumn" >
                          <p className="mapContent"> - </p>
                      </div>
-                     <div className="mapColumn" >
+                     <div className="mapColumn mapContentBorder" >
                          <p className="mapContent"> EVKitty <br/> George Tirebiter</p>
                      </div>
                      <div className="mapColumn" >
@@ -86,13 +86,13 @@ var HomePage = React.createClass({
 
                  <div className="mapRow-header">
                      <div className="mapColumn" >
-                         <p className="mapHeader">GROUND ZERO</p>
+                         <p className="mapHeader ">GROUND ZERO</p>
                      </div>
                      <div className="mapColumn" >
-                         <p className="mapHeader">THE 90</p>
+                         <p className="mapHeader ">THE 90</p>
                      </div>
                      <div className="mapColumn" >
-                         <p className="mapHeader">BOVARD</p>
+                         <p className="mapHeader ">BOVARD</p>
                      </div>
                  </div>
 
@@ -101,10 +101,10 @@ var HomePage = React.createClass({
                          <p className="mapContent"> - </p>
                      </div>
                      <div className="mapColumn" >
-                         <p className="mapContent"> - </p>
+                         <p className="mapContent mapContentBorder"> - </p>
                      </div>
                      <div className="mapColumn" >
-                         <p className="mapContent">Pete Carroll</p>
+                         <p className="mapContent"> Pete Carroll </p>
                      </div>
                  </div>
 
@@ -125,7 +125,7 @@ var HomePage = React.createClass({
                          <p className="mapContent"> Will Ferrell</p>
                      </div>
                      <div className="mapColumn" >
-                         <p className="mapContent"> President Nikias <br/> Tommy Trojan</p>
+                         <p className="mapContent mapContentBorder"> President Nikias <br/> Tommy Trojan</p>
                      </div>
                      <div className="mapColumn" >
                          <p className="mapContent"> - </p>
