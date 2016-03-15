@@ -1,47 +1,118 @@
 * {
+    font-family: 'Montserrat', sans-serif;
 }
 
 #hello {
 	border: 30px solid black;
 }
 
-/*********************************************
+/******************************************************************
 Game Components
-*********************************************/
-#gamefeed {
+*******************************************************************/
+
+/******************************************************************
+Game Feed Table
+*******************************************************************/
+.gamefeed{
     margin-top:30px;
+    width: 40%;
+    height: 500px;
+    display:block;
+    padding:0;
+    background-color:#CCC;
+    border-radius: 5px;
+    overflow: hidden;
+}
+.gamefeed-header{
+    font-size:16pt;
+    font-weight:bold;
+    margin: 10px 0 10px;
+    padding-left:10px;
+}
+.divFeedTable {
+    width: 103%;
+    height: 500px;
+    display:block;
+    padding:0;
+    margin:0;
+    background-color:#CCC;
+    overflow-y: scroll;
+}
+.FeedHeader{
+    width: 100%;
+    display:block;
+    padding:0;
+    margin:0;
+    background-color:#CCC;
+    border-top-left-radius:5px;
+    border-top-right-radius:5px;
+}
+.divFeedRow-header{
+    width: 100%;
+    display:block;
+    padding-bottom:5px;
+    overflow: auto;
+}
+.divFeedRow {
+    width: 100%;
+    height: 50px;
+    display:block;
+    padding-bottom:5px;
+    border-bottom: solid black 1px;
+    clear: both;
+}
+.divFeedColumn1 {
+    float: left;
+    width: 5%;
+    height:100%;
+    display:block;
+    padding: 0 .5%;
+
+    background-color: #EEE;
+    text-align:center;
+}
+.divFeedColumn2 {
+    float: left;
+    width: 75%;
+    height:100%;
+    display:block;
+    padding: 0 .5%;
+    font-size:10pt;
+    background-color: #EEE;
+}
+.divFeedColumn3 {
+    float: left;
+    width: 17%;
+    height:100%;
+    display:block;
+    padding-right:1%;
+    padding-top: 15px;
+
+    background-color: #EEE;
+    text-align:right;
+    font-size:8pt;
+ }
+.column{
+    padding-bottom: 1000px;
+    margin-bottom: -1000px;
+}
+/******************************************************************
+Game Feed Table Item Stylings
+*******************************************************************/
+.gamefeed-svg{
+    width: 20px;
+    height: 20px;
+    float:left;
+}
+.icon{
+    float:left;
+    height:20px;
+    width:20px;
 }
 .suggested{
     font-weight:bold;
 }
 .suggested-body{
-    margin-left:30px;
+    margin-left:10px;
     float: left;
-}
-.suggest-icon{
-   height:35px;
-    width:35px;
-}
-
-
-.divFeedTable {
-    width: 40%;
-    display:block;
-    padding-top:10px;
-    padding-bottom:10px;
-    padding-right:10px;
-    padding-left:10px;
-    background-color: grey;
-}
-.divFeedRow {
-    width: 100%;
-    display:block;
-    padding-bottom:5px;
-    background-color: green;
-}
-.divFeedColumn {
-    float: left;
-    min-width: 50%;
-    display:block;
-    background-color: salmon;
 }

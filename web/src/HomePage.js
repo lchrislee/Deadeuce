@@ -18,28 +18,48 @@ var HomePage = React.createClass({
       <button onClick={this.testSlice}>Ping the server</button>
       <button onClick={this.nextPage}>Go to next page!</button>
 
-         <div id="gamefeed">
-
-             <div id="content" className="divFeedTable">
+         <div className="gamefeed">
+             <div className="FeedHeader">
+                 <div className="divFeedRow-header">
+                     <p id="header" className="gamefeed-header">Game Feed</p>
+                 </div>
+             </div>
+             <div className="divFeedTable">
                  <div className="divFeedRow">
-                     <div className="divFeedColumn">
-                         <div>
-                            <p class="Gamefeed-Header">Game Feed</p>
-                         </div>
-                         <div>
-                             <img src="../assets/icons/fingerprint.svg" alt="fingerprint icon" class="suggest-icon" />
-                             <p class="suggest-body"><span className="suggested">EVKitty</span> suggested <span className="suggested">George Tirebiter</span> with the <span className="suggested">empty beer cans</span> at <span className="suggested">Lyon Center</span>.</p>
-                         </div>
-                         <div>
-                             <p class="suggest-body"><span className="suggested">EVKitty</span> suggested <span className="suggested">George Tirebiter</span> with the <span className="suggested">empty beer cans</span> at <span className="suggested">Lyon Center</span>.</p>
-                         </div>
-                         <div>
-                             <p class="suggest-body"> <span className="suggested">EVKitty</span> suggested <span className="suggested">George Tirebiter</span> with the <span className="suggested">empty beer cans</span> at <span className="suggested">Lyon Center</span>.</p>
-                         </div>
+                     <div className="divFeedColumn1 column" >
+                         <svg className="gamefeed-svg"><img src="/assets/icons/fingerprint.svg" alt="fingerprint icon" className="icon" /></svg>
                      </div>
+                     <div className="divFeedColumn2 column">
+                         <p className="suggest-body"><span className="suggested">EVKitty</span> suggested <span className="suggested">George Tirebiter</span> with the <span className="suggested">empty beer cans</span> at <span className="suggested">Lyon Center</span>.</p>
+                     </div>
+                     <div className="divFeedColumn3 column">5 minutes ago </div>
+                 </div>
+
+                 <div className="divFeedRow">
+                     <div className="divFeedColumn1 column" >
+                         <svg className="gamefeed-svg"><img src="/assets/icons/fingerprint.svg" alt="fingerprint icon" className="icon" /></svg>
+                     </div>
+
+                     <div className="divFeedColumn2 column">
+                         <p className="suggest-body"><span className="suggested">EVKitty</span> suggested <span className="suggested">George Tirebiter</span> with the <span className="suggested">empty beer cans</span> at <span className="suggested">Lyon Center</span>.</p>
+                     </div>
+                     <div className="divFeedColumn3 column">5 minutes ago </div>
+                 </div>
+
+                 <div className="divFeedRow">
+                     <div className="divFeedColumn1 column" >
+                         <svg className="gamefeed-svg"><img src="/assets/icons/fingerprint.svg" alt="fingerprint icon" className="icon" /></svg>
+                     </div>
+
+                     <div className="divFeedColumn2 column">
+                         <p className="suggest-body"><span className="suggested">EVKitty</span> suggested <span className="suggested">George Tirebiter</span> with the <span className="suggested">empty beer cans</span> at <span className="suggested">Lyon Center</span>.</p>
+                     </div>
+                     <div className="divFeedColumn3 column">5 minutes ago </div>
                  </div>
              </div>
          </div>
+
+
      </div>
     );
   },
