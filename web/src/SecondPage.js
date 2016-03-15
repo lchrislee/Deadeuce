@@ -1,5 +1,6 @@
 var React = require('react');
 
+
 var SecondPage = React.createClass({
 	getInitialState: function() {
     return {

@@ -8,7 +8,7 @@ var HomePage = React.createClass({
   },
 	getInitialState: function() {
     return {
-      "serverStatus": "Server hasn't sent anythingdd"
+      "serverStatus": "Server hasn't sent anything"
     };
   },
   render: function() {
@@ -17,6 +17,29 @@ var HomePage = React.createClass({
      	<div>{this.state.serverStatus}</div>
       <button onClick={this.testSlice}>Ping the server</button>
       <button onClick={this.nextPage}>Go to next page!</button>
+
+         <div id="gamefeed">
+
+             <div id="content" className="divFeedTable">
+                 <div className="divFeedRow">
+                     <div className="divFeedColumn">
+                         <div>
+                            <p class="Gamefeed-Header">Game Feed</p>
+                         </div>
+                         <div>
+                             <img src="../assets/icons/fingerprint.svg" alt="fingerprint icon" class="suggest-icon" />
+                             <p class="suggest-body"><span className="suggested">EVKitty</span> suggested <span className="suggested">George Tirebiter</span> with the <span className="suggested">empty beer cans</span> at <span className="suggested">Lyon Center</span>.</p>
+                         </div>
+                         <div>
+                             <p class="suggest-body"><span className="suggested">EVKitty</span> suggested <span className="suggested">George Tirebiter</span> with the <span className="suggested">empty beer cans</span> at <span className="suggested">Lyon Center</span>.</p>
+                         </div>
+                         <div>
+                             <p class="suggest-body"> <span className="suggested">EVKitty</span> suggested <span className="suggested">George Tirebiter</span> with the <span className="suggested">empty beer cans</span> at <span className="suggested">Lyon Center</span>.</p>
+                         </div>
+                     </div>
+                 </div>
+             </div>
+         </div>
      </div>
     );
   },
@@ -50,34 +73,8 @@ var HomePage = React.createClass({
   }
 });
 
-var GameFeed = React.createClass({
-  getInitialState: function() {
-    return {
-    };
-  },
-  render: function() {
-    return (
-        <div>
 
-            <div id="content" class="divFeedTable">
-                <div class="divFeedRow">
-                    <div class="divFeedColumn">
-                        <div>
-                            Game Feed
-                        </div>
-                        <div>
-                            hhhh
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    );
-  }
-});
-
-
-module.exports = HomePage
+module.exports = HomePage;
 
 
 

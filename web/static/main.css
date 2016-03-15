@@ -8,25 +8,40 @@
 /*********************************************
 Game Components
 *********************************************/
+#gamefeed {
+    margin-top:30px;
+}
+.suggested{
+    font-weight:bold;
+}
+.suggested-body{
+    margin-left:30px;
+    float: left;
+}
+.suggest-icon{
+   height:35px;
+    width:35px;
+}
 
-.divFeedTable
-{
-    width: 100%;
+
+.divFeedTable {
+    width: 40%;
     display:block;
     padding-top:10px;
     padding-bottom:10px;
     padding-right:10px;
     padding-left:10px;
+    background-color: grey;
 }
-.divFeedRow
-{
-    width: 99%;
+.divFeedRow {
+    width: 100%;
     display:block;
     padding-bottom:5px;
+    background-color: green;
 }
-.divFeedColumn
-{
+.divFeedColumn {
     float: left;
-    width: 24%;
+    min-width: 50%;
     display:block;
+    background-color: salmon;
 }
