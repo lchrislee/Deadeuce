@@ -85,6 +85,7 @@ Game Feed Table
     font-weight:bold;
     margin: 10px 0 10px;
     padding-left:10px;
+    color:white;
 }
 
 .FeedHeader{
@@ -98,6 +99,7 @@ Game Feed Table
     width: 100%;
     display:block;
     padding-bottom:5px;
+    background-color:#444;
     overflow: auto;
 }
 .divFeedRow {
@@ -115,7 +117,6 @@ Game Feed Table
     display:block;
     padding: 0 .5%;
 
-    background-color: #EEE;
     text-align:center;
 }
 .divFeedColumn2 {
@@ -125,7 +126,6 @@ Game Feed Table
     display:block;
     padding: 0 .5%;
     font-size:10pt;
-    background-color: #EEE;
 }
 .divFeedColumn3 {
     float: left;
@@ -135,11 +135,11 @@ Game Feed Table
     padding-right:1%;
     padding-top: 15px;
 
-    background-color: #EEE;
     text-align:right;
     font-size:8pt;
  }
 .column{
+    background-color: #CCC;
     padding-bottom: 1000px;
     margin-bottom: -1000px;
 }
