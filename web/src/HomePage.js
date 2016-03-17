@@ -132,7 +132,16 @@ var HomePage = React.createClass({
                      </div>
                  </div>
          </div>
-
+        <div className="turnBox-wrapper">
+                 <div className="turnBox-header">
+                     <p>CURRENT TURN: EVKitty (you)</p>
+                     <div className="turnBox-content">
+                         <div className="turnButton"><p>DETECTIVE CHECKLIST</p></div>
+                         <div className="turnButton"><p>SUGGEST</p></div>
+                         <div className="turnButton"><p>ACCUSE</p></div>
+                     </div>
+                 </div>
+        </div>
 
 
      </div>
