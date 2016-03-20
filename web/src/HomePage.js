@@ -136,18 +136,25 @@ var HomePage = React.createClass({
                  <div className="turnBox-header">
                      <p>CURRENT TURN: EVKitty (you)</p>
                      <div className="turnBox-content">
-                         <div className="turnButton"><p>DETECTIVE CHECKLIST</p></div>
-                         <div className="turnButton"><p>SUGGEST</p></div>
-                         <div className="turnButton"><p>ACCUSE</p></div>
+                         <button type="button" className="turnButton"><p>DETECTIVE CHECKLIST</p></button>
+                         <button type="button" className="turnButton suggestBtn"><p>SUGGEST</p></button>
+                         <button type="button" className="turnButton"><p>ACCUSE</p></button>
                      </div>
                  </div>
         </div>
+         <div className="suggestModal">
+             <div className="suggestModal-content">
+                 <span className="close">x</span>
+                 <p>Some text in the Modal..</p>
+             </div>
 
+         </div>
 
      </div>
     );
   },
-  nextPage: function(e) {
+
+nextPage: function(e) {
     this.context.router.push('secondPage');
   },
   testSlice: function() {
@@ -176,6 +183,28 @@ var HomePage = React.createClass({
     });
   }
 });
+
+var Modal = require('boron/FadeModal');
+var Example = React.createClass({
+    showModal: function(){
+        this.refs.modal.show();
+    },
+    hideModal: function(){
+        this.refs.modal.hide();
+    },
+    render: function() {
+        return (
+            <div>
+                <button onClick={this.showModal}>Open</button>
+                <Modal ref="modal">
+                    <h2>I am a dialog</h2>
+                    <button onClick={this.hideModal}>Close</button>
+                </Modal>
+            </div>
+        );
+    }
+});
+
 
 
 module.exports = HomePage;
