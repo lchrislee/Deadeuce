@@ -6,7 +6,7 @@
   "scripts": {
     "start": "npm run build",
     "build": "npm run build_index",
-    "build_index":"browserify -d ./src/App.jsx -o ./static/bundle.js",
+    "build_index": "browserify -d ./src/App.jsx -o ./static/bundle.js",
     "test": "ping"
   },
   "author": "",
@@ -23,6 +23,7 @@
     "mongodb": "^2.1.7",
     "react": "^0.14.7",
     "react-dom": "^0.14.7",
+    "react-onclickoutside": "^4.5.0",
     "react-router": "^2.0.0",
     "vinyl-source-stream": "^1.1.0",
     "watchify": "^3.7.0"

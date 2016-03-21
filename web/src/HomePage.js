@@ -1,22 +1,33 @@
 var React = require('react');
 var $ = require('jQuery');
 var Router = require('react-router');
+var ExampleModal = require('./ExampleModal.js');
 
 var HomePage = React.createClass({
-  contextTypes: {
+    contextTypes: {
     router: React.PropTypes.object.isRequired
-  },
-	getInitialState: function() {
-    return {
-      "serverStatus": "Server hasn't sent anything"
-    };
-  },
+    },
+    getInitialState: function() {
+        return {
+          "serverStatus": "Server hasn't sent anything",
+          "modalIsVisible" : false
+        };
+    },
+    toggleModal: function(e) {
+        this.setState({
+            "modalIsVisible" : !this.state.modalIsVisible
+        });
+    },
   render: function() {
     return (
      <div>
      	<div>{this.state.serverStatus}</div>
       <button onClick={this.testSlice}>Ping the server</button>
       <button onClick={this.nextPage}>Go to next page!</button>
+      <button onClick={this.toggleModal}>Toggle the Modal!</button>
+        {this.state.modalIsVisible === true && 
+            <ExampleModal closeModal={this.toggleModal} />
+        }
 
          <div className="gamefeed firstRow">
              <div className="FeedHeader">

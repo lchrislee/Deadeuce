@@ -1,6 +1,28 @@
 * {
     font-family: 'Montserrat', sans-serif;
 }
+
+/******************************************************************
+Example Modal
+*******************************************************************/
+.example-modal-wrapper {
+    position: fixed; /* Stay in place */
+    z-index: 10; /* Sit on top */
+    left: 0;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgba(0,0,0,0.6); /* Black w/ opacity */
+}
+.example-modal {
+    max-width: 500px;
+    max-height: 300px;
+    margin: auto;
+    position: absolute;
+    background-color: rgb(255,255,255); /* Fallback color */
+    top: 0; left: 0; bottom: 0; right: 0;
+}
 /******************************************************************
 Detective Pad/Suggest/Accuse Component
 *******************************************************************/
