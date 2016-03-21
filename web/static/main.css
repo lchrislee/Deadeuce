@@ -319,3 +319,19 @@ Game Feed "Map"
     height: 40px;
     min-height:70%;
 }
+/******************************************************************
+Nav Bar
+*******************************************************************/
+.navBar {
+    height: 75px;
+}
+
+ul {
+    text-color: #FFFFFF 100%;
+    font-size: 16px;
+    font-face: Montserrat-Regular;
+}
+
+ul li {
+    text-decoration: none;
+}
