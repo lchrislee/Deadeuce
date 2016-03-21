@@ -18,6 +18,32 @@ var HomePage = React.createClass({
       <button onClick={this.testSlice}>Ping the server</button>
       <button onClick={this.nextPage}>Go to next page!</button>
 
+         <div className="checklist firstRow">
+             <div className="checklistHeader">
+                 <div className="checklistRow-Header">
+                    <p>Detective Checklist</p>
+                 </div>
+             </div>
+                 <div className="checklist-content">
+                     <div className="checklistRow category">
+                         <p>Location</p>
+                     </div>
+                     <div className="checklistRow">
+                         Test for checklist
+                     </div>
+                     <div className="checklistRow category">
+                         <p>Weapons</p>
+                     </div>
+                     <div className="checklistRow">
+                         Test for checklist
+                     </div>
+                     <div className="checklistRow category">
+                         <p>Suspects</p>
+                     </div>
+                 </div>
+         </div>
+
+
          <div className="gamefeed firstRow">
              <div className="FeedHeader">
                  <div className="divFeedRow-header">
@@ -154,9 +180,10 @@ var HomePage = React.createClass({
     );
   },
 
-nextPage: function(e) {
-    this.context.router.push('secondPage');
-  },
+    nextPage: function(e) {
+        this.context.router.push('secondPage');
+      },
+
   testSlice: function() {
     var d = {
       sendTestToServer : "yo"
