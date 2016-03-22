@@ -334,7 +334,6 @@ Nav Bar
 }
 
 .navLinks {
-    text-color: #FFFFFF 100%;
     font-size: 16px;
     font-face: Montserrat-Regular;
     list-style: outside none none;
@@ -348,4 +347,5 @@ Nav Bar
 
 .navLinks li a {
     text-decoration: none;
+    text-color: #FFFFFF 100%;
 }
