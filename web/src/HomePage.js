@@ -22,6 +22,7 @@ var HomePage = React.createClass({
   render: function() {
     return (
      <div>
+      <div>This is the Deadeuce homepage!</div>
       <NavBar></NavBar>
      	<div>{this.state.serverStatus}</div>
       <button onClick={this.testSlice}>Ping the server</button>
