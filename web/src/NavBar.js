@@ -5,7 +5,7 @@ var NavBar = React.createClass({
     render: function(){
         return(
             <div className="navBar">
-                <p>Deadeuce<p/>
+                <p>Deadeuce</p>
                 <ul className="nav-links">
                     <a href=""><li>Home</li></a>
                     <a href=""><li>Games</li></a>
