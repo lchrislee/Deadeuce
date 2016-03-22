@@ -330,6 +330,7 @@ Nav Bar
 
 .navBar p {
     float: left;
+    padding-left: 30px;
 }
 
 .navLinks {
@@ -340,7 +341,7 @@ Nav Bar
     float: right;
 }
 
-ul li {
+.navLinks li {
     text-decoration: none;
     display: inline-block;
     padding: 0px 30px 30px 0px;
