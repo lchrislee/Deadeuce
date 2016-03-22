@@ -342,7 +342,10 @@ Nav Bar
 }
 
 .navLinks li {
-    text-decoration: none;
     display: inline-block;
     padding: 0px 30px 30px 0px;
+}
+
+.navLinks li a {
+    text-decoration: none;
 }
