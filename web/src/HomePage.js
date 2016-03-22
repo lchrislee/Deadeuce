@@ -179,13 +179,7 @@ var HomePage = React.createClass({
                      </div>
                  </div>
         </div>
-         <div className="suggestModal">
-             <div className="suggestModal-content">
-                 <span className="close">x</span>
-                 <p>Some text in the Modal..</p>
-             </div>
 
-         </div>
 
      </div>
     );

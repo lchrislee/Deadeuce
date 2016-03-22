@@ -17,7 +17,7 @@ Example Modal
 }
 .example-modal {
     max-width: 500px;
-    max-height: 300px;
+    max-height: 600px;
     margin: auto;
     position: absolute;
     background-color: rgb(255,255,255); /* Fallback color */
