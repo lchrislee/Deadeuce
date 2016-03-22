@@ -6,10 +6,10 @@ var NavBar = React.createClass({
         return(
             <div className="navBar">
                 <p>Deadeuce</p>
-                <ul className="nav-links">
-                    <a href=""><li>Home</li></a>
-                    <a href=""><li>Games</li></a>
-                    <a href=""><li>Profile</li></a>
+                <ul className="navLinks">
+                    <li><a href="">Home</a></li>
+                    <li><a href="">Games</a></li>
+                    <li><a href="">Profile</a></li>
                 </ul>
             </div>
         )

@@ -328,12 +328,20 @@ Nav Bar
     background-color: #444444;
 }
 
-ul {
+.navBar p {
+    float: left;
+}
+
+.navLinks {
     text-color: #FFFFFF 100%;
     font-size: 16px;
     font-face: Montserrat-Regular;
+    list-style: outside none none;
+    float: right;
 }
 
 ul li {
     text-decoration: none;
+    display: inline-block;
+    padding: 0px 30px 30px 0px;
 }
