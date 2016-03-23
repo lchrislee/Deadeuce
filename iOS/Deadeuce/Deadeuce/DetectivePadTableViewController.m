@@ -15,15 +15,22 @@
 
 @implementation DetectivePadTableViewController
 
-- (instancetype)init
+-(void)toggle:(id)sender
 {
-    if (self = [super init])
+    [self.revealViewController revealToggleAnimated:YES];
+}
+
+- (instancetype)initWithStyle:(UITableViewStyle)style
+{
+    if (self = [super initWithStyle:style])
     {
         self.navigationItem.title = @"Detective Pad";
+        
+        //Add an image to your project & set that image here.
+        UIBarButtonItem *revealButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"reveal-icon.png"]
+                                                                             style:UIBarButtonItemStylePlain target:self action:@selector(toggle:)];
+        self.navigationItem.leftBarButtonItem = revealButtonItem;
     }
-    DetectivePadTableViewController *myTableVC= [[DetectivePadTableViewController alloc] initWithStyle:UITableViewStyleGrouped];
-    return myTableVC;
-    
     
     return self;
 }

@@ -9,6 +9,7 @@
 #import "LeftPanelViewController.h"
 #import "SWRevealViewController.h"
 #import "LobbyTableViewController.h"
+#import "DetectivePadTableViewController.h"
 
 @interface LeftPanelTableViewCell : UITableViewCell
 @property (nonatomic, strong) UILabel *titleLabel;
@@ -114,7 +115,7 @@ int count = 0;
 - (void)setupArray
 {
     _presentedRow = -1;
-    NSArray *data = @[@"Lobby", @"Next View"];
+    NSArray *data = @[@"Lobby", @"Detective Pad"];
     
     self.rowTitles = [NSMutableArray arrayWithArray:data];
     
@@ -166,10 +167,11 @@ int count = 0;
     
     if ([selection  isEqual: @"Lobby"]) {
         newFrontController = [[LobbyTableViewController alloc] init];
+    } else if ([selection  isEqual: @"Detective Pad"]) {
+        newFrontController = [[DetectivePadTableViewController alloc] initWithStyle:UITableViewStyleGrouped];
     }
     
     UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:newFrontController];
-    navigationController.navigationBar.barTintColor = [UIColor colorWithRed:(40/255.0) green:(177/255.0) blue:(134/255.0) alpha:1.0];
     [revealController pushFrontViewController:navigationController animated:YES];
     
     _presentedRow = row;  // <- store the presented row

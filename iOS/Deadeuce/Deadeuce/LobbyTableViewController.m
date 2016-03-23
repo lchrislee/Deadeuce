@@ -7,8 +7,9 @@
 //
 
 #import "LobbyTableViewController.h"
-#import "SWRevealViewController.h"
+#import <SWRevealViewController.h>
 #import "GameObject.h"
+#import "AppDelegate.h"
 
 @interface LobbyTableViewCell : UITableViewCell
 
@@ -225,7 +226,8 @@ const CGFloat kPadding = 6;
         for(int i = 0; i < 10; i++){
             [_data addObject:[[GameObject alloc] init]];
         }
-        SWRevealViewController *revealController = [self revealViewController];
+        
+        SWRevealViewController *revealController = (SWRevealViewController*)[[(AppDelegate*)[[UIApplication sharedApplication]delegate] window] rootViewController];
         
         [revealController panGestureRecognizer];
         [revealController tapGestureRecognizer];
@@ -242,9 +244,6 @@ const CGFloat kPadding = 6;
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    SWRevealViewController *revealController = [self revealViewController];
-    [revealController panGestureRecognizer];
-    [revealController tapGestureRecognizer];
     [self.navigationItem setHidesBackButton:YES animated:YES];
     
     // Uncomment the following line to preserve selection between presentations.
