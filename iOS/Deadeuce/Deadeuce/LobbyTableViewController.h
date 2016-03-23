@@ -10,4 +10,6 @@
 
 @interface LobbyTableViewController : UITableViewController
 
+@property (nonatomic, strong) NSMutableArray* data;
+
 @end

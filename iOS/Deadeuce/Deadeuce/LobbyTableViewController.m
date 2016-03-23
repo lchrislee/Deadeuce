@@ -8,6 +8,109 @@
 
 #import "LobbyTableViewController.h"
 #import "SWRevealViewController.h"
+#import "GameObject.h"
+
+@interface LobbyTableViewCell : UITableViewCell
+
+@property (nonatomic, strong) UIView* background;
+@property (nonatomic, strong) UIView* innerBackground;
+@property (nonatomic, strong) UILabel *gameNameLabel;
+@property (nonatomic, strong) UILabel *numberOfPlayersLabel;
+@property (nonatomic, strong) UIButton* joinGameButton;
+
+@end
+
+@implementation LobbyTableViewCell
+
+const CGFloat kLabelHeight = 36;
+
+const CGFloat kButtonHeight = 40;
+const CGFloat kButtonWidth = 100;
+
+const CGFloat kTextWidth = 200;
+const CGFloat kPadding = 6;
+
+- (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
+{
+    if (self = [super initWithStyle:style reuseIdentifier:reuseIdentifier])
+    {
+        self.background = [[UIView alloc] init];
+        self.background.backgroundColor = [UIColor colorWithRed:(231/255.0) green:(231/255.0) blue:(231/255.0) alpha:1.0];
+        [self.contentView addSubview:self.background];
+        
+        self.innerBackground = [[UIView alloc] init];
+        self.innerBackground.backgroundColor = [UIColor whiteColor];
+        [self.contentView addSubview:self.innerBackground];
+        
+        self.gameNameLabel = [[UILabel alloc] init];
+        [self.gameNameLabel setFont:[UIFont systemFontOfSize:22]];
+        [self.contentView addSubview:self.gameNameLabel];
+        
+        self.numberOfPlayersLabel = [[UILabel alloc] init];
+        [self.numberOfPlayersLabel setFont:[UIFont systemFontOfSize:16]];
+        [self.contentView addSubview:self.numberOfPlayersLabel];
+        
+        self.joinGameButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+        [self.joinGameButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+        self.joinGameButton.layer.cornerRadius = 5;
+        self.joinGameButton.clipsToBounds = YES;
+        [self.joinGameButton.layer setBackgroundColor:[[UIColor colorWithRed:(22/255.0) green:(104/255.0) blue:(249/255.0) alpha:1.0] CGColor]];
+        self.joinGameButton.titleLabel.font = [UIFont boldSystemFontOfSize:[UIFont systemFontSize]];
+        [self.joinGameButton setTitle:@"Join" forState:UIControlStateNormal];
+        [self.contentView addSubview:self.joinGameButton];
+    }
+    
+    return self;
+}
+
+- (void)layoutSubviews
+{
+    [super layoutSubviews];
+    
+    
+    CGRect backgroundFrame = self.contentView.bounds;
+    self.background.frame = backgroundFrame;
+    
+    backgroundFrame.origin.x += kPadding;
+    backgroundFrame.origin.y += kPadding;
+    backgroundFrame.size.width -= 2*kPadding;
+    backgroundFrame.size.height -= 2*kPadding;
+    self.innerBackground.frame = backgroundFrame;
+    
+    CGRect gameNameFrame = backgroundFrame;
+    gameNameFrame.origin.y += kPadding;
+    gameNameFrame.size.height = kLabelHeight;
+    gameNameFrame.origin.x += kPadding;
+    gameNameFrame.size.width -= 2*kPadding;
+    self.gameNameLabel.frame = gameNameFrame;
+    
+    CGRect numberOfPlayersFrame = gameNameFrame;
+    numberOfPlayersFrame.size.height = kLabelHeight/2;
+    numberOfPlayersFrame.size.width = kTextWidth;
+    numberOfPlayersFrame.origin.y += kLabelHeight;
+    self.numberOfPlayersLabel.frame = numberOfPlayersFrame;
+    
+    CGRect joinGameButtonFrame = backgroundFrame;
+    joinGameButtonFrame.size.height = kButtonHeight;
+    joinGameButtonFrame.size.width = kButtonWidth;
+    joinGameButtonFrame.origin.y = self.background.frame.size.height/2 - kButtonHeight/2;
+    joinGameButtonFrame.origin.x = backgroundFrame.size.width - kButtonWidth;
+    self.joinGameButton.frame = joinGameButtonFrame;
+}
+
++ (CGFloat)cellHeight
+{
+    return kLabelHeight*3/2 + 4*kPadding;
+}
+
+- (void)prepareForReuse
+{
+    /*   Keep this as is   */
+    self.gameNameLabel.text = @"";
+    self.numberOfPlayersLabel.text = @"";
+}
+
+@end
 
 @interface LobbyTableViewController ()
 
@@ -15,11 +118,34 @@
 
 @implementation LobbyTableViewController
 
-- (instancetype)init
+-(void)toggle:(id)sender
 {
-    if (self = [super init])
+    [self.revealViewController revealToggleAnimated:YES];
+}
+
+- (instancetype)initWithStyle:(UITableViewStyle)style
+{
+    if (self = [super initWithStyle:style])
     {
+        [self.tableView registerClass:[LobbyTableViewCell class] forCellReuseIdentifier:@"LobbyTableViewCell"];
+        self.tableView.estimatedRowHeight = UITableViewAutomaticDimension;
+        self.tableView.rowHeight = [LobbyTableViewCell cellHeight];
         self.navigationItem.title = @"Lobby";
+        self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+        
+        _data = [[NSMutableArray alloc] init];
+        for(int i = 0; i < 10; i++){
+            [_data addObject:[[GameObject alloc] init]];
+        }
+        SWRevealViewController *revealController = [self revealViewController];
+        
+        [revealController panGestureRecognizer];
+        [revealController tapGestureRecognizer];
+        
+        //Add an image to your project & set that image here.
+        UIBarButtonItem *revealButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"reveal-icon.png"]
+                                                                             style:UIBarButtonItemStylePlain target:self action:@selector(toggle:)];
+        self.navigationItem.leftBarButtonItem = revealButtonItem;
     }
     
     return self;
@@ -48,65 +174,24 @@
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return 0;
+    return 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return 5;
+    return [_data count];
 }
 
-/*
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:<#@"reuseIdentifier"#> forIndexPath:indexPath];
+    LobbyTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"LobbyTableViewCell" forIndexPath:indexPath];
     
-    // Configure the cell...
+    GameObject *obj = _data[indexPath.row];
+    
+    cell.gameNameLabel.text = obj.gameName;
+    cell.numberOfPlayersLabel.text = [NSString stringWithFormat:@"Number of players: %d/6", obj.numberOfPlayers];
+    [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
     
     return cell;
 }
-*/
 
-/*
-// Override to support conditional editing of the table view.
-- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
-    // Return NO if you do not want the specified item to be editable.
-    return YES;
-}
-*/
-
-/*
-// Override to support editing the table view.
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (editingStyle == UITableViewCellEditingStyleDelete) {
-        // Delete the row from the data source
-        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
-    } else if (editingStyle == UITableViewCellEditingStyleInsert) {
-        // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-    }   
-}
-*/
-
-/*
-// Override to support rearranging the table view.
-- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath {
-}
-*/
-
-/*
-// Override to support conditional rearranging of the table view.
-- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath {
-    // Return NO if you do not want the item to be re-orderable.
-    return YES;
-}
-*/
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end

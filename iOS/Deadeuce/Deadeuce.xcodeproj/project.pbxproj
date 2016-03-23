@@ -8,10 +8,13 @@
 
 /* Begin PBXBuildFile section */
 		658381D40B455AB211108C0F /* libPods-Deadeuce.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F8CEAF6A7C2AD9DC5D9B6BE5 /* libPods-Deadeuce.a */; };
+		AA7E1E9D1CA2128D0060901E /* GameObject.m in Sources */ = {isa = PBXBuildFile; fileRef = AA7E1E9C1CA2128D0060901E /* GameObject.m */; };
+		AA7E1EA01CA215080060901E /* reveal-icon.png in Resources */ = {isa = PBXBuildFile; fileRef = AA7E1E9F1CA215070060901E /* reveal-icon.png */; };
 		AA8542641C93DF1A006EA952 /* LobbyTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AA8542631C93DF1A006EA952 /* LobbyTableViewController.m */; };
 		AA8542671C93DFAC006EA952 /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AA8542661C93DFAC006EA952 /* LoginViewController.m */; };
 		AA85426C1C93E3C3006EA952 /* FacebookSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AA85426B1C93E3C3006EA952 /* FacebookSDK.framework */; };
 		AA85426F1C93E8F6006EA952 /* LeftPanelViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AA85426E1C93E8F6006EA952 /* LeftPanelViewController.m */; };
+		AAC311C61C9FAFA6003862A8 /* DetectivePadTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AAC311C41C9FAFA6003862A8 /* DetectivePadTableViewController.m */; };
 		AAF1297A1C93D73400BAE9F4 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = AAF129791C93D73400BAE9F4 /* main.m */; };
 		AAF1297D1C93D73400BAE9F4 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = AAF1297C1C93D73400BAE9F4 /* AppDelegate.m */; };
 		AAF129801C93D73400BAE9F4 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AAF1297F1C93D73400BAE9F4 /* ViewController.m */; };
@@ -22,6 +25,9 @@
 /* Begin PBXFileReference section */
 		65187E06181161CBCB33A22C /* Pods-Deadeuce.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Deadeuce.release.xcconfig"; path = "Pods/Target Support Files/Pods-Deadeuce/Pods-Deadeuce.release.xcconfig"; sourceTree = "<group>"; };
 		65D230B2EEA7C12EC178DBAB /* Pods-Deadeuce.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Deadeuce.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Deadeuce/Pods-Deadeuce.debug.xcconfig"; sourceTree = "<group>"; };
+		AA7E1E9B1CA2128D0060901E /* GameObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameObject.h; sourceTree = "<group>"; };
+		AA7E1E9C1CA2128D0060901E /* GameObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameObject.m; sourceTree = "<group>"; };
+		AA7E1E9F1CA215070060901E /* reveal-icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "reveal-icon.png"; sourceTree = "<group>"; };
 		AA8542621C93DF1A006EA952 /* LobbyTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LobbyTableViewController.h; sourceTree = "<group>"; };
 		AA8542631C93DF1A006EA952 /* LobbyTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LobbyTableViewController.m; sourceTree = "<group>"; };
 		AA8542651C93DFAC006EA952 /* LoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginViewController.h; sourceTree = "<group>"; };
@@ -29,6 +35,8 @@
 		AA85426B1C93E3C3006EA952 /* FacebookSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FacebookSDK.framework; sourceTree = "<group>"; };
 		AA85426D1C93E8F6006EA952 /* LeftPanelViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LeftPanelViewController.h; sourceTree = "<group>"; };
 		AA85426E1C93E8F6006EA952 /* LeftPanelViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LeftPanelViewController.m; sourceTree = "<group>"; };
+		AAC311C41C9FAFA6003862A8 /* DetectivePadTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DetectivePadTableViewController.m; sourceTree = "<group>"; };
+		AAC311C51C9FAFA6003862A8 /* DetectivePadTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DetectivePadTableViewController.h; sourceTree = "<group>"; };
 		AAF129751C93D73400BAE9F4 /* Deadeuce.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Deadeuce.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AAF129791C93D73400BAE9F4 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		AAF1297B1C93D73400BAE9F4 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -63,6 +71,23 @@
 			name = Pods;
 			sourceTree = "<group>";
 		};
+		AA7E1E9A1CA212770060901E /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				AA7E1E9B1CA2128D0060901E /* GameObject.h */,
+				AA7E1E9C1CA2128D0060901E /* GameObject.m */,
+			);
+			name = Model;
+			sourceTree = "<group>";
+		};
+		AA7E1E9E1CA214F30060901E /* Images */ = {
+			isa = PBXGroup;
+			children = (
+				AA7E1E9F1CA215070060901E /* reveal-icon.png */,
+			);
+			name = Images;
+			sourceTree = "<group>";
+		};
 		AAF1296C1C93D73400BAE9F4 = {
 			isa = PBXGroup;
 			children = (
@@ -84,6 +109,8 @@
 		AAF129771C93D73400BAE9F4 /* Deadeuce */ = {
 			isa = PBXGroup;
 			children = (
+				AA7E1E9E1CA214F30060901E /* Images */,
+				AA7E1E9A1CA212770060901E /* Model */,
 				AA85426D1C93E8F6006EA952 /* LeftPanelViewController.h */,
 				AA85426E1C93E8F6006EA952 /* LeftPanelViewController.m */,
 				AAF1297B1C93D73400BAE9F4 /* AppDelegate.h */,
@@ -92,6 +119,8 @@
 				AA8542661C93DFAC006EA952 /* LoginViewController.m */,
 				AA8542621C93DF1A006EA952 /* LobbyTableViewController.h */,
 				AA8542631C93DF1A006EA952 /* LobbyTableViewController.m */,
+				AAC311C41C9FAFA6003862A8 /* DetectivePadTableViewController.m */,
+				AAC311C51C9FAFA6003862A8 /* DetectivePadTableViewController.h */,
 				AAF1297E1C93D73400BAE9F4 /* ViewController.h */,
 				AAF1297F1C93D73400BAE9F4 /* ViewController.m */,
 				AAF129841C93D73400BAE9F4 /* Assets.xcassets */,
@@ -181,6 +210,7 @@
 			files = (
 				AAF129881C93D73400BAE9F4 /* LaunchScreen.storyboard in Resources */,
 				AAF129851C93D73400BAE9F4 /* Assets.xcassets in Resources */,
+				AA7E1EA01CA215080060901E /* reveal-icon.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -239,6 +269,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AA7E1E9D1CA2128D0060901E /* GameObject.m in Sources */,
+				AAC311C61C9FAFA6003862A8 /* DetectivePadTableViewController.m in Sources */,
 				AA85426F1C93E8F6006EA952 /* LeftPanelViewController.m in Sources */,
 				AA8542641C93DF1A006EA952 /* LobbyTableViewController.m in Sources */,
 				AAF129801C93D73400BAE9F4 /* ViewController.m in Sources */,

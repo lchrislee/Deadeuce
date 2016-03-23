@@ -19,7 +19,7 @@
 @implementation LoginViewController
 
 - (void)submitButtonPressed:(UIButton*)sender {
-    LobbyTableViewController *lVc = [[LobbyTableViewController alloc] init];
+    LobbyTableViewController *lVc = [[LobbyTableViewController alloc] initWithStyle:UITableViewStylePlain];
     
     [self.navigationController pushViewController:lVc animated:YES];
 }
