@@ -25,6 +25,12 @@
     if (self = [super initWithStyle:style])
     {
         self.navigationItem.title = @"Detective Pad";
+        self.sectionData = @[@"Location", @"Weapons", @"People"];
+        self.locations = @[@"Ground Zero (You are currently here)"];
+        self.weapons = @[@"empty soda cans", @"overly sharp skittles wrapper", @"tommy trojan's sword",
+                         @"EVKitty's left paw", @"freshman on a longboard", @"rotten chanos nachos"];
+        self.people = @[ @"Trina Gregory", @"Cody Kessler", @"Tommy Trojan",
+                            @"Max Nikias", @"Will Ferrell", @"Bob Saget"];
         
         //Add an image to your project & set that image here.
         UIBarButtonItem *revealButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"reveal-icon.png"]
@@ -62,8 +68,43 @@
     return 3;
 }
 
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
+{
+    return 44;
+}
+
+- (CGFloat)tableView:(UITableView*)tableView heightForFooterInSection:(NSInteger)section {
+    return 1.0;
+}
+
+-(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
+{
+    UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0.0, -1.0, tableView.frame.size.width, 44.0)];
+    /* Hackathon Quality */
+    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(10.0, -1.0, tableView.frame.size.width, 44.0)];
+    [label setFont:[UIFont boldSystemFontOfSize:20]];
+    NSString *title =[self.sectionData objectAtIndex:section];
+    /* Section header is in 0th index... */
+    [label setText:title];
+    [view addSubview:label];
+    return view;
+}
+
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return 3;
+    NSInteger retVal = 3;
+    switch(section)
+    {
+        case 0:
+            retVal = self.locations.count;
+            break;
+        case 1:
+            retVal = self.weapons.count;
+            break;
+        default:
+            retVal = self.people.count;
+            break;
+    }
+    return retVal;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -76,7 +117,20 @@
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
     }
     
-    [cell.textLabel setText:@"A Cell"];
+    NSString* text = @"A Cell";
+    switch(indexPath.section)
+    {
+        case 0:
+            text = self.locations[indexPath.row];
+            break;
+        case 1:
+            text = self.weapons[indexPath.row];
+            break;
+        default:
+            text = self.people[indexPath.row];
+            break;
+    }
+    [cell.textLabel setText:text];
     
     return cell;
 }

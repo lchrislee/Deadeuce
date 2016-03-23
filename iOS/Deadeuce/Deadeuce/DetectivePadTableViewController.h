@@ -10,4 +10,9 @@
 
 @interface DetectivePadTableViewController : UITableViewController <UITableViewDataSource>
 
+@property (nonatomic, strong) NSArray* locations;
+@property (nonatomic, strong) NSArray* weapons;
+@property (nonatomic, strong) NSArray* people;
+@property (nonatomic, strong) NSArray* sectionData;
+
 @end

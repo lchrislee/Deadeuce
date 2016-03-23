@@ -7,7 +7,8 @@
 //
 
 #import "LoginViewController.h"
-#import <FacebookSDK/FacebookSDK.h>
+#import <FBSDKCoreKit/FBSDKCoreKit.h>
+#import <FBSDKLoginKit/FBSDKLoginKit.h>
 #import "LobbyTableViewController.h"
 #import <SWRevealViewController.h>
 
@@ -24,6 +25,26 @@
     
     [self.navigationController pushViewController:lVc animated:YES];
 }
+
+// Once the button is clicked, show the login dialog
+-(void)loginButtonClicked:(UIButton*)sender
+{
+    FBSDKLoginManager *login = [[FBSDKLoginManager alloc] init];
+    [login
+     logInWithReadPermissions: @[@"public_profile"]
+     fromViewController:self
+     handler:^(FBSDKLoginManagerLoginResult *result, NSError *error) {
+         if (error) {
+             NSLog(@"Process error");
+         } else if (result.isCancelled) {
+             NSLog(@"Cancelled");
+         } else {
+             LobbyTableViewController *lVc = [[LobbyTableViewController alloc] initWithStyle:UITableViewStylePlain];
+             [self.navigationController pushViewController:lVc animated:YES];
+         }
+     }];
+}
+
 - (void)loadView {
     self.view = [[UIView alloc] init];
     self.view.backgroundColor = [UIColor colorWithRed:(233/255.0) green:(234/255.0) blue:(229/255.0) alpha:1.0];
@@ -36,15 +57,20 @@
     [self.submitButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     self.submitButton.layer.cornerRadius = 5;
     self.submitButton.clipsToBounds = YES;
-    [self.submitButton.layer setBorderWidth:1.0];
-    [self.submitButton.layer setBorderColor:[[UIColor colorWithRed:(40/255.0) green:(177/255.0) blue:(134/255.0) alpha:1.0] CGColor]];
-    [self.submitButton.layer setBackgroundColor:[[UIColor colorWithRed:(40/255.0) green:(177/255.0) blue:(134/255.0) alpha:1.0] CGColor]];
+    [self.submitButton.layer setBackgroundColor:[[UIColor colorWithRed:(44/255.0) green:(67/255.0) blue:(136/255.0) alpha:1.0] CGColor]];
+    
+    UIImageView *customView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"facebook.png"]];
+    customView.frame = CGRectMake(28.0, 13.0, 34.0, 34.0);
+    [self.submitButton addSubview:customView];
     
     [self.submitButton addTarget:self
-                          action:@selector(submitButtonPressed:)
+                          action:@selector(loginButtonClicked:)
                 forControlEvents:UIControlEventTouchUpInside];
-    [self.submitButton setTitle:@"Login" forState:UIControlStateNormal];
-    self.submitButton.frame = CGRectMake(20.0, screenHeight - 188.0, screenWidth - 40.0, 44.0);
+    [self.submitButton setTitle:@"Login with Facebook" forState:UIControlStateNormal];
+    self.submitButton.contentHorizontalAlignment = UIControlContentHorizontalAlignmentRight;
+    self.submitButton.contentEdgeInsets = UIEdgeInsetsMake(0, 0, 0, 30.0);
+    self.submitButton.titleLabel.font = [UIFont fontWithName:@"HelveticaNeue" size:22.0];
+    self.submitButton.frame = CGRectMake(20.0, screenHeight - 188.0, screenWidth - 40.0, 60.0);
     
     [self.view addSubview:_submitButton];
 }
