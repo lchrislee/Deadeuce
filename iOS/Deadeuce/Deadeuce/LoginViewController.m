@@ -72,6 +72,18 @@
     self.submitButton.titleLabel.font = [UIFont fontWithName:@"HelveticaNeue" size:22.0];
     self.submitButton.frame = CGRectMake(20.0, screenHeight - 188.0, screenWidth - 40.0, 60.0);
     
+    UILabel *titleLabel = [[UILabel alloc] init];
+    [titleLabel setFrame:CGRectMake(20.0, screenHeight/2 - 164.0, screenWidth - 40.0, 88.0)];
+    titleLabel.backgroundColor=[UIColor clearColor];
+    titleLabel.textColor=[UIColor blackColor];
+    titleLabel.userInteractionEnabled = NO;
+    titleLabel.textAlignment = NSTextAlignmentCenter;
+    
+    titleLabel.text= @"Deadeuce";
+    [titleLabel setFont:[UIFont fontWithName:@"HelveticaNeue" size:50]];
+    
+    [self.view addSubview:titleLabel];
+    
     [self.view addSubview:_submitButton];
 }
 
