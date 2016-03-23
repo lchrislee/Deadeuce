@@ -9,6 +9,7 @@
 #import "LoginViewController.h"
 #import <FacebookSDK/FacebookSDK.h>
 #import "LobbyTableViewController.h"
+#import <SWRevealViewController.h>
 
 @interface LoginViewController ()
 
@@ -69,6 +70,8 @@
     if (self = [super init])
     {
         self.navigationItem.title = @"Login";
+        SWRevealViewController *revealController = [self revealViewController];
+        revealController.panGestureRecognizer.enabled = NO;
     }
     
     return self;

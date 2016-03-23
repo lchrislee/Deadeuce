@@ -26,6 +26,7 @@ const CGFloat kLabelHeight = 36;
 
 const CGFloat kButtonHeight = 40;
 const CGFloat kButtonWidth = 100;
+const CGFloat kLargeButtonWidth = 140;
 
 const CGFloat kTextWidth = 200;
 const CGFloat kPadding = 6;
@@ -43,10 +44,12 @@ const CGFloat kPadding = 6;
         [self.contentView addSubview:self.innerBackground];
         
         self.gameNameLabel = [[UILabel alloc] init];
+        [self.gameNameLabel setTextColor:[UIColor colorWithRed:(67/255.0) green:(67/255.0) blue:(67/255.0) alpha:1.0]];
         [self.gameNameLabel setFont:[UIFont systemFontOfSize:22]];
         [self.contentView addSubview:self.gameNameLabel];
         
         self.numberOfPlayersLabel = [[UILabel alloc] init];
+         [self.numberOfPlayersLabel setTextColor:[UIColor colorWithRed:(67/255.0) green:(67/255.0) blue:(67/255.0) alpha:1.0]];
         [self.numberOfPlayersLabel setFont:[UIFont systemFontOfSize:16]];
         [self.contentView addSubview:self.numberOfPlayersLabel];
         
@@ -72,15 +75,15 @@ const CGFloat kPadding = 6;
     self.background.frame = backgroundFrame;
     
     backgroundFrame.origin.x += kPadding;
-    backgroundFrame.origin.y += kPadding;
+    backgroundFrame.origin.y += kPadding/2;
     backgroundFrame.size.width -= 2*kPadding;
-    backgroundFrame.size.height -= 2*kPadding;
+    backgroundFrame.size.height -= kPadding;
     self.innerBackground.frame = backgroundFrame;
     
     CGRect gameNameFrame = backgroundFrame;
     gameNameFrame.origin.y += kPadding;
     gameNameFrame.size.height = kLabelHeight;
-    gameNameFrame.origin.x += kPadding;
+    gameNameFrame.origin.x += kPadding*2;
     gameNameFrame.size.width -= 2*kPadding;
     self.gameNameLabel.frame = gameNameFrame;
     
@@ -94,7 +97,7 @@ const CGFloat kPadding = 6;
     joinGameButtonFrame.size.height = kButtonHeight;
     joinGameButtonFrame.size.width = kButtonWidth;
     joinGameButtonFrame.origin.y = self.background.frame.size.height/2 - kButtonHeight/2;
-    joinGameButtonFrame.origin.x = backgroundFrame.size.width - kButtonWidth;
+    joinGameButtonFrame.origin.x = backgroundFrame.size.width - kButtonWidth - kPadding;
     self.joinGameButton.frame = joinGameButtonFrame;
 }
 
@@ -108,6 +111,90 @@ const CGFloat kPadding = 6;
     /*   Keep this as is   */
     self.gameNameLabel.text = @"";
     self.numberOfPlayersLabel.text = @"";
+}
+
+@end
+
+@interface CreateGameTableViewCell : UITableViewCell
+
+@property (nonatomic, strong) UIView* background;
+@property (nonatomic, strong) UIView* innerBackground;
+@property (nonatomic, strong) UILabel *introLabel;
+@property (nonatomic, strong) UIButton* createGameButton;
+
+@end
+
+@implementation CreateGameTableViewCell
+
+- (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
+{
+    if (self = [super initWithStyle:style reuseIdentifier:reuseIdentifier])
+    {
+        self.background = [[UIView alloc] init];
+        self.background.backgroundColor = [UIColor colorWithRed:(231/255.0) green:(231/255.0) blue:(231/255.0) alpha:1.0];
+        [self.contentView addSubview:self.background];
+        
+        self.innerBackground = [[UIView alloc] init];
+        self.innerBackground.backgroundColor = [UIColor whiteColor];
+        [self.contentView addSubview:self.innerBackground];
+        
+        self.introLabel = [[UILabel alloc] init];
+        [self.introLabel setFont:[UIFont systemFontOfSize:22]];
+        self.introLabel.numberOfLines = 2;
+        [self.introLabel setTextAlignment:NSTextAlignmentCenter];
+        [self.introLabel setText:@"You have no ongoing games. Join or create a game now!"];
+        [self.contentView addSubview:self.introLabel];
+        
+        self.createGameButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+        [self.createGameButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+        self.createGameButton.layer.cornerRadius = 5;
+        self.createGameButton.clipsToBounds = YES;
+        [self.createGameButton.layer setBackgroundColor:[[UIColor colorWithRed:(22/255.0) green:(104/255.0) blue:(249/255.0) alpha:1.0] CGColor]];
+        self.createGameButton.titleLabel.font = [UIFont boldSystemFontOfSize:[UIFont systemFontSize]];
+        [self.createGameButton setTitle:@"Create Game" forState:UIControlStateNormal];
+        [self.contentView addSubview:self.createGameButton];
+    }
+    
+    return self;
+}
+
+- (void)layoutSubviews
+{
+    [super layoutSubviews];
+    
+    
+    CGRect backgroundFrame = self.contentView.bounds;
+    self.background.frame = backgroundFrame;
+    
+    backgroundFrame.origin.x += kPadding;
+    backgroundFrame.origin.y += 2*kPadding;
+    backgroundFrame.size.width -= 2*kPadding;
+    backgroundFrame.size.height -= 4*kPadding;
+    self.innerBackground.frame = backgroundFrame;
+    
+    CGRect introLabelFrame = backgroundFrame;
+    introLabelFrame.origin.y += kPadding/2;
+    introLabelFrame.size.height = kLabelHeight*2;
+    introLabelFrame.origin.x += kPadding;
+    introLabelFrame.size.width -= 2*kPadding;
+    self.introLabel.frame = introLabelFrame;
+    
+    CGRect createGameButtonFrame = introLabelFrame;
+    createGameButtonFrame.size.height = kButtonHeight;
+    createGameButtonFrame.size.width = kLargeButtonWidth;
+    createGameButtonFrame.origin.y += kLabelHeight*2;
+    createGameButtonFrame.origin.x = self.background.frame.size.width/2 - kLargeButtonWidth/2;
+    self.createGameButton.frame = createGameButtonFrame;
+}
+
++ (CGFloat)cellHeight
+{
+    return kLabelHeight*2 + kButtonHeight + 6*kPadding;
+}
+
+- (void)prepareForReuse
+{
+    /*   Keep this as is   */
 }
 
 @end
@@ -128,7 +215,8 @@ const CGFloat kPadding = 6;
     if (self = [super initWithStyle:style])
     {
         [self.tableView registerClass:[LobbyTableViewCell class] forCellReuseIdentifier:@"LobbyTableViewCell"];
-        self.tableView.estimatedRowHeight = UITableViewAutomaticDimension;
+        [self.tableView registerClass:[CreateGameTableViewCell class] forCellReuseIdentifier:@"CreateGameTableViewCell"];
+        self.tableView.estimatedRowHeight = [LobbyTableViewCell cellHeight];
         self.tableView.rowHeight = [LobbyTableViewCell cellHeight];
         self.navigationItem.title = @"Lobby";
         self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
@@ -181,7 +269,29 @@ const CGFloat kPadding = 6;
     return [_data count];
 }
 
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    CGFloat cellHeight;
+    
+    if (indexPath.row == 0){
+        cellHeight = [CreateGameTableViewCell cellHeight];
+    } else {
+        cellHeight = [LobbyTableViewCell cellHeight];
+    }
+    
+    return cellHeight;
+}
+
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    //Intro cell
+    if(indexPath.row == 0){
+        CreateGameTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"CreateGameTableViewCell" forIndexPath:indexPath];
+        [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
+        
+        return cell;
+    }
+    
+    //Normal cell
     LobbyTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"LobbyTableViewCell" forIndexPath:indexPath];
     
     GameObject *obj = _data[indexPath.row];
