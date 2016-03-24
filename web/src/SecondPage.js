@@ -1,7 +1,11 @@
 var React = require('react');
+var $ = require('jQuery');
+var Router = require('react-router');
+var ExampleModal = require('./ExampleModal.js');
+var NavBar = require('./NavBar.js');
 
 
-var SecondPage = React.createClass({
+var GamesPage = React.createClass({
 	getInitialState: function() {
     return {
     };
@@ -9,10 +13,10 @@ var SecondPage = React.createClass({
   render: function() {
     return (
      <div>
-     	<div>This is the second page!</div>
+     	<div>This is the games page!</div>
      </div>
     );
   }
 });
 
-module.exports = SecondPage;
+module.exports = GamesPage;
