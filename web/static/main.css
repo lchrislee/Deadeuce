@@ -326,6 +326,7 @@ Nav Bar
     height: 75px;
     width: 100%;
     background-color: #444444;
+    display:block;
 }
 
 .navBar p {
@@ -352,5 +353,9 @@ Nav Bar
 
 .navLinks li a {
     text-decoration: none;
-    color: #FFFFFF 100%;
+    color: #FFFFFF;
+}
+
+.navBar .active {
+    color: red;
 }

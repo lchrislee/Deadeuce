@@ -4,8 +4,7 @@ var Router = require('react-router');
 var ExampleModal = require('./ExampleModal.js');
 var NavBar = require('./NavBar.js');
 
-
-var GamesPage = React.createClass({
+var Games = React.createClass({
 	getInitialState: function() {
     return {
     };
@@ -13,10 +12,11 @@ var GamesPage = React.createClass({
   render: function() {
     return (
      <div>
-     	<div>This is the secondPage, its now Defunct except for testing</div>
+     	<div>This is the profile page!</div>
      </div>
     );
   }
 });
 
-module.exports = GamesPage;
+
+module.exports = Games

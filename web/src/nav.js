@@ -13,10 +13,10 @@ var GamesPage = React.createClass({
   render: function() {
     return (
      <div>
-     	<div>This is the secondPage, its now Defunct except for testing</div>
+     	<div>This is the Nav</div>
      </div>
     );
   }
 });
 
-module.exports = GamesPage;
+module.exports = Nav;

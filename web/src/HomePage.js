@@ -2,7 +2,6 @@ var React = require('react');
 var $ = require('jQuery');
 var Router = require('react-router');
 var ExampleModal = require('./ExampleModal.js');
-var NavBar = require('./NavBar.js');
 
 var HomePage = React.createClass({
     contextTypes: {
@@ -23,7 +22,6 @@ var HomePage = React.createClass({
     return (
      <div>
       <div>This is the Deadeuce homepage!</div>
-      <NavBar></NavBar>
      	<div>{this.state.serverStatus}</div>
       <button onClick={this.testSlice}>Ping the server</button>
       <button onClick={this.nextPage}>Go to next page!</button>
@@ -182,6 +180,8 @@ var HomePage = React.createClass({
                      </div>
                  </div>
         </div>
+
+        {this.props.children}
 
 
      </div>

@@ -4,7 +4,7 @@
   "description": "",
   "main": "webapp.js",
   "scripts": {
-    "start": "npm run build",
+    "start": "npm run build . --history-api-fallback",
     "build": "npm run build_index",
     "build_index": "browserify -d ./src/App.jsx -o ./static/bundle.js",
     "test": "ping"

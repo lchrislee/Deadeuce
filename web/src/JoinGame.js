@@ -3,20 +3,26 @@ var $ = require('jQuery');
 var Router = require('react-router');
 var ExampleModal = require('./ExampleModal.js');
 var NavBar = require('./NavBar.js');
+var Link = require('react-router').Link;
 
 
-var GamesPage = React.createClass({
-	getInitialState: function() {
+var JoinGame = React.createClass({
+  getInitialState: function() {
     return {
     };
   },
   render: function() {
     return (
      <div>
-     	<div>This is the secondPage, its now Defunct except for testing</div>
+      <div>This is the join game page!</div>
+      <br/>
+      <Link to="game_home" activeClassName="active">Game Home</Link>
+      
+
      </div>
     );
   }
 });
 
-module.exports = GamesPage;
+
+module.exports = JoinGame;

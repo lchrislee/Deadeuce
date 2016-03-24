@@ -3,9 +3,10 @@ var $ = require('jQuery');
 var Router = require('react-router');
 var ExampleModal = require('./ExampleModal.js');
 var NavBar = require('./NavBar.js');
+var Link = require('react-router').Link;
 
 
-var GamesPage = React.createClass({
+var Games = React.createClass({
 	getInitialState: function() {
     return {
     };
@@ -13,10 +14,15 @@ var GamesPage = React.createClass({
   render: function() {
     return (
      <div>
-     	<div>This is the secondPage, its now Defunct except for testing</div>
+     	<div>This is the new games page!</div>
+     	<Link to="create_game" activeClassName="active">Create Game</Link>
+     	<br/>
+     	<Link to="join_game" activeClassName="active">Join Game</Link>
+
      </div>
     );
   }
 });
 
-module.exports = GamesPage;
+
+module.exports = Games;
