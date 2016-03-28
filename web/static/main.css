@@ -19,9 +19,25 @@ Example Modal
     max-width: 500px;
     max-height: 600px;
     margin: auto;
+    padding:10px;
     position: absolute;
     background-color: rgb(255,255,255); /* Fallback color */
     top: 0; left: 0; bottom: 0; right: 0;
+}
+.example-modal h1 {
+    color: #333333;
+    text-align: center;
+}
+.example-modal button {
+    position: absolute;
+    right:10px;
+    top: 10px;
+}
+.example-modal table {
+    text-align: left;
+}
+.example-modal input[type="submit"] {
+    text-align: center;
 }
 /******************************************************************
 Detective Pad (ideally would be a modal in the future)
