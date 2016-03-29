@@ -33,7 +33,7 @@ var ExampleModalContent = React.createClass({
             <tr>
               <th>Players:</th>
               <th>
-                < name="numberOfPlayers" value="6"> 
+                <select name="numberOfPlayers" value="6"> 
                   <option>4</option>
                   <option>5</option>
                   <option>6</option>
@@ -45,11 +45,15 @@ var ExampleModalContent = React.createClass({
             <tr>
               <th>Privacy: </th>
               <th> 
-                <input type="radio" name="private"> Private </input>
+                <input type="radio" name="private"> Private </input> <br/>
                 <input type="radio" name="private"> Public </input>
               </th>
             </tr>
-            <input type="submit" name="submitNewGame" value="next"/>
+            <tr>
+              <th>  
+                <input type="submit" name="submitNewGame" />
+              <th/>  
+            </tr>
           </table>
         </form>  
 	      
