@@ -261,7 +261,7 @@ app.put('/api/bugs/:id', function(req, res) {
  });
 });
 
-MongoClient.connect('mongodb://localhost/bugsdb', function(err, dbConnection) {
+MongoClient.connect('mongodb://54.193.7.18:3000/bugsdb', function(err, dbConnection) {
  db = dbConnection;
  var server = app.listen(3000, function() {
       var port = server.address().port;
