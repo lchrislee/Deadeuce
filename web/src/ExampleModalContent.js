@@ -33,7 +33,7 @@ var ExampleModalContent = React.createClass({
             <tr>
               <th>Players:</th>
               <th>
-                < name="numberOfPlayers" value="6"> 
+                <select name="numberOfPlayers" value="6"> 
                   <option>4</option>
                   <option>5</option>
                   <option>6</option>
