@@ -18,6 +18,7 @@
 		AA8542671C93DFAC006EA952 /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AA8542661C93DFAC006EA952 /* LoginViewController.m */; };
 		AA85426F1C93E8F6006EA952 /* LeftPanelViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AA85426E1C93E8F6006EA952 /* LeftPanelViewController.m */; };
 		AAC311C61C9FAFA6003862A8 /* DetectivePadTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AAC311C41C9FAFA6003862A8 /* DetectivePadTableViewController.m */; };
+		AAE42FD51CAC53E30037CABF /* AccusalResultsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AAE42FD41CAC53E30037CABF /* AccusalResultsViewController.m */; };
 		AAF1297A1C93D73400BAE9F4 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = AAF129791C93D73400BAE9F4 /* main.m */; };
 		AAF1297D1C93D73400BAE9F4 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = AAF1297C1C93D73400BAE9F4 /* AppDelegate.m */; };
 		AAF129801C93D73400BAE9F4 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AAF1297F1C93D73400BAE9F4 /* ViewController.m */; };
@@ -44,6 +45,8 @@
 		AA85426E1C93E8F6006EA952 /* LeftPanelViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LeftPanelViewController.m; sourceTree = "<group>"; };
 		AAC311C41C9FAFA6003862A8 /* DetectivePadTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DetectivePadTableViewController.m; sourceTree = "<group>"; };
 		AAC311C51C9FAFA6003862A8 /* DetectivePadTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DetectivePadTableViewController.h; sourceTree = "<group>"; };
+		AAE42FD31CAC53E30037CABF /* AccusalResultsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AccusalResultsViewController.h; sourceTree = "<group>"; };
+		AAE42FD41CAC53E30037CABF /* AccusalResultsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AccusalResultsViewController.m; sourceTree = "<group>"; };
 		AAF129751C93D73400BAE9F4 /* Deadeuce.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Deadeuce.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AAF129791C93D73400BAE9F4 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		AAF1297B1C93D73400BAE9F4 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -138,6 +141,8 @@
 				AAF129781C93D73400BAE9F4 /* Supporting Files */,
 				AA4F954B1CAB27B000B2C2EA /* GameMapViewController.h */,
 				AA4F954C1CAB27B000B2C2EA /* GameMapViewController.m */,
+				AAE42FD31CAC53E30037CABF /* AccusalResultsViewController.h */,
+				AAE42FD41CAC53E30037CABF /* AccusalResultsViewController.m */,
 			);
 			path = Deadeuce;
 			sourceTree = "<group>";
@@ -288,6 +293,7 @@
 				AA4F954D1CAB27B000B2C2EA /* GameMapViewController.m in Sources */,
 				AA8542641C93DF1A006EA952 /* LobbyTableViewController.m in Sources */,
 				AAF129801C93D73400BAE9F4 /* ViewController.m in Sources */,
+				AAE42FD51CAC53E30037CABF /* AccusalResultsViewController.m in Sources */,
 				AAF1297D1C93D73400BAE9F4 /* AppDelegate.m in Sources */,
 				AAF1297A1C93D73400BAE9F4 /* main.m in Sources */,
 				AA8542671C93DFAC006EA952 /* LoginViewController.m in Sources */,

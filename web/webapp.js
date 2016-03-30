@@ -7,12 +7,34 @@ var app = express();
 var db;
 
 app.use(express.static('static'));
+app.use(bodyParser.json()); // allows req.body to be parsed in application/json
+app.use(bodyParser.urlencoded({'extended':false})); // allows req.body to be parsed in application/x-www-form-urlencoded
+
+/*
+ * Want to test one of these rest calls? Use cURL.
+ * Format is:
+ *
+ *      curl -H 'Content-Type: application/json' {URL} -X {GET or POST or PUT or DELETE} {if GET, add -g} -d {data goes here}
+ *
+ * for example, use this to POST "CHEESE" to /test_slice running on localhost
+ *
+ *      curl -H 'Content-Type: application/json' localhost:3000/test_slice -X POST -d 'CHEESE'
+ *
+ * Use this to POST this JSON: {"name":"Chris", "role": "SUPREME LEADER"} to /test_slice running on localhost
+ *
+ *      curl -H 'Content-Type: application/json' localhost:3000/test_slice -X POST -d '{"name":"Chris","role":"SUPREME LEADER"}'
+ *
+ * Notice that you must wrap the key in quotes as well as the value in the JSON. If you want to send a GET with data,
+ * it looks like this:
+ *
+ *      curl -H 'Content-Type: application/json' localhost:3000/ -X GET -g -d '{"name":"Chris","role":"SUPREME LEADER"}'
+ */
 
 //Sample express route
 app.post('/test_slice', function(req, res){
-  console.log(req.data);
   var payload = {
-    test: "Test is successful!"
+    test: "Test is successful!",
+    body: req.body
   };
   res.json(payload);
 });
@@ -23,16 +45,53 @@ app.post('/test_slice', function(req, res){
 *                                 *
 ***********************************/
 
+var temp_array_games = [];
+var temp_game_count = 0;
+
 // CREATE GAME
 app.post('/createGame', function(request, response){
+  var hostID = request.body.hostID;
+  if (hostID === undefined)
+    response.sendStatus(400);
+
+  var game = {
+    "gameID": temp_game_count,
+    "hostID": request.body.hostID,
+    "weapons":[
+                "undefined",
+                "Finals",
+                "Dirty Spoon",
+                "Neck tie",
+                "Taco Bell",
+                "Gravity",
+              ],
+    "users":[
+              hostID
+            ]
+  };
+
+  temp_array_games.push(game);
+  temp_game_count++;
   //this is the database call/logic/everything else
-  response.json({"message": "This CREATES a GAME"});
+  response.json({"temp_message": "This CREATES a GAME",
+                 "gameID":temp_array_games[temp_array_games.length-1],
+                 "temp_array": temp_array_games});
 });
 
 // JOIN GAME
 app.put('/joinGame', function(request, response){
-  //this is the database call/logic/everything else
-  response.json({"message": "This JOINS a GAME"});
+  var gameID = request.body.gameID;
+  var userID = request.body.userID;
+  if (gameID === undefined || userID === undefined)
+    response.sendStatus(400);
+//this is the database call/everything else
+  for (var i = 0; i < temp_array_games.length; ++i){
+    if (temp_array_games[i].gameID == gameID){
+      temp_array_games[i].users.push(userID.toString());
+      response.json({"joinSuccess":true});
+    }
+  }
+  response.json({"joinSuccess":false});
 });
 
 
@@ -44,50 +103,46 @@ app.put('/joinGame', function(request, response){
 ***********************************/
 // GAME
 app.get('/game', function(request, response){
+  var gameIDFind = request.body.gameID;
+  if (gameIDFind === undefined)
+    response.sendStatus(400);
   //this is the database call/everything else
-
-  var game = {
-    "message": "This gets a specific game",
-    "game_ID": "1111",
-    "game_theme": "USC"
+  for (var i = 0; i < temp_array_games.length; ++i){
+    if (temp_array_games[i].gameID == gameIDFind){
+      response.json(temp_array_games[i]);
+    }
   }
-
-  response.json(game);
+  response.json({"game":undefined});
 });
 
 // WEAPONS in a GAME
 app.get('/game/weapons', function(request, response){
+  var gameIDFind = request.body.gameID;
+  if (gameIDFind === undefined)
+    response.sendStatus(400);
   //this is the database call/logic/everything else
 
-  var weapons = {
-   "message": "This gets the WEAPONS in a specific game",
-   "weapon_1": "weapon1", 
-   "weapon_2": "weapon2", 
-   "weapon_3": "weapon3", 
-   "weapon_4": "weapon4", 
-   "weapon_5": "weapon5", 
-   "weapon_6": "weapon6", 
-   "weapon_7": "weapon7"
+  for (var i = 0; i < temp_array_games.length; ++i){
+    if (temp_array_games[i].gameID == gameIDFind){
+      response.json({"weapons":temp_array_games[i].weapons});
+    }
   }
-
-  response.json(weapons);
+  response.json({"weapons":undefined});
 });
 
 // USERS in a GAME
 app.get('/game/users', function(request, response){
+  var gameIDFind = request.body.gameID;
+  if (gameIDFind === undefined)
+    response.sendStatus(400);
   //this is the database call/logic/everything else
 
-  var users = {
-    "message": "This gets the USERS in a specific game",
-    "user_1": "user1_ID",
-    "user_2": "user2_ID",
-    "user_3": "user3_ID",
-    "user_4": "user4_ID",
-    "user_5": "user5_ID",
-    "user_6": "user6_ID"
+  for (var i = 0; i < temp_array_games.length; ++i){
+    if (temp_array_games[i].gameID == gameIDFind){
+      response.json({"users":temp_array_games[i].users});
+    }
   }
-
-  response.json(users);
+  response.json({"users":undefined});
 });
 
 // ACCUSE in a GAME
@@ -225,6 +280,28 @@ app.put('/user/game', function(request, response){
   response.json({"message": "This UPDATES user's current GAME"});
 });
 
+/**********************************
+*           BUGS R SCRY           *
+***********************************/
+
+/*
+  Use everything below this as a reference for REST endpoints,
+  MongoDB connections, Node.JS logic.
+*/
+
+
+/* This actually starts up the server while trying to connect to the
+ * database. Cannot remove without copying the contents of the
+ * function outside as standalone Node.JS code.
+ */
+MongoClient.connect('mongodb://54.193.7.18:3000/bugsdb', function(err, dbConnection) {
+ db = dbConnection;
+ var server = app.listen(process.env.PORT || 3000, function() {
+      var port = server.address().port;
+      console.log("Started server at port", port);
+      console.log("Started at ", new Date().toUTCString());
+ });
+});
 
 /* Get a list of filtered records */
 app.get('/api/bugs', function(req, res) {
@@ -240,7 +317,7 @@ app.get('/api/bugs', function(req, res) {
  });
 });
 
-app.use(bodyParser.json());
+// app.use(bodyParser.json());
 
 /* Insert a record */
 app.post('/api/bugs/', function(req, res) {
@@ -270,13 +347,5 @@ app.put('/api/bugs/:id', function(req, res) {
    db.collection("bugs").find({_id: oid}).next(function(err, doc) {
      res.send(doc);
    });
- });
-});
-
-MongoClient.connect('mongodb://54.193.7.18:3000/bugsdb', function(err, dbConnection) {
- db = dbConnection;
- var server = app.listen(3000, function() {
-      var port = server.address().port;
-      console.log("Started server at port", port);
  });
 });
