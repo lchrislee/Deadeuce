@@ -7,12 +7,34 @@ var app = express();
 var db;
 
 app.use(express.static('static'));
+app.use(bodyParser.json()); // allows req.body to be parsed in application/json
+app.use(bodyParser.urlencoded({'extended':false})); // allows req.body to be parsed in application/x-www-form-urlencoded
+
+/*
+ * Want to test one of these rest calls? Use cURL.
+ * Format is:
+ *
+ *      curl -H 'Content-Type: application/json' {URL} -X {GET or POST or PUT or DELETE} {if GET, add -g} -d {data goes here}
+ *
+ * for example, use this to POST "CHEESE" to /test_slice running on localhost
+ *
+ *      curl -H 'Content-Type: application/json' localhost:3000/test_slice -X POST -d 'CHEESE'
+ *
+ * Use this to POST this JSON: {"name":"Chris", "role": "SUPREME LEADER"} to /test_slice running on localhost
+ *
+ *      curl -H 'Content-Type: application/json' localhost:3000/test_slice -X POST -d '{"name":"Chris","role":"SUPREME LEADER"}'
+ *
+ * Notice that you must wrap the key in quotes as well as the value in the JSON. If you want to send a GET with data,
+ * it looks like this:
+ *
+ *      curl -H 'Content-Type: application/json' localhost:3000/ -X GET -g -d '{"name":"Chris","role":"SUPREME LEADER"}'
+ */
 
 //Sample express route
 app.post('/test_slice', function(req, res){
-  console.log(req.data);
   var payload = {
-    test: "Test is successful!"
+    test: "Test is successful!",
+    body: req.body
   };
   res.json(payload);
 });
@@ -23,10 +45,26 @@ app.post('/test_slice', function(req, res){
 *                                 *
 ***********************************/
 
+var temp_array_games = [];
+var temp_game_count = 0;
+
 // CREATE GAME
 app.post('/createGame', function(request, response){
+  var hostID = request.body.hostID;
+  if (hostID === undefined)
+    response.sendStatus(400);
+
+  var game = {
+    "gameID": temp_game_count,
+    "hostID": request.body.hostID
+  };
+
+  temp_array_games.push(game);
+  temp_game_count++;
   //this is the database call/logic/everything else
-  response.json({"message": "This CREATES a GAME"});
+  response.json({"temp_message": "This CREATES a GAME",
+                 "gameID":temp_array_games[temp_array_games.length-1],
+                 "temp_array": temp_array_games});
 });
 
 // JOIN GAME
@@ -225,6 +263,28 @@ app.put('/user/game', function(request, response){
   response.json({"message": "This UPDATES user's current GAME"});
 });
 
+/**********************************
+*           BUGS R SCRY           *
+***********************************/
+
+/*
+  Use everything below this as a reference for REST endpoints,
+  MongoDB connections, Node.JS logic.
+*/
+
+
+/* This actually starts up the server while trying to connect to the
+ * database. Cannot remove without copying the contents of the
+ * function outside as standalone Node.JS code.
+ */
+MongoClient.connect('mongodb://54.193.7.18:3000/bugsdb', function(err, dbConnection) {
+ db = dbConnection;
+ var server = app.listen(process.env.PORT || 3000, function() {
+      var port = server.address().port;
+      console.log("Started server at port", port);
+      console.log("Started at ", new Date().toUTCString());
+ });
+});
 
 /* Get a list of filtered records */
 app.get('/api/bugs', function(req, res) {
@@ -240,7 +300,7 @@ app.get('/api/bugs', function(req, res) {
  });
 });
 
-app.use(bodyParser.json());
+// app.use(bodyParser.json());
 
 /* Insert a record */
 app.post('/api/bugs/', function(req, res) {
@@ -270,13 +330,5 @@ app.put('/api/bugs/:id', function(req, res) {
    db.collection("bugs").find({_id: oid}).next(function(err, doc) {
      res.send(doc);
    });
- });
-});
-
-MongoClient.connect('mongodb://54.193.7.18:3000/bugsdb', function(err, dbConnection) {
- db = dbConnection;
- var server = app.listen(3000, function() {
-      var port = server.address().port;
-      console.log("Started server at port", port);
  });
 });
