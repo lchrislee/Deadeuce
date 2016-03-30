@@ -210,50 +210,6 @@ const CGFloat kPadding = 6;
             [_data addObject:[[GameObject alloc] init]];
         }
         
-//        // 1
-//        NSURL *url = [NSURL URLWithString:@"http://54.193.7.18:3000/test_slice"];
-//        NSURLSessionConfiguration *config = [NSURLSessionConfiguration defaultSessionConfiguration];
-//        NSURLSession *session = [NSURLSession sessionWithConfiguration:config];
-//        
-//        // 2
-//        NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:url];
-//        request.HTTPMethod = @"POST";
-//        
-//        // 3
-//        NSDictionary *dictionary = @{@"key1": @"value1"};
-//        NSError *error = nil;
-//        NSData *data = [NSJSONSerialization dataWithJSONObject:dictionary
-//                                                       options:kNilOptions error:&error];
-//        if (!error) {
-//            // 4
-//            NSURLSessionUploadTask *uploadTask = [session uploadTaskWithRequest:request
-//                                                                       fromData:data completionHandler:^(NSData *data,NSURLResponse *response,NSError *error) {
-//                                                                           NSError* errorVal = nil;
-//                                                                           NSArray *jsonArray = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:&errorVal];
-//
-//                                                                           NSLog(@"%@", jsonArray);
-//                                                                           NSLog(@"%@", response);
-//                                                                           NSLog(@"%@", error);
-//                                                                           // Handle response here
-//                                                                       }];
-//            
-//            // 5
-//            [uploadTask resume];
-//        }
-        
-//        NSString* url = @"";
-//        NSURLSession *session = [NSURLSession sharedSession];
-//        [[session dataTaskWithURL:[NSURL URLWithString:url]
-//                completionHandler:^(NSData *data,
-//                                    NSURLResponse *response,
-//                                    NSError *error) {
-//                    // handle response
-//                    NSLog(@"Here!");
-//                    NSLog(@"%@", data);
-//                    NSLog(@"%@", response);
-//                    NSLog(@"%@", error);
-//                }] resume];
-        
         SWRevealViewController *revealController = (SWRevealViewController*)[[(AppDelegate*)[[UIApplication sharedApplication]delegate] window] rootViewController];
         
         [revealController panGestureRecognizer];
