@@ -14,7 +14,7 @@ var ExampleModalContent = React.createClass({
     return (
 	    <div className="example-modal">
 	      <h1> Create a New Game </h1>
-        <button onClick={this.closeModal} className="close">Close Modal</button>
+        <button onClick={this.closeModal} className="close">X</button>
         <form>
           <table>
             <tr>
@@ -45,12 +45,25 @@ var ExampleModalContent = React.createClass({
             <tr>
               <th>Privacy: </th>
               <th> 
-                <input type="radio" name="private"> Private </input>
+                <input type="radio" name="private"> Private </input> <br/>
                 <input type="radio" name="private"> Public </input>
               </th>
             </tr>
-            <input type="submit" name="submitNewGame" value="next"/>
+            <tr>
+              <th>Character: </th>
+              <th> 
+                <select name="selectCharacter" value="EV Kitty"> 
+                  <option>EV Kitty</option>
+                  <option>Tommy Trojan</option>
+                  <option>George Tirebiter</option>
+                  <option>President Nikias</option>
+                  <option>Pete Carroll</option>
+                </select>
+              </th>
+            </tr>
           </table>
+          </br>  
+          <input type="submit" name="submitNewGame" />
         </form>  
 	      
 	    </div>
