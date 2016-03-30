@@ -32,16 +32,15 @@ app.use(bodyParser.urlencoded({'extended':false})); // allows req.body to be par
  *
  *      curl -H 'Content-Type: application/json' {URL} -X {GET or POST or PUT or DELETE} {if GET, add -g} -d {data goes here}
  *
- * for example, use this to POST "CHEESE" to /test_slice running on localhost
- *
- *      curl -H 'Content-Type: application/json' localhost:3000/test_slice -X POST -d 'CHEESE'
- *
+ * For example:
+
  * Use this to POST this JSON: {"name":"Chris", "role": "SUPREME LEADER"} to /test_slice running on localhost
  *
  *      curl -H 'Content-Type: application/json' localhost:3000/test_slice -X POST -d '{"name":"Chris","role":"SUPREME LEADER"}'
  *
- * Notice that you must wrap the key in quotes as well as the value in the JSON. If you want to send a GET with data,
- * it looks like this:
+ * Notice that you must wrap the key in quotes as well as the value in the JSON.
+ *
+ * If you want to send a GET with data, it looks like this:
  *
  *      curl -H 'Content-Type: application/json' localhost:3000/ -X GET -g -d '{"name":"Chris","role":"SUPREME LEADER"}'
  */
@@ -296,7 +295,7 @@ app.put('/user/game', function(request, response){
   response.json({"message": "This UPDATES user's current GAME"});
 });
 
-var server = app.listen(process.env.PORT || process.argv[2], function() {
+var server = app.listen(process.env.PORT || process.argv[2] || 3000, function() {
       var port = server.address().port;
       console.log("Started server at port", port);
       console.log("Started at ", new Date().toUTCString());
