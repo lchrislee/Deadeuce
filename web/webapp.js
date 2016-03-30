@@ -1,7 +1,23 @@
+'use strict';
+
 var express = require('express');
 var bodyParser = require('body-parser');
 var MongoClient = require('mongodb').MongoClient;
+var fs = require('fs');
+var path = require('path');
 var ObjectId = require('mongodb').ObjectID;
+
+require('ssl-root-cas')
+  .inject()
+  .addFile(path.join(__dirname, 'certs', 'server', 'my-root-ca.crt.pem'))
+  ;
+
+var options = {
+  key: fs.readFileSync(path.join(__dirname, 'certs', 'server', 'my-server.key.pem'))
+// You don't need to specify `ca`, it's done by `ssl-root-cas`
+//, ca: [ fs.readFileSync(path.join(__dirname, 'certs', 'server', 'my-root-ca.crt.pem'))]
+, cert: fs.readFileSync(path.join(__dirname, 'certs', 'server', 'my-server.crt.pem'))
+};
 
 var app = express();
 var db;
@@ -280,6 +296,12 @@ app.put('/user/game', function(request, response){
   response.json({"message": "This UPDATES user's current GAME"});
 });
 
+var server = app.listen(process.env.PORT || process.argv[2], function() {
+      var port = server.address().port;
+      console.log("Started server at port", port);
+      console.log("Started at ", new Date().toUTCString());
+ });
+
 /**********************************
 *           BUGS R SCRY           *
 ***********************************/
@@ -294,13 +316,13 @@ app.put('/user/game', function(request, response){
  * database. Cannot remove without copying the contents of the
  * function outside as standalone Node.JS code.
  */
-MongoClient.connect('mongodb://54.193.7.18:3000/bugsdb', function(err, dbConnection) {
+MongoClient.connect('mongodb://localhost:3000/bugsdb', function(err, dbConnection) {
  db = dbConnection;
- var server = app.listen(process.env.PORT || 3000, function() {
-      var port = server.address().port;
-      console.log("Started server at port", port);
-      console.log("Started at ", new Date().toUTCString());
- });
+ // var server = app.listen(process.env.PORT || process.argv[2], function() {
+ //      var port = server.address().port;
+ //      console.log("Started server at port", port);
+ //      console.log("Started at ", new Date().toUTCString());
+ // });
 });
 
 /* Get a list of filtered records */

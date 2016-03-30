@@ -10,7 +10,7 @@
     "test": "ping"
   },
   "author": "",
-  "license": "ISC",
+  "license": ["ISC","Apache-2"],
   "dependencies": {
     "babel-preset-react": "^6.5.0",
     "babelify": "^7.2.0",
@@ -21,6 +21,7 @@
     "history": "^2.0.1",
     "jquery": "^2.2.1",
     "mongodb": "^2.1.7",
+    "ssl-root-cas": "^1.1.4",
     "react": "^0.14.7",
     "react-dom": "^0.14.7",
     "react-onclickoutside": "^4.5.0",
