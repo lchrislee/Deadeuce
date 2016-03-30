@@ -152,6 +152,12 @@ app.put('/game/checklist', function(request, response){
 // starting CLUES in a GAME for a USER
 app.get('/game/users/clues', function(request, response){
   //this is the database call/logic/everything else
+
+  var clues = {
+    "clue1": "clue1"
+
+  }
+
   response.json({"message": "This gets the STARTING CLUES in a specific GAME"});
 });
 
@@ -205,6 +211,18 @@ app.get('/user/wins', function(request, response){
 app.get('/user/losses', function(request, response){
   //this is the database call/logic/everything else
   response.json({"message": "This RETRIEVES user LOSSES"});
+});
+
+// USER get GAME
+app.get('/user/game', function(request, response){
+  //this is the database call/logic/everything else
+  response.json({"message": "This RETRIEVES user's current GAME"});
+});
+
+// USER update GAME
+app.put('/user/game', function(request, response){
+  //this is the database call/logic/everything else
+  response.json({"message": "This UPDATES user's current GAME"});
 });
 
 

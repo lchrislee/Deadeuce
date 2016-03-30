@@ -121,7 +121,6 @@ const CGFloat kPadding = 6;
 @property (nonatomic, strong) UIView* background;
 @property (nonatomic, strong) UIView* innerBackground;
 @property (nonatomic, strong) UILabel *introLabel;
-@property (nonatomic, strong) UIButton* createGameButton;
 
 @end
 
@@ -143,17 +142,8 @@ const CGFloat kPadding = 6;
         [self.introLabel setFont:[UIFont systemFontOfSize:22]];
         self.introLabel.numberOfLines = 2;
         [self.introLabel setTextAlignment:NSTextAlignmentCenter];
-        [self.introLabel setText:@"You have no ongoing games. Join or create a game now!"];
+        [self.introLabel setText:@"You have no ongoing games. Pick a game to join!"];
         [self.contentView addSubview:self.introLabel];
-        
-        self.createGameButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-        [self.createGameButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-        self.createGameButton.layer.cornerRadius = 5;
-        self.createGameButton.clipsToBounds = YES;
-        [self.createGameButton.layer setBackgroundColor:[[UIColor colorWithRed:(22/255.0) green:(104/255.0) blue:(249/255.0) alpha:1.0] CGColor]];
-        self.createGameButton.titleLabel.font = [UIFont boldSystemFontOfSize:[UIFont systemFontSize]];
-        [self.createGameButton setTitle:@"Create Game" forState:UIControlStateNormal];
-        [self.contentView addSubview:self.createGameButton];
     }
     
     return self;
@@ -179,18 +169,11 @@ const CGFloat kPadding = 6;
     introLabelFrame.origin.x += kPadding;
     introLabelFrame.size.width -= 2*kPadding;
     self.introLabel.frame = introLabelFrame;
-    
-    CGRect createGameButtonFrame = introLabelFrame;
-    createGameButtonFrame.size.height = kButtonHeight;
-    createGameButtonFrame.size.width = kLargeButtonWidth;
-    createGameButtonFrame.origin.y += kLabelHeight*2;
-    createGameButtonFrame.origin.x = self.background.frame.size.width/2 - kLargeButtonWidth/2;
-    self.createGameButton.frame = createGameButtonFrame;
 }
 
 + (CGFloat)cellHeight
 {
-    return kLabelHeight*2 + kButtonHeight + 6*kPadding;
+    return kLabelHeight*2 + 4*kPadding;
 }
 
 - (void)prepareForReuse
@@ -226,6 +209,50 @@ const CGFloat kPadding = 6;
         for(int i = 0; i < 10; i++){
             [_data addObject:[[GameObject alloc] init]];
         }
+        
+//        // 1
+//        NSURL *url = [NSURL URLWithString:@"http://54.193.7.18:3000/test_slice"];
+//        NSURLSessionConfiguration *config = [NSURLSessionConfiguration defaultSessionConfiguration];
+//        NSURLSession *session = [NSURLSession sessionWithConfiguration:config];
+//        
+//        // 2
+//        NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:url];
+//        request.HTTPMethod = @"POST";
+//        
+//        // 3
+//        NSDictionary *dictionary = @{@"key1": @"value1"};
+//        NSError *error = nil;
+//        NSData *data = [NSJSONSerialization dataWithJSONObject:dictionary
+//                                                       options:kNilOptions error:&error];
+//        if (!error) {
+//            // 4
+//            NSURLSessionUploadTask *uploadTask = [session uploadTaskWithRequest:request
+//                                                                       fromData:data completionHandler:^(NSData *data,NSURLResponse *response,NSError *error) {
+//                                                                           NSError* errorVal = nil;
+//                                                                           NSArray *jsonArray = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:&errorVal];
+//
+//                                                                           NSLog(@"%@", jsonArray);
+//                                                                           NSLog(@"%@", response);
+//                                                                           NSLog(@"%@", error);
+//                                                                           // Handle response here
+//                                                                       }];
+//            
+//            // 5
+//            [uploadTask resume];
+//        }
+        
+//        NSString* url = @"";
+//        NSURLSession *session = [NSURLSession sharedSession];
+//        [[session dataTaskWithURL:[NSURL URLWithString:url]
+//                completionHandler:^(NSData *data,
+//                                    NSURLResponse *response,
+//                                    NSError *error) {
+//                    // handle response
+//                    NSLog(@"Here!");
+//                    NSLog(@"%@", data);
+//                    NSLog(@"%@", response);
+//                    NSLog(@"%@", error);
+//                }] resume];
         
         SWRevealViewController *revealController = (SWRevealViewController*)[[(AppDelegate*)[[UIApplication sharedApplication]delegate] window] rootViewController];
         
