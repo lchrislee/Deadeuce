@@ -213,6 +213,18 @@ app.get('/user/losses', function(request, response){
   response.json({"message": "This RETRIEVES user LOSSES"});
 });
 
+// USER get GAME
+app.get('/user/game', function(request, response){
+  //this is the database call/logic/everything else
+  response.json({"message": "This RETRIEVES user's current GAME"});
+});
+
+// USER update GAME
+app.put('/user/game', function(request, response){
+  //this is the database call/logic/everything else
+  response.json({"message": "This UPDATES user's current GAME"});
+});
+
 
 /* Get a list of filtered records */
 app.get('/api/bugs', function(req, res) {
