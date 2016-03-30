@@ -3,9 +3,10 @@ var $ = require('jQuery');
 var Router = require('react-router');
 var ExampleModal = require('./ExampleModal.js');
 var NavBar = require('./NavBar.js');
+var Link = require('react-router').Link;
 
 
-var GamesPage = React.createClass({
+var DetectivePad = React.createClass({
 	getInitialState: function() {
     return {
     };
@@ -13,10 +14,10 @@ var GamesPage = React.createClass({
   render: function() {
     return (
      <div>
-     	<div>This is the secondPage, its now Defunct except for testing</div>
+     	<div>This is the Detective Pad!</div>
      </div>
     );
   }
 });
 
-module.exports = GamesPage;
+module.exports = DetectivePad;

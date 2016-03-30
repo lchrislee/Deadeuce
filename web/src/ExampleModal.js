@@ -1,5 +1,6 @@
 var React = require('react');
 var ExampleModalContent = require('./ExampleModalContent.js');
+var CharacterSelect = require('./CreateGame2.js')
 
 var ExampleModal = React.createClass({ 
   closeModal: function(evt) {
