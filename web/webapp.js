@@ -56,7 +56,18 @@ app.post('/createGame', function(request, response){
 
   var game = {
     "gameID": temp_game_count,
-    "hostID": request.body.hostID
+    "hostID": request.body.hostID,
+    "weapons":[
+                "undefined",
+                "Finals",
+                "Dirty Spoon",
+                "Neck tie",
+                "Taco Bell",
+                "Gravity",
+              ],
+    "users":[
+              hostID
+            ]
   };
 
   temp_array_games.push(game);
@@ -69,8 +80,18 @@ app.post('/createGame', function(request, response){
 
 // JOIN GAME
 app.put('/joinGame', function(request, response){
-  //this is the database call/logic/everything else
-  response.json({"message": "This JOINS a GAME"});
+  var gameID = request.body.gameID;
+  var userID = request.body.userID;
+  if (gameID === undefined || userID === undefined)
+    response.sendStatus(400);
+//this is the database call/everything else
+  for (var i = 0; i < temp_array_games.length; ++i){
+    if (temp_array_games[i].gameID == gameID){
+      temp_array_games[i].users.push(userID.toString());
+      response.json({"joinSuccess":true});
+    }
+  }
+  response.json({"joinSuccess":false});
 });
 
 
@@ -82,50 +103,46 @@ app.put('/joinGame', function(request, response){
 ***********************************/
 // GAME
 app.get('/game', function(request, response){
+  var gameIDFind = request.body.gameID;
+  if (gameIDFind === undefined)
+    response.sendStatus(400);
   //this is the database call/everything else
-
-  var game = {
-    "message": "This gets a specific game",
-    "game_ID": "1111",
-    "game_theme": "USC"
+  for (var i = 0; i < temp_array_games.length; ++i){
+    if (temp_array_games[i].gameID == gameIDFind){
+      response.json(temp_array_games[i]);
+    }
   }
-
-  response.json(game);
+  response.json({"game":undefined});
 });
 
 // WEAPONS in a GAME
 app.get('/game/weapons', function(request, response){
+  var gameIDFind = request.body.gameID;
+  if (gameIDFind === undefined)
+    response.sendStatus(400);
   //this is the database call/logic/everything else
 
-  var weapons = {
-   "message": "This gets the WEAPONS in a specific game",
-   "weapon_1": "weapon1", 
-   "weapon_2": "weapon2", 
-   "weapon_3": "weapon3", 
-   "weapon_4": "weapon4", 
-   "weapon_5": "weapon5", 
-   "weapon_6": "weapon6", 
-   "weapon_7": "weapon7"
+  for (var i = 0; i < temp_array_games.length; ++i){
+    if (temp_array_games[i].gameID == gameIDFind){
+      response.json({"weapons":temp_array_games[i].weapons});
+    }
   }
-
-  response.json(weapons);
+  response.json({"weapons":undefined});
 });
 
 // USERS in a GAME
 app.get('/game/users', function(request, response){
+  var gameIDFind = request.body.gameID;
+  if (gameIDFind === undefined)
+    response.sendStatus(400);
   //this is the database call/logic/everything else
 
-  var users = {
-    "message": "This gets the USERS in a specific game",
-    "user_1": "user1_ID",
-    "user_2": "user2_ID",
-    "user_3": "user3_ID",
-    "user_4": "user4_ID",
-    "user_5": "user5_ID",
-    "user_6": "user6_ID"
+  for (var i = 0; i < temp_array_games.length; ++i){
+    if (temp_array_games[i].gameID == gameIDFind){
+      response.json({"users":temp_array_games[i].users});
+    }
   }
-
-  response.json(users);
+  response.json({"users":undefined});
 });
 
 // ACCUSE in a GAME
