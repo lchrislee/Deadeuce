@@ -3,4 +3,12 @@ node_modules
 *.log
 static/App.js
 static/bundle.js
+
+#server certification files
 *.pem
+*.cnf
+*.cst
+*.csr
+*.crt
+*.copy
+*.nopass
