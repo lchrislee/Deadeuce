@@ -13,7 +13,7 @@ var CreateGame2 = React.createClass({
   render: function() {
     return (
 	    <div className="example-modal">
-	      <h1> Pick a Character </h1>
+	      <h1 style="background-color:red;"> Pick a Character </h1>
         <button onClick={this.closeModal} className="close">X</button>
         <form>
           <table>
@@ -29,12 +29,8 @@ var CreateGame2 = React.createClass({
               and your friends to solve the crime! <br/> 
               </th>
             </tr>
-            <tr>
-              <th>
+            </table>
                 <input type="submit" name="submitCharacter" value="invite friends >"/>
-              </th>
-            </tr>  
-          </table>
         </form>  
 	      
 	    </div>

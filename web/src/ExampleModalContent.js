@@ -52,7 +52,7 @@ var ExampleModalContent = React.createClass({
             <tr>
               <th>Character: </th>
               <th> 
-                <select name="selectCharacter" value="EV Kitty"> 
+                <select name="selectCharacter"> 
                   <option>EV Kitty</option>
                   <option>Tommy Trojan</option>
                   <option>George Tirebiter</option>
@@ -62,10 +62,8 @@ var ExampleModalContent = React.createClass({
               </th>
             </tr>
           </table>
-          </br>  
-          <input type="submit" name="submitNewGame" />
-        </form>  
-	      
+          <input type="submit" name="submitNewGame"/> 
+        </form> 
 	    </div>
 	);
   },
