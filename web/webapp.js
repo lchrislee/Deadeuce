@@ -52,12 +52,14 @@ var temp_game_count = 0;
 app.post('/createGame', function(request, response){
     console.log(request.params);
   var hostID = request.body.hostID;
+  var gameName = request.body.gameName;
 
-  if (hostID === undefined)
+  if (hostID === undefined || gameName === undefined)
     response.sendStatus(400);
 
   var game = {
     "gameID": temp_game_count,
+    "gameName": gameName,
     "hostID": request.body.hostID,
     "weapons":[
                 "undefined",
@@ -82,7 +84,7 @@ app.post('/createGame', function(request, response){
 
 // JOIN GAME
 app.put('/joinGame', function(request, response){
-  var gameID = request.body.gameID;
+  var gameName = request.body.gameName;
   var userID = request.body.userID;
   if (gameID === undefined || userID === undefined)
     response.sendStatus(400);
@@ -105,12 +107,15 @@ app.put('/joinGame', function(request, response){
 ***********************************/
 // GAME
 app.get('/game', function(request, response){
-  var gameIDFind = request.body.gameID;
-  if (gameIDFind === undefined)
+  var gameID = request.body.gameID;
+  var gameName = request.body.gameName;
+  if (gameID === undefined && gameName === undefined)
     response.sendStatus(400);
   //this is the database call/everything else
   for (var i = 0; i < temp_array_games.length; ++i){
-    if (temp_array_games[i].gameID == gameIDFind){
+    var indexGameID = temp_array_games[i].gameID;
+    var indexGameName = temp_array_games[i].gameName;
+    if (indexGameID == gameID || indexGameName == gameName){
       response.json(temp_array_games[i]);
     }
   }
@@ -145,6 +150,19 @@ app.get('/game/users', function(request, response){
     }
   }
   response.json({"users":undefined});
+});
+
+app.get('/game/users/count', function(request, response){
+  var gameID = request.body.gameID;
+  if (gameID === undefined)
+    response.sendStatus(400);
+    
+    for (var i = 0; i < temp_array_games.length; ++i){
+    if (temp_array_games[i].gameID == gameIDFind){
+      response.json({"numberPlayers":temp_array_games[i].users.length});
+    }
+  }
+  response.json({"numberPlayers":undefined});
 });
 
 // ACCUSE in a GAME
