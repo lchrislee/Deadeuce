@@ -10,6 +10,8 @@
 #import "SWRevealViewController.h"
 #import "LobbyTableViewController.h"
 #import "DetectivePadTableViewController.h"
+#import "GameMapViewController.h"
+#import "AccusalResultsViewController.h"
 
 @interface LeftPanelTableViewCell : UITableViewCell
 @property (nonatomic, strong) UILabel *titleLabel;
@@ -115,7 +117,7 @@ int count = 0;
 - (void)setupArray
 {
     _presentedRow = -1;
-    NSArray *data = @[@"Lobby", @"Detective Pad"];
+    NSArray *data = @[@"Lobby", @"Detective Pad", @"Game Map", @"Accusal Results"];
     
     self.rowTitles = [NSMutableArray arrayWithArray:data];
     
@@ -169,6 +171,10 @@ int count = 0;
         newFrontController = [[LobbyTableViewController alloc] init];
     } else if ([selection  isEqual: @"Detective Pad"]) {
         newFrontController = [[DetectivePadTableViewController alloc] initWithStyle:UITableViewStyleGrouped];
+    } else if ([selection isEqual:@"Game Map"]){
+        newFrontController = [[GameMapViewController alloc] init];
+    } else if ([selection isEqual:@"Accusal Results"]){
+        newFrontController = [[AccusalResultsViewController alloc] init];
     }
     
     UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:newFrontController];

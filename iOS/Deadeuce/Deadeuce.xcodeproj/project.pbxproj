@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		658381D40B455AB211108C0F /* libPods-Deadeuce.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F8CEAF6A7C2AD9DC5D9B6BE5 /* libPods-Deadeuce.a */; };
+		AA4F954D1CAB27B000B2C2EA /* GameMapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AA4F954C1CAB27B000B2C2EA /* GameMapViewController.m */; };
 		AA7E1E9D1CA2128D0060901E /* GameObject.m in Sources */ = {isa = PBXBuildFile; fileRef = AA7E1E9C1CA2128D0060901E /* GameObject.m */; };
 		AA7E1EA01CA215080060901E /* reveal-icon.png in Resources */ = {isa = PBXBuildFile; fileRef = AA7E1E9F1CA215070060901E /* reveal-icon.png */; };
 		AA7E1EA21CA2592E0060901E /* facebook.png in Resources */ = {isa = PBXBuildFile; fileRef = AA7E1EA11CA2592E0060901E /* facebook.png */; };
@@ -17,6 +18,7 @@
 		AA8542671C93DFAC006EA952 /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AA8542661C93DFAC006EA952 /* LoginViewController.m */; };
 		AA85426F1C93E8F6006EA952 /* LeftPanelViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AA85426E1C93E8F6006EA952 /* LeftPanelViewController.m */; };
 		AAC311C61C9FAFA6003862A8 /* DetectivePadTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AAC311C41C9FAFA6003862A8 /* DetectivePadTableViewController.m */; };
+		AAE42FD51CAC53E30037CABF /* AccusalResultsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AAE42FD41CAC53E30037CABF /* AccusalResultsViewController.m */; };
 		AAF1297A1C93D73400BAE9F4 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = AAF129791C93D73400BAE9F4 /* main.m */; };
 		AAF1297D1C93D73400BAE9F4 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = AAF1297C1C93D73400BAE9F4 /* AppDelegate.m */; };
 		AAF129801C93D73400BAE9F4 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AAF1297F1C93D73400BAE9F4 /* ViewController.m */; };
@@ -27,6 +29,8 @@
 /* Begin PBXFileReference section */
 		65187E06181161CBCB33A22C /* Pods-Deadeuce.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Deadeuce.release.xcconfig"; path = "Pods/Target Support Files/Pods-Deadeuce/Pods-Deadeuce.release.xcconfig"; sourceTree = "<group>"; };
 		65D230B2EEA7C12EC178DBAB /* Pods-Deadeuce.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Deadeuce.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Deadeuce/Pods-Deadeuce.debug.xcconfig"; sourceTree = "<group>"; };
+		AA4F954B1CAB27B000B2C2EA /* GameMapViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameMapViewController.h; sourceTree = "<group>"; };
+		AA4F954C1CAB27B000B2C2EA /* GameMapViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameMapViewController.m; sourceTree = "<group>"; };
 		AA7E1E9B1CA2128D0060901E /* GameObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameObject.h; sourceTree = "<group>"; };
 		AA7E1E9C1CA2128D0060901E /* GameObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameObject.m; sourceTree = "<group>"; };
 		AA7E1E9F1CA215070060901E /* reveal-icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "reveal-icon.png"; sourceTree = "<group>"; };
@@ -41,6 +45,8 @@
 		AA85426E1C93E8F6006EA952 /* LeftPanelViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LeftPanelViewController.m; sourceTree = "<group>"; };
 		AAC311C41C9FAFA6003862A8 /* DetectivePadTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DetectivePadTableViewController.m; sourceTree = "<group>"; };
 		AAC311C51C9FAFA6003862A8 /* DetectivePadTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DetectivePadTableViewController.h; sourceTree = "<group>"; };
+		AAE42FD31CAC53E30037CABF /* AccusalResultsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AccusalResultsViewController.h; sourceTree = "<group>"; };
+		AAE42FD41CAC53E30037CABF /* AccusalResultsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AccusalResultsViewController.m; sourceTree = "<group>"; };
 		AAF129751C93D73400BAE9F4 /* Deadeuce.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Deadeuce.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AAF129791C93D73400BAE9F4 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		AAF1297B1C93D73400BAE9F4 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -133,6 +139,10 @@
 				AAF129861C93D73400BAE9F4 /* LaunchScreen.storyboard */,
 				AAF129891C93D73400BAE9F4 /* Info.plist */,
 				AAF129781C93D73400BAE9F4 /* Supporting Files */,
+				AA4F954B1CAB27B000B2C2EA /* GameMapViewController.h */,
+				AA4F954C1CAB27B000B2C2EA /* GameMapViewController.m */,
+				AAE42FD31CAC53E30037CABF /* AccusalResultsViewController.h */,
+				AAE42FD41CAC53E30037CABF /* AccusalResultsViewController.m */,
 			);
 			path = Deadeuce;
 			sourceTree = "<group>";
@@ -280,8 +290,10 @@
 				AA7E1E9D1CA2128D0060901E /* GameObject.m in Sources */,
 				AAC311C61C9FAFA6003862A8 /* DetectivePadTableViewController.m in Sources */,
 				AA85426F1C93E8F6006EA952 /* LeftPanelViewController.m in Sources */,
+				AA4F954D1CAB27B000B2C2EA /* GameMapViewController.m in Sources */,
 				AA8542641C93DF1A006EA952 /* LobbyTableViewController.m in Sources */,
 				AAF129801C93D73400BAE9F4 /* ViewController.m in Sources */,
+				AAE42FD51CAC53E30037CABF /* AccusalResultsViewController.m in Sources */,
 				AAF1297D1C93D73400BAE9F4 /* AppDelegate.m in Sources */,
 				AAF1297A1C93D73400BAE9F4 /* main.m in Sources */,
 				AA8542671C93DFAC006EA952 /* LoginViewController.m in Sources */,

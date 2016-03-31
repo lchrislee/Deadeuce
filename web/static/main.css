@@ -19,9 +19,25 @@ Example Modal
     max-width: 500px;
     max-height: 600px;
     margin: auto;
+    padding:10px;
     position: absolute;
     background-color: rgb(255,255,255); /* Fallback color */
     top: 0; left: 0; bottom: 0; right: 0;
+}
+.example-modal h1 {
+    color: #333333;
+    text-align: center;
+}
+.example-modal button {
+    position: absolute;
+    right:10px;
+    top: 10px;
+}
+.example-modal table {
+    text-align: left;
+}
+.example-modal input[type="submit"] {
+    text-align: center;
 }
 /******************************************************************
 Detective Pad (ideally would be a modal in the future)
@@ -81,11 +97,6 @@ Detective Pad (ideally would be a modal in the future)
     color:white;
     padding-left:15px;
 }
-
-
-
-
-
 /******************************************************************
 Detective Pad/Suggest/Accuse Component
 *******************************************************************/
@@ -145,7 +156,6 @@ Detective Pad/Suggest/Accuse Component
     background-color: #D84E4E;
 }
 
-
 /******************************************************************
 Game Components
 *******************************************************************/
@@ -159,7 +169,7 @@ Game Components
 }
 
 /******************************************************************
-Game Feed Table
+Game Tables
 *******************************************************************/
 .gamefeed{
     margin-top:30px;
@@ -169,9 +179,34 @@ Game Feed Table
     display:block;
     padding:0;
     background-color:#CCC;
-
     border: solid #444 1px;
     overflow: hidden;
+}
+.FeedHeader{
+    width: 100%;
+    display:block;
+    padding:0;
+    margin:0;
+    background-color:#444;
+}
+.gamefeed-header{
+    font-size:16pt;
+    font-weight:bold;
+    padding:10px 0 10px 10px;
+    color:white;
+    background-color: #444;
+}
+.contentHeader, .contentHeader_large {
+    font-size: 12px;
+    float: right;
+    text-align: left;
+    text-decoration: underline;
+}
+.contentHeader_large {
+    width: 60%;
+}
+.contentHeader {
+    width: 17%;
 }
 .divFeedTable {
     width: 103%;
@@ -181,21 +216,6 @@ Game Feed Table
     margin:0;
     background-color:#CCC;
     overflow-y: scroll;
-}
-.gamefeed-header{
-    font-size:16pt;
-    font-weight:bold;
-    margin: 10px 0 10px;
-    padding-left:10px;
-    color:white;
-}
-
-.FeedHeader{
-    width: 100%;
-    display:block;
-    padding:0;
-    margin:0;
-    background-color:#CCC;
 }
 .divFeedRow-header{
     width: 100%;
@@ -217,12 +237,16 @@ Game Feed Table
     height:100%;
     display:block;
     padding: 0 .5%;
-
     text-align:center;
 }
 .divFeedColumn2 {
-    float: left;
     width: 75%;
+}
+.divFeedColumn2_small {
+    width: 52%;
+}
+.divFeedColumn2, .divFeedColumn2_small{
+    float: left;
     height:100%;
     display:block;
     padding: 0 .5%;
@@ -235,9 +259,9 @@ Game Feed Table
     display:block;
     padding-right:1%;
     padding-top: 15px;
-
     text-align:right;
     font-size:8pt;
+    vertical-align: top;
  }
 .column{
     background-color: #CCC;
