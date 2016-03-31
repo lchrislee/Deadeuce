@@ -2,6 +2,7 @@ var React = require('react');
 var $ = require('jQuery');
 var Router = require('react-router');
 var Link = require('react-router').Link;
+var Checklist = require('../components/checklist');
 
 
 var DetectivePad = React.createClass({
@@ -12,8 +13,8 @@ var DetectivePad = React.createClass({
   render: function() {
     return (
      <div>
-     	<div>This is the Detective Pad!</div>
-     </div>
+        <Checklist />
+      </div>
     );
   }
 });

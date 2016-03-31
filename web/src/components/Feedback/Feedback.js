@@ -1,7 +1,7 @@
 var React = require('react');
 var FeedbackContent = require('./FeedbackContent.js');
 
-var ExampleModal = React.createClass({ 
+var Feedback = React.createClass({ 
   closeModal: function(evt) {
     this.props.closeModal(evt);
   },
