@@ -3,7 +3,6 @@ var $ = require('jQuery');
 var Router = require('react-router');
 
 
-var Testing = require('./Feedback.js');
 
 
 
@@ -18,7 +17,6 @@ var secondPage = React.createClass({
      	<div>This is the secondPage, its now Defunct except for testing</div>
 
 
-      <Testing />
 
 
      </div>

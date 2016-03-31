@@ -1,7 +1,7 @@
 var React = require('react');
 var $ = require('jQuery');
 var Router = require('react-router');
-var ExampleModal = require('../ExampleModal.js');
+var ExampleModal = require('../components/ExampleModal.js');
 
 var HomePage = React.createClass({
     contextTypes: {
