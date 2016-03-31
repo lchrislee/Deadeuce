@@ -166,8 +166,11 @@ const CGFloat kMPadding = 3;
     self.currentGameValueLabel = [[UILabel alloc] init];
     [self.currentGameValueLabel setFrame:CGRectMake(20.0, startingHeight + 50.0, screenWidth - 40.0, 40.0)];
     self.currentGameValueLabel.backgroundColor=[UIColor clearColor];
-    self.currentGameValueLabel.textColor=[UIColor blackColor];
+    self.currentGameValueLabel.textColor=[UIColor colorWithRed:(37/255.0) green:(36/255.0) blue:(45/255.0) alpha:1.0];
     self.currentGameValueLabel.userInteractionEnabled = NO;
+    self.currentGameValueLabel.layer.cornerRadius = 5;
+    self.currentGameValueLabel.clipsToBounds = YES;
+    [self.currentGameValueLabel.layer setBackgroundColor:[[UIColor colorWithRed:(193/255.0) green:(193/255.0) blue:(193/255.0) alpha:1.0] CGColor]];
     self.currentGameValueLabel.textAlignment = NSTextAlignmentCenter;
     self.currentGameValueLabel.text= [[GameObject alloc] init].gameName; //TODO fix dis shit
     [self.currentGameValueLabel setFont:[UIFont fontWithName:@"HelveticaNeue" size:22]];

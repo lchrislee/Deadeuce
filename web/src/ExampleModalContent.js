@@ -62,8 +62,8 @@ var ExampleModalContent = React.createClass({
               </th>
             </tr>
           </table>
-          <input type="submit" name="submitNewGame"/> 
-        </form> 
+          <input type="submit" name="submitNewGame" />
+        </form>  
 	    </div>
 	);
   },
