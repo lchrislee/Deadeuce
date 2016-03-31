@@ -65,7 +65,9 @@ var temp_game_count = 0;
 
 // CREATE GAME
 app.post('/createGame', function(request, response){
+    console.log(request.params);
   var hostID = request.body.hostID;
+
   if (hostID === undefined)
     response.sendStatus(400);
 
