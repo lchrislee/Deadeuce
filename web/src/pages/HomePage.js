@@ -45,13 +45,13 @@ var HomePage = React.createClass({
     var d = {
       sendTestToServer : "yo"
     };
-
+    var stringified = JSON.stringify(d);
     $.ajax({
       url: "/test_slice",
       type: 'POST',
       contentType: "application/json; charset=utf-8",
       dataType: "json",
-      data: d,
+      data: stringified,
       success: function(data) {
         this.setState({
           "serverStatus" : data.test
