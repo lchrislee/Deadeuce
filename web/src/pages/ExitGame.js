@@ -1,12 +1,10 @@
 var React = require('react');
 var $ = require('jQuery');
 var Router = require('react-router');
-var ExampleModal = require('./ExampleModal.js');
-var NavBar = require('./NavBar.js');
 var Link = require('react-router').Link;
 
 
-var DetectivePad = React.createClass({
+var ExitGame = React.createClass({
 	getInitialState: function() {
     return {
     };
@@ -14,10 +12,11 @@ var DetectivePad = React.createClass({
   render: function() {
     return (
      <div>
-     	<div>This is the Detective Pad!</div>
+     	<div>This is the Exit Game!</div>
      </div>
     );
   }
 });
 
-module.exports = DetectivePad;
+
+module.exports = ExitGame;

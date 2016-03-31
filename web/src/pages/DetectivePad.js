@@ -1,12 +1,10 @@
 var React = require('react');
 var $ = require('jQuery');
 var Router = require('react-router');
-var ExampleModal = require('./ExampleModal.js');
-var NavBar = require('./NavBar.js');
 var Link = require('react-router').Link;
 
 
-var ReviewClues = React.createClass({
+var DetectivePad = React.createClass({
 	getInitialState: function() {
     return {
     };
@@ -14,11 +12,10 @@ var ReviewClues = React.createClass({
   render: function() {
     return (
      <div>
-     	<div>This is the Review Clues page!</div>
+     	<div>This is the Detective Pad!</div>
      </div>
     );
   }
 });
 
-
-module.exports = ReviewClues;
+module.exports = DetectivePad;
