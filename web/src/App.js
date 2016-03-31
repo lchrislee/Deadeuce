@@ -10,12 +10,8 @@ var hashHistory = require('react-router').hashHistory;
 var HomePage = require('./pages/HomePage.js');
 var SecondPage = require('./SecondPage.js');
 
-var BugList = require('./BugList');
-var BugEdit = require('./BugEdit');
-
-
 var Games = require('./pages/Games');
-var Nav = require('./NavBar');
+var Nav = require('./components/NavBar');
 var Profile = require('./pages/Profile');
 var CreateGame = require('./pages/CreateGame');
 var JoinGame = require('./pages/JoinGame');
@@ -48,15 +44,12 @@ ReactDOM.render(
       <Route path="/join_game" component={JoinGame}/>
       
       <Route path="/game_home">
-        <IndexRoute path="/game_home" component={GameHome}/>
+        <IndexRoute component={GameHome}/>
         <Route path="/game_home/detective_pad" component={DetectivePad}/>
         <Route path="/game_home/exit_game" component={ExitGame}/>
         <Route path="/game_home/review_clues" component={ReviewClues}/>
       </Route>
 
-
-      <Route path="/bugs" component={BugList} />
-      <Route path="/bugs/:id" component={BugEdit} />
       <Redirect from="/" to="/home" />
       <Route path="*" component={NoMatch} />
 
