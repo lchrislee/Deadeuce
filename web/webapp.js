@@ -273,7 +273,11 @@ app.put('/updateUser', function(request, response){
 // USER INFORMATION
 app.get('/user', function(request, response){
   //this is the database call/logic/everything else
-  response.json({"message": "This RETRIEVES USER information"});
+  var user = {
+    "username": "EVKiller",
+  }
+
+  response.json(user);
 });
 
 // USER WINS
