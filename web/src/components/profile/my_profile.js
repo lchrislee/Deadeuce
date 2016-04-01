@@ -37,18 +37,14 @@ var MyProfile = React.createClass({
     },
     render: function(){
         return(
-            <div>
-                <div className="prof-pic-container">
-                    <img src={this.state.profPicUrl} className="prof-pic" />
-                    <span className="prof-username">{this.state.username}</span>
-                    <div className="my-wins">
-                    {this.state.username}s wins: {this.state.wins}
-                    </div>
-                    <div className="my-losses">
-                    {this.state.username}s losses:{this.state.losses}
-                    </div>
+            <div className="prof-pic-container">
+                <div className="prof-username">Profile: {this.state.username}</div>
+                <div className="my-wins">
+                {this.state.username}s wins: {this.state.wins}
                 </div>
-
+                <div className="my-losses">
+                {this.state.username}s losses:{this.state.losses}
+                </div>
             </div>
         )
     }
