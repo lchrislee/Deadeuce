@@ -275,7 +275,10 @@ app.get('/user', function(request, response){
   //this is the database call/logic/everything else
   var user = {
     "username": "EVKiller",
-  }
+    "profPicUrl": "/DivePortrait.jpg",
+    "wins": "100",
+    "losses": "0",
+  };
 
   response.json(user);
 });

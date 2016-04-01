@@ -6,20 +6,24 @@ var $ = require('jquery');
 var MyProfile = React.createClass({
     getInitialState: function(){
         return{
-            "username": "random",
+            "username": "",
+            "profPicUrl": "",
+            "wins": "",
+            "losses": "",
         }
     },
-    getUserData: function(e) {
+    componentDidMount: function(e) {
         $.ajax({
             url: '/user',
             type: 'GET',
             contentType: "application/json",
             dataType: 'json',
             success: function(data) {
-                console.log(data);
-                console.log(data.username);
                 this.setState({
-                    "username": data.username
+                    "username": data.username,
+                    "prof-pic-url": data.profPicUrl,
+                    "wins": data.wins,
+                    "losses": data.losses,
                 });
             }.bind(this),
             error: function(xhr, status, err) {
@@ -35,9 +39,8 @@ var MyProfile = React.createClass({
         return(
             <div>
                 <div className="prof-pic-container">
-                    <img src="" className="prof-pic" />
+                    <img src={this.state.profPicUrl} className="prof-pic" />
                     <span className="prof-username">{this.state.username}</span>
-                    <button className="prof-button" onClick={this.getUserData}></button>
                 </div>
 
             </div>
