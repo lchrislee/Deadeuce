@@ -21,7 +21,7 @@ var MyProfile = React.createClass({
             success: function(data) {
                 this.setState({
                     "username": data.username,
-                    "prof-pic-url": data.profPicUrl,
+                    "profPicUrl": data.profPicUrl,
                     "wins": data.wins,
                     "losses": data.losses,
                 });
@@ -41,6 +41,12 @@ var MyProfile = React.createClass({
                 <div className="prof-pic-container">
                     <img src={this.state.profPicUrl} className="prof-pic" />
                     <span className="prof-username">{this.state.username}</span>
+                    <div className="my-wins">
+                    {this.state.username}s wins: {this.state.wins}
+                    </div>
+                    <div className="my-losses">
+                    {this.state.username}s losses:{this.state.losses}
+                    </div>
                 </div>
 
             </div>
