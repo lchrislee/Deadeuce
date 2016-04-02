@@ -2,7 +2,7 @@ var React = require('react');
 var $ = require('jQuery');
 var Router = require('react-router');
 var Link = require('react-router').Link;
-var GameFeed = require('../components/GameComponents/GameFeed');
+var GameFeed = require('../components/GameComponents/gameFeed');
 var GameMap = require('../components/GameComponents/gameMap');
 var TurnBox = require('../components/GameComponents/turnBox');
 
