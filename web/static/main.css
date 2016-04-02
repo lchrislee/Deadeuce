@@ -103,7 +103,7 @@ Detective Pad/Suggest/Accuse Component
 .turnBox-wrapper{
     margin-top:30px;
     color:white;
-    height:150px;
+    height: 50px;
     width: 30%;
     min-width:350px;
     border-radius: 5px;
@@ -114,7 +114,7 @@ Detective Pad/Suggest/Accuse Component
     font-size:10pt;
     background-color:#444;
     text-align:left;
-    height:25px;
+    height:50px;
     width:100%;
     border-top-left-radius: 5px;
     border-top-right-radius: 5px;
@@ -123,7 +123,7 @@ Detective Pad/Suggest/Accuse Component
     margin: 5px;
     padding:0;
 }
-.turnBox-content {
+/*.turnBox-content {
     display:inline-block;
     background-color: #CCC;
     border-bottom-left-radius: 5px;
@@ -132,7 +132,7 @@ Detective Pad/Suggest/Accuse Component
     width: 100%;
     position:relative;
     text-align:center;
-}
+}*/
 .turnButton{
     background-color: #0073FF;
     width:70%;
@@ -382,4 +382,33 @@ Nav Bar
 
 .navBar .active {
     color: red;
+}
+
+/******************************************************************
+Suggest/Accuse
+*******************************************************************/
+
+.SAContainer {
+    height: 300px;
+    border-radius: 5px;
+}
+
+.SAHeader {
+    background-color: #444444;
+    height: 50px;
+    width: 300px;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+}
+
+.SAHeader h3 {
+    font-size: 14pt;
+    font-weight: bold;
+    color: white;
+    margin-left: 10px;
+    padding-top: 13px;
+}
+
+.suggestAccuse {
+    padding-top: 10px;
 }
