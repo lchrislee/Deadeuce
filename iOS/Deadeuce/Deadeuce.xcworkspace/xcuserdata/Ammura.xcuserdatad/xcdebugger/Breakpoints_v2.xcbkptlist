@@ -10,11 +10,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Deadeuce/LoginViewController.m"
-            timestampString = "480404253.942665"
+            timestampString = "481333928.486537"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "111"
-            endingLineNumber = "111"
+            startingLineNumber = "116"
+            endingLineNumber = "116"
             landmarkName = "-init"
             landmarkType = "5">
          </BreakpointContent>
@@ -26,11 +26,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Deadeuce/LoginViewController.m"
-            timestampString = "480404253.942665"
+            timestampString = "481333928.486537"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "110"
-            endingLineNumber = "110"
+            startingLineNumber = "115"
+            endingLineNumber = "115"
             landmarkName = "-init"
             landmarkType = "5">
          </BreakpointContent>
@@ -86,15 +86,15 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Deadeuce/LoginViewController.m"
-            timestampString = "480404321.346393"
+            timestampString = "481333928.486537"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "38"
-            endingLineNumber = "38"
+            startingLineNumber = "39"
+            endingLineNumber = "39"
             landmarkName = "-loginButtonClicked:"
             landmarkType = "5">
          </BreakpointContent>
