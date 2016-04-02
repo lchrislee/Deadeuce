@@ -34,7 +34,7 @@ app.use(bodyParser.urlencoded({'extended':false})); // allows req.body to be par
 app.post('/test_slice', function(req, res){
   var payload = {
     test: "Test is successful!",
-    body: req.body
+    body: String(req.body)
   };
   res.json(payload);
 });
@@ -167,14 +167,50 @@ app.get('/game/users/count', function(request, response){
 
 // ACCUSE in a GAME
 app.put('/game/accuse', function(request, response){
-  //this is the database call/logic/everything else
+  var gameID = request.body.gameID;
+  var userID = request.body.userID;
+  var suggestion = request.body.suggestion;
+  if (gameID === undefined || userID === undefined || suggestion === undefined)
+    response.sendStatus(400);
+
+  var weapon = suggestion.weapon;
+  var suspect = suggestion.suspect;
+  var place = suggestion.place;
+
+  if (weapon === undefined || suspect === undefined || place === undefined)
+    response.sendStatus(400);
+
+//this is the database call/logic/everything else
 
   var accuse = {
-    "message": "This ACCUSES in a specific game",
-    "user": "user_ID",
-    "weapon": "weapon_ID",
-    "location": "location_ID"
-  }
+    "correct": true
+  };
+
+  response.json(accuse);
+});
+
+//{gameID:id, userID:id, suggestion:{weapon:w,suspect:s,place:p}}
+
+// SUGGEST in a GAME
+app.put('/game/suggest', function(request, response){
+  var gameID = request.body.gameID;
+  var userID = request.body.userID;
+  var suggestion = request.body.suggestion;
+  if (gameID === undefined || userID === undefined || suggestion === undefined)
+    response.sendStatus(400);
+
+  var weapon = suggestion.weapon;
+  var suspect = suggestion.suspect;
+  var place = suggestion.place;
+
+  if (weapon === undefined || suspect === undefined || place === undefined)
+    response.sendStatus(400);
+
+//this is the database call/logic/everything else
+
+  var accuse = {
+    "correct": true
+  };
 
   response.json(accuse);
 });
