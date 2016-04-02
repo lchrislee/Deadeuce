@@ -14,6 +14,7 @@ var SignUp = React.createClass({
                     Email: <input type="text" placeholder="Email" name="sign-up-email" className="sign-up-email sign-up-input" /><br/>
                     Password: <input type="password" placeholder="Password" name="sign-up-pw1" className="sign-up-pw sign-up-input" /><br/>
                     Confirm Password: <input type="password" placeholder="Password" name="sign-up-pw2" className="sign-up-pw sign-up-input"/><br/>
+                    <button>Sign Up</button>
                 </form>
             </div>
         );

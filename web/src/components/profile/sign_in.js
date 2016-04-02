@@ -11,7 +11,8 @@ var SignIn = React.createClass({
                 <form>
                     Sign In<br/>
                     <input type="text" name="username" placeholder="Username" className="sign-in-username" autofocus /><br/>
-                    <input type="password" name="password" placeholder="Password" className="sign-in-password" />
+                    <input type="password" name="password" placeholder="Password" className="sign-in-password" /><br/>
+                    <button>Sign In</button>
                 </form>
                 or Sign Up
             </div>

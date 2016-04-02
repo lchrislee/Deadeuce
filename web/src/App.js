@@ -20,7 +20,9 @@ var DetectivePad = require('./pages/DetectivePad.js');
 var ExitGame = require('./pages/ExitGame.js');
 var ReviewClues = require('./pages/ReviewClues.js');
 
-
+var bHistory = browserHistory({
+  queryKey: false
+});
 
 var NoMatch = React.createClass({
  render: function() {
@@ -32,7 +34,7 @@ var NoMatch = React.createClass({
 
 ReactDOM.render(
  (
-   <Router history={hashHistory}>
+   <Router history={bHistory}>
     <Route path="/" component = {Nav}>
       <IndexRoute component={HomePage}/>
       

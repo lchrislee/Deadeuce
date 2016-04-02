@@ -383,3 +383,90 @@ Nav Bar
 .navBar .active {
     color: red;
 }
+
+/**************************************************************
+Profile Page
+***************************************************************/
+
+.prof-pic-container {
+    width: 80%;
+    margin: auto;
+}
+
+.prof-username {
+    width: 80%;
+    border:1px solid black;
+    text-align: center;
+    font-size: 4em;
+}
+
+.my-wins {
+    width: 40%;
+    font-size: 2em;
+    color: red;
+    float: left;
+    margin: auto;
+    border: 1px solid black;
+    text-align: middle;
+}
+
+.my-losses {
+    width: 40%;
+    font-size: 2em;
+    color: #000;
+    float: left;
+    margin: auto;
+    border: 1px solid black;
+    text-align: middle;
+}
+
+/**************************************************************
+Sign In
+***************************************************************/
+
+.sign-in {
+    border: 1px solid black;
+    clear: both;
+    text-align: center;
+    width: 300px;
+    padding: 50px;
+    margin: auto;
+}
+
+.sign-in-username {
+
+}
+
+.sign-in-password {
+    margin-bottom: 30px;
+}
+
+/**************************************************************
+Sign Up
+***************************************************************/
+
+.sign-up{
+    border:1px solid black;
+    clear: both;
+    text-align: left;
+    width: 350px;
+    padding: 50px;
+    margin: auto;
+}
+
+.sign-up-header{
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.sign-up-input {
+
+}
+
+.sign-up-username {
+
+}
+
+.sign-up-pw {
+
+}
