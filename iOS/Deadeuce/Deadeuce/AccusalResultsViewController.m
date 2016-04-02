@@ -8,6 +8,7 @@
 
 #import "AccusalResultsViewController.h"
 #import <SWRevealViewController.h>
+#import "LobbyTableViewController.h"
 
 @interface AccusalResultsViewController ()
 
@@ -26,7 +27,9 @@
 
 -(void)gameListButtonPressed:(id)sender
 {
-    //Stub
+    LobbyTableViewController * lVc = [[LobbyTableViewController alloc] init];
+    UINavigationController *frontNavigationController = [[UINavigationController alloc] initWithRootViewController:lVc];
+    [self.revealViewController setFrontViewController:frontNavigationController animated:YES];
 }
 
 - (instancetype)init

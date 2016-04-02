@@ -1,9 +1,8 @@
 var React = require('react');
 var $ = require('jQuery');
 var Router = require('react-router');
-var ExampleModal = require('./ExampleModal.js');
-var NavBar = require('./NavBar.js');
 var Link = require('react-router').Link;
+var AvailableGames = require('../components/GameComponents/availableGames');
 
 
 var Games = React.createClass({
@@ -14,11 +13,11 @@ var Games = React.createClass({
   render: function() {
     return (
      <div>
-     	<div>This is the new games page!</div>
      	<Link to="create_game" activeClassName="active">Create Game</Link>
      	<br/>
      	<Link to="join_game" activeClassName="active">Join Game</Link>
-
+      <br/>
+      <Link to="game_home" activeClassName="active">Current Game</Link>
      </div>
     );
   }

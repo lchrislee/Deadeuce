@@ -34,7 +34,7 @@ app.use(bodyParser.urlencoded({'extended':false})); // allows req.body to be par
 app.post('/test_slice', function(req, res){
   var payload = {
     test: "Test is successful!",
-    body: req.body
+    body: String(req.body)
   };
   res.json(payload);
 });
@@ -50,9 +50,12 @@ var temp_game_count = 0;
 
 // CREATE GAME
 app.post('/createGame', function(request, response){
-  // var hostID = request.body.hostID;
-  // if (hostID === undefined)
-  //   response.sendStatus(400);
+ var hostID = request.body.hostID;
+  var gameName = request.body.gameName;
+
+  if (hostID === undefined || gameName === undefined)
+    response.sendStatus(400);
+
   var gameInfo = request.body.gameInfo;
 var cantCreate = false;
 gameInfo= {
@@ -108,13 +111,12 @@ gameInfo= {
 
 function createGame(){
       db.collection('game').insertOne(
-       gameInfo, function(err, result) {
+       gameInfo, function(err, resultGame) {
           var result = {};
           if(!err){
-              result['result'] = "success";
+              result['gameID'] = resultGame._id;
               response.json(result);
           }else{
-              result['result'] = "failed";
               response.json(result);
           }
       });
@@ -123,7 +125,7 @@ function createGame(){
 
 
 
-  db.collection('game').find({"title":gameInfo.title}).count(function(err, count) {
+             db.collection('game').find({"title":gameInfo.title}).count(function(err, count) {
             var result = {};
             if(count >= 1){
                 cantCreate = true;
@@ -147,8 +149,10 @@ function createGame(){
 
 // JOIN GAME
 app.put('/joinGame', function(request, response){
-    var gameID = request.body.gameID;
-    var userID = request.body.userID;
+  var gameName = request.body.gameName;
+  var userID = request.body.userID;
+  if (gameID === undefined || userID === undefined)
+    response.sendStatus(400);
 
     var set = {};
      var cursor = db.collection('game').find( { "_id": gameID } );
@@ -168,7 +172,7 @@ app.put('/joinGame', function(request, response){
             }
 
             if(cantJoin){
-                result['result'] = "failed";
+                result['joinSuccess'] = false;
                response.json(result);
             }
 
@@ -195,11 +199,11 @@ app.put('/joinGame', function(request, response){
                                         function(err, results) {
                                        //   console.log(results);
                                           if(!err){
-                                            result['result'] = "success";
+                                            result['joinSuccess'] = true;
                                             result['nextTurn'] = nextTurn;
                                             response.json(result);
                                           }else{
-                                           result['result'] = "failed";
+                                           result['joinSuccess'] = false;
                                             response.json(result);
                                           }
                                      });
@@ -209,7 +213,7 @@ app.put('/joinGame', function(request, response){
 
                     }else{
                       //error
-                      result['result'] = "failed";
+                      result['joinSuccess'] = false;
                       response.json(result);
                     }
                 });
@@ -218,8 +222,6 @@ app.put('/joinGame', function(request, response){
       } else {
       }
    });
-
- // response.json({"joinSuccess":false});
 });
 
 
@@ -231,8 +233,9 @@ app.put('/joinGame', function(request, response){
 ***********************************/
 // GAME
 app.get('/game', function(request, response){
-  var gameIDFind = request.body.gameID;
-  if (gameIDFind === undefined)
+  var gameID = request.body.gameID;
+  var gameName = request.body.gameName;
+  if (gameID === undefined && gameName === undefined)
     response.sendStatus(400);
   //this is the database call/everything else
    var cursor = db.collection('game').find( { "_id": gameIDFind } );
@@ -241,6 +244,7 @@ app.get('/game', function(request, response){
 
         response.json({"game":doc});
       } else {
+        response.json({"game":undefined});
       }
    });
   // for (var i = 0; i < temp_array_games.length; ++i){
@@ -263,6 +267,7 @@ app.get('/game/weapons', function(request, response){
       if (doc != null) {
         response.json({"weapons":doc.weapons});
       } else {
+        response.json({"weapons":undefined});
       }
    });
 
@@ -280,14 +285,41 @@ app.get('/game/users', function(request, response){
 
         response.json({"users":doc.usersId});
       } else {
+         response.json({"users":undefined});
       }
    });
 
 });
 
+app.get('/game/users/count', function(request, response){
+  var gameID = request.body.gameID;
+  if (gameID === undefined)
+    response.sendStatus(400);
+
+    for (var i = 0; i < temp_array_games.length; ++i){
+    if (temp_array_games[i].gameID == gameIDFind){
+      response.json({"numberPlayers":temp_array_games[i].users.length});
+    }
+  }
+  response.json({"numberPlayers":undefined});
+});
+
 // ACCUSE in a GAME
 app.put('/game/accuse', function(request, response){
-  //this is the database call/logic/everything else
+  var gameID = request.body.gameID;
+  var userID = request.body.userID;
+  var suggestion = request.body.suggestion;
+  if (gameID === undefined || userID === undefined || suggestion === undefined)
+    response.sendStatus(400);
+
+  var weapon = suggestion.weapon;
+  var suspect = suggestion.suspect;
+  var place = suggestion.place;
+
+  if (weapon === undefined || suspect === undefined || place === undefined)
+    response.sendStatus(400);
+
+//this is the database call/logic/everything else
 
   var gameID = request.body.gameID;
   var userID = request.body.userID;
@@ -311,12 +343,12 @@ app.put('/game/accuse', function(request, response){
           //correct
            set['winner'] =  userID;
            set['gameover'] = true;
-           result['win'] = true;
+           result['correct'] = true;
            result['gameover'] = true;
         }else{
           //incorrect
           set['users.' + userID + ".lose"] = true;
-          result['win'] = false;
+          result['correct'] = false;
         }
 
            db.collection('game').updateOne(
@@ -324,31 +356,34 @@ app.put('/game/accuse', function(request, response){
             { $set: set },
             function(err, results) {
               if(!err){
-                result['result'] = "success";
+
                 response.json(result);
               }else{
-                result['result'] = "failed";
                 response.json(result);
               }
           });
       } else {
       }
    });
-
 });
+
 //suggest
 app.put('/game/suggest', function(request, response){
   //this is the database call/logic/everything else
 
   var gameID = request.body.gameID;
   var userID = request.body.userID;
-  //var suggestion = request.body.suggestion;
-  var suggestion;
- suggestion = {
-    "user": "user1",
-    "location" : "loc1",
-    "weapon" : "weapon1"
-  };
+  var suggestion = request.body.suggestion;
+  if (gameID === undefined || userID === undefined || suggestion === undefined)
+    response.sendStatus(400);
+
+  var weapon = suggestion.weapon;
+  var suspect = suggestion.suspect;
+  var place = suggestion.place;
+
+  if (weapon === undefined || suspect === undefined || place === undefined)
+    response.sendStatus(400);
+
   var cursor = db.collection('game').find( { "_id": gameID } );
    cursor.each(function(err, doc) {
       if (doc != null) {
@@ -398,8 +433,9 @@ app.get('/game/users/checklist', function(request, response){
      cursor.each(function(err, doc) {
         if (doc != null) {
           console.log(doc.users[userIDFind].checkList);
-              response.json({"userCheckList": doc.users[userIDFind].checkList});
+              response.json({"checklist": doc.users[userIDFind].checkList});
         } else {
+            response.json({"checklist": undefined});
         }
      });
 
@@ -438,7 +474,10 @@ var path = "users." + userIDFind + ".checkList";
 
               if(!err){
                 response.json({"result": "success",
-                                          "checkList": check});
+                                          "checklist": check});
+              }else{
+                response.json({
+                                          "checklist": undefined});
               }
    });
 });
@@ -453,8 +492,9 @@ app.get('/game/users/clues', function(request, response){
   var cursor = db.collection('game').find( { "_id": gameIDFind } );
    cursor.each(function(err, doc) {
       if (doc != null) {
-            response.json({"userCheckList": doc.users[userIDFind].hand});
+            response.json({"clues": doc.users[userIDFind].hand});
       } else {
+        response.json({"clues": undefined});
       }
    });
   //response.json({"message": "This gets the STARTING CLUES in a specific GAME"});
@@ -472,7 +512,7 @@ app.get('/game/users/turn', function(request, response){
       if (doc != null) {
             response.json({"message": doc.users[doc.turn]});
       } else {
-
+          response.json({"message": undefined});
       }
    });
 });
@@ -521,13 +561,12 @@ app.post('/createUser', function(request, response){
 var cantCreate = false;
 
 function createUser(){
-  db.collection('user').insertOne(userinfo, function(err, result) {
+  db.collection('user').insertOne(userinfo, function(err, resultUser) {
     var result = {};
       if(!err){
-          result['result'] = "failed";
+          result['userID'] = resultUser._id ;
               response.json(result);
       }else{
-         result['result'] = "success";
           response.json(result);
       }
 

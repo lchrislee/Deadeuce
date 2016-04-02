@@ -13,13 +13,11 @@ var CreateGame2 = React.createClass({
   render: function() {
     return (
 	    <div className="example-modal">
-	      <h1> Pick a Character </h1>
+	      <h1> Invite Friends </h1>
         <button onClick={this.closeModal} className="close">X</button>
         <form>
-          <table>
-            <tr>
-              <th>The murder has taken place. It is now up to you, 
-                <select name="selectCharacter" value="EV Kitty"> 
+          The murder has taken place. It is now up to you, 
+                <select name="selectCharacter" > 
                   <option>EV Kitty</option>
                   <option>Tommy Trojan</option>
                   <option>George Tirebiter</option>
@@ -27,16 +25,8 @@ var CreateGame2 = React.createClass({
                   <option>Pete Carroll</option>
                 </select>
               and your friends to solve the crime! <br/> 
-              </th>
-            </tr>
-            <tr>
-              <th>
                 <input type="submit" name="submitCharacter" value="invite friends >"/>
-              </th>
-            </tr>  
-          </table>
-        </form>  
-	      
+        </form>       
 	    </div>
 	);
   },

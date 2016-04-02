@@ -1,6 +1,5 @@
 var React = require('react');
-var ExampleModalContent = require('./ExampleModalContent.js');
-var CharacterSelect = require('./CreateGame2.js')
+var FeedbackContent = require('./FeedbackContent.js');
 
 var ExampleModal = React.createClass({ 
   closeModal: function(evt) {
@@ -9,10 +8,10 @@ var ExampleModal = React.createClass({
   render: function() {
     return (
       <div className="example-modal-wrapper">
-        <ExampleModalContent closeModal={this.closeModal} />
+        <FeedbackContent closeModal={this.closeModal} />
       </div>
      );
   },
 });
 
-module.exports = ExampleModal;
+module.exports = Feedback;
