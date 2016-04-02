@@ -1,6 +1,6 @@
 var React = require('react');
 var JoinGameModalContent = require('./JoinGameModalContent.js');
-var CharacterSelect = require('./CreateGame2.js')
+var CharacterSelect = require('../CreateGame2.js')
 
 var JoinGameModal = React.createClass({ 
   closeModal: function(evt) {

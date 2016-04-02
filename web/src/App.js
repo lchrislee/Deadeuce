@@ -7,22 +7,18 @@ var IndexRoute = require('react-router').IndexRoute;
 var browserHistory = require('react-router').browserHistory;
 var hashHistory = require('react-router').hashHistory;
 
-var HomePage = require('./HomePage.js');
+var HomePage = require('./pages/HomePage.js');
 var SecondPage = require('./SecondPage.js');
 
-var BugList = require('./BugList');
-var BugEdit = require('./BugEdit');
-
-
-var Games = require('./Games');
-var Nav = require('./NavBar');
-var Profile = require('./Profile');
-var CreateGame = require('./CreateGame');
-var JoinGame = require('./JoinGame');
-var GameHome = require('./gameHome');
-var DetectivePad = require('./DetectivePad');
-var ExitGame = require('./ExitGame');
-var ReviewClues = require('./ReviewClues');
+var Games = require('./pages/Games');
+var Nav = require('./components/NavBar');
+var Profile = require('./pages/Profile');
+var CreateGame = require('./pages/CreateGame');
+var JoinGame = require('./pages/JoinGame');
+var GameHome = require('./pages/gameHome');
+var DetectivePad = require('./pages/DetectivePad.js');
+var ExitGame = require('./pages/ExitGame.js');
+var ReviewClues = require('./pages/ReviewClues.js');
 
 
 
@@ -46,15 +42,14 @@ ReactDOM.render(
       <Route path="/profile" component={Profile}/>
       <Route path="/create_game" component={CreateGame}/>
       <Route path="/join_game" component={JoinGame}/>
-      <Route path="/game_home" component={GameHome}>
-        <Route path="/detective_pad" component={DetectivePad}/>
+      
+      <Route path="/game_home">
+        <IndexRoute component={GameHome}/>
+        <Route path="/game_home/detective_pad" component={DetectivePad}/>
         <Route path="/game_home/exit_game" component={ExitGame}/>
         <Route path="/game_home/review_clues" component={ReviewClues}/>
       </Route>
 
-
-      <Route path="/bugs" component={BugList} />
-      <Route path="/bugs/:id" component={BugEdit} />
       <Redirect from="/" to="/home" />
       <Route path="*" component={NoMatch} />
 
