@@ -112,9 +112,10 @@ gameInfo= {
 function createGame(){
       db.collection('game').insertOne(
        gameInfo, function(err, resultGame) {
+	console.log(resultGame);
           var result = {};
           if(!err){
-              result['gameID'] = resultGame._id;
+              result['gameID'] = resultGame.ops[0]._id;
               response.json(result);
           }else{
               response.json(result);
@@ -564,7 +565,7 @@ function createUser(){
   db.collection('user').insertOne(userinfo, function(err, resultUser) {
     var result = {};
       if(!err){
-          result['userID'] = resultUser._id ;
+          result['userID'] = resultUser.ops[0]._id ;
               response.json(result);
       }else{
           response.json(result);
@@ -609,7 +610,6 @@ app.get('/user', function(request, response){
   //this is the database call/logic/everything else
   var userIDFind = request.body.userID;
 
-    console.log(userIDFind);
      var cursor = db.collection('user').find( { "_id": userIDFind } );
      cursor.each(function(err, doc) {
         if (doc != null) {
@@ -685,6 +685,7 @@ app.put('/user/game', function(request, response){
  * function outside as standalone Node.JS code.
  */
 MongoClient.connect('mongodb://localhost:27017', function(err, dbConnection) {
+console.log("err is: " + err);
  db = dbConnection;
  var server = app.listen(process.env.PORT || 3000, function() {
       var port = server.address().port;
