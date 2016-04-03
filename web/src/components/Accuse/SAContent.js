@@ -4,10 +4,9 @@ var $ = require('jQuery');
 var SAContent = React.createClass({ 
   getInitialState: function() {
     return {
-      "suspect": undefined,
-      "weapon": undefined,
-      "location": undefined,
-      "inputValue": undefined
+      "suspect": 1,
+      "weapon": 2,
+      "location": 3
     }
   },
   
@@ -20,8 +19,8 @@ var SAContent = React.createClass({
     };
     var stringified = JSON.stringify(accusation);
     $.ajax({
-      url: '/test_slice',
-      type: 'POST',
+      url: '/game/checklist',
+      type: 'GET',
       contentType: "application/json",
       dataType: 'json',
       data: stringified,
@@ -34,7 +33,6 @@ var SAContent = React.createClass({
       // },
       success: function(data) {
         console.log(data);
-        console.log(data.gameID);
         this.setState({
           "temp": data.gameID
         });
@@ -57,34 +55,39 @@ var SAContent = React.createClass({
           </div>
           <div className="suggestAccuse">
               <form onSubmit={this.makeAccusation}>
-                <select value={this.state.inputValue} onChange={this.onChange} name="suspect">
-                  <option value="evkitty">EVKitty</option>
-                  <option value="tommytrojan">Tommy Trojan</option>
-                  <option value="tirebiter">George Tirebiter</option>
-                  <option value="nikias">President Nikias</option>
-                  <option value="ferrell">Will Ferrell</option>
-                  <option value="carroll">Pete Carroll</option>
+                <select onChange={this.selectSuspect} name="suspect">
+                  var i;
+                  for (i = 0; i < this.checklist.suspects.length; i++) {
+                    <option value={this.checklist.suspects[i]}>{this.checklist.suspects[i]}</option>
+                  }
+
+                  // <option value="evkitty">EVKitty</option>
+                  // <option value="tommytrojan">Tommy Trojan</option>
+                  // <option value="georgetirebiter">George Tirebiter</option>
+                  // <option value="presidentnikias">President Nikias</option>
+                  // <option value="willferrell">Will Ferrell</option>
+                  // <option value="petecarroll">Pete Carroll</option>
                 </select>
                 <br/><br/>
                 <select onChange={this.selectWeapon} name="weapons">
-                  <option value="sodacans">Empty soda cans</option>
-                  <option value="classes">Viterbi classes</option>
+                  <option value="emptysodacans">Empty soda cans</option>
+                  <option value="viterbiclasses">Viterbi classes</option>
                   <option value="ulock">U-lock</option>
-                  <option value="sword">Tommy Trojan's sword</option>
-                  <option value="food">Dining hall food</option>
+                  <option value="tommytrojanssword">Tommy Trojan's sword</option>
+                  <option value="dininghallfood">Dining hall food</option>
                   <option value="longboard">Longboard</option>
                 </select>
                 <br/><br/>
                 <select onChange={this.selectLocation} name="locations">
-                  <option value="volvo">Ground Zero</option>
-                  <option value="saab">Lyon Center</option>
-                  <option value="fiat">Leavey</option>
-                  <option value="audi">Traddies</option>
-                  <option value="audi">The 90</option>
-                  <option value="audi">Bovard</option>
-                  <option value="audi">EVK</option>
-                  <option value="audi">The Row</option>
-                  <option value="audi">Campus Center</option>
+                  <option value="groundzero">Ground Zero</option>
+                  <option value="lyoncenter">Lyon Center</option>
+                  <option value="leavey">Leavey</option>
+                  <option value="traddies">Traddies</option>
+                  <option value="the90">The 90</option>
+                  <option value="bovard">Bovard</option>
+                  <option value="evk">EVK</option>
+                  <option value="therow">The Row</option>
+                  <option value="campuscenter">Campus Center</option>
                 </select>
               <br/><br/>
               <input type="radio" name="clueType" value="suggest" required />Suggestion
@@ -98,33 +101,32 @@ var SAContent = React.createClass({
 	);
   },
 
-  onChange(e) {
-    this.setState ({
-      "inputValue": e.target.value
-    });
-    console.log(e);
-  },
-
   selectSuspect: function(e) {
     e.preventDefault();
+    var suspect = e.target.value;
       this.setState ({
-          "suspect": "YOU"
+          "suspect": suspect
       });
+      console.log(suspect);
     },
 
   selectWeapon: function(e) {
     e.preventDefault();
-    var weapon = {
-      "weapon" : undefined
-    };
-  },
+    var weapon = e.target.value;
+      this.setState ({
+          "weapon": weapon
+      });
+      console.log(weapon);
+    },
 
   selectLocation: function(e) {
     e.preventDefault();
-    var location = {
-      "location" : undefined
-    };
-  }
+    var location = e.target.value;
+      this.setState ({
+          "location": location
+      });
+      console.log(location);
+    }
 });
 
 module.exports = SAContent;

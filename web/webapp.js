@@ -34,7 +34,7 @@ app.use(bodyParser.urlencoded({'extended':false})); // allows req.body to be par
 app.post('/test_slice', function(req, res){
   var payload = {
     test: "Test is successful!",
-    body: String(req.body)
+    body: JSON.stringify(req.body)
   };
   res.json(payload);
 });
