@@ -20,11 +20,6 @@
 
 @implementation ReviewSuggestionViewController
 
--(void)decisionMade
-{
-    
-}
-
 -(void)suggestButtonPressed:(id)sender
 {
     UIAlertController *alertController = [UIAlertController
@@ -32,14 +27,14 @@
                                           message:@"Are you sure of your suggestion?"
                                           preferredStyle:UIAlertControllerStyleAlert];
     UIAlertAction *noAction = [UIAlertAction
-                               actionWithTitle:@"No"
-                               style:UIAlertActionStyleCancel
+                               actionWithTitle:@"Cancel"
+                               style:UIAlertActionStyleDefault
                                handler:^(UIAlertAction * _Nonnull action) {}];
     UIAlertAction *yesAction = [UIAlertAction
                                  actionWithTitle:@"Yes"
                                  style:UIAlertActionStyleDefault
                                  handler:^(UIAlertAction * _Nonnull action) {
-                                     DecisionResultViewController * dRVc = [[DecisionResultViewController alloc] init];
+                                     DecisionResultViewController * dRVc = [[DecisionResultViewController alloc] initWithDecisionType:@"Suggestion"];
                                     [self.navigationController pushViewController:dRVc animated:YES];
                                 }];
     [alertController addAction:noAction];
@@ -48,7 +43,24 @@
 }
 -(void)accuseButtonPressed:(id)sender
 {
-    //Stub
+    UIAlertController *alertController = [UIAlertController
+                                          alertControllerWithTitle:@"\"Accuse\" Action Warning"
+                                          message:@"Accusing wrongly will cause you to forfeit your current game.  Would you like to proceed?"
+                                          preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertAction *noAction = [UIAlertAction
+                               actionWithTitle:@"Cancel"
+                               style:UIAlertActionStyleCancel
+                               handler:^(UIAlertAction * _Nonnull action) {}];
+    UIAlertAction *yesAction = [UIAlertAction
+                                actionWithTitle:@"Okay"
+                                style:UIAlertActionStyleDefault
+                                handler:^(UIAlertAction * _Nonnull action) {
+                                    DecisionResultViewController * dRVc = [[DecisionResultViewController alloc] initWithDecisionType:@"Accusal"];
+                                    [self.navigationController pushViewController:dRVc animated:YES];
+                                }];
+    [alertController addAction:noAction];
+    [alertController addAction:yesAction];
+    [self presentViewController:alertController animated:YES completion:nil];
 }
 
 -(instancetype) initWithLocation:(NSString*)location weapon:(NSString*)weapon person:(NSString*)person

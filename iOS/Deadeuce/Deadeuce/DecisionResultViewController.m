@@ -12,6 +12,7 @@
 
 @interface DecisionResultViewController ()
 
+@property (nonatomic, strong) NSString* decisionType;
 @property (nonatomic, strong) UILabel *resultLabel;
 @property (nonatomic, strong) UIButton *gamesListButton;
 
@@ -27,10 +28,12 @@
     [self.revealViewController setFrontViewController:frontNavigationController animated:YES];
 }
 
-- (instancetype)init
+
+-(instancetype)initWithDecisionType:(NSString*)decisionType
 {
     if (self = [super init])
     {
+        _decisionType = decisionType;
         self.navigationItem.title = @"Accuse";
         self.data = @[@"Lyon Center", @"Empty Soda Cans", @"EVKitty"];
         [self.navigationItem setHidesBackButton:YES animated:NO];
@@ -38,7 +41,6 @@
     
     return self;
 }
-
 
 - (void)loadView
 {

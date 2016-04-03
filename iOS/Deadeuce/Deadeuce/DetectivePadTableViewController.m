@@ -35,8 +35,6 @@
         UIBarButtonItem * cancelButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"X.png"]
                                                                              style:UIBarButtonItemStylePlain target:self action:@selector(dismiss:)];
         self.navigationItem.leftBarButtonItem = cancelButtonItem;
-        UIBarButtonItem *doneButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(dismiss:)];
-        self.navigationItem.rightBarButtonItem = doneButtonItem;
     }
     
     return self;
