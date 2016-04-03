@@ -6,27 +6,22 @@
 //  Copyright © 2016 Deadeuce. All rights reserved.
 //
 
-#import "AccusalResultsViewController.h"
+#import "DecisionResultViewController.h"
 #import <SWRevealViewController.h>
 #import "LobbyTableViewController.h"
 
-@interface AccusalResultsViewController ()
+@interface DecisionResultViewController ()
 
 @property (nonatomic, strong) UILabel *resultLabel;
 @property (nonatomic, strong) UIButton *gamesListButton;
 
 @end
 
-@implementation AccusalResultsViewController
-
-
--(void)toggle:(id)sender
-{
-    [self.revealViewController revealToggleAnimated:YES];
-}
+@implementation DecisionResultViewController
 
 -(void)gameListButtonPressed:(id)sender
 {
+    //TODO FIX THIS
     LobbyTableViewController * lVc = [[LobbyTableViewController alloc] init];
     UINavigationController *frontNavigationController = [[UINavigationController alloc] initWithRootViewController:lVc];
     [self.revealViewController setFrontViewController:frontNavigationController animated:YES];
@@ -37,11 +32,8 @@
     if (self = [super init])
     {
         self.navigationItem.title = @"Accuse";
-        //Add an image to your project & set that image here.
-        UIBarButtonItem *revealButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"reveal-icon.png"]
-                                                                             style:UIBarButtonItemStylePlain target:self action:@selector(toggle:)];
-        self.navigationItem.leftBarButtonItem = revealButtonItem;
         self.data = @[@"Lyon Center", @"Empty Soda Cans", @"EVKitty"];
+        [self.navigationItem setHidesBackButton:YES animated:NO];
     }
     
     return self;

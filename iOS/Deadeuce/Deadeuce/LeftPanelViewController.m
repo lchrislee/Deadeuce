@@ -8,9 +8,7 @@
 
 #import "LeftPanelViewController.h"
 #import "SWRevealViewController.h"
-#import "LobbyTableViewController.h"
 #import "GameMapViewController.h"
-#import "AccusalResultsViewController.h"
 #import "CurrentGameViewController.h"
 
 @interface LeftPanelTableViewCell : UITableViewCell

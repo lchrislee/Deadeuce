@@ -74,7 +74,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Deadeuce/DetectivePadTableViewController.m"
-            timestampString = "481338414.349812"
+            timestampString = "481338742.450971"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "87"
@@ -144,6 +144,22 @@
             startingLineNumber = "20"
             endingLineNumber = "20"
             landmarkName = "-dismiss:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Deadeuce/ReviewSuggestionViewController.m"
+            timestampString = "481345279.523679"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "42"
+            endingLineNumber = "42"
+            landmarkName = "-suggestButtonPressed:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
