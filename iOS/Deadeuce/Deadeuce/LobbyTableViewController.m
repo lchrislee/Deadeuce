@@ -10,6 +10,7 @@
 #import <SWRevealViewController.h>
 #import "GameObject.h"
 #import "AppDelegate.h"
+#import "CurrentGameViewController.h"
 
 @interface LobbyTableViewCell : UITableViewCell
 
@@ -54,11 +55,13 @@ const CGFloat kPadding = 6;
         [self.numberOfPlayersLabel setFont:[UIFont systemFontOfSize:16]];
         [self.contentView addSubview:self.numberOfPlayersLabel];
         
+        //Tag is set in cellForRowAtIndexPath to use with the selector
         self.joinGameButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
         [self.joinGameButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
         self.joinGameButton.layer.cornerRadius = 5;
         self.joinGameButton.clipsToBounds = YES;
         [self.joinGameButton.layer setBackgroundColor:[[UIColor colorWithRed:(22/255.0) green:(104/255.0) blue:(249/255.0) alpha:1.0] CGColor]];
+        
         self.joinGameButton.titleLabel.font = [UIFont boldSystemFontOfSize:[UIFont systemFontSize]];
         [self.joinGameButton setTitle:@"Join" forState:UIControlStateNormal];
         [self.contentView addSubview:self.joinGameButton];
@@ -189,9 +192,12 @@ const CGFloat kPadding = 6;
 
 @implementation LobbyTableViewController
 
--(void)toggle:(id)sender
+-(void) joinGameButtonPressed:(UIButton*)sender
 {
-    [self.revealViewController revealToggleAnimated:YES];
+    //Get the name of the game (or tag) to pass to next VC
+    //data[sender.tag].gameName
+    CurrentGameViewController *cGVc = [[CurrentGameViewController alloc] init];
+    [self.navigationController pushViewController:cGVc animated:YES];
 }
 
 - (instancetype)initWithStyle:(UITableViewStyle)style
@@ -209,16 +215,6 @@ const CGFloat kPadding = 6;
         for(int i = 0; i < 10; i++){
             [_data addObject:[[GameObject alloc] init]];
         }
-        
-        SWRevealViewController *revealController = (SWRevealViewController*)[[(AppDelegate*)[[UIApplication sharedApplication]delegate] window] rootViewController];
-        
-        [revealController panGestureRecognizer];
-        [revealController tapGestureRecognizer];
-        
-        //Add an image to your project & set that image here.
-        UIBarButtonItem *revealButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"reveal-icon.png"]
-                                                                             style:UIBarButtonItemStylePlain target:self action:@selector(toggle:)];
-        self.navigationItem.leftBarButtonItem = revealButtonItem;
     }
     
     return self;
@@ -234,6 +230,16 @@ const CGFloat kPadding = 6;
     
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
+}
+
+-(void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    self.revealViewController.panGestureRecognizer.enabled=NO;
+}
+
+-(void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    self.revealViewController.panGestureRecognizer.enabled=YES;
 }
 
 - (void)didReceiveMemoryWarning {
@@ -279,6 +285,12 @@ const CGFloat kPadding = 6;
     GameObject *obj = _data[indexPath.row];
     
     cell.gameNameLabel.text = obj.gameName;
+    
+    //TODO this should be the game ID not just the row
+    cell.joinGameButton.tag = indexPath.row;
+    [cell.joinGameButton addTarget:self
+                            action:@selector(joinGameButtonPressed:)
+                  forControlEvents:UIControlEventTouchUpInside];
     cell.numberOfPlayersLabel.text = [NSString stringWithFormat:@"Number of players: %d/6", obj.numberOfPlayers];
     [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
     

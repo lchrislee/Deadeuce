@@ -8,10 +8,11 @@
 
 #import <UIKit/UIKit.h>
 
-@interface AccusalResultsViewController : UIViewController<UITableViewDataSource,UITableViewDelegate>
+@interface DecisionResultViewController : UIViewController<UITableViewDataSource,UITableViewDelegate>
 {
       UITableView* _tableView;
 }
 @property (nonatomic, strong) NSArray* data;
 
+-(instancetype)initWithDecisionType:(NSString*)decisionType andOptions:(NSArray*)options;
 @end

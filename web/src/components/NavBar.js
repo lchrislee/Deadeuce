@@ -10,7 +10,7 @@ var NavBar = React.createClass({
                     <p><a href="index.html">Deadeuce</a></p>
                     <ul className="navLinks">
                         <li><Link to="/" activeClassName="active" onlyActiveOnIndex>Home</Link></li>
-                        <li><Link to="Games" activeClassName="active">Games</Link></li>
+                        <li><Link to="games" activeClassName="active">Games</Link></li>
                         <li><Link to="Profile" activeClassName="active">Profile</Link></li>
                     </ul>
                 </div>

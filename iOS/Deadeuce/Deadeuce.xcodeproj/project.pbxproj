@@ -8,6 +8,26 @@
 
 /* Begin PBXBuildFile section */
 		658381D40B455AB211108C0F /* libPods-Deadeuce.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F8CEAF6A7C2AD9DC5D9B6BE5 /* libPods-Deadeuce.a */; };
+		AA0A53821CB059A3005BA0A2 /* CurrentGameViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AA0A53811CB059A3005BA0A2 /* CurrentGameViewController.m */; };
+		AA0A53851CB0783F005BA0A2 /* GameEventObject.m in Sources */ = {isa = PBXBuildFile; fileRef = AA0A53841CB0783F005BA0A2 /* GameEventObject.m */; };
+		AA0A53951CB091BC005BA0A2 /* chevron down.png in Resources */ = {isa = PBXBuildFile; fileRef = AA0A53861CB091BC005BA0A2 /* chevron down.png */; };
+		AA0A53961CB091BC005BA0A2 /* Detective pad.png in Resources */ = {isa = PBXBuildFile; fileRef = AA0A53871CB091BC005BA0A2 /* Detective pad.png */; };
+		AA0A53971CB091BC005BA0A2 /* fingerprint.png in Resources */ = {isa = PBXBuildFile; fileRef = AA0A53881CB091BC005BA0A2 /* fingerprint.png */; };
+		AA0A53981CB091BC005BA0A2 /* magnifyingglass.png in Resources */ = {isa = PBXBuildFile; fileRef = AA0A53891CB091BC005BA0A2 /* magnifyingglass.png */; };
+		AA0A53991CB091BC005BA0A2 /* menu.png in Resources */ = {isa = PBXBuildFile; fileRef = AA0A538A1CB091BC005BA0A2 /* menu.png */; };
+		AA0A539A1CB091BC005BA0A2 /* Plus-inactive.png in Resources */ = {isa = PBXBuildFile; fileRef = AA0A538B1CB091BC005BA0A2 /* Plus-inactive.png */; };
+		AA0A539B1CB091BC005BA0A2 /* Plus.png in Resources */ = {isa = PBXBuildFile; fileRef = AA0A538C1CB091BC005BA0A2 /* Plus.png */; };
+		AA0A539C1CB091BC005BA0A2 /* selected.png in Resources */ = {isa = PBXBuildFile; fileRef = AA0A538D1CB091BC005BA0A2 /* selected.png */; };
+		AA0A539D1CB091BC005BA0A2 /* selectedgreen.png in Resources */ = {isa = PBXBuildFile; fileRef = AA0A538E1CB091BC005BA0A2 /* selectedgreen.png */; };
+		AA0A539E1CB091BC005BA0A2 /* user.png in Resources */ = {isa = PBXBuildFile; fileRef = AA0A538F1CB091BC005BA0A2 /* user.png */; };
+		AA0A539F1CB091BC005BA0A2 /* X.png in Resources */ = {isa = PBXBuildFile; fileRef = AA0A53901CB091BC005BA0A2 /* X.png */; };
+		AA0A53A01CB091BC005BA0A2 /* chevron down.svg in Resources */ = {isa = PBXBuildFile; fileRef = AA0A53911CB091BC005BA0A2 /* chevron down.svg */; };
+		AA0A53A11CB091BC005BA0A2 /* chevron small left.svg in Resources */ = {isa = PBXBuildFile; fileRef = AA0A53921CB091BC005BA0A2 /* chevron small left.svg */; };
+		AA0A53A21CB091BC005BA0A2 /* dark-curve-forest-rails.jpg in Resources */ = {isa = PBXBuildFile; fileRef = AA0A53931CB091BC005BA0A2 /* dark-curve-forest-rails.jpg */; };
+		AA0A53A31CB091BC005BA0A2 /* fingerprint.svg in Resources */ = {isa = PBXBuildFile; fileRef = AA0A53941CB091BC005BA0A2 /* fingerprint.svg */; };
+		AA0A53A51CB094D0005BA0A2 /* cropdark-curve-forest-rails.png in Resources */ = {isa = PBXBuildFile; fileRef = AA0A53A41CB094D0005BA0A2 /* cropdark-curve-forest-rails.png */; };
+		AA0A53A81CB0A0D4005BA0A2 /* SuggestTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AA0A53A71CB0A0D4005BA0A2 /* SuggestTableViewController.m */; };
+		AA0A53AB1CB0A916005BA0A2 /* ReviewSuggestionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AA0A53AA1CB0A916005BA0A2 /* ReviewSuggestionViewController.m */; };
 		AA4F954D1CAB27B000B2C2EA /* GameMapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AA4F954C1CAB27B000B2C2EA /* GameMapViewController.m */; };
 		AA7E1E9D1CA2128D0060901E /* GameObject.m in Sources */ = {isa = PBXBuildFile; fileRef = AA7E1E9C1CA2128D0060901E /* GameObject.m */; };
 		AA7E1EA01CA215080060901E /* reveal-icon.png in Resources */ = {isa = PBXBuildFile; fileRef = AA7E1E9F1CA215070060901E /* reveal-icon.png */; };
@@ -18,10 +38,9 @@
 		AA8542671C93DFAC006EA952 /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AA8542661C93DFAC006EA952 /* LoginViewController.m */; };
 		AA85426F1C93E8F6006EA952 /* LeftPanelViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AA85426E1C93E8F6006EA952 /* LeftPanelViewController.m */; };
 		AAC311C61C9FAFA6003862A8 /* DetectivePadTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AAC311C41C9FAFA6003862A8 /* DetectivePadTableViewController.m */; };
-		AAE42FD51CAC53E30037CABF /* AccusalResultsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AAE42FD41CAC53E30037CABF /* AccusalResultsViewController.m */; };
+		AAE42FD51CAC53E30037CABF /* DecisionResultViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AAE42FD41CAC53E30037CABF /* DecisionResultViewController.m */; };
 		AAF1297A1C93D73400BAE9F4 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = AAF129791C93D73400BAE9F4 /* main.m */; };
 		AAF1297D1C93D73400BAE9F4 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = AAF1297C1C93D73400BAE9F4 /* AppDelegate.m */; };
-		AAF129801C93D73400BAE9F4 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AAF1297F1C93D73400BAE9F4 /* ViewController.m */; };
 		AAF129851C93D73400BAE9F4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AAF129841C93D73400BAE9F4 /* Assets.xcassets */; };
 		AAF129881C93D73400BAE9F4 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AAF129861C93D73400BAE9F4 /* LaunchScreen.storyboard */; };
 /* End PBXBuildFile section */
@@ -29,6 +48,30 @@
 /* Begin PBXFileReference section */
 		65187E06181161CBCB33A22C /* Pods-Deadeuce.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Deadeuce.release.xcconfig"; path = "Pods/Target Support Files/Pods-Deadeuce/Pods-Deadeuce.release.xcconfig"; sourceTree = "<group>"; };
 		65D230B2EEA7C12EC178DBAB /* Pods-Deadeuce.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Deadeuce.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Deadeuce/Pods-Deadeuce.debug.xcconfig"; sourceTree = "<group>"; };
+		AA0A53801CB059A3005BA0A2 /* CurrentGameViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CurrentGameViewController.h; sourceTree = "<group>"; };
+		AA0A53811CB059A3005BA0A2 /* CurrentGameViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CurrentGameViewController.m; sourceTree = "<group>"; };
+		AA0A53831CB0783F005BA0A2 /* GameEventObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameEventObject.h; sourceTree = "<group>"; };
+		AA0A53841CB0783F005BA0A2 /* GameEventObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameEventObject.m; sourceTree = "<group>"; };
+		AA0A53861CB091BC005BA0A2 /* chevron down.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "chevron down.png"; sourceTree = "<group>"; };
+		AA0A53871CB091BC005BA0A2 /* Detective pad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Detective pad.png"; sourceTree = "<group>"; };
+		AA0A53881CB091BC005BA0A2 /* fingerprint.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = fingerprint.png; sourceTree = "<group>"; };
+		AA0A53891CB091BC005BA0A2 /* magnifyingglass.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = magnifyingglass.png; sourceTree = "<group>"; };
+		AA0A538A1CB091BC005BA0A2 /* menu.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = menu.png; sourceTree = "<group>"; };
+		AA0A538B1CB091BC005BA0A2 /* Plus-inactive.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Plus-inactive.png"; sourceTree = "<group>"; };
+		AA0A538C1CB091BC005BA0A2 /* Plus.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Plus.png; sourceTree = "<group>"; };
+		AA0A538D1CB091BC005BA0A2 /* selected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = selected.png; sourceTree = "<group>"; };
+		AA0A538E1CB091BC005BA0A2 /* selectedgreen.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = selectedgreen.png; sourceTree = "<group>"; };
+		AA0A538F1CB091BC005BA0A2 /* user.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = user.png; sourceTree = "<group>"; };
+		AA0A53901CB091BC005BA0A2 /* X.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = X.png; sourceTree = "<group>"; };
+		AA0A53911CB091BC005BA0A2 /* chevron down.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "chevron down.svg"; sourceTree = "<group>"; };
+		AA0A53921CB091BC005BA0A2 /* chevron small left.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "chevron small left.svg"; sourceTree = "<group>"; };
+		AA0A53931CB091BC005BA0A2 /* dark-curve-forest-rails.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "dark-curve-forest-rails.jpg"; sourceTree = "<group>"; };
+		AA0A53941CB091BC005BA0A2 /* fingerprint.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = fingerprint.svg; sourceTree = "<group>"; };
+		AA0A53A41CB094D0005BA0A2 /* cropdark-curve-forest-rails.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "cropdark-curve-forest-rails.png"; sourceTree = "<group>"; };
+		AA0A53A61CB0A0D4005BA0A2 /* SuggestTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SuggestTableViewController.h; sourceTree = "<group>"; };
+		AA0A53A71CB0A0D4005BA0A2 /* SuggestTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SuggestTableViewController.m; sourceTree = "<group>"; };
+		AA0A53A91CB0A916005BA0A2 /* ReviewSuggestionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReviewSuggestionViewController.h; sourceTree = "<group>"; };
+		AA0A53AA1CB0A916005BA0A2 /* ReviewSuggestionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ReviewSuggestionViewController.m; sourceTree = "<group>"; };
 		AA4F954B1CAB27B000B2C2EA /* GameMapViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameMapViewController.h; sourceTree = "<group>"; };
 		AA4F954C1CAB27B000B2C2EA /* GameMapViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameMapViewController.m; sourceTree = "<group>"; };
 		AA7E1E9B1CA2128D0060901E /* GameObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameObject.h; sourceTree = "<group>"; };
@@ -45,14 +88,12 @@
 		AA85426E1C93E8F6006EA952 /* LeftPanelViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LeftPanelViewController.m; sourceTree = "<group>"; };
 		AAC311C41C9FAFA6003862A8 /* DetectivePadTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DetectivePadTableViewController.m; sourceTree = "<group>"; };
 		AAC311C51C9FAFA6003862A8 /* DetectivePadTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DetectivePadTableViewController.h; sourceTree = "<group>"; };
-		AAE42FD31CAC53E30037CABF /* AccusalResultsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AccusalResultsViewController.h; sourceTree = "<group>"; };
-		AAE42FD41CAC53E30037CABF /* AccusalResultsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AccusalResultsViewController.m; sourceTree = "<group>"; };
+		AAE42FD31CAC53E30037CABF /* DecisionResultViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DecisionResultViewController.h; sourceTree = "<group>"; };
+		AAE42FD41CAC53E30037CABF /* DecisionResultViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DecisionResultViewController.m; sourceTree = "<group>"; };
 		AAF129751C93D73400BAE9F4 /* Deadeuce.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Deadeuce.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AAF129791C93D73400BAE9F4 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		AAF1297B1C93D73400BAE9F4 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		AAF1297C1C93D73400BAE9F4 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		AAF1297E1C93D73400BAE9F4 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
-		AAF1297F1C93D73400BAE9F4 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
 		AAF129841C93D73400BAE9F4 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		AAF129871C93D73400BAE9F4 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		AAF129891C93D73400BAE9F4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -87,6 +128,8 @@
 			children = (
 				AA7E1E9B1CA2128D0060901E /* GameObject.h */,
 				AA7E1E9C1CA2128D0060901E /* GameObject.m */,
+				AA0A53831CB0783F005BA0A2 /* GameEventObject.h */,
+				AA0A53841CB0783F005BA0A2 /* GameEventObject.m */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -94,6 +137,22 @@
 		AA7E1E9E1CA214F30060901E /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				AA0A53A41CB094D0005BA0A2 /* cropdark-curve-forest-rails.png */,
+				AA0A53861CB091BC005BA0A2 /* chevron down.png */,
+				AA0A53871CB091BC005BA0A2 /* Detective pad.png */,
+				AA0A53881CB091BC005BA0A2 /* fingerprint.png */,
+				AA0A53891CB091BC005BA0A2 /* magnifyingglass.png */,
+				AA0A538A1CB091BC005BA0A2 /* menu.png */,
+				AA0A538B1CB091BC005BA0A2 /* Plus-inactive.png */,
+				AA0A538C1CB091BC005BA0A2 /* Plus.png */,
+				AA0A538D1CB091BC005BA0A2 /* selected.png */,
+				AA0A538E1CB091BC005BA0A2 /* selectedgreen.png */,
+				AA0A538F1CB091BC005BA0A2 /* user.png */,
+				AA0A53901CB091BC005BA0A2 /* X.png */,
+				AA0A53911CB091BC005BA0A2 /* chevron down.svg */,
+				AA0A53921CB091BC005BA0A2 /* chevron small left.svg */,
+				AA0A53931CB091BC005BA0A2 /* dark-curve-forest-rails.jpg */,
+				AA0A53941CB091BC005BA0A2 /* fingerprint.svg */,
 				AA7E1EA11CA2592E0060901E /* facebook.png */,
 				AA7E1E9F1CA215070060901E /* reveal-icon.png */,
 			);
@@ -125,6 +184,10 @@
 				AA7E1E9A1CA212770060901E /* Model */,
 				AA85426D1C93E8F6006EA952 /* LeftPanelViewController.h */,
 				AA85426E1C93E8F6006EA952 /* LeftPanelViewController.m */,
+				AA0A53A61CB0A0D4005BA0A2 /* SuggestTableViewController.h */,
+				AA0A53A71CB0A0D4005BA0A2 /* SuggestTableViewController.m */,
+				AA0A53A91CB0A916005BA0A2 /* ReviewSuggestionViewController.h */,
+				AA0A53AA1CB0A916005BA0A2 /* ReviewSuggestionViewController.m */,
 				AAF1297B1C93D73400BAE9F4 /* AppDelegate.h */,
 				AAF1297C1C93D73400BAE9F4 /* AppDelegate.m */,
 				AA8542651C93DFAC006EA952 /* LoginViewController.h */,
@@ -133,16 +196,16 @@
 				AA8542631C93DF1A006EA952 /* LobbyTableViewController.m */,
 				AAC311C41C9FAFA6003862A8 /* DetectivePadTableViewController.m */,
 				AAC311C51C9FAFA6003862A8 /* DetectivePadTableViewController.h */,
-				AAF1297E1C93D73400BAE9F4 /* ViewController.h */,
-				AAF1297F1C93D73400BAE9F4 /* ViewController.m */,
 				AAF129841C93D73400BAE9F4 /* Assets.xcassets */,
 				AAF129861C93D73400BAE9F4 /* LaunchScreen.storyboard */,
 				AAF129891C93D73400BAE9F4 /* Info.plist */,
 				AAF129781C93D73400BAE9F4 /* Supporting Files */,
 				AA4F954B1CAB27B000B2C2EA /* GameMapViewController.h */,
 				AA4F954C1CAB27B000B2C2EA /* GameMapViewController.m */,
-				AAE42FD31CAC53E30037CABF /* AccusalResultsViewController.h */,
-				AAE42FD41CAC53E30037CABF /* AccusalResultsViewController.m */,
+				AAE42FD31CAC53E30037CABF /* DecisionResultViewController.h */,
+				AAE42FD41CAC53E30037CABF /* DecisionResultViewController.m */,
+				AA0A53801CB059A3005BA0A2 /* CurrentGameViewController.h */,
+				AA0A53811CB059A3005BA0A2 /* CurrentGameViewController.m */,
 			);
 			path = Deadeuce;
 			sourceTree = "<group>";
@@ -225,10 +288,26 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AA0A53A11CB091BC005BA0A2 /* chevron small left.svg in Resources */,
+				AA0A539C1CB091BC005BA0A2 /* selected.png in Resources */,
 				AAF129881C93D73400BAE9F4 /* LaunchScreen.storyboard in Resources */,
+				AA0A53981CB091BC005BA0A2 /* magnifyingglass.png in Resources */,
+				AA0A53991CB091BC005BA0A2 /* menu.png in Resources */,
+				AA0A539E1CB091BC005BA0A2 /* user.png in Resources */,
+				AA0A53A51CB094D0005BA0A2 /* cropdark-curve-forest-rails.png in Resources */,
 				AA7E1EA21CA2592E0060901E /* facebook.png in Resources */,
+				AA0A53A31CB091BC005BA0A2 /* fingerprint.svg in Resources */,
+				AA0A539F1CB091BC005BA0A2 /* X.png in Resources */,
+				AA0A53971CB091BC005BA0A2 /* fingerprint.png in Resources */,
 				AAF129851C93D73400BAE9F4 /* Assets.xcassets in Resources */,
+				AA0A539A1CB091BC005BA0A2 /* Plus-inactive.png in Resources */,
+				AA0A53951CB091BC005BA0A2 /* chevron down.png in Resources */,
+				AA0A53A01CB091BC005BA0A2 /* chevron down.svg in Resources */,
+				AA0A539D1CB091BC005BA0A2 /* selectedgreen.png in Resources */,
+				AA0A53961CB091BC005BA0A2 /* Detective pad.png in Resources */,
 				AA7E1EA01CA215080060901E /* reveal-icon.png in Resources */,
+				AA0A53A21CB091BC005BA0A2 /* dark-curve-forest-rails.jpg in Resources */,
+				AA0A539B1CB091BC005BA0A2 /* Plus.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -292,11 +371,14 @@
 				AA85426F1C93E8F6006EA952 /* LeftPanelViewController.m in Sources */,
 				AA4F954D1CAB27B000B2C2EA /* GameMapViewController.m in Sources */,
 				AA8542641C93DF1A006EA952 /* LobbyTableViewController.m in Sources */,
-				AAF129801C93D73400BAE9F4 /* ViewController.m in Sources */,
-				AAE42FD51CAC53E30037CABF /* AccusalResultsViewController.m in Sources */,
+				AAE42FD51CAC53E30037CABF /* DecisionResultViewController.m in Sources */,
+				AA0A53821CB059A3005BA0A2 /* CurrentGameViewController.m in Sources */,
 				AAF1297D1C93D73400BAE9F4 /* AppDelegate.m in Sources */,
 				AAF1297A1C93D73400BAE9F4 /* main.m in Sources */,
 				AA8542671C93DFAC006EA952 /* LoginViewController.m in Sources */,
+				AA0A53AB1CB0A916005BA0A2 /* ReviewSuggestionViewController.m in Sources */,
+				AA0A53A81CB0A0D4005BA0A2 /* SuggestTableViewController.m in Sources */,
+				AA0A53851CB0783F005BA0A2 /* GameEventObject.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

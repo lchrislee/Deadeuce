@@ -1,40 +1,63 @@
 //
-//  DetectivePadTableViewController.m
+//  SuggestTableViewController.m
 //  Deadeuce
 //
-//  Created by Alex on 3/12/16.
+//  Created by Omar Khulusi on 4/2/16.
 //  Copyright © 2016 Deadeuce. All rights reserved.
 //
 
-#import "DetectivePadTableViewController.h"
+#import "SuggestTableViewController.h"
 #import <SWRevealViewController.h>
+#import "ReviewSuggestionViewController.h"
 
-@interface DetectivePadTableViewController ()
+@interface SuggestTableViewController ()
+
+@property NSInteger selectedLocationIndex;
+@property NSInteger selectedWeaponIndex;
+@property NSInteger selectedPersonIndex;
 
 @end
 
-@implementation DetectivePadTableViewController
+@implementation SuggestTableViewController
 
 -(void)dismiss:(id)sender
 {
     [self.navigationController popViewControllerAnimated:YES];
+}
+-(void)nextButtonPressed:(id)sender
+{
+    ReviewSuggestionViewController * rSVc = [[ReviewSuggestionViewController alloc]
+                                             initWithLocation:self.locations[_selectedLocationIndex]
+                                             weapon:self.weapons[_selectedWeaponIndex]
+                                             person:self.people[_selectedPersonIndex]];
+    [self.navigationController pushViewController:rSVc animated:YES];
 }
 
 - (instancetype)initWithStyle:(UITableViewStyle)style
 {
     if (self = [super initWithStyle:style])
     {
-        self.navigationItem.title = @"Detective Pad";
+        _selectedLocationIndex = -1;
+        _selectedWeaponIndex = -1;
+        _selectedPersonIndex = -1;
+        
+        self.navigationItem.title = @"Suggest";
         self.sectionData = @[@"Location", @"Weapons", @"People"];
-        self.locations = @[@"Ground Zero (You are currently here)"];
+        self.locations = @[@"Ground Zero (you are currently here)", @"Lyon Center", @"Leavey Library",
+                           @"Traddies", @"The 90", @"Bovard",
+                           @"EVK", @"The Row", @"Campus Center"];
         self.weapons = @[@"empty soda cans", @"overly sharp skittles wrapper", @"tommy trojan's sword",
                          @"EVKitty's left paw", @"freshman on a longboard", @"rotten chanos nachos"];
         self.people = @[ @"Trina Gregory", @"Cody Kessler", @"Tommy Trojan",
-                            @"Max Nikias", @"Will Ferrell", @"Bob Saget"];
+                         @"Max Nikias", @"Will Ferrell", @"Bob Saget"];
         
         UIBarButtonItem * cancelButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"X.png"]
-                                                                             style:UIBarButtonItemStylePlain target:self action:@selector(dismiss:)];
+                                                                              style:UIBarButtonItemStylePlain target:self action:@selector(dismiss:)];
         self.navigationItem.leftBarButtonItem = cancelButtonItem;
+        
+        UIBarButtonItem *nextButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Next" style:UIBarButtonItemStyleDone target:self action:@selector(nextButtonPressed:)];
+        [nextButtonItem setEnabled:NO];
+        self.navigationItem.rightBarButtonItem = nextButtonItem;
     }
     
     return self;
@@ -104,6 +127,28 @@
     return retVal;
 }
 
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    switch(indexPath.section)
+    {
+        case 0:
+            _selectedLocationIndex = indexPath.row;
+            break;
+        case 1:
+            _selectedWeaponIndex = indexPath.row;
+            break;
+        default:
+            _selectedPersonIndex = indexPath.row;
+            break;
+    }
+    
+    if(_selectedPersonIndex != -1 && _selectedWeaponIndex != -1 && _selectedLocationIndex != -1){
+        [self.navigationItem.rightBarButtonItem setEnabled:YES];
+    }
+    
+    //Hackathon quality strikes again
+    [tableView reloadData];
+}
+
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     static NSString *cellIdentifier = @"Cell";
@@ -118,12 +163,27 @@
     switch(indexPath.section)
     {
         case 0:
+            if(_selectedLocationIndex == indexPath.row){
+                [cell.imageView setImage:[UIImage imageNamed:@"selected.png"]];
+            } else {
+                [cell.imageView setImage:nil];
+            }
             text = self.locations[indexPath.row];
             break;
         case 1:
+            if(_selectedWeaponIndex == indexPath.row){
+                [cell.imageView setImage:[UIImage imageNamed:@"selected.png"]];
+            } else {
+                [cell.imageView setImage:nil];
+            }
             text = self.weapons[indexPath.row];
             break;
         default:
+            if(_selectedPersonIndex == indexPath.row){
+                [cell.imageView setImage:[UIImage imageNamed:@"selected.png"]];
+            } else {
+                [cell.imageView setImage:nil];
+            }
             text = self.people[indexPath.row];
             break;
     }
