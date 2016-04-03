@@ -9,6 +9,7 @@
 #import "CurrentGameViewController.h"
 #import <SWRevealViewController.h>
 #import "DetectivePadTableViewController.h"
+#import "SuggestTableViewController.h"
 #import "GameEventObject.h"
 #import "AppDelegate.h"
 
@@ -138,8 +139,8 @@ const CGFloat kPadding3 = 6;
 
 -(void)suggestButtonPressed:(id)sender
 {
-    DetectivePadTableViewController * detectivePadVc = [[DetectivePadTableViewController alloc] initWithStyle:UITableViewStyleGrouped];
-    [self.navigationController pushViewController:detectivePadVc animated:YES];
+    SuggestTableViewController * sVc = [[SuggestTableViewController alloc] initWithStyle:UITableViewStyleGrouped];
+    [self.navigationController pushViewController:sVc animated:YES];
 }
 
 -(void)detectivePadButtonPressed:(id)sender

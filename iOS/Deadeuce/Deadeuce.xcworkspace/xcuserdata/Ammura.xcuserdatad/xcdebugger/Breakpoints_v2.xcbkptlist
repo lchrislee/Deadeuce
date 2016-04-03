@@ -74,11 +74,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Deadeuce/DetectivePadTableViewController.m"
-            timestampString = "481335523.615134"
+            timestampString = "481338414.349812"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "94"
-            endingLineNumber = "94"
+            startingLineNumber = "87"
+            endingLineNumber = "87"
             landmarkName = "-tableView:viewForHeaderInSection:"
             landmarkType = "5">
          </BreakpointContent>
@@ -138,11 +138,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Deadeuce/DetectivePadTableViewController.m"
-            timestampString = "481335096.662115"
+            timestampString = "481338296.773662"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "25"
-            endingLineNumber = "25"
+            startingLineNumber = "20"
+            endingLineNumber = "20"
             landmarkName = "-dismiss:"
             landmarkType = "5">
          </BreakpointContent>

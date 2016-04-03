@@ -1,42 +1,50 @@
 //
-//  DetectivePadTableViewController.m
+//  SuggestTableViewController.m
 //  Deadeuce
 //
-//  Created by Alex on 3/12/16.
+//  Created by Omar Khulusi on 4/2/16.
 //  Copyright © 2016 Deadeuce. All rights reserved.
 //
 
-#import "DetectivePadTableViewController.h"
+#import "SuggestTableViewController.h"
 #import <SWRevealViewController.h>
 
-@interface DetectivePadTableViewController ()
+
+@interface SuggestTableViewController ()
 
 @end
 
-@implementation DetectivePadTableViewController
+@implementation SuggestTableViewController
 
 -(void)dismiss:(id)sender
 {
     [self.navigationController popViewControllerAnimated:YES];
+}
+-(void)nextButtonPressed:(id)sender
+{
+//    DetectivePadTableViewController * detectivePadVc = [[DetectivePadTableViewController alloc] initWithStyle:UITableViewStyleGrouped];
+//    [self.navigationController pushViewController:detectivePadVc animated:YES];
 }
 
 - (instancetype)initWithStyle:(UITableViewStyle)style
 {
     if (self = [super initWithStyle:style])
     {
-        self.navigationItem.title = @"Detective Pad";
+        self.navigationItem.title = @"Suggest";
         self.sectionData = @[@"Location", @"Weapons", @"People"];
-        self.locations = @[@"Ground Zero (You are currently here)"];
+        self.locations = @[@"Ground Zero (you are currently here)", @"Lyon Center", @"Leavey Library",
+                           @"Traddies", @"The 90", @"Bovard",
+                           @"EVK", @"The Row", @"Campus Center"];
         self.weapons = @[@"empty soda cans", @"overly sharp skittles wrapper", @"tommy trojan's sword",
                          @"EVKitty's left paw", @"freshman on a longboard", @"rotten chanos nachos"];
         self.people = @[ @"Trina Gregory", @"Cody Kessler", @"Tommy Trojan",
-                            @"Max Nikias", @"Will Ferrell", @"Bob Saget"];
+                         @"Max Nikias", @"Will Ferrell", @"Bob Saget"];
         
         UIBarButtonItem * cancelButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"X.png"]
-                                                                             style:UIBarButtonItemStylePlain target:self action:@selector(dismiss:)];
+                                                                              style:UIBarButtonItemStylePlain target:self action:@selector(dismiss:)];
         self.navigationItem.leftBarButtonItem = cancelButtonItem;
-        UIBarButtonItem *doneButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(dismiss:)];
-        self.navigationItem.rightBarButtonItem = doneButtonItem;
+        UIBarButtonItem *nextButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(nextButtonPressed:)];
+        self.navigationItem.rightBarButtonItem = nextButtonItem;
     }
     
     return self;

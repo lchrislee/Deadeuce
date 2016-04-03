@@ -117,7 +117,7 @@ int count = 0;
 - (void)setupArray
 {
     _presentedRow = -1;
-    NSArray *data = @[@"Game Map", @"Accusal Results", @"Current Game"];
+    NSArray *data = @[@"Game Feed", @"Game Map"];
     
     self.rowTitles = [NSMutableArray arrayWithArray:data];
     
@@ -167,12 +167,10 @@ int count = 0;
     
     UIViewController *newFrontController = nil;
     
-    if ([selection isEqual:@"Game Map"]){
-        newFrontController = [[GameMapViewController alloc] init];
-    } else if ([selection isEqual:@"Accusal Results"]){
-        newFrontController = [[AccusalResultsViewController alloc] init];
-    } else if ([selection isEqual:@"Current Game"]){
+    if ([selection isEqual:@"Game Feed"]){
         newFrontController = [[CurrentGameViewController alloc] init];
+    } else if ([selection isEqual:@"Game Map"]){
+        newFrontController = [[GameMapViewController alloc] init];
     }
     
     UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:newFrontController];
