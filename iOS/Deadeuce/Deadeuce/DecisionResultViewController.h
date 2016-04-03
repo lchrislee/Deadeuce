@@ -14,5 +14,5 @@
 }
 @property (nonatomic, strong) NSArray* data;
 
--(instancetype)initWithDecisionType:(NSString*)decisionType;
+-(instancetype)initWithDecisionType:(NSString*)decisionType andOptions:(NSArray*)options;
 @end

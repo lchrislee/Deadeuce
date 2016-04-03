@@ -34,7 +34,7 @@
                                  actionWithTitle:@"Yes"
                                  style:UIAlertActionStyleDefault
                                  handler:^(UIAlertAction * _Nonnull action) {
-                                     DecisionResultViewController * dRVc = [[DecisionResultViewController alloc] initWithDecisionType:@"Suggestion"];
+                                     DecisionResultViewController * dRVc = [[DecisionResultViewController alloc] initWithDecisionType:@"Suggestion" andOptions:[self.data copy]];
                                     [self.navigationController pushViewController:dRVc animated:YES];
                                 }];
     [alertController addAction:noAction];
@@ -55,7 +55,7 @@
                                 actionWithTitle:@"Okay"
                                 style:UIAlertActionStyleDefault
                                 handler:^(UIAlertAction * _Nonnull action) {
-                                    DecisionResultViewController * dRVc = [[DecisionResultViewController alloc] initWithDecisionType:@"Accusal"];
+                                    DecisionResultViewController * dRVc = [[DecisionResultViewController alloc] initWithDecisionType:@"Accusal" andOptions:[self.data copy]];
                                     [self.navigationController pushViewController:dRVc animated:YES];
                                 }];
     [alertController addAction:noAction];
