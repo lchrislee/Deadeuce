@@ -1,7 +1,24 @@
 * {
     font-family: 'Montserrat', sans-serif;
 }
+.example-face-left-blue{
+    float: left;
+    background-color: blue;
+}
+.example-face-left-black{
+    float: left;
+    background-color: black;
+}
 
+.example-face-right-blue{
+    float: right;
+    background-color: blue;
+}
+
+.example-face-right-black{
+    float: right;
+    background-color: black;
+}
 /******************************************************************
 Example Modal
 *******************************************************************/
