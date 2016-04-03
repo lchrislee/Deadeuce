@@ -12,6 +12,8 @@
 #import "LobbyTableViewController.h"
 #import <SWRevealViewController.h>
 
+#import "DeadeuceCaller.h"
+
 @interface LoginViewController ()
 
 @property (nonatomic, strong) UIImageView *bgImageView;
@@ -104,7 +106,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+    [[DeadeuceCaller sharedCaller] testSlice: @{@"Hello": @"World", @"TEST": @"RESULT"}];
     // Do any additional setup after loading the view.
 }
 
