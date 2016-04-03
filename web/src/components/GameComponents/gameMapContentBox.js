@@ -5,9 +5,11 @@ var React = require('react');
 var $ = require('jQuery');
 
 var GameMapContentBox = React.createClass({
+    contextTypes: {
+        router: React.PropTypes.object.isRequired
+    },
     getInitialState: function() {
         return{
-
         };
     },
 
@@ -20,7 +22,7 @@ var GameMapContentBox = React.createClass({
     },
 
     render: function(){
-        var playerLocations = [];
+        this.props.playerLocations=[i];
 
         return(
             <div className="mapBox">
