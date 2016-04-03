@@ -2,6 +2,7 @@ var React = require('react');
 var $ = require('jQuery');
 var Router = require('react-router');
 var ExampleModal = require('../components//ExampleModal/ExampleModal.js');
+var Picture = require('../components/Picture.js');
 
 var HomePage = React.createClass({
     contextTypes: {
@@ -23,7 +24,7 @@ var HomePage = React.createClass({
      <div>
       <div>This is the Deadeuce homepage!</div>
      	<div>{this.state.serverStatus}</div>
-      <button onClick={this.testSlice}>Ping the server</button>
+      <button onClick={this.testSlice}>Ping the server!</button>
       <button onClick={this.nextPage}>Go to next page!</button>
       <button onClick={this.toggleModal}>Toggle the Modal!</button>
         {this.state.modalIsVisible === true && 
@@ -31,7 +32,7 @@ var HomePage = React.createClass({
         }
 
         {this.props.children}
-
+        <Picture></Picture>
 
      </div>
     );

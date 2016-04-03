@@ -19,6 +19,7 @@ var HomePage = React.createClass({
         });
     },
   render: function() {
+    console.log("TEST1");
     return (
      <div>
       <div>This is the Deadeuce homepage!</div>
