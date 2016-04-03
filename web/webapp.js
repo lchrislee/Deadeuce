@@ -560,6 +560,14 @@ app.put('/updateUser', function(request, response){
 // USER INFORMATION
 app.get('/user', function(request, response){
   //this is the database call/logic/everything else
+  // user is just a test variable
+  var user = {
+    "username": "EVKiller",
+    "profPicUrl": "/DivePortrait.jpg",
+    "wins": "100",
+    "losses": "0",
+  };
+
   var userIDFind = request.body.userID;
 
      var cursor = db.collection('user').find( { "_id": userIDFind } );
