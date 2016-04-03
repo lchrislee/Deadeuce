@@ -1,87 +1,128 @@
 var React = require('react');
 var $ = require('jQuery');
+var GameMapContentBox = require('./gameMapContentBox.js');
 
 var GameMap = React.createClass({
     getInitialState: function() {
         return{
-
+            "gameID": undefined,
+            "userID": 'user1',
+            "gamePlayers": [],
+            "locations": [],
+            "playerLocations": [],
         };
     },
-render: function(){
+    findPlayerGame: function(e) {
+        e.preventDefault();
+
+        var stringified = JSON.stringify(userID);
+        $.ajax({
+            url: '/user/game',
+            type: 'GET',
+            contentType: "application/json",
+            dataType: 'json',
+            data: stringified,
+
+            success: function(data) {
+                console.log(data);
+                console.log(data.gameID);
+                this.setState({
+                    "gameID": data.gameID
+                });
+            }.bind(this),
+            error: function(xhr, status, err) {
+                console.log(err);
+                console.log(xhr);
+                this.setState({
+                    "serverStatus" : "Error in server request."
+                });
+            }.bind(this)
+        });
+    },
+
+    retrieveGamePlayers: function(e) {
+        e.preventDefault();
+
+        var stringified = JSON.stringify(gameID);
+        $.ajax({
+            url: '/game/users',
+            type: 'GET',
+            contentType: "application/json",
+            dataType: 'json',
+            data: stringified,
+
+            success: function(data) {
+                console.log(data);
+                console.log(data.users);
+                this.setState({
+                    "gamePlayers": data.users
+                });
+            }.bind(this),
+            error: function(xhr, status, err) {
+                console.log(err);
+                console.log(xhr);
+                this.setState({
+                    "serverStatus" : "Error in server request."
+                });
+            }.bind(this)
+        });
+    },
+
+    retrieveGameLocations: function(e) {
+        e.preventDefault();
+
+        var stringified = JSON.stringify(gameID);
+        $.ajax({
+            url: '/game/checklist',
+            type: 'GET',
+            contentType: "application/json",
+            dataType: 'json',
+            data: stringified,
+
+            success: function(data) {
+                console.log(data);
+                console.log(data.checklist);
+                this.setState({
+                    "locations": data.checklist.locations
+                });
+                assignPlayerLocations();
+            }.bind(this),
+            error: function(xhr, status, err) {
+                console.log(err);
+                console.log(xhr);
+                this.setState({
+                    "serverStatus" : "Error in server request."
+                });
+            }.bind(this)
+        });
+    },
+    assignPlayerLocations: function(e){
+        e.preventDefault();
+
+        for (i = 0; i < 6; i++) {
+            var locationIndex = Math.random()*9;
+            this.playerLocations[i] = {
+                "player": gamePlayers[i],
+                "location": this.locations[locationIndex]
+            };
+        }
+    },
+
+
+    render: function(){
     return(
-                  <div className="gameMap">
-                 <div className="mapRow-header firstRow">
-                     <div className="mapColumn" >
-                         <p className="mapHeader">LYON CENTER</p>
-                     </div>
-                     <div className="mapColumn" >
-                         <p className="mapHeader">LEAVEY LIBRARY</p>
-                     </div>
-                     <div className="mapColumn" >
-                         <p className="mapHeader">TRADDIES</p>
-                     </div>
-                 </div>
+        <div className="gameMap-wrapper">
+            <GameMapContentBox this.playerLocations/>
+            <GameMapContentBox />
+            <GameMapContentBox />
+            <GameMapContentBox />
+            <GameMapContentBox />
+            <GameMapContentBox />
+            <GameMapContentBox />
+            <GameMapContentBox />
+            <GameMapContentBox />
+        </div>
 
-                 <div className="mapRow-content">
-                     <div className="mapColumn" >
-                         <p className="mapContent"> - </p>
-                     </div>
-                     <div className="mapColumn mapContentBorder" >
-                         <p className="mapContent"> EVKitty <br/> George Tirebiter</p>
-                     </div>
-                     <div className="mapColumn" >
-                         <p className="mapContent"> - </p>
-                     </div>
-                 </div>
-
-                 <div className="mapRow-header">
-                     <div className="mapColumn" >
-                         <p className="mapHeader ">GROUND ZERO</p>
-                     </div>
-                     <div className="mapColumn" >
-                         <p className="mapHeader ">THE 90</p>
-                     </div>
-                     <div className="mapColumn" >
-                         <p className="mapHeader ">BOVARD</p>
-                     </div>
-                 </div>
-
-                 <div className="mapRow-content">
-                     <div className="mapColumn" >
-                         <p className="mapContent"> - </p>
-                     </div>
-                     <div className="mapColumn" >
-                         <p className="mapContent mapContentBorder"> - </p>
-                     </div>
-                     <div className="mapColumn" >
-                         <p className="mapContent"> Pete Carroll </p>
-                     </div>
-                 </div>
-
-                 <div className="mapRow-header">
-                     <div className="mapColumn" >
-                         <p className="mapHeader">EVK</p>
-                     </div>
-                     <div className="mapColumn" >
-                         <p className="mapHeader">THE ROW</p>
-                     </div>
-                     <div className="mapColumn" >
-                         <p className="mapHeader">CAMPUS CENTER</p>
-                     </div>
-                 </div>
-
-                 <div className="mapRow-content lastRow">
-                     <div className="mapColumn" >
-                         <p className="mapContent"> Will Ferrell</p>
-                     </div>
-                     <div className="mapColumn" >
-                         <p className="mapContent mapContentBorder"> President Nikias <br/> Tommy Trojan</p>
-                     </div>
-                     <div className="mapColumn" >
-                         <p className="mapContent"> - </p>
-                     </div>
-                 </div>
-         </div>
       );
     }
 });

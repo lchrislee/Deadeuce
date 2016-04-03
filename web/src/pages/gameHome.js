@@ -8,6 +8,7 @@ var GameMap = require('../components/GameComponents/gameMap.js');
 var TurnBox = require('../components/GameComponents/turnBox.js');
 var Checklist = require('../components/checklist.js')
 var SuggestAccuse = require('../components/Accuse/SuggestAccuse.js');
+var GameMapContentBox = require('../components/GameComponents/gameMapContentBox.js')
 
 var GameHome = React.createClass({
 	getInitialState: function() {
@@ -22,7 +23,7 @@ var GameHome = React.createClass({
     <TurnBox />
     <Checklist />
     <SuggestAccuse />
-
+         <GameMapContentBox />
     </div>
     );
   }
