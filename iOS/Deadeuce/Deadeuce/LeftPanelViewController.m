@@ -9,7 +9,6 @@
 #import "LeftPanelViewController.h"
 #import "SWRevealViewController.h"
 #import "LobbyTableViewController.h"
-#import "DetectivePadTableViewController.h"
 #import "GameMapViewController.h"
 #import "AccusalResultsViewController.h"
 #import "CurrentGameViewController.h"
@@ -118,7 +117,7 @@ int count = 0;
 - (void)setupArray
 {
     _presentedRow = -1;
-    NSArray *data = @[@"Lobby", @"Detective Pad", @"Game Map", @"Accusal Results", @"Current Game"];
+    NSArray *data = @[@"Game Map", @"Accusal Results", @"Current Game"];
     
     self.rowTitles = [NSMutableArray arrayWithArray:data];
     
@@ -168,11 +167,7 @@ int count = 0;
     
     UIViewController *newFrontController = nil;
     
-    if ([selection  isEqual: @"Lobby"]) {
-        newFrontController = [[LobbyTableViewController alloc] init];
-    } else if ([selection  isEqual: @"Detective Pad"]) {
-        newFrontController = [[DetectivePadTableViewController alloc] initWithStyle:UITableViewStyleGrouped];
-    } else if ([selection isEqual:@"Game Map"]){
+    if ([selection isEqual:@"Game Map"]){
         newFrontController = [[GameMapViewController alloc] init];
     } else if ([selection isEqual:@"Accusal Results"]){
         newFrontController = [[AccusalResultsViewController alloc] init];

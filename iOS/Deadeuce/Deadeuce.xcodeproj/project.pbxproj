@@ -25,6 +25,7 @@
 		AA0A53A11CB091BC005BA0A2 /* chevron small left.svg in Resources */ = {isa = PBXBuildFile; fileRef = AA0A53921CB091BC005BA0A2 /* chevron small left.svg */; };
 		AA0A53A21CB091BC005BA0A2 /* dark-curve-forest-rails.jpg in Resources */ = {isa = PBXBuildFile; fileRef = AA0A53931CB091BC005BA0A2 /* dark-curve-forest-rails.jpg */; };
 		AA0A53A31CB091BC005BA0A2 /* fingerprint.svg in Resources */ = {isa = PBXBuildFile; fileRef = AA0A53941CB091BC005BA0A2 /* fingerprint.svg */; };
+		AA0A53A51CB094D0005BA0A2 /* cropdark-curve-forest-rails.png in Resources */ = {isa = PBXBuildFile; fileRef = AA0A53A41CB094D0005BA0A2 /* cropdark-curve-forest-rails.png */; };
 		AA4F954D1CAB27B000B2C2EA /* GameMapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AA4F954C1CAB27B000B2C2EA /* GameMapViewController.m */; };
 		AA7E1E9D1CA2128D0060901E /* GameObject.m in Sources */ = {isa = PBXBuildFile; fileRef = AA7E1E9C1CA2128D0060901E /* GameObject.m */; };
 		AA7E1EA01CA215080060901E /* reveal-icon.png in Resources */ = {isa = PBXBuildFile; fileRef = AA7E1E9F1CA215070060901E /* reveal-icon.png */; };
@@ -65,6 +66,7 @@
 		AA0A53921CB091BC005BA0A2 /* chevron small left.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "chevron small left.svg"; sourceTree = "<group>"; };
 		AA0A53931CB091BC005BA0A2 /* dark-curve-forest-rails.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "dark-curve-forest-rails.jpg"; sourceTree = "<group>"; };
 		AA0A53941CB091BC005BA0A2 /* fingerprint.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = fingerprint.svg; sourceTree = "<group>"; };
+		AA0A53A41CB094D0005BA0A2 /* cropdark-curve-forest-rails.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "cropdark-curve-forest-rails.png"; sourceTree = "<group>"; };
 		AA4F954B1CAB27B000B2C2EA /* GameMapViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameMapViewController.h; sourceTree = "<group>"; };
 		AA4F954C1CAB27B000B2C2EA /* GameMapViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameMapViewController.m; sourceTree = "<group>"; };
 		AA7E1E9B1CA2128D0060901E /* GameObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameObject.h; sourceTree = "<group>"; };
@@ -132,6 +134,7 @@
 		AA7E1E9E1CA214F30060901E /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				AA0A53A41CB094D0005BA0A2 /* cropdark-curve-forest-rails.png */,
 				AA0A53861CB091BC005BA0A2 /* chevron down.png */,
 				AA0A53871CB091BC005BA0A2 /* Detective pad.png */,
 				AA0A53881CB091BC005BA0A2 /* fingerprint.png */,
@@ -286,6 +289,7 @@
 				AA0A53981CB091BC005BA0A2 /* magnifyingglass.png in Resources */,
 				AA0A53991CB091BC005BA0A2 /* menu.png in Resources */,
 				AA0A539E1CB091BC005BA0A2 /* user.png in Resources */,
+				AA0A53A51CB094D0005BA0A2 /* cropdark-curve-forest-rails.png in Resources */,
 				AA7E1EA21CA2592E0060901E /* facebook.png in Resources */,
 				AA0A53A31CB091BC005BA0A2 /* fingerprint.svg in Resources */,
 				AA0A539F1CB091BC005BA0A2 /* X.png in Resources */,

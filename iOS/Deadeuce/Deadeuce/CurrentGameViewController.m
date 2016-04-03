@@ -10,6 +10,7 @@
 #import <SWRevealViewController.h>
 #import "DetectivePadTableViewController.h"
 #import "GameEventObject.h"
+#import "AppDelegate.h"
 
 @interface GameEventTableViewCell : UITableViewCell
 
@@ -137,21 +138,27 @@ const CGFloat kPadding3 = 6;
 
 -(void)suggestButtonPressed:(id)sender
 {
-    //This button is casual af right now
+    DetectivePadTableViewController * detectivePadVc = [[DetectivePadTableViewController alloc] initWithStyle:UITableViewStyleGrouped];
+    [self.navigationController pushViewController:detectivePadVc animated:YES];
 }
 
 -(void)detectivePadButtonPressed:(id)sender
 {
-    DetectivePadTableViewController * detectivePadVc = [[DetectivePadTableViewController alloc] initWithStyle:UITableViewStylePlain];
-    UINavigationController *frontNavigationController = [[UINavigationController alloc] initWithRootViewController:detectivePadVc];
-    [self.revealViewController setFrontViewController:frontNavigationController animated:YES];
+    DetectivePadTableViewController * detectivePadVc = [[DetectivePadTableViewController alloc] initWithStyle:UITableViewStyleGrouped];
+    [self.navigationController pushViewController:detectivePadVc animated:YES];
 }
 
 - (instancetype)init
 {
     if (self = [super init])
     {
-        self.navigationItem.title = @"Deaduce";
+        self.navigationItem.title = @"Deadeuce";
+        
+        SWRevealViewController *revealController = (SWRevealViewController*)[[(AppDelegate*)[[UIApplication sharedApplication]delegate] window] rootViewController];
+        
+        [revealController panGestureRecognizer];
+        [revealController tapGestureRecognizer];
+        
         //Add an image to your project & set that image here.
         UIBarButtonItem *revealButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"reveal-icon.png"]
                                                                              style:UIBarButtonItemStylePlain target:self action:@selector(toggle:)];

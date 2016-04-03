@@ -56,7 +56,7 @@
     
     CGRect bgFrame = CGRectMake(0.0,0.0,screenWidth,screenHeight);
     self.bgImageView = [[UIImageView alloc] initWithFrame:bgFrame];
-    self.bgImageView.image=[UIImage imageNamed:@"dark-curve-forest-rails.jpg"];
+    self.bgImageView.image=[UIImage imageNamed:@"cropdark-curve-forest-rails.png"];
     
     self.submitButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
     [self.submitButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];

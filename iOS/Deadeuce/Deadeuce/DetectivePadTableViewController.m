@@ -7,7 +7,7 @@
 //
 
 #import "DetectivePadTableViewController.h"
-#import "SWRevealViewController.h"
+#import <SWRevealViewController.h>
 
 @interface DetectivePadTableViewController ()
 
@@ -18,6 +18,11 @@
 -(void)toggle:(id)sender
 {
     [self.revealViewController revealToggleAnimated:YES];
+}
+
+-(void)dismiss:(id)sender
+{
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 - (instancetype)initWithStyle:(UITableViewStyle)style
@@ -32,10 +37,11 @@
         self.people = @[ @"Trina Gregory", @"Cody Kessler", @"Tommy Trojan",
                             @"Max Nikias", @"Will Ferrell", @"Bob Saget"];
         
-        //Add an image to your project & set that image here.
-        UIBarButtonItem *revealButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"reveal-icon.png"]
-                                                                             style:UIBarButtonItemStylePlain target:self action:@selector(toggle:)];
-        self.navigationItem.leftBarButtonItem = revealButtonItem;
+        UIBarButtonItem * cancelButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"X.png"]
+                                                                             style:UIBarButtonItemStylePlain target:self action:@selector(dismiss:)];
+        self.navigationItem.leftBarButtonItem = cancelButtonItem;
+        UIBarButtonItem *doneButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(dismiss:)];
+        self.navigationItem.rightBarButtonItem = doneButtonItem;
     }
     
     return self;
