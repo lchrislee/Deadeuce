@@ -9,6 +9,7 @@ var TurnBox = require('../components/GameComponents/turnBox.js');
 var Checklist = require('../components/checklist.js')
 var SuggestAccuse = require('../components/Accuse/SuggestAccuse.js');
 var GameMapContentBox = require('../components/GameComponents/gameMapContentBox.js')
+var GameMap = require('../components/GameComponents/gameMap.js')
 
 var GameHome = React.createClass({
 	getInitialState: function() {
@@ -17,7 +18,7 @@ var GameHome = React.createClass({
         "userID": 'user1',
         "gamePlayers": [],
         "locations": [],
-        "playerLocations": [],
+
     };
   },
     findPlayerGame: function(e) {

@@ -8,31 +8,26 @@ var GameMapContentBox = React.createClass({
     contextTypes: {
         router: React.PropTypes.object.isRequired
     },
-    getInitialState: function() {
+    getInitialState: function(){
         return{
-        };
+            "location": "",
+            "players": ""
+        ;}
     },
-
-    generateMapHeader: function(){
-
-    },
-    generateMapContent: function(){
-
-
-    },
-
     render: function(){
-        this.props.playerLocations=[i];
+        "location" = this.props.data.header;
+        "players:" = this.props.data.playersThere;
 
         return(
             <div className="mapBox">
                 <div className="gameMapBoxHeader">
-                <p className="mapHeader"></p>
+                 <p className="mapHeader">{this.state.location}</p>
                 </div>
                 <div className="gameMapBoxBody">
-                    <p className="mapContent"></p>
+                    <p className="mapContent">  {this.state.players} </p>
                 </div>
             </div>
+
         );
     }
 });

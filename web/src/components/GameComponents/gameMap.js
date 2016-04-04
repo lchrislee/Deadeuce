@@ -8,7 +8,9 @@ var GameMap = React.createClass({
     },
     getInitialState: function() {
         return{
-
+            "locationsSorted": [],
+            "playerLocations": [],
+            "data": []
         };
     },
     assignPlayerLocations: function(e){
@@ -16,26 +18,53 @@ var GameMap = React.createClass({
 
         for (i = 0; i < 6; i++) {
             var locationIndex = Math.random()*9;
-            this.playerLocations[i] = {
-                "player": gamePlayers[i],
-                "location": this.locations[locationIndex]
-            };
-        }
+            this.state.playerLocations[i] = {
+                "player": this.props.gamePlayers[i],
+                "location": this.props.locations[locationIndex]
+            }
+        };
     },
 
+    sortLocations: function(e){
+        e.preventDefault();
+
+        for (i = 0; i < 9; i++) {
+            for(k=0; k<6; k++){
+                if(this.props.locations[i] == this.state.playerLocations.location[k])
+                {
+                    this.state.locationsSorted[i] += this.state.playerLocations.player[k];
+                }
+            }
+        };
+
+    },
 
     render: function(){
-    return(
+        this.assignPlayerLocations();
+        this.sortLocations();
+
+        for (i = 0; i < 9; i++) {
+            var header = this.props.location[i];
+            var playersThere = this.locationsSorted[i];
+            this.data = [header, playersThere];
+            return(
+                data[i].header = header,
+                data[i].playersThere = playersThere
+            )
+        }
+
+        return(
         <div className="gameMap-wrapper">
-            <GameMapContentBox />
-            <GameMapContentBox />
-            <GameMapContentBox />
-            <GameMapContentBox />
-            <GameMapContentBox />
-            <GameMapContentBox />
-            <GameMapContentBox />
-            <GameMapContentBox />
-            <GameMapContentBox />
+
+            {for (i = 0; i < 9; i++) {
+                var header = this.props.location[i];
+                var playersThere = this.locationsSorted[i];
+                var data = [header, playersThere];
+                return(
+                <GameMapContentBox data = {data} />
+                ),
+
+            }}
         </div>
 
       );
