@@ -34,7 +34,7 @@ var NoMatch = React.createClass({
 
 ReactDOM.render(
  (
-   <Router history={bHistory}>
+   <Router history={hashHistory}>
     <Route path="/" component = {Nav}>
       <IndexRoute component={HomePage}/>
       
