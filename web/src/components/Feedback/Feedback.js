@@ -1,14 +1,13 @@
 var React = require('react');
-var FeedbackContent = require('./FeedbackContent.js');
+var FeedbackCorrect = require('./FeedbackCorrect.js');
+var FeedbackWrong = require('./FeedbackWrong.js');
 
 var Feedback = React.createClass({ 
-  closeModal: function(evt) {
-    this.props.closeModal(evt);
-  },
   render: function() {
     return (
-      <div className="example-modal-wrapper">
-        <FeedbackContent closeModal={this.closeModal} />
+      <div className="feedback">
+        <FeedbackCorrect />
+        <FeedbackWrong />
       </div>
      );
   },

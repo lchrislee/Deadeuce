@@ -34,7 +34,7 @@ app.use(bodyParser.urlencoded({'extended':false})); // allows req.body to be par
 app.post('/test_slice', function(req, res){
   var payload = {
     test: "Test is successful!",
-    body: String(req.body)
+    body: JSON.stringify(req.body)
   };
   res.json(payload);
 });
@@ -262,6 +262,9 @@ app.put('/game/accuse', function(request, response){
   var gameID = request.body.gameID;
   var userID = request.body.userID;
   var suggestion = request.body.suggestion;
+  console.log(gameID);
+  console.log(userID);
+  console.log(suggestion  );
   if (gameID === undefined || userID === undefined || suggestion === undefined)
     response.sendStatus(400);
 
@@ -272,19 +275,8 @@ app.put('/game/accuse', function(request, response){
   if (weapon === undefined || suspect === undefined || place === undefined)
     response.sendStatus(400);
 
-//this is the database call/logic/everything else
+  var accusation = suggestion;
 
-  var gameID = request.body.gameID;
-  var userID = request.body.userID;
-  //var accusation = request.body.accusation;
-  var accusation;
-
-  console.log("here");
-  accusation = {
-    "user": "user1",
-    "location": "loc1",
-    "weapon" : "weapon1"
-  };
   var cursor = db.collection('game').find( { "_id": gameID } );
    cursor.each(function(err, doc) {
       if (doc != null) {
@@ -560,6 +552,14 @@ app.put('/updateUser', function(request, response){
 // USER INFORMATION
 app.get('/user', function(request, response){
   //this is the database call/logic/everything else
+  // user is just a test variable
+  var user = {
+    "username": "EVKiller",
+    "profPicUrl": "/DivePortrait.jpg",
+    "wins": "100",
+    "losses": "0",
+  };
+
   var userIDFind = request.body.userID;
 
      var cursor = db.collection('user').find( { "_id": userIDFind } );
