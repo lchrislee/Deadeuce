@@ -1,4 +1,5 @@
 var React = require('react');
+var $ = require('jQuery');
 
 var FeedbackWrong = React.createClass({ 
   render: function() {

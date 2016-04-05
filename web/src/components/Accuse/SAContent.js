@@ -4,23 +4,36 @@ var $ = require('jQuery');
 var SAContent = React.createClass({ 
   getInitialState: function() {
     return {
-      "suspect": 1,
-      "weapon": 2,
-      "location": 3
+      "suspect": [1,2,3,4,5,6],
+      "weapon": [1,2,3,4,5,6],
+      "place": [1,2,3,4,5,6,7,8,9],
+      "accusationType": "suggest"
     }
   },
   
   makeAccusation: function(e) {
     e.preventDefault();
     var accusation = {
-      "suspect": this.state.suspect,
       "weapon": this.state.weapon,
-      "location": this.state.location
+      "suspect": this.state.suspect,
+      "place": this.state.place
     };
-    var stringified = JSON.stringify(accusation);
+    console.log(accusation.weapon);
+    console.log(accusation.suspect);
+    console.log(accusation.place);
+    var sendMe = {"gameID":"1234", "userID":"1234", "suggestion":accusation};
+    var stringified = JSON.stringify(sendMe);
+
+    var url;
+    if (this.state.accusationType == "suggest"){
+      url = "/game/suggest";
+    }else if (this.state.accusationType == "accuse"){
+      url = "/game/accuse";
+    }
+
     $.ajax({
-      url: '/game/checklist',
-      type: 'GET',
+      url: url,
+      type: 'PUT',
       contentType: "application/json",
       dataType: 'json',
       data: stringified,
@@ -56,43 +69,26 @@ var SAContent = React.createClass({
           <div className="suggestAccuse">
               <form onSubmit={this.makeAccusation}>
                 <select onChange={this.selectSuspect} name="suspect">
-                  var i;
-                  for (i = 0; i < this.checklist.suspects.length; i++) {
-                    <option value={this.checklist.suspects[i]}>{this.checklist.suspects[i]}</option>
-                  }
-
-                  // <option value="evkitty">EVKitty</option>
-                  // <option value="tommytrojan">Tommy Trojan</option>
-                  // <option value="georgetirebiter">George Tirebiter</option>
-                  // <option value="presidentnikias">President Nikias</option>
-                  // <option value="willferrell">Will Ferrell</option>
-                  // <option value="petecarroll">Pete Carroll</option>
+                  {this.state.suspect.map(function(suspect){
+                    return <option value={suspect}>{suspect}</option>
+                  })}
                 </select>
                 <br/><br/>
-                <select onChange={this.selectWeapon} name="weapons">
-                  <option value="emptysodacans">Empty soda cans</option>
-                  <option value="viterbiclasses">Viterbi classes</option>
-                  <option value="ulock">U-lock</option>
-                  <option value="tommytrojanssword">Tommy Trojan's sword</option>
-                  <option value="dininghallfood">Dining hall food</option>
-                  <option value="longboard">Longboard</option>
+                <select onChange={this.selectWeapon} name="weapon">
+                  {this.state.weapon.map(function(weapon){
+                    return <option value={weapon}>{weapon}</option>
+                  })}
                 </select>
                 <br/><br/>
-                <select onChange={this.selectLocation} name="locations">
-                  <option value="groundzero">Ground Zero</option>
-                  <option value="lyoncenter">Lyon Center</option>
-                  <option value="leavey">Leavey</option>
-                  <option value="traddies">Traddies</option>
-                  <option value="the90">The 90</option>
-                  <option value="bovard">Bovard</option>
-                  <option value="evk">EVK</option>
-                  <option value="therow">The Row</option>
-                  <option value="campuscenter">Campus Center</option>
+                <select onChange={this.selectPlace} name="place">
+                  {this.state.place.map(function(place){
+                    return <option value={place}>{place}</option>
+                  })}
                 </select>
               <br/><br/>
-              <input type="radio" name="clueType" value="suggest" required />Suggestion
+              <input onChange={this.selectSuggest} type="radio" name="clueType" value="suggest" required />Suggestion
               <br/>
-              <input type="radio" name="clueType" value="accuse" required />Accusation
+              <input onChange={this.selectAccuse} type="radio" name="clueType" value="accuse" required />Accusation
               <br/><br/>
               <input type="submit" name="submitSA" />
               </form>
@@ -119,14 +115,30 @@ var SAContent = React.createClass({
       console.log(weapon);
     },
 
-  selectLocation: function(e) {
+  selectPlace: function(e) {
     e.preventDefault();
     var location = e.target.value;
       this.setState ({
-          "location": location
+          "place": place
       });
-      console.log(location);
-    }
+      console.log(place);
+    },
+
+  selectSuggest: function(e) {
+    e.preventDefault();
+    var suggest = e.target.value;
+      this.setState ({
+        "accusationType": "suggest"
+      });
+  },
+
+  selectAccuse: function(e) {
+    e.preventDefault();
+    var accuse = e.target.value;
+      this.setState ({
+        "accusationType": "accuse"
+      });
+  }
 });
 
 module.exports = SAContent;
