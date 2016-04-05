@@ -21,7 +21,6 @@ var ExitGame = require('./pages/ExitGame.js');
 var ReviewClues = require('./pages/ReviewClues.js');
 
 
-
 var NoMatch = React.createClass({
  render: function() {
    return (

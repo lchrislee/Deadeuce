@@ -44,9 +44,7 @@ app.post('/test_slice', function(req, res){
 *     GAMES on GAMES on GAMES     *
 *                                 *
 ***********************************/
-
-var temp_array_games = [];
-var temp_game_count = 0;
+var gameIDValues = 0;
 
 // CREATE GAME
 app.post('/createGame', function(request, response){
@@ -57,95 +55,59 @@ app.post('/createGame', function(request, response){
     response.sendStatus(400);
 
   var gameInfo = request.body.gameInfo;
-var cantCreate = false;
-gameInfo= {
-      "_id" : "game9"
-      ,
-      "title": "asdasd",
-      "weapons" : ["Knife","Gun","Bow"],
-      "locations" : ["THH","EVK","HOH"],
-      "turn": "user1",
-      "users" : {
-          "user1" : {
-             "auth": "auth1",
-             "hand": ["Knife","Gun"],
-             "checkList":{
-                "locations" : [
-                "location1",
-                "location2",
-                "location3",
-                "location4",
-                "location5",
-                "location6",
-                "location7",
-                "location8",
-                "location9"
-              ],
-              "weapons": [
-                "weapon1",
-                "weapon2",
-                "weapon3",
-                "weapon4",
-                "weapon5",
-                "weapon6"
-              ]
-             }
-          },
-          "user2":{
+  var cantCreate = false;
+  gameInfo= {
+    "_id" : String(gameIDValues++),
+    "title": gameName,
+    "weapons" : ["Empty Soda Cans",
+                 "Viterbi Finals",
+                 "U-Lock",
+                 "Tommy Trojan's Sword",
+                 "Dining Hall Food",
+                 "Freshman's Longboard"],
+    "locations" : ["Ground Zero",
+                   "EVK",
+                   "Lyon Center",
+                   "Leavey Library",
+                   "Traddies",
+                   "The 90",
+                   "Bovard",
+                   "The Row",
+                   "Campus Center"],
+    "turnIndex": 0,
+    "users" : {hostID
+              },
+    "answer": {"location":"EVK",
+               "weapon":"U-Lock",
+               "user":hostID}//,
+    // "usersId":[hostID]
+  };
 
-          }
-      },
-      "answer":{
-          "location":"loc1",
-          "weapon":"weapon1",
-          "user":"user1"
-      },
-      "usersId":["user1","user2"],
-      "accuse" : {
-           "message": "This ACCUSES in a specific game",
-            "user": "user1",
-           "weapon": "Knife",
-             "location": "THH"
+  function createGame(){
+    db.collection('game').insertOne(gameInfo, function(err, resultGame) {
+      console.log(resultGame);
+      var result = {};
+      if(!err){
+        result['gameID'] = resultGame.ops[0]._id;
+        response.json(result);
+      }else{
+        response.json(result);
       }
-       };
+    });
+  };
 
-function createGame(){
-      db.collection('game').insertOne(
-       gameInfo, function(err, resultGame) {
-	console.log(resultGame);
-          var result = {};
-          if(!err){
-              result['gameID'] = resultGame.ops[0]._id;
-              response.json(result);
-          }else{
-              response.json(result);
-          }
-      });
-};
-
-
-
-
-             db.collection('game').find({"title":gameInfo.title}).count(function(err, count) {
-            var result = {};
-            if(count >= 1){
-                cantCreate = true;
-            }
-            if(cantCreate){
-               result['result'] = "failed";
-              response.json(result);
-            }else{
-              createGame();
-            }
-   });
-
-
-  // temp_array_games.push(game);
-  // temp_game_count++;
-  // //this is the database call/logic/everything else
-  // response.json({"temp_message": "This CREATES a GAME",
-  //                "gameID":temp_array_games[temp_array_games.length-1],
-  //                "temp_array": temp_array_games});
+  db.collection('game').find({"title":gameInfo.title}).count(function(err, count) {
+    var result = {};
+    if(count >= 1){
+      cantCreate = true;
+    }
+    if(cantCreate){
+      result['result'] = "failed";
+      response.json(result);
+    }else{
+      createGame();
+    }
+  });
 });
 
 // JOIN GAME
@@ -155,71 +117,67 @@ app.put('/joinGame', function(request, response){
   if (gameID === undefined || userID === undefined)
     response.sendStatus(400);
 
-    var set = {};
-     var cursor = db.collection('game').find( { "_id": gameID } );
+  var set = {};
+  var cursor = db.collection('game').find( { "_id": gameID } );
 
-    cursor.each(function(err, doc) {
-      if (doc != null) {
-            var currentUserIDs = doc.usersId;
-            currentUserIDs[currentUserIDs.length] = userID;
-             set['users.' + userID] = {"_id": userID};
-            set['usersId'] = currentUserIDs;
+  cursor.each(function(err, doc) {
+  if (doc != null) {
+    var currentUserIDs = doc.usersId;
+    currentUserIDs[currentUserIDs.length] = userID;
+    set['users.' + userID] = {"_id": userID};
+    set['usersId'] = currentUserIDs;
 
-            var cantJoin = false;
-            if(doc.usersId != undefined){
-                if(doc.usersId.length >= doc.maxUser){
-                    cantJoin = true;
-                }
-            }
+    var cantJoin = false;
+    if(doc.usersId != undefined){
+      if(doc.usersId.length >= doc.maxUser){
+        cantJoin = true;
+      }
+    }
 
-            if(cantJoin){
-                result['joinSuccess'] = false;
-               response.json(result);
-            }
+    if(cantJoin){
+      result['joinSuccess'] = false;
+      response.json(result);
+    }
 
-            if(!cantJoin){
-                db.collection('game').updateOne(
-                  { "_id" : gameID  },
-                  { $set: set },
-                  function(err, results) {
-                    console.log(results);
-                    if(!err){
-                           var cursor = db.collection('user').find( { "_id": userID } );
-                              cursor.each(function(err, userdoc) {
-                                if (userdoc != null) {
-                                      var userGame = userdoc.game;
-                                      if(!userGame){
-                                        userGame = [];
-                                        userGame[userGame.length] = gameID;
-                                      }else{
-                                        userGame[userGame.length] = gameID;
-                                      }
-                                      db.collection('user').updateOne(
-                                        { "_id" : userID },
-                                        { $set: { "game": userGame} },
-                                        function(err, results) {
-                                       //   console.log(results);
-                                          if(!err){
-                                            result['joinSuccess'] = true;
-                                            result['nextTurn'] = nextTurn;
-                                            response.json(result);
-                                          }else{
-                                           result['joinSuccess'] = false;
-                                            response.json(result);
-                                          }
-                                     });
-
-                                }
-                              });
-
-                    }else{
-                      //error
-                      result['joinSuccess'] = false;
-                      response.json(result);
-                    }
+    if(!cantJoin){
+      db.collection('game').updateOne(
+        { "_id" : gameID  },
+        { $set: set },
+        function(err, results) {
+          console.log(results);
+          if(!err){
+            var cursor = db.collection('user').find( { "_id": userID } );
+            cursor.each(function(err, userdoc) {
+            if (userdoc != null) {
+              var userGame = userdoc.game;
+              if(!userGame){
+                userGame = [];
+                userGame[userGame.length] = gameID;
+              }else{
+                userGame[userGame.length] = gameID;
+              }
+              db.collection('user').updateOne(
+                { "_id" : userID },
+                { $set: { "game": userGame} },
+                function(err, results) {
+                  if(!err){
+                    result['joinSuccess'] = true;
+                    result['nextTurn'] = nextTurn;
+                    response.json(result);
+                  }else{
+                    result['joinSuccess'] = false;
+                    response.json(result);
+                  }
                 });
-
-            }
+              }
+            });
+          }else{
+            //error
+            result['joinSuccess'] = false;
+            response.json(result);
+          }
+        });
+        }
       } else {
       }
    });
@@ -248,12 +206,6 @@ app.get('/game', function(request, response){
         response.json({"game":undefined});
       }
    });
-  // for (var i = 0; i < temp_array_games.length; ++i){
-  //   if (temp_array_games[i].gameID == gameIDFind){
-  //     response.json(temp_array_games[i]);
-  //   }
-  // }
-
 });
 
 // WEAPONS in a GAME
@@ -608,6 +560,14 @@ app.put('/updateUser', function(request, response){
 // USER INFORMATION
 app.get('/user', function(request, response){
   //this is the database call/logic/everything else
+  // user is just a test variable
+  var user = {
+    "username": "EVKiller",
+    "profPicUrl": "/DivePortrait.jpg",
+    "wins": "100",
+    "losses": "0",
+  };
+
   var userIDFind = request.body.userID;
 
      var cursor = db.collection('user').find( { "_id": userIDFind } );
@@ -670,73 +630,14 @@ app.put('/user/game', function(request, response){
   response.json({"message": "This UPDATES user's current GAME"});
 });
 
-/**********************************
-*           BUGS R SCRY           *
-***********************************/
-
-/*
-  Use everything below this as a reference for REST endpoints,
-  MongoDB connections, Node.JS logic.
-*/
-
-
 /* This actually starts up the server while trying to connect to the
- * database. Cannot remove without copying the contents of the
- * function outside as standalone Node.JS code.
+ * database.
  */
 MongoClient.connect('mongodb://localhost:27017', function(err, dbConnection) {
-console.log("err is: " + err);
  db = dbConnection;
  var server = app.listen(process.env.PORT || 3000, function() {
       var port = server.address().port;
       console.log("Started server at port", port);
       console.log("Started at ", new Date().toUTCString());
- });
-});
-
-/* Get a list of filtered records */
-app.get('/api/bugs', function(req, res) {
- console.log("Query string", req.query);
- var filter = {};
- if (req.query.priority)
-   filter.priority = req.query.priority;
- if (req.query.status)
-   filter.status = req.query.status;
-
- db.collection("bugs").find(filter).toArray(function(err, docs) {
-   res.json(docs);
- });
-});
-
-// app.use(bodyParser.json());
-
-/* Insert a record */
-app.post('/api/bugs/', function(req, res) {
- console.log("Req body:", req.body);
- var newBug = req.body;
- db.collection("bugs").insertOne(newBug, function(err, result) {
-   var newId = result.insertedId;
-   db.collection("bugs").find({_id: newId}).next(function(err, doc) {
-     res.json(doc);
-   });
- });
-});
-
-/* Get a single record */
-app.get('/api/bugs/:id', function(req, res) {
- db.collection("bugs").findOne({_id: ObjectId(req.params.id)}, function(err, bug) {
-   res.json(bug);
- });
-});
-
-/* Modify one record, given its ID */
-app.put('/api/bugs/:id', function(req, res) {
- var bug = req.body;
- console.log("Modifying bug:", req.params.id, bug);
- var oid = ObjectId(req.params.id);
- db.collection("bugs").updateOne({_id: oid}, bug, function(err, result) {
-   db.collection("bugs").find({_id: oid}).next(function(err, doc) {
-     res.send(doc);
-   });
  });
 });

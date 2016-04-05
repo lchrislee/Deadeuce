@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		28B421931CB1780E00D5CE48 /* DeadeuceCaller.m in Sources */ = {isa = PBXBuildFile; fileRef = 28B421921CB1780E00D5CE48 /* DeadeuceCaller.m */; };
 		658381D40B455AB211108C0F /* libPods-Deadeuce.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F8CEAF6A7C2AD9DC5D9B6BE5 /* libPods-Deadeuce.a */; };
 		AA0A53821CB059A3005BA0A2 /* CurrentGameViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AA0A53811CB059A3005BA0A2 /* CurrentGameViewController.m */; };
 		AA0A53851CB0783F005BA0A2 /* GameEventObject.m in Sources */ = {isa = PBXBuildFile; fileRef = AA0A53841CB0783F005BA0A2 /* GameEventObject.m */; };
@@ -46,6 +47,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		28B421921CB1780E00D5CE48 /* DeadeuceCaller.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DeadeuceCaller.m; path = Controller/DeadeuceCaller.m; sourceTree = "<group>"; };
+		28B421941CB1782700D5CE48 /* DeadeuceCaller.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DeadeuceCaller.h; path = Controller/DeadeuceCaller.h; sourceTree = "<group>"; };
 		65187E06181161CBCB33A22C /* Pods-Deadeuce.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Deadeuce.release.xcconfig"; path = "Pods/Target Support Files/Pods-Deadeuce/Pods-Deadeuce.release.xcconfig"; sourceTree = "<group>"; };
 		65D230B2EEA7C12EC178DBAB /* Pods-Deadeuce.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Deadeuce.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Deadeuce/Pods-Deadeuce.debug.xcconfig"; sourceTree = "<group>"; };
 		AA0A53801CB059A3005BA0A2 /* CurrentGameViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CurrentGameViewController.h; sourceTree = "<group>"; };
@@ -114,6 +117,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		28B421911CB176C600D5CE48 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				28B421941CB1782700D5CE48 /* DeadeuceCaller.h */,
+				28B421921CB1780E00D5CE48 /* DeadeuceCaller.m */,
+			);
+			name = Controller;
+			sourceTree = "<group>";
+		};
 		9CE8477FB5DB3827B4C4DF26 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
@@ -180,6 +192,7 @@
 		AAF129771C93D73400BAE9F4 /* Deadeuce */ = {
 			isa = PBXGroup;
 			children = (
+				28B421911CB176C600D5CE48 /* Controller */,
 				AA7E1E9E1CA214F30060901E /* Images */,
 				AA7E1E9A1CA212770060901E /* Model */,
 				AA85426D1C93E8F6006EA952 /* LeftPanelViewController.h */,
@@ -366,6 +379,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				28B421931CB1780E00D5CE48 /* DeadeuceCaller.m in Sources */,
 				AA7E1E9D1CA2128D0060901E /* GameObject.m in Sources */,
 				AAC311C61C9FAFA6003862A8 /* DetectivePadTableViewController.m in Sources */,
 				AA85426F1C93E8F6006EA952 /* LeftPanelViewController.m in Sources */,
