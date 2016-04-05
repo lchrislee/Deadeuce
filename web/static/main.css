@@ -349,6 +349,7 @@ Game Map
     height: 30px;
     float:left;
     background-color: #444;
+    text-align:center;
 }
 .gameMapBoxBody{
     width: 99.5555%;
@@ -388,6 +389,7 @@ Game Map
 }
 .mapContent{
     font-size:8.5pt;
+    text-align:center;
 }
 .mapContentBorder{
     border-left: 1px solid gray;

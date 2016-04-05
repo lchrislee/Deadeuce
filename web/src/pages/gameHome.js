@@ -17,7 +17,11 @@ var GameHome = React.createClass({
         "gameID": undefined,
         "userID": 'user1',
         "gamePlayers": [],
-        "locations": [],
+        "locations": [
+            {"name":"LYON CENTER", "player":""},{"name":"LEAVEY LIBRARY", "player":"EVKitty, George Tirebiter"},{"name":"TRADDIES", "player":""},
+            {"name":"GROUND ZERO", "player":""},{"name":"The 90", "player":""},{"name":"BOVARD", "player":"Pete" +
+            " Carroll"},
+            {"name":"EVK", "player":"Will Ferrell"},{"name":"THE ROW", "player":"President Nikias, Tommy Trojan"},{"name":"CAMPUS CENTER", "player":""}]
 
     };
   },
@@ -109,11 +113,10 @@ var GameHome = React.createClass({
     return (
      <div>
     
-    <GameMap />
+    <GameMap location= {this.state.locations} />
     <TurnBox />
     <Checklist />
     <SuggestAccuse />
-         <GameMapContentBox />
     </div>
     );
   }
