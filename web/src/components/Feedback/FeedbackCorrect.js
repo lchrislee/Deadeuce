@@ -47,11 +47,10 @@ var FeedbackCorrect = React.createClass({
   render: function() {
     return (
 	    <div className="feedbackContent">
-        <p>User had this clue for you:
+        <p>Have a clue:</p>
         <br/>
-        <ul>
-          <li>Whatever clue</li>
-        </ul>
+        <p>
+        {feedback}
         </p>
 	    </div>
 	);

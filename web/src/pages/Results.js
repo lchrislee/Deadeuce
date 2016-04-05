@@ -8,6 +8,7 @@ var gameResults = React.createClass({
       <div className="results">
         <Win />
         <Lose />
+     	<otherPlayerWin.js />
       </div>
      );
   },
