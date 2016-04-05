@@ -5,11 +5,6 @@ var JoinGameModalContent = React.createClass({
   mixins: [
     require('react-onclickoutside')
   ],
-  getInitialState: function() {
-    return {
-      "temp": undefined
-    }
-  },
   handleClickOutside: function(evt) {
     this.props.closeModal(evt);
   },
@@ -18,18 +13,12 @@ var JoinGameModalContent = React.createClass({
   },
   handleCreateGameSubmit: function(e) {
     e.preventDefault();
-
-    var testData = {
-      userID: '12345429579572',
-      gameName: 'example_name'
-    };
-    var stringified = JSON.stringify(testData);
+    var output = JSON.stringify({gameName:"FAKE NAME", userID:"SOME ID"});
     $.ajax({
       url: '/joinGame',
-      type: 'POST',
+      type: 'PUT',
       contentType: "application/json",
-      dataType: 'json',
-      data: stringified,
+      data: output,
       // transformRequest: function(obj){
       //   var str = [];
       //   for(var p in obj){
@@ -37,12 +26,19 @@ var JoinGameModalContent = React.createClass({
       //   }
       //   return str.join('&');
       // },
-      success: function(data) {
-        console.log(data);
-        console.log(data.userID);
-        this.setState({
-          "temp": data.userID
-        });
+      success: function(response) {
+        //{joinSuccess:t/f, nextTurn: user_id}
+        console.log(response.nextTurn);
+        console.log(response.joinSuccess);
+        if (response.joinSuccess){
+          //do something
+          //maybe load the next page?
+        }else{
+          // we don goofed
+        }
+        // this.setState({
+          
+        // });
       }.bind(this),
       error: function(xhr, status, err) {
         console.log(err);
@@ -53,7 +49,6 @@ var JoinGameModalContent = React.createClass({
       }.bind(this)
     });
     var evt = "";
-    this.closeModal(evt);
   },
   render: function() {
     return (
@@ -69,4 +64,4 @@ var JoinGameModalContent = React.createClass({
   },
 });
 
-module.exports = JoinGameModalContent;
+module.exports = JoinGameConfirm;

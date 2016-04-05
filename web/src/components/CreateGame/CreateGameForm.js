@@ -107,4 +107,4 @@ var CreateGameForm = React.createClass({
   },
 });
 
-module.exports = ExampleModalContent;
+module.exports = CreateGameForm;
