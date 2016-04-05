@@ -2,8 +2,6 @@ var React = require('react');
 var $ = require('jQuery');
 var Router = require('react-router');
 var ExampleModal = require('../components/CreateGame/CreateGameForm.js');
-var Picture = require('../components/Picture.js');
-
 var HomePage = React.createClass({
     contextTypes: {
     router: React.PropTypes.object.isRequired
@@ -28,8 +26,6 @@ var HomePage = React.createClass({
       <button onClick={this.nextPage}>Go to next page!</button>
       <button onClick={this.createGame}>Create New Game!</button>
         {this.props.children}
-        <Picture></Picture>
-
      </div>
     );
   },
