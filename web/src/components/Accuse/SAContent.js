@@ -1,4 +1,5 @@
 var React = require('react');
+var Router = require('react-router');
 var $ = require('jQuery');
 
 var SAContent = React.createClass({ 
@@ -10,7 +11,6 @@ var SAContent = React.createClass({
       "accusationType": "suggest"
     }
   },
-  
   makeAccusation: function(e) {
     e.preventDefault();
     var accusation = {
@@ -59,6 +59,9 @@ var SAContent = React.createClass({
       }.bind(this)
     });
   },
+    feedback: function(e) {
+      this.context.router.push('game_home/Feedback');
+  },
   
   render: function() {
     return (
@@ -90,7 +93,7 @@ var SAContent = React.createClass({
               <br/>
               <input onChange={this.selectAccuse} type="radio" name="clueType" value="accuse" required />Accusation
               <br/><br/>
-              <input type="submit" name="submitSA" />
+              <input type="submit" name="submitSA" onClick={this.feedback}/>
               </form>
           </div>
 	    </div>
