@@ -12,3 +12,5 @@ static/bundle.js
 *.crt
 *.copy
 *.nopass
+data/
+certs/

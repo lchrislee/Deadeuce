@@ -14,6 +14,7 @@
 
 @interface LoginViewController ()
 
+@property (nonatomic, strong) UIImageView *bgImageView;
 @property (nonatomic, strong) UIButton *submitButton;
 
 @end
@@ -53,6 +54,10 @@
     CGFloat screenWidth = screenRect.size.width;
     CGFloat screenHeight = screenRect.size.height;
     
+    CGRect bgFrame = CGRectMake(0.0,0.0,screenWidth,screenHeight);
+    self.bgImageView = [[UIImageView alloc] initWithFrame:bgFrame];
+    self.bgImageView.image=[UIImage imageNamed:@"cropdark-curve-forest-rails.png"];
+    
     self.submitButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
     [self.submitButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     self.submitButton.layer.cornerRadius = 5;
@@ -82,8 +87,8 @@
     titleLabel.text= @"Deadeuce";
     [titleLabel setFont:[UIFont fontWithName:@"HelveticaNeue" size:50]];
     
+    [self.view addSubview:_bgImageView];
     [self.view addSubview:titleLabel];
-    
     [self.view addSubview:_submitButton];
 }
 
