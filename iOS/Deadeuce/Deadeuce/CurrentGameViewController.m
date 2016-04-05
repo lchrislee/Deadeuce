@@ -63,7 +63,7 @@ const CGFloat kPadding3 = 6;
         [self.timeStampLabel setFont:[UIFont systemFontOfSize:12]];
         [self.contentView addSubview:self.timeStampLabel];
         
-        self.magnifyingGlassImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"magnifyingglass.png"]];
+        self.magnifyingGlassImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"search.png"]];
         [self.contentView addSubview:self.magnifyingGlassImageView];
     }
     
@@ -127,6 +127,8 @@ const CGFloat kPadding3 = 6;
 @property (nonatomic, strong) UILabel *currentTurnLabel;
 @property (nonatomic, strong) UIButton *suggestButton;
 @property (nonatomic, strong) UIButton *detectivePadButton;
+@property (nonatomic, strong) UIImageView* suggestIcon;
+@property (nonatomic, strong) UIImageView* detectiveIcon;
 
 @end
 
@@ -205,6 +207,12 @@ const CGFloat kPadding3 = 6;
     self.suggestButton.titleLabel.font = [UIFont fontWithName:@"HelveticaNeue" size:20];
     self.suggestButton.frame = CGRectMake(0.0, startingHeight, screenWidth/2, 44.0);
     
+    
+    UIImage *btnDetective = [UIImage imageNamed:@"suggest_icon.png"];
+    [_suggestButton setTitleEdgeInsets:UIEdgeInsetsMake(0.0, 10.0, 0.0, 0.0)];
+    [_suggestButton setImage:btnDetective forState:UIControlStateNormal];
+    
+    
     self.detectivePadButton = [UIButton buttonWithType:UIButtonTypeCustom];
     [self.detectivePadButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     self.detectivePadButton.clipsToBounds = YES;
@@ -215,6 +223,11 @@ const CGFloat kPadding3 = 6;
     [self.detectivePadButton setTitle:@"Detective Pad" forState:UIControlStateNormal];
     self.detectivePadButton.titleLabel.font = [UIFont fontWithName:@"HelveticaNeue" size:20];
     self.detectivePadButton.frame = CGRectMake(screenWidth/2, startingHeight, screenWidth/2, 44.0);
+    
+    UIImage *btnIcon = [UIImage imageNamed:@"fingerprint.png"];
+    [_detectivePadButton setTitleEdgeInsets:UIEdgeInsetsMake(0.0, 10.0, 0.0, 0.0)];
+    [_detectivePadButton setImage:btnIcon forState:UIControlStateNormal];
+    
     
     UIBezierPath *path = [UIBezierPath bezierPath];
     [path moveToPoint:CGPointMake(screenWidth/2 - 1.5, startingHeight)];

@@ -10,6 +10,8 @@
 #import "LoginViewController.h"
 #import "LeftPanelViewController.h"
 #import <FBSDKCoreKit/FBSDKCoreKit.h>
+#import <GoogleSignIn/GoogleSignIn.h>
+#import "LobbyTableViewController.h"
 
 @interface AppDelegate ()<SWRevealViewControllerDelegate>
 
@@ -24,6 +26,9 @@
     [[FBSDKApplicationDelegate sharedInstance] application:application
                              didFinishLaunchingWithOptions:launchOptions];
     
+    [GIDSignIn sharedInstance].clientID = @"643459091230-orgprr61ja6q30n08rbcl8gjpg5kt8pk.apps.googleusercontent.com";
+    [GIDSignIn sharedInstance].delegate = self;
+
     UIWindow *window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     self.window = window;
     
@@ -47,12 +52,48 @@
 }
 
 - (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation {
-    BOOL handled = [[FBSDKApplicationDelegate sharedInstance] application:application
-                                                                  openURL:url
-                                                        sourceApplication:sourceApplication
-                                                               annotation:annotation
-                    ];
-    return handled;
+    
+    BOOL googleHandled = [[GIDSignIn sharedInstance] handleURL:url
+                                             sourceApplication:sourceApplication
+                                                    annotation:annotation];
+    
+    BOOL facebookHandled = [[FBSDKApplicationDelegate sharedInstance] application:application
+                                                                          openURL:url
+                                                                sourceApplication:sourceApplication
+                                                                       annotation:annotation
+                            ];
+    return googleHandled && facebookHandled;
+}
+
+- (void)signIn:(GIDSignIn *)signIn
+didSignInForUser:(GIDGoogleUser *)user
+     withError:(NSError *)error {
+    // Perform any operations on signed in user here.
+    NSString *userId = user.userID;                  // For client-side use only!
+    NSString *idToken = user.authentication.idToken; // Safe to send to the server
+    NSString *fullName = user.profile.name;
+    NSString *givenName = user.profile.givenName;
+    NSString *familyName = user.profile.familyName;
+    NSString *email = user.profile.email;
+    // ...
+    
+    LobbyTableViewController *lVc = [[LobbyTableViewController alloc] initWithStyle:UITableViewStylePlain];
+    UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:lVc];
+    [self.viewController pushFrontViewController:navigationController animated:YES];
+    
+    NSLog(userId);
+    NSLog(idToken);
+    NSLog(fullName);
+    NSLog(givenName);
+    NSLog(familyName);
+    NSLog(email);
+}
+
+- (void)signIn:(GIDSignIn *)signIn
+didDisconnectWithUser:(GIDGoogleUser *)user
+     withError:(NSError *)error {
+    // Perform any operations when the user disconnects from app here.
+    // ...
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application {

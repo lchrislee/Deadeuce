@@ -44,7 +44,8 @@
     NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@joinGame/", self.baseRestUrl] ];
     NSURLRequest *request = [self createRequestForURL:url withData:gameInfo andRequestType:[self.requestToType objectForKey:@"test_slice"]];
     
-    if (!request){
+    if (!request)
+    {
         return false;
     }else{
         [self sendRequest:request withHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
