@@ -3,6 +3,9 @@ var Router = require('react-router');
 var $ = require('jQuery');
 
 var SAContent = React.createClass({ 
+  contextTypes: {
+   router: React.PropTypes.object.isRequired
+   },
   getInitialState: function() {
     return {
       "suspect": ["EVKitty", "George Tirebiter", "Will Ferrell", "Pete Carroll", "President Nikias", "Tommy Trojan"],
@@ -58,11 +61,8 @@ var SAContent = React.createClass({
         });
       }.bind(this)
     });
+    this.context.router.push('game_home/feedback');
   },
-    feedback: function(e) {
-      this.context.router.push('game_home/Feedback');
-  },
-  
   render: function() {
     return (
 	    <div className="SAContainer">
