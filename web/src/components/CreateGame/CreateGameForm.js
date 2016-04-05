@@ -7,12 +7,11 @@ var CreateGameForm = React.createClass({
   ],
   getInitialState: function() {
     return {
-      "temp": undefined
+
     }
   },
   handleCreateGameSubmit: function(e) {
     e.preventDefault();
-
     var testData = {
       hostID: '12345429579572'
     };

@@ -1,7 +1,7 @@
 var React = require('react');
 var $ = require('jQuery');
 var Router = require('react-router');
-var ExampleModal = require('../components//ExampleModal/ExampleModal.js');
+var ExampleModal = require('../components/CreateGame/CreateGameForm.js');
 var Picture = require('../components/Picture.js');
 
 var HomePage = React.createClass({
@@ -26,11 +26,7 @@ var HomePage = React.createClass({
      	<div>{this.state.serverStatus}</div>
       <button onClick={this.testSlice}>Ping the server!</button>
       <button onClick={this.nextPage}>Go to next page!</button>
-      <button onClick={this.toggleModal}>Toggle the Modal!</button>
-        {this.state.modalIsVisible === true && 
-            <ExampleModal closeModal={this.toggleModal} />
-        }
-
+      <button onClick={this.createGame}>Create New Game!</button>
         {this.props.children}
         <Picture></Picture>
 
@@ -38,10 +34,12 @@ var HomePage = React.createClass({
     );
   },
 
-    nextPage: function(e) {
-        this.context.router.push('secondPage');
-      },
-
+  nextPage: function(e) {
+      this.context.router.push('secondPage');
+  },
+  createGame: function(e) {
+      this.context.router.push('create_game');
+  },
   testSlice: function() {
     var d = {
       sendTestToServer : "yo"
