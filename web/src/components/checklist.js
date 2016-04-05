@@ -24,7 +24,7 @@ render: function(){
             </div>
             <div className="checklistRow">
                 {this.state.suspect.map(function(suspect){
-                  return <input type="checkbox" value={suspect}>{suspect}</option>
+                  return <input type="checkbox" value={suspect}>{suspect}</input>
                 })}
             </div>
             <div className="checklistRow category">
@@ -32,7 +32,7 @@ render: function(){
             </div>
             <div className="checklistRow">
                 {this.state.weapon.map(function(weapon){
-                  return <input type="checkbox" value={weapon}>{weapon}</option>
+                  return <input type="checkbox" value={weapon}>{weapon}</input>
                 })}
             </div>
             <div className="checklistRow category">
@@ -40,7 +40,7 @@ render: function(){
             </div>
             <div className="checklistRow">
                 {this.state.place.map(function(place){
-                  return <input type="checkbox" value={place}>{place}</option>
+                  return <input type="checkbox" value={place}>{place}</input>
                 })}
             </div>
           </div>
