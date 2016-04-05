@@ -7,7 +7,7 @@ var Checklist = React.createClass({
         return{
           "suspect": [1,2,3,4,5,6],
           "weapon": [1,2,3,4,5,6],
-          "place": [1,2,3,4,5,6,7,8,9],
+          "place": [1,2,3,4,5,6,7,8,9]
         };
     },
 render: function(){

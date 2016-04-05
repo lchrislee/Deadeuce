@@ -4,9 +4,9 @@ var $ = require('jQuery');
 var SAContent = React.createClass({ 
   getInitialState: function() {
     return {
-      "suspect": [1,2,3,4,5,6],
-      "weapon": [1,2,3,4,5,6],
-      "place": [1,2,3,4,5,6,7,8,9],
+      "suspect": ["EVKitty", "George Tirebiter", "Will Ferrell", "Pete Carroll", "President Nikias", "Tommy Trojan"],
+      "weapon": ["U-lock", "Tommy Trojan's Sword", "Empty soda cans", "Longboard", "Viterbi classes", "Dining hall food"],
+      "place": ["Traddies", "The 90", "Ground Zero", "Lyon Center", "The Row", "Leavey Library", "Bovard", "EVK", "Campus Center"],
       "accusationType": "suggest"
     }
   },
