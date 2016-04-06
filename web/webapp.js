@@ -122,14 +122,13 @@ app.put('/joinGame', function(request, response){
 
   cursor.each(function(err, doc) {
   if (doc != null) {
-    var currentUserIDs = doc.usersId;
+    var currentUserIDs = doc.users;
     currentUserIDs[currentUserIDs.length] = userID;
     set['users.' + userID] = {"_id": userID};
-    set['usersId'] = currentUserIDs;
 
     var cantJoin = false;
-    if(doc.usersId != undefined){
-      if(doc.usersId.length >= doc.maxUser){
+    if(doc.users != undefined){
+      if(doc.users.length >= doc.maxUser){
         cantJoin = true;
       }
     }
@@ -206,6 +205,20 @@ app.get('/game', function(request, response){
         response.json({"game":undefined});
       }
    });
+});
+
+app.get('game/all', function(request, response){
+  response.json({"game":"it works for now"});
+});
+
+app.get('/game/locations', function(request, response){
+  var gameID = request.body.gameID;
+
+  if (gameID === undefined){
+    response.sendStatus(400);
+  }
+
+  response.json({"locations": [{"name":"LYON CENTER", "player":""},{"name":"LEAVEY LIBRARY", "player":"EVKitty, George Tirebiter"},{"name":"TRADDIES", "player":""},{"name":"GROUND ZERO", "player":""},{"name":"The 90", "player":""},{"name":"BOVARD", "player":"Pete Caroll"},{"name":"EVK", "player":"Will Ferrell"},{"name":"THE ROW", "player":"President Nikias, Tommy Trojan"},{"name":"CAMPUS CENTER", "player":""}]});
 });
 
 // WEAPONS in a GAME

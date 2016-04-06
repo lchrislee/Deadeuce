@@ -6,10 +6,10 @@ var $ = require('jquery');
 var MyProfile = React.createClass({
     getInitialState: function(){
         return{
-            "username": "",
+            "username": "-----",
             "profPicUrl": "",
-            "wins": "",
-            "losses": "",
+            "wins": "0",
+            "losses": "0",
         }
     },
     componentDidMount: function(e) {
@@ -17,13 +17,12 @@ var MyProfile = React.createClass({
             url: '/user',
             type: 'GET',
             contentType: "application/json",
-            dataType: 'json',
-            success: function(data) {
+            success: function(response) {
                 this.setState({
-                    "username": data.username,
-                    "profPicUrl": data.profPicUrl,
-                    "wins": data.wins,
-                    "losses": data.losses,
+                    "username": response.username,
+                    "profPicUrl": response.profPicUrl,
+                    "wins": response.wins,
+                    "losses": response.losses,
                 });
             }.bind(this),
             error: function(xhr, status, err) {

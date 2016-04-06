@@ -1,16 +1,19 @@
 var React = require('react');
+var Router = require('react-router');
 var $ = require('jQuery');
 
 var SAContent = React.createClass({ 
+  contextTypes: {
+   router: React.PropTypes.object.isRequired
+   },
   getInitialState: function() {
     return {
-      "suspect": [1,2,3,4,5,6],
-      "weapon": [1,2,3,4,5,6],
-      "place": [1,2,3,4,5,6,7,8,9],
+      "suspect": ["EVKitty", "George Tirebiter", "Will Ferrell", "Pete Carroll", "President Nikias", "Tommy Trojan"],
+      "weapon": ["U-lock", "Tommy Trojan's Sword", "Empty soda cans", "Longboard", "Viterbi classes", "Dining hall food"],
+      "place": ["Traddies", "The 90", "Ground Zero", "Lyon Center", "The Row", "Leavey Library", "Bovard", "EVK", "Campus Center"],
       "accusationType": "suggest"
     }
   },
-  
   makeAccusation: function(e) {
     e.preventDefault();
     var accusation = {
@@ -58,8 +61,8 @@ var SAContent = React.createClass({
         });
       }.bind(this)
     });
+    this.context.router.push('game_home/feedback');
   },
-  
   render: function() {
     return (
 	    <div className="SAContainer">
@@ -90,7 +93,7 @@ var SAContent = React.createClass({
               <br/>
               <input onChange={this.selectAccuse} type="radio" name="clueType" value="accuse" required />Accusation
               <br/><br/>
-              <input type="submit" name="submitSA" />
+              <input type="submit" name="submitSA" onClick={this.feedback}/>
               </form>
           </div>
 	    </div>

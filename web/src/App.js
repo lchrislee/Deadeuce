@@ -19,6 +19,7 @@ var GameHome = require('./pages/gameHome');
 var DetectivePad = require('./pages/DetectivePad.js');
 var ExitGame = require('./pages/ExitGame.js');
 var ReviewClues = require('./pages/ReviewClues.js');
+var Feedback = require('./pages/Feedback');
 
 
 var NoMatch = React.createClass({
@@ -47,6 +48,7 @@ ReactDOM.render(
         <Route path="/game_home/detective_pad" component={DetectivePad}/>
         <Route path="/game_home/exit_game" component={ExitGame}/>
         <Route path="/game_home/review_clues" component={ReviewClues}/>
+        <Route path="/game_home/feedback" component={Feedback}/>
       </Route>
 
       <Redirect from="/" to="/home" />
