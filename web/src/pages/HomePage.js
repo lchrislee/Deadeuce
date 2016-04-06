@@ -20,12 +20,25 @@ var HomePage = React.createClass({
   render: function() {
     return (
      <div>
-      <div>This is the Deadeuce homepage!</div>
-     	<div>{this.state.serverStatus}</div>
-      <button onClick={this.testSlice}>Ping the server!</button>
-      <button onClick={this.nextPage}>Go to next page!</button>
-      <button onClick={this.createGame}>Create New Game!</button>
-        {this.props.children}
+      <div className="outercontainer">
+        <div className="hero_img"> 
+          <h1 className="center">Shit... There has been a murder!</h1>        
+        </div>
+        <div className="primary_content">
+          <h3> This is where primary content goes! </h3>
+        </div>
+        <div className="secondary_content">
+          <h3> This is where secondary content goes! </h3>
+        </div>
+       	<div className="center">{this.state.serverStatus}</div>
+        <div className="center">
+          <button onClick={this.testSlice}>Ping the server</button>
+          <button onClick={this.nextPage}>Go to next page</button>
+          <button onClick={this.createGame}>Create New Game</button>
+            {this.props.children}
+        </div> 
+
+      </div>  
      </div>
     );
   },

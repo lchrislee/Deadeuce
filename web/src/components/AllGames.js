@@ -6,37 +6,37 @@ var AllGames = React.createClass({
         return {
         };
     },
-  //   handleRetrieveAllGames: function(e) {
-  //   e.preventDefault();
-  //   var output = JSON.stringify({gameID:id});
-  //   $.ajax({
-  //     url: '/RetrieveGames',
-  //     // we don't have a URL yet so this is just a placeholder
-  //     type: 'GET',
-  //     contentType: "application/json",
-  //     data: output,
-  //     success: function(response) {
-  //       //{joinSuccess:t/f, nextTurn: user_id}
-  //       console.log(response.xxx);
-  //       console.log(response.yyy);
-  //       if (response.yyy){
-  //         //do something
-  //         //maybe load the next page?
-  //       }else{
-  //         // we don goofed
-  //       }
-  //     }.bind(this),
-  //     error: function(xhr, status, err) {
-  //       console.log(err);
-  //       console.log(xhr);
-  //       this.setState({
-  //         "serverStatus" : "Error in server request."
-  //       });
-  //     }.bind(this)
-  //   });
-  //   var evt = "";
-  //   // ^^ is this needed?
-  //   },
+    handleRetrieveAllGames: function(e) {
+    e.preventDefault();
+    var output = JSON.stringify({gameID:id});
+    $.ajax({
+      url: '/RetrieveGames',
+      // we don't have a URL yet so this is just a placeholder
+      type: 'GET',
+      contentType: "application/json",
+      data: output,
+      success: function(response) {
+        //{joinSuccess:t/f, nextTurn: user_id}
+        console.log(response.xxx);
+        console.log(response.yyy);
+        if (response.yyy){
+          //do something
+          //maybe load the next page?
+        }else{
+          // we don goofed
+        }
+      }.bind(this),
+      error: function(xhr, status, err) {
+        console.log(err);
+        console.log(xhr);
+        this.setState({
+          "serverStatus" : "Error in server request."
+        });
+      }.bind(this)
+    });
+    var evt = "";
+    // ^^ is this needed?
+    },
     render: function() {
         return (
             <div>
