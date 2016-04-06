@@ -36,17 +36,27 @@ var MyProfile = React.createClass({
     },
     render: function(){
         return(
-            <div className="prof-pic-container">
-                <div className="prof-username">Profile: {this.state.username} 
-                    <button onClick={this.Login}>Login</button>
+            <div className="outercontainer-profile">
+                <div className="hero_img">
+                    <h1 className="center"><br/>You're safe...for now...</h1>
+
                 </div>
-                <div className="my-wins">
-                {this.state.username}'s wins: {this.state.wins}
-                </div>
-                <div className="my-losses">
-                {this.state.username}'s losses: {this.state.losses}
-                </div>
+
+
+                    <div className="prof-pic-container">
+                        <div className="prof-username">Profile: {this.state.username}
+                            <button onClick={this.Login}>Login</button>
+                        </div>
+                        <div className="my-wins">
+                            {this.state.username}'s wins: {this.state.wins}
+                        </div>
+                        <div className="my-losses">
+                            {this.state.username}'s losses: {this.state.losses}
+                        </div>
+
+                     </div>
             </div>
+
         )
     }
 });
