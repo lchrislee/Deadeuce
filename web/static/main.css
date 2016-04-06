@@ -163,7 +163,7 @@ Detective Pad/Suggest/Accuse Component
 }
 .turnButton p{
     font-size:12pt;
-    margin:0px;
+    margin:0;
     padding:0;
 }
 
@@ -446,34 +446,36 @@ Profile Page
 
 .prof-pic-container {
     width: 80%;
-    margin: auto;
+    margin: 30px auto;
+    margin-bottom:15px;
+    background-color:#CCC;
 }
 
 .prof-username {
-    width: 80%;
+    width:100%;
     border:1px solid black;
     text-align: center;
-    font-size: 4em;
+    font-size: 24pt;
+    color:white;
+    background-color:#999;
 }
 
 .my-wins {
-    width: 40%;
-    font-size: 2em;
+    width: 49.77777%;
+    font-size: 18pt;
     color: red;
     float: left;
-    margin: auto;
     border: 1px solid black;
-    text-align: middle;
+    text-align: center;
 }
 
 .my-losses {
-    width: 40%;
-    font-size: 2em;
+    width: 49.77777%;
+    font-size: 18pt;
     color: #000;
     float: left;
-    margin: auto;
     border: 1px solid black;
-    text-align: middle;
+    text-align: center;
 }
 
 /**************************************************************
@@ -481,12 +483,15 @@ Sign In
 ***************************************************************/
 
 .sign-in {
+
     border: 1px solid black;
     clear: both;
     text-align: center;
     width: 300px;
     padding: 50px;
     margin: auto;
+    background-color:#CCC;
+    border-radius:5;
 }
 
 .sign-in-username {
@@ -495,6 +500,18 @@ Sign In
 
 .sign-in-password {
     margin-bottom: 30px;
+}
+.sign-button{
+    height:40px;
+    width:250px;
+    display:block;
+    margin: auto;
+    background-color: #999;
+    color: white;
+
+
+    border-radius: 5px;
+    font-size:14pt;
 }
 
 /**************************************************************
@@ -508,17 +525,31 @@ Sign Up
     width: 350px;
     padding: 50px;
     margin: auto;
+    background-color:#CCC;
+    border-radius:5;
 }
 
 .sign-up-header{
     text-align: center;
     margin-bottom: 20px;
-}
 
+}
+.signup-form{
+    margin:auto;
+}
 .sign-up-input {
+    display:inline-block;
+    vertical-align:middle;
+    margin-left:15px;
 
 }
-
+.sign-label{
+    display: inline-block;
+    width: 180px;
+    text-align: right;
+    float:left;
+    margin-right:15px;
+}
 .sign-up-username {
 
 }
