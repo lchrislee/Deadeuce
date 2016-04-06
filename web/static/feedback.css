@@ -1,0 +1,23 @@
+.feedbackContent{
+    text-align:center;
+    font-size:14pt;
+    background-color:#ccc;
+    width:500px;
+    height:250px;
+    margin:auto;
+    border-radius: 5px;
+
+}
+.feedback-header{
+    font-size:16pt;
+    text-align:center;
+
+}
+.feedback-button{
+    height:40px;
+    width:350px;
+    background-color: #999;
+    color: white;
+    border-radius: 10px;
+    font-size:14pt;
+}

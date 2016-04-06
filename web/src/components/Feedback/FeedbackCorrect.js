@@ -47,12 +47,17 @@ var FeedbackCorrect = React.createClass({
   render: function() {
     return (
 	    <div className="feedbackContent">
-        <p>Have a clue:</p>
-        <br/>
-        <p>
-        {feedback}
-        </p>
+
+          <p className="feedback-header"><br/>SUGGESTION FEEDBACK</p>
+          <p>Have a clue:</p> <br/> <br/>
+          <p> {feedback} </p>
+
+          <button className="feedback-button" type="button">DETECTIVE CHECKLIST</button>
+          <br/><br/>
+          <button className="feedback-button" type="button">RETURN TO GAME</button>
 	    </div>
+
+
 	);
   },
 });
