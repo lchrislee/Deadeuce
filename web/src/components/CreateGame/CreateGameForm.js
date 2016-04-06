@@ -2,6 +2,9 @@ var React = require('react');
 var $ = require('jQuery');
 
 var CreateGameForm = React.createClass({ 
+  contextTypes: {
+   router: React.PropTypes.object.isRequired
+   },
   getInitialState: function() {
     return {
       "temp": undefined,
@@ -46,8 +49,7 @@ var CreateGameForm = React.createClass({
         });
       }.bind(this)
     });
-    var evt = "";
-    this.closeModal(evt);
+    this.context.router.push('game_home');
   },
   themeChanged: function(e){
     this.setState({

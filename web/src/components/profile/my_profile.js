@@ -12,7 +12,7 @@ var MyProfile = React.createClass({
             "losses": "0",
         }
     },
-    componentDidMount: function(e) {
+    Login: function(e) {
         $.ajax({
             url: '/user',
             type: 'GET',
@@ -37,7 +37,9 @@ var MyProfile = React.createClass({
     render: function(){
         return(
             <div className="prof-pic-container">
-                <div className="prof-username">Profile: {this.state.username}</div>
+                <div className="prof-username">Profile: {this.state.username} 
+                    <button onClick={this.Login}>Login</button>
+                </div>
                 <div className="my-wins">
                 {this.state.username}'s wins: {this.state.wins}
                 </div>

@@ -10,8 +10,6 @@ var CreateGame = React.createClass({
     return (
       <div>
         <CreateGameForm />
-       <br/> 
-        <Link to="game_home" activeClassName="active">Game Home</Link>
       </div>
   );
   },
