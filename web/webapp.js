@@ -44,15 +44,16 @@ app.post('/test_slice', function(req, res){
 *     GAMES on GAMES on GAMES     *
 *                                 *
 ***********************************/
-var gameIDValues = 0;
+var gameIDValues = 1;
 
 // CREATE GAME
 app.post('/createGame', function(request, response){
  var hostID = request.body.hostID;
   var gameName = request.body.gameName;
 
-  if (hostID === undefined || gameName === undefined)
-    response.sendStatus(400);
+  console.log(request.body);
+  //if (hostID === undefined || gameName === undefined)
+    //response.sendStatus(400);
 
   var gameInfo = request.body.gameInfo;
   var cantCreate = false;
@@ -114,11 +115,11 @@ app.post('/createGame', function(request, response){
 app.put('/joinGame', function(request, response){
   var gameName = request.body.gameName;
   var userID = request.body.userID;
-  if (gameID === undefined || userID === undefined)
+  if (gameName === undefined || userID === undefined)
     response.sendStatus(400);
 
   var set = {};
-  var cursor = db.collection('game').find( { "_id": gameID } );
+  var cursor = db.collection('game').find( { "title": gameName } );
 
   cursor.each(function(err, doc) {
   if (doc != null) {
@@ -134,16 +135,20 @@ app.put('/joinGame', function(request, response){
     }
 
     if(cantJoin){
+      var result = {};
       result['joinSuccess'] = false;
       response.json(result);
     }
 
     if(!cantJoin){
+
       db.collection('game').updateOne(
-        { "_id" : gameID  },
+        { "title" : gameName  },
         { $set: set },
         function(err, results) {
-          console.log(results);
+        
+         // console.log(results);
+
           if(!err){
             var cursor = db.collection('user').find( { "_id": userID } );
             cursor.each(function(err, userdoc) {
@@ -160,18 +165,25 @@ app.put('/joinGame', function(request, response){
                 { $set: { "game": userGame} },
                 function(err, results) {
                   if(!err){
+                    var result = {};
                     result['joinSuccess'] = true;
+                    console.log("success");
                     result['nextTurn'] = nextTurn;
                     response.json(result);
                   }else{
+                    var result = {};
                     result['joinSuccess'] = false;
+                    console.log("failing");
                     response.json(result);
+
                   }
                 });
               }
             });
           }else{
             //error
+            var result = {};
+
             result['joinSuccess'] = false;
             response.json(result);
           }
