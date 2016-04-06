@@ -19,13 +19,6 @@ var JoinGameModalContent = React.createClass({
       type: 'PUT',
       contentType: "application/json",
       data: output,
-      // transformRequest: function(obj){
-      //   var str = [];
-      //   for(var p in obj){
-      //     str.push(encodeURLComponent(p) + '=' + encodeURLComponent(obj[p]));
-      //   }
-      //   return str.join('&');
-      // },
       success: function(response) {
         //{joinSuccess:t/f, nextTurn: user_id}
         console.log(response.nextTurn);
@@ -49,6 +42,7 @@ var JoinGameModalContent = React.createClass({
       }.bind(this)
     });
     var evt = "";
+    // ^^ is this needed?
   },
   render: function() {
     return (
@@ -64,4 +58,4 @@ var JoinGameModalContent = React.createClass({
   },
 });
 
-module.exports = JoinGameConfirm;
+module.exports = JoinGameModalContent;

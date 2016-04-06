@@ -2,18 +2,19 @@ var React = require('react');
 var $ = require('jQuery');
 
 var CreateGameForm = React.createClass({ 
-  mixins: [
-    require('react-onclickoutside')
-  ],
   getInitialState: function() {
     return {
-
+      "temp": undefined,
+      "theme": "USC",
+      "numberOfPlayers": 6,
+      "gameName": "Example Name"
     }
   },
   handleCreateGameSubmit: function(e) {
     e.preventDefault();
     var testData = {
-      hostID: '12345429579572'
+      hostID: '12345429579572',
+      gameName: this.state.gameName
     };
     var stringified = JSON.stringify(testData);
     $.ajax({
@@ -47,21 +48,35 @@ var CreateGameForm = React.createClass({
     var evt = "";
     this.closeModal(evt);
   },
+  themeChanged: function(e){
+    this.setState({
+      "theme":e.target.value
+    });
+  },
+  numberOfPlayersChanged: function(e){
+    this.setState({
+      "numberOfPlayers":e.target.value
+    });
+  },
+  gameNameChanged: function(e){
+    this.setState({
+      "gameName":e.target.value
+    });
+  },
   render: function() {
     return (
 	    <div className="example-modal">
 	      <h1> Create a New Game </h1>
-        <button onClick={this.closeModal} className="close">X</button>
         <form onSubmit={this.handleCreateGameSubmit}>
           <table>
             <tr>
               <th>Game Name:</th>
-              <th><input type="text" name="gameName" defaultValue="Example Name"/> </th>
+              <th><input type="text" name="gameName" onChange={this.gameNameChanged} defaultValue="Example Name"/> </th>
             </tr>
             <tr>
               <th>Theme:</th>
               <th>
-                <select name="theme" value="USC"> 
+                <select name="theme" value={this.state.theme} onChange={this.themeChanged}> 
                   <option>USC</option>
                   <option>Capstone Class</option>
                 </select>  
@@ -70,7 +85,7 @@ var CreateGameForm = React.createClass({
             <tr>
               <th>Players:</th>
               <th>
-                <select name="numberOfPlayers" value="6"> 
+                <select name="numberOfPlayers" value={this.state.numberOfPlayers} onChange={this.numberOfPlayersChanged}> 
                   <option>4</option>
                   <option>5</option>
                   <option>6</option>

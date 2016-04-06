@@ -103,6 +103,10 @@ Detective Pad (ideally would be a modal in the future)
     line-height: 20px;
     display:block;
     clear: both;
+    margin:0px 0px 10px 0px;
+}
+.checklistRow p {
+    margin: 0;
 }
 .checklistColumn{
     background-color: #CCC;
@@ -113,6 +117,7 @@ Detective Pad (ideally would be a modal in the future)
     background-color: #999;
     color:white;
     padding-left:15px;
+
 }
 /******************************************************************
 Detective Pad/Suggest/Accuse Component
@@ -307,7 +312,7 @@ Game Feed Table Item Stylings
 }
 
 /******************************************************************
-Game Feed "Map"
+Game Map
 *******************************************************************/
 .gameMap{
     margin-top:30px;
@@ -324,6 +329,42 @@ Game Feed "Map"
     overflow:hidden;
 
 }
+
+.gameMap-wrapper{
+    margin-top:30px;
+    width: 30%;
+    min-width:350px;
+    height: 330px;
+    display:block;
+    padding:0;
+    margin-left:15px;
+    background-color:#CCC;
+
+    border: solid #444 1px;
+    overflow:hidden;
+
+}
+.mapBox{
+    width:33.33333%;
+    float:left;
+
+}
+.gameMapBoxHeader{
+    width: 100%;
+    height: 30px;
+    float:left;
+    background-color: #444;
+    text-align:center;
+}
+.gameMapBoxBody{
+    width: 99.5555%;
+    min-height: 80px;
+    float:left;
+    background-color: #CCC;
+    border-right: solid #444 1px;
+}
+
+
 .mapHeader{
     font-size:8.5pt;
     font-weight:bold;
@@ -353,6 +394,7 @@ Game Feed "Map"
 }
 .mapContent{
     font-size:8.5pt;
+    text-align:center;
 }
 .mapContentBorder{
     border-left: 1px solid gray;
