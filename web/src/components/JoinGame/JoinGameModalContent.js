@@ -54,22 +54,22 @@ var JoinGameModalContent = React.createClass({
             <h1 className="center">Come on in!</h1>        
           </div>
           <div className="primary_content">
-            <div className="gamefeed firstRow">
+            <div className="av_games firstRow">
                  <div className="FeedHeader">
                      <div className="gamefeed-header"> Available Games</div>
-                     <div className="columnheader"> <p> Players </p></div>
                      <div className="columnheader"> <p> Start time </p></div>
+                     <div className="columnheader"> <p> Players </p></div>
                  </div>
-                 <div className="divFeedTable">
+                 <div className="av_gamesTable">
                      <div className="divFeedRow">
                          <div className="divFeedColumn1 column" >
                              <svg className="gamefeed-svg"><img src="/assets/icons/fingerprint.svg" alt="fingerprint icon" className="icon" /></svg>
                          </div>
                          <div className="divFeedColumn2_small column">
-                             <p className="suggest-body"> Deserters</p>
+                             <p className="suggest-body"> demo </p>
                          </div>
-                         <div className="divFeedColumn3 column"><p>5 players</p></div>
-                         <div className="divFeedColumn3 column"><p>00:05:56 </p></div>
+                         <div className="divFeedColumn3 column"><p>1 players</p></div>
+                         <div className="divFeedColumn3 column"><p>-00:00:30 </p></div>
                      </div>
                      <div className="divFeedRow">
                          <div className="divFeedColumn1 column" >
@@ -78,8 +78,8 @@ var JoinGameModalContent = React.createClass({
                          <div className="divFeedColumn2_small column">
                              <p className="suggest-body"> Capstone group</p>
                          </div>
-                         <div className="divFeedColumn3 column"><p>9 players </p></div>
-                         <div className="divFeedColumn3 column"><p>02:34:32 </p></div>
+                         <div className="divFeedColumn3 column"><p>6 players </p></div>
+                         <div className="divFeedColumn3 column"><p>-04:34:32 </p></div>
                      </div>
                      <div className="divFeedRow">
                          <div className="divFeedColumn1 column" >
@@ -89,7 +89,47 @@ var JoinGameModalContent = React.createClass({
                              <p className="suggest-body"> OG Deadeuce Crew</p>
                          </div>
                          <div className="divFeedColumn3 column"><p>7 players</p></div>
-                         <div className="divFeedColumn3 column"><p>73:23:09 </p></div>
+                         <div className="divFeedColumn3 column"><p>-11:23:09 </p></div>
+                     </div>
+                     <div className="divFeedRow">
+                         <div className="divFeedColumn1 column" >
+                             <svg className="gamefeed-svg"><img src="/assets/icons/fingerprint.svg" alt="fingerprint icon" className="icon" /></svg>
+                         </div>
+                         <div className="divFeedColumn2_small column">
+                             <p className="suggest-body"> Nikias + homies </p>
+                         </div>
+                         <div className="divFeedColumn3 column"><p>1 players </p></div>
+                         <div className="divFeedColumn3 column"><p>-12:29:08 </p></div>
+                     </div>
+                     <div className="divFeedRow">
+                         <div className="divFeedColumn1 column" >
+                             <svg className="gamefeed-svg"><img src="/assets/icons/fingerprint.svg" alt="fingerprint icon" className="icon" /></svg>
+                         </div>
+                         <div className="divFeedColumn2_small column">
+                             <p className="suggest-body"> Squad</p>
+                         </div>
+                         <div className="divFeedColumn3 column"><p>4 players</p></div>
+                         <div className="divFeedColumn3 column"><p>-12:53:26 </p></div>
+                     </div>
+                     <div className="divFeedRow">
+                         <div className="divFeedColumn1 column" >
+                             <svg className="gamefeed-svg"><img src="/assets/icons/fingerprint.svg" alt="fingerprint icon" className="icon" /></svg>
+                         </div>
+                         <div className="divFeedColumn2_small column">
+                             <p className="suggest-body"> Ain't nobody messing with my clique </p>
+                         </div>
+                         <div className="divFeedColumn3 column"><p>3 players </p></div>
+                         <div className="divFeedColumn3 column"><p>-12:29:08 </p></div>
+                     </div>
+                     <div className="divFeedRow">
+                         <div className="divFeedColumn1 column" >
+                             <svg className="gamefeed-svg"><img src="/assets/icons/fingerprint.svg" alt="fingerprint icon" className="icon" /></svg>
+                         </div>
+                         <div className="divFeedColumn2_small column">
+                             <p className="suggest-body"> BAEs </p>
+                         </div>
+                         <div className="divFeedColumn3 column"><p>6 players</p></div>
+                         <div className="divFeedColumn3 column"><p>-12:53:26 </p></div>
                      </div>
                  </div>
              </div>    

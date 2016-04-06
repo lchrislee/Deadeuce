@@ -22,13 +22,22 @@ var HomePage = React.createClass({
      <div>
       <div className="outercontainer">
         <div className="hero_img"> 
-          <h1 className="center">Shit... There has been a murder!</h1>        
+          <h1 className="center">Oh Shit... There's Been a Murder!</h1>        
         </div>
         <div className="primary_content">
-          <h3> This is where primary content goes! </h3>
+          <h3> FOUND: EVKitty dead. University offering reward for the killer.</h3>
         </div>
         <div className="secondary_content">
-          <h3> This is where secondary content goes! </h3>
+          <h3> Game winning accusations: </h3>
+          <br/>
+          George Tirebiter with empty beer bottles at the 90
+          <br/><br/>
+          Will Ferrel with Tommy's Sword at Bovard
+          <br/><br/>
+          President Nikias with a U-lock at the Row 
+          <br/><br/>
+          Tommy Trojan with Viterbi Classes at Traddies
+          <br/><br/>
         </div>
        	<div className="center">{this.state.serverStatus}</div>
         <div className="center">
@@ -37,7 +46,6 @@ var HomePage = React.createClass({
           <button onClick={this.createGame}>Create New Game</button>
             {this.props.children}
         </div> 
-
       </div>  
      </div>
     );

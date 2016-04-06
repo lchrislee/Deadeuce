@@ -61,9 +61,27 @@ body {
     font-size:8pt;
     vertical-align: top;
  }
- .gamefeed {
+ .av_games {
  	margin:auto;
+ 	margin-top:30px;
+    width: 40%;
+    min-width:500px;
+    height: 350px;
+    display:block;
+    padding:0;
+    background-color:#CCC;
+    border: solid #444 1px;
+    overflow: hidden;
  }
+ .av_gamesTable {
+    width: 103%;
+    height: 350px;
+    display:block;
+    padding:0;
+    margin:0;
+    background-color:#CCC;
+    overflow-y: scroll;
+}
  .link {
  	text-decoration: none;
  	font-weight: bold;
