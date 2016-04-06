@@ -103,6 +103,10 @@ Detective Pad (ideally would be a modal in the future)
     line-height: 20px;
     display:block;
     clear: both;
+    margin:0px 0px 10px 0px;
+}
+.checklistRow p {
+    margin: 0;
 }
 .checklistColumn{
     background-color: #CCC;
@@ -113,6 +117,7 @@ Detective Pad (ideally would be a modal in the future)
     background-color: #999;
     color:white;
     padding-left:15px;
+
 }
 /******************************************************************
 Detective Pad/Suggest/Accuse Component
