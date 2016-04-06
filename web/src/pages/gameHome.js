@@ -112,10 +112,12 @@ var GameHome = React.createClass({
   render: function() {
     return (
      <div>
+     <div className="gameContainer">
         <TurnBox />
         <Checklist />
-    <GameMap location= {this.state.locations} />
-    <SuggestAccuse />
+        <GameMap location= {this.state.locations} />
+        <SuggestAccuse />
+    </div>
     </div>
     );
   }

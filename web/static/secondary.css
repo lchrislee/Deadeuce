@@ -77,4 +77,11 @@ body {
  	margin:10px;
  }
 
+ .gameContainer {
+ 	margin: auto;
+	width: 70%;
+	border-radius: 5px;
+	margin-top: 20px;
+ }
+
 
