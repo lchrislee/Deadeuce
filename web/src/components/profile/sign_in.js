@@ -9,10 +9,10 @@ var SignIn = React.createClass({
         return(
             <div className="sign-in">
                 <form>
-                    Sign In<br/>
+                    Sign In<br/><br/>
                     <input type="text" name="username" placeholder="Username" className="sign-in-username" autofocus /><br/>
                     <input type="password" name="password" placeholder="Password" className="sign-in-password" /><br/>
-                    <button>Sign In</button>
+                    <button className="sign-button">SIGN IN</button>
                 </form>
                 or Sign Up
             </div>
