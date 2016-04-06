@@ -21,7 +21,7 @@ var FeedbackWrong = React.createClass({
       <button className="feedback-button" type="button" onClick={this.detectivePad}>DETECTIVE CHECKLIST</button>
       <br/><br/>
       <button className="feedback-button" type="button" onClick={this.gameHomeReturn}>RETURN TO GAME</button>
-	    </div>
+	  </div>
 	);
   },
 });

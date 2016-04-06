@@ -10,7 +10,6 @@ var Feedback = React.createClass({
     return (
       <div>
       <FeedbackPage />
-      <Link to="game_home" activeClassName="active">Game Home</Link>
       </div>
   );
   },
