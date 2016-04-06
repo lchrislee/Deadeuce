@@ -8,8 +8,9 @@
 
 #import <UIKit/UIKit.h>
 #import <SWRevealViewController.h>
+#import <GoogleSignIn/GoogleSignIn.h>
 
-@interface AppDelegate : UIResponder <UIApplicationDelegate>
+@interface AppDelegate : UIResponder <UIApplicationDelegate, GIDSignInDelegate, GIDSignInUIDelegate>
 
 @property (strong, nonatomic) UIWindow *window;
 @property (strong, nonatomic) SWRevealViewController *viewController;

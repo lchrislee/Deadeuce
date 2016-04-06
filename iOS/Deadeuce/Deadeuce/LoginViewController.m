@@ -11,19 +11,22 @@
 #import <FBSDKLoginKit/FBSDKLoginKit.h>
 #import "LobbyTableViewController.h"
 #import <SWRevealViewController.h>
+#import <GoogleSignIn/GoogleSignIn.h>
 
 #import "DeadeuceCaller.h"
 
 @interface LoginViewController ()
 
 @property (nonatomic, strong) UIImageView *bgImageView;
-@property (nonatomic, strong) UIButton *submitButton;
+@property (nonatomic, strong) UIImageView *logoImageView;
+@property (nonatomic, strong) UIButton *fbButton;
+@property (nonatomic, strong) UIButton *googleButton;
 
 @end
 
 @implementation LoginViewController
 
-- (void)submitButtonPressed:(UIButton*)sender {
+- (void)fbButtonPressed:(UIButton*)sender {
     LobbyTableViewController *lVc = [[LobbyTableViewController alloc] initWithStyle:UITableViewStylePlain];
     
     [self.navigationController pushViewController:lVc animated:YES];
@@ -60,40 +63,93 @@
     self.bgImageView = [[UIImageView alloc] initWithFrame:bgFrame];
     self.bgImageView.image=[UIImage imageNamed:@"cropdark-curve-forest-rails.png"];
     
-    self.submitButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-    [self.submitButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-    self.submitButton.layer.cornerRadius = 5;
-    self.submitButton.clipsToBounds = YES;
-    [self.submitButton.layer setBackgroundColor:[[UIColor colorWithRed:(44/255.0) green:(67/255.0) blue:(136/255.0) alpha:1.0] CGColor]];
     
-    UIImageView *customView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"facebook.png"]];
-    customView.frame = CGRectMake(28.0, 13.0, 34.0, 34.0);
-    [self.submitButton addSubview:customView];
+    CGRect logoFrame = CGRectMake(20.0, screenHeight/2 - 164.0, screenWidth - 40.0, 88.0);
+    self.logoImageView = [[UIImageView alloc] initWithFrame:logoFrame];
+    self.logoImageView.image=[UIImage imageNamed:@"griffy.regular.png"];
     
-    [self.submitButton addTarget:self
+    
+    self.fbButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+    [self.fbButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    self.fbButton.layer.cornerRadius = 5;
+    self.fbButton.clipsToBounds = YES;
+    [self.fbButton.layer setBackgroundColor:[[UIColor colorWithRed:(44/255.0) green:(67/255.0) blue:(136/255.0) alpha:1.0] CGColor]];
+    
+    
+    UIImageView *customViewF = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"facebook.png"]];
+    customViewF.frame = CGRectMake(28.0, 13.0, 34.0, 34.0);
+    [self.fbButton addSubview:customViewF];
+    
+    [self.fbButton addTarget:self
                           action:@selector(loginButtonClicked:)
                 forControlEvents:UIControlEventTouchUpInside];
-    [self.submitButton setTitle:@"Login with Facebook" forState:UIControlStateNormal];
-    self.submitButton.contentHorizontalAlignment = UIControlContentHorizontalAlignmentRight;
-    self.submitButton.contentEdgeInsets = UIEdgeInsetsMake(0, 0, 0, 30.0);
-    self.submitButton.titleLabel.font = [UIFont fontWithName:@"HelveticaNeue" size:22.0];
-    self.submitButton.frame = CGRectMake(20.0, screenHeight - 188.0, screenWidth - 40.0, 60.0);
+    [self.fbButton setTitle:@"Login with Facebook" forState:UIControlStateNormal];
+    self.fbButton.contentHorizontalAlignment = UIControlContentHorizontalAlignmentRight;
+    self.fbButton.contentEdgeInsets = UIEdgeInsetsMake(0, 0, 0, 30.0);
+    if (screenWidth < 340)
+    {
+        self.fbButton.titleLabel.font = [UIFont fontWithName:@"HelveticaNeue" size:17.0];
+    }
+    else
+    {
+        self.fbButton.titleLabel.font = [UIFont fontWithName:@"HelveticaNeue" size:22.0];
+        
+    }
+    self.fbButton.frame = CGRectMake(20.0, screenHeight - 188.0, screenWidth - 40.0, 60.0);
     
-    UILabel *titleLabel = [[UILabel alloc] init];
-    [titleLabel setFrame:CGRectMake(20.0, screenHeight/2 - 164.0, screenWidth - 40.0, 88.0)];
-    titleLabel.backgroundColor=[UIColor clearColor];
-    titleLabel.textColor=[UIColor blackColor];
-    titleLabel.userInteractionEnabled = NO;
-    titleLabel.textAlignment = NSTextAlignmentCenter;
+    //google button
     
-    titleLabel.text= @"Deadeuce";
-    [titleLabel setFont:[UIFont fontWithName:@"HelveticaNeue" size:50]];
+    self.googleButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+    [self.googleButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    self.googleButton.layer.cornerRadius = 5;
+    self.googleButton.clipsToBounds = YES;
+    [self.googleButton.layer setBackgroundColor:[[UIColor colorWithRed:(223/255.0) green:(74/255.0) blue:(50/255.0) alpha:1.0] CGColor]];
+    
+    UIImageView *customViewG = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"google_logo.png"]];
+    customViewG.frame = CGRectMake(28.0, 13.0, 34.0, 34.0);
+    [self.googleButton addSubview:customViewG];
+    
+    
+    [self.googleButton addTarget:self
+                          action:@selector(sI:)
+                forControlEvents:UIControlEventTouchUpInside];
+    [self.googleButton setTitle:@"Login with Google" forState:UIControlStateNormal];
+    self.googleButton.contentHorizontalAlignment = UIControlContentHorizontalAlignmentRight;
+    self.googleButton.contentEdgeInsets = UIEdgeInsetsMake(0, 0, 0, 46.0);
+    if (screenWidth < 340)
+    {
+        self.googleButton.titleLabel.font = [UIFont fontWithName:@"HelveticaNeue" size:17.0];
+    }else{
+        self.googleButton.titleLabel.font = [UIFont fontWithName:@"HelveticaNeue" size:22.0];
+    }
+    
+    self.googleButton.frame = CGRectMake(20.0, screenHeight - 110.0, screenWidth - 40.0, 60.0);
+
+    
+    //Original Title button
+//    UILabel *titleLabel = [[UILabel alloc] init];
+//    [titleLabel setFrame:CGRectMake(20.0, screenHeight/2 - 164.0, screenWidth - 40.0, 88.0)];
+//    titleLabel.backgroundColor=[UIColor clearColor];
+//    titleLabel.textColor=[UIColor blackColor];
+//    titleLabel.userInteractionEnabled = NO;
+//    titleLabel.textAlignment = NSTextAlignmentCenter;
+//    
+//    titleLabel.text= @"Deadeuce";
+//    [titleLabel setFont:[UIFont fontWithName:@"HelveticaNeue" size:50]];
     
     [self.view addSubview:_bgImageView];
-    [self.view addSubview:titleLabel];
-    [self.view addSubview:_submitButton];
+    [self.view addSubview:_logoImageView];
+    [self.view addSubview:_googleButton];
+    [self.view addSubview:_fbButton];
+    //[self.view addSubview:titleLabel];
+
 }
 
+- (void)sI:(id) sender
+{
+    [[GIDSignIn sharedInstance] signIn];
+    
+}
 - (void)viewWillAppear:(BOOL)animated {
     [self.navigationController setNavigationBarHidden:YES animated:animated];
     [super viewWillAppear:animated];
@@ -107,6 +163,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [[DeadeuceCaller sharedCaller] testSlice: @{@"Hello": @"World", @"TEST": @"RESULT"}];
+    [GIDSignIn sharedInstance].uiDelegate = self;
+
     // Do any additional setup after loading the view.
 }
 

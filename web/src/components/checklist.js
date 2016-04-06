@@ -4,6 +4,7 @@ var $ = require('jQuery');
 
 var Checklist = React.createClass({
     getInitialState: function() {
+
         return {
           "suspect": ["EVKitty", "George Tirebiter", "Will Ferrell", "Pete Carroll", "President Nikias", "Tommy Trojan"],
           "weapon": ["U-lock", "Tommy Trojan's Sword", "Empty soda cans", "Longboard", "Viterbi classes", "Dining hall food"],

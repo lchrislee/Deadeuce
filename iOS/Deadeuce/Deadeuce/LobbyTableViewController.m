@@ -10,6 +10,9 @@
 #import <SWRevealViewController.h>
 #import "GameObject.h"
 #import "AppDelegate.h"
+#import <FBSDKCoreKit/FBSDKCoreKit.h>
+#import <FBSDKLoginKit/FBSDKLoginKit.h>
+#import <GoogleSignIn/GoogleSignIn.h>
 #import "CurrentGameViewController.h"
 
 @interface LobbyTableViewCell : UITableViewCell
@@ -19,6 +22,7 @@
 @property (nonatomic, strong) UILabel *gameNameLabel;
 @property (nonatomic, strong) UILabel *numberOfPlayersLabel;
 @property (nonatomic, strong) UIButton* joinGameButton;
+@property (nonatomic, strong) UIButton* logoutButton;
 
 @end
 
@@ -225,11 +229,22 @@ const CGFloat kPadding = 6;
     
     [self.navigationItem setHidesBackButton:YES animated:YES];
     
+    UIBarButtonItem *logOutNav = [[UIBarButtonItem alloc] initWithTitle:@"Logout" style:UIBarButtonItemStylePlain target:self action:@selector(logoutPressed:)] ;
+    self.navigationItem.rightBarButtonItem = logOutNav;
+
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
     
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
+}
+
+- (void)logoutPressed:(id)sender
+{
+    FBSDKLoginManager *loginManager = [[FBSDKLoginManager alloc] init];
+    [loginManager logOut];
+    [[GIDSignIn sharedInstance] signOut];
+    [[GIDSignIn sharedInstance] disconnect];
 }
 
 -(void)viewWillAppear:(BOOL)animated {
