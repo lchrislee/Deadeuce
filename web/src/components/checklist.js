@@ -24,7 +24,7 @@ render: function(){
             </div>
             <div className="checklistRow">
                 {this.state.suspect.map(function(suspect){
-                  return <p><input type="checkbox" value={suspect}>{suspect}</input></p>
+                  return <input type="checkbox" value={suspect}>{suspect}</input>
                 })}
             </div>
             <div className="checklistRow category">
