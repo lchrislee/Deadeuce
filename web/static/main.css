@@ -445,37 +445,45 @@ Profile Page
 ***************************************************************/
 
 .prof-pic-container {
-    width: 80%;
+    width: 60%;
     margin: 30px auto;
-    margin-bottom:15px;
     background-color:#CCC;
+    text-align:center;
+
 }
 
 .prof-username {
     width:100%;
     border:1px solid black;
-    text-align: center;
-    font-size: 24pt;
     color:white;
     background-color:#999;
+    text-align: center;
+    padding:5px;
+    font-size: 24pt;
+    display:block;
 }
 
+
 .my-wins {
-    width: 49.77777%;
+    width: 100%;
     font-size: 18pt;
     color: red;
     float: left;
     border: 1px solid black;
     text-align: center;
+    display:block;
+    background-color:#CCC;
 }
 
 .my-losses {
-    width: 49.77777%;
+    width: 100%;
     font-size: 18pt;
     color: #000;
     float: left;
     border: 1px solid black;
     text-align: center;
+    display:block;
+    background-color:#CCC;
 }
 
 /**************************************************************

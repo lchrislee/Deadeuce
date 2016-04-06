@@ -15,6 +15,14 @@ body {
 	border-radius: 5px;
 	margin-top: 20px;
 }
+.outercontainer-profile {
+    margin: auto;
+    width: 70%;
+    background-color: #444444;
+    border-radius: 5px;
+    margin-top: 20px;
+    height:500px;
+}
 .center {
 	margin:auto;
 	text-align: center;
@@ -31,7 +39,7 @@ body {
 	padding-top: 60px;
 	color: #ffffff;
 }
-.primary_content, .secondary_content {
+.primary_content, .secondary_content, .primary_content2 {
 	background-color: #dddddd;
 	border-radius: 5px;
 	padding: 10px;
@@ -42,6 +50,10 @@ body {
 .primary_content {
 	width: 62%;
 	margin-right: 5px;
+}
+.primary_content2 {
+	width: 80%;
+	margin:auto;
 }
 .secondary_content {
 	width: 30%;
