@@ -16,6 +16,7 @@ var CreateGameForm = React.createClass({
       hostID: '12345429579572',
       gameName: this.state.gameName
     };
+    //TEst
     var stringified = JSON.stringify(testData);
     $.ajax({
       url: '/createGame',
@@ -65,57 +66,67 @@ var CreateGameForm = React.createClass({
   },
   render: function() {
     return (
-	    <div className="example-modal">
-	      <h1> Create a New Game </h1>
-        <form onSubmit={this.handleCreateGameSubmit}>
-          <table>
-            <tr>
-              <th>Game Name:</th>
-              <th><input type="text" name="gameName" onChange={this.gameNameChanged} defaultValue="Example Name"/> </th>
-            </tr>
-            <tr>
-              <th>Theme:</th>
-              <th>
-                <select name="theme" value={this.state.theme} onChange={this.themeChanged}> 
-                  <option>USC</option>
-                  <option>Capstone Class</option>
-                </select>  
-              </th>
-            </tr>  
-            <tr>
-              <th>Players:</th>
-              <th>
-                <select name="numberOfPlayers" value={this.state.numberOfPlayers} onChange={this.numberOfPlayersChanged}> 
-                  <option>4</option>
-                  <option>5</option>
-                  <option>6</option>
-                  <option>7</option>
-                  <option>8</option>
-                </select>
-              </th>
-            </tr>
-            <tr>
-              <th>Privacy: </th>
-              <th> 
-                <input type="radio" name="private"> Private </input> <br/>
-                <input type="radio" name="private"> Public </input>
-              </th>
-            </tr>
-            <tr>
-              <th>Character: </th>
-              <th> 
-                <select name="selectCharacter"> 
-                  <option>EV Kitty</option>
-                  <option>Tommy Trojan</option>
-                  <option>George Tirebiter</option>
-                  <option>President Nikias</option>
-                  <option>Pete Carroll</option>
-                </select>
-              </th>
-            </tr>
-          </table>
-          <input type="submit" name="submitNewGame" />
-        </form>  
+	    <div>
+        <div className="outercontainer">
+  	      <div className="hero_img"> 
+              <h1 className="center">Create a New Game!</h1>        
+          </div>
+          <div className="primary_content">  
+            <form onSubmit={this.handleCreateGameSubmit}>
+              You can start by using this form to create a new game! <br/><br/><br/>
+              <table>
+                <tr>
+                  <th>Game Name:</th>
+                  <th><input type="text" name="gameName" onChange={this.gameNameChanged} defaultValue="Example Name"/> </th>
+                </tr>
+                <tr>
+                  <th>Theme:</th>
+                  <th>
+                    <select name="theme" value={this.state.theme} onChange={this.themeChanged}> 
+                      <option>USC</option>
+                      <option>Capstone Class</option>
+                    </select>  
+                  </th>
+                </tr>  
+                <tr>
+                  <th>Players:</th>
+                  <th>
+                    <select name="numberOfPlayers" value={this.state.numberOfPlayers} onChange={this.numberOfPlayersChanged}> 
+                      <option>4</option>
+                      <option>5</option>
+                      <option>6</option>
+                      <option>7</option>
+                      <option>8</option>
+                    </select>
+                  </th>
+                </tr>
+                <tr>
+                  <th>Privacy: </th>
+                  <th> 
+                    <input type="radio" name="private"> Private </input> <br/>
+                    <input type="radio" name="private"> Public </input>
+                  </th>
+                </tr>
+                <tr>
+                  <th>Character: </th>
+                  <th> 
+                    <select name="selectCharacter"> 
+                      <option>EV Kitty</option>
+                      <option>Tommy Trojan</option>
+                      <option>George Tirebiter</option>
+                      <option>President Nikias</option>
+                      <option>Pete Carroll</option>
+                    </select>
+                  </th>
+                </tr>
+              </table>
+              <input type="submit" name="submitNewGame" />
+            </form>
+          </div>
+          <div className="secondary_content">
+            Story or stats can go here
+          </div>
+        </div>
 	    </div>
 	);
   },

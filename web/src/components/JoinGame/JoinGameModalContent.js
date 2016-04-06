@@ -2,15 +2,15 @@ var React = require('react');
 var $ = require('jQuery');
 
 var JoinGameModalContent = React.createClass({ 
-  mixins: [
-    require('react-onclickoutside')
-  ],
-  handleClickOutside: function(evt) {
-    this.props.closeModal(evt);
-  },
-  closeModal: function(evt) {
-    this.props.closeModal(evt);
-  },
+  // mixins: [
+  //   require('react-onclickoutside')
+  // ],
+  // handleClickOutside: function(evt) {
+  //   this.props.closeModal(evt);
+  // },
+  // closeModal: function(evt) {
+  //   this.props.closeModal(evt);
+  // },
   handleCreateGameSubmit: function(e) {
     e.preventDefault();
     var output = JSON.stringify({gameName:"FAKE NAME", userID:"SOME ID"});
@@ -21,10 +21,12 @@ var JoinGameModalContent = React.createClass({
       data: output,
       success: function(response) {
         //{joinSuccess:t/f, nextTurn: user_id}
-        console.log(response.nextTurn);
-        console.log(response.joinSuccess);
+        // console.log(response.nextTurn);
+        //console.log(response.joinSuccess);
+        console.log(response);
         if (response.joinSuccess){
           //do something
+          console.log(data);
           //maybe load the next page?
         }else{
           // we don goofed
@@ -46,13 +48,60 @@ var JoinGameModalContent = React.createClass({
   },
   render: function() {
     return (
-	    <div className="example-modal">
-        <h1> Create a New Game </h1>
-        <button onClick={this.closeModal} className="close">X</button>
-        <form onSubmit={this.handleCreateGameSubmit}>
-          You are about to join this game. Would you like to continue?
-          <input type="submit" name="submitJoinGame"/> 
-        </form> 
+	    <div>
+          <div className="outercontainer">
+          <div className="hero_img"> 
+            <h1 className="center">Come on in!</h1>        
+          </div>
+          <div className="primary_content">
+            <div className="gamefeed firstRow">
+                 <div className="FeedHeader">
+                     <div className="gamefeed-header"> Available Games</div>
+                     <div className="columnheader"> <p> Players </p></div>
+                     <div className="columnheader"> <p> Start time </p></div>
+                 </div>
+                 <div className="divFeedTable">
+                     <div className="divFeedRow">
+                         <div className="divFeedColumn1 column" >
+                             <svg className="gamefeed-svg"><img src="/assets/icons/fingerprint.svg" alt="fingerprint icon" className="icon" /></svg>
+                         </div>
+                         <div className="divFeedColumn2_small column">
+                             <p className="suggest-body"> Deserters</p>
+                         </div>
+                         <div className="divFeedColumn3 column"><p>5 players</p></div>
+                         <div className="divFeedColumn3 column"><p>00:05:56 </p></div>
+                     </div>
+                     <div className="divFeedRow">
+                         <div className="divFeedColumn1 column" >
+                             <svg className="gamefeed-svg"><img src="/assets/icons/fingerprint.svg" alt="fingerprint icon" className="icon" /></svg>
+                         </div>
+                         <div className="divFeedColumn2_small column">
+                             <p className="suggest-body"> Capstone group</p>
+                         </div>
+                         <div className="divFeedColumn3 column"><p>9 players </p></div>
+                         <div className="divFeedColumn3 column"><p>02:34:32 </p></div>
+                     </div>
+                     <div className="divFeedRow">
+                         <div className="divFeedColumn1 column" >
+                             <svg className="gamefeed-svg"><img src="/assets/icons/fingerprint.svg" alt="fingerprint icon" className="icon" /></svg>
+                         </div>
+                         <div className="divFeedColumn2_small column">
+                             <p className="suggest-body"> OG Deadeuce Crew</p>
+                         </div>
+                         <div className="divFeedColumn3 column"><p>7 players</p></div>
+                         <div className="divFeedColumn3 column"><p>73:23:09 </p></div>
+                     </div>
+                 </div>
+             </div>    
+          </div>
+          <div className="secondary_content">
+            <form className="center" onSubmit={this.handleCreateGameSubmit}>
+              You are about to join this game. Would you like to continue?
+              <br/>
+              <input type="submit" name="submitJoinGame"/> 
+            </form>
+          </div>
+        </div>
 	    </div>
 	);
   },
