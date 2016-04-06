@@ -11,10 +11,7 @@ var GameMap = React.createClass({
 
         };
     },
-
     render: function(){
-
-
         //var data = [];
         //React.Children.map(this.props.location, function(loc){
         //    //code in here is applied to each element in this.props.locations

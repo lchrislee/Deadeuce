@@ -6,7 +6,6 @@ var Feedback = React.createClass({
   render: function() {
     return (
       <div className="feedback">
-        <FeedbackCorrect />
         <FeedbackWrong />
       </div>
      );

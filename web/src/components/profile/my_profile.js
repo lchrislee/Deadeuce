@@ -42,7 +42,7 @@ var MyProfile = React.createClass({
                 {this.state.username}'s wins: {this.state.wins}
                 </div>
                 <div className="my-losses">
-                {this.state.username}'s losses:{this.state.losses}
+                {this.state.username}'s losses: {this.state.losses}
                 </div>
             </div>
         )

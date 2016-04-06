@@ -28,28 +28,29 @@ var SignUp = React.createClass({
     render: function(){
         return(
             <div className="sign-up">
-            <div className="sign-up-header">Sign Up for an account</div>
-                <form>
-                    Username: <input type="text" 
-                        placeholder="Username" 
-                        value={this.state.username} 
+            <div className="sign-up-header">Sign Up for an Account</div>
+                <div className="signup-form"> <form >
+                    <label className="sign-label" for="username"> Username:</label> <input type="text"
+                        placeholder="Username"
+                        value={this.state.username}
                         className="sign-up-username sign-up-input"/><br/>
-                    Email: <input type="text" 
+                    <label className="sign-label"for="e-mail">Email:</label><input type="text"
                         placeholder="Email" 
                         name="sign-up-email" 
                         className="sign-up-email sign-up-input" /><br/>
-                    Password: <input 
+                    <label className="sign-label" for="password">Password:</label><input
                         type="password" 
                         placeholder="Password" 
                         name="sign-up-pw1" 
                         className="sign-up-pw sign-up-input" /><br/>
-                    Confirm Password: <input 
+                    <label className="sign-label" for="confirm-password">Confirm Password:</label> <input
                         type="password" 
                         placeholder="Password" 
                         name="sign-up-pw2" 
-                        className="sign-up-pw sign-up-input"/><br/>
-                    <button>Sign Up</button>
-                </form>
+                        className="sign-up-pw sign-up-input"/><br/> <br/>
+                    <button className="sign-button" type="button">SIGN UP</button>
+                </form></div>
+
             </div>
         );
     }

@@ -4,7 +4,7 @@ var $ = require('jQuery');
 
 var SAContent = React.createClass({ 
   contextTypes: {
-   router: React.PropTypes.object.isRequired
+    router: React.PropTypes.object.isRequired
    },
   getInitialState: function() {
     return {
@@ -34,34 +34,34 @@ var SAContent = React.createClass({
       url = "/game/accuse";
     }
 
-    $.ajax({
-      url: url,
-      type: 'PUT',
-      contentType: "application/json",
-      dataType: 'json',
-      data: stringified,
-      // transformRequest: function(obj){
-      //   var str = [];
-      //   for(var p in obj){
-      //     str.push(encodeURLComponent(p) + '=' + encodeURLComponent(obj[p]));
-      //   }
-      //   return str.join('&');
-      // },
-      success: function(data) {
-        console.log(data);
-        this.setState({
-          "temp": data.gameID
-        });
-      }.bind(this),
-      error: function(xhr, status, err) {
-        console.log(err);
-        console.log(xhr);
-        this.setState({
-          "serverStatus" : "Error in server request."
-        });
-      }.bind(this)
-    });
-    this.context.router.push('game_home/feedback');
+    // $.ajax({
+    //   url: url,
+    //   type: 'PUT',
+    //   contentType: "application/json",
+    //   dataType: 'json',
+    //   data: stringified,
+    //   // transformRequest: function(obj){
+    //   //   var str = [];
+    //   //   for(var p in obj){
+    //   //     str.push(encodeURLComponent(p) + '=' + encodeURLComponent(obj[p]));
+    //   //   }
+    //   //   return str.join('&');
+    //   // },
+    //   success: function(data) {
+    //     console.log(data);
+    //     this.setState({
+    //       "temp": data.gameID
+    //     });
+    //   }.bind(this),
+    //   error: function(xhr, status, err) {
+    //     console.log(err);
+    //     console.log(xhr);
+    //     this.setState({
+    //       "serverStatus" : "Error in server request."
+    //     });
+    //   }.bind(this)
+    // });
+    this.context.router.push('/game_home/feedback');
   },
   render: function() {
     return (
@@ -89,11 +89,11 @@ var SAContent = React.createClass({
                   })}
                 </select>
               <br/><br/>
-              <input onChange={this.selectSuggest} type="radio" name="clueType" value="suggest" required />Suggestion
+              <input onChange={this.selectSuggest} type="radio" name="clueType" value="suggest" />Suggestion
               <br/>
-              <input onChange={this.selectAccuse} type="radio" name="clueType" value="accuse" required />Accusation
+              <input onChange={this.selectAccuse} type="radio" name="clueType" value="accuse" />Accusation
               <br/><br/>
-              <input type="submit" name="submitSA" onClick={this.feedback}/>
+              <input type="submit" name="submitSA" />
               </form>
           </div>
 	    </div>

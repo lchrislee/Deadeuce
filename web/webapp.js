@@ -567,7 +567,7 @@ function createUser(){
 // UPDATE USER
 app.put('/updateUser', function(request, response){
   //this is the database call/logic/everything else
-  response.json({"message": "This CREATES a USER"});
+  response.json({"message": "This UPDATES a USER"});
 });
 
 /**********************************
@@ -585,16 +585,18 @@ app.get('/user', function(request, response){
     "losses": "0",
   };
 
+  response.json(user);
+
   var userIDFind = request.body.userID;
 
-     var cursor = db.collection('user').find( { "_id": userIDFind } );
-     cursor.each(function(err, doc) {
-        if (doc != null) {
+     // var cursor = db.collection('user').find( { "_id": userIDFind } );
+     // cursor.each(function(err, doc) {
+     //    if (doc != null) {
 
-              response.json({"userInfo": doc});
-        } else {
-        }
-     });
+     //          response.json({"userInfo": doc});
+     //    } else {
+     //    }
+     // });
 });
 
 // USER WINS

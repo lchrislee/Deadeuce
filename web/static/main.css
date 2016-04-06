@@ -63,13 +63,14 @@ Detective Pad (ideally would be a modal in the future)
     margin-top:30px;
     width: 30%;
     min-width:400px;
-    height: 400px;
+    /*height: 400px;*/
     display:block;
     padding:0;
     background-color:#CCC;
 
     border: solid #444 1px;
     overflow: hidden;
+    float: left;
 
 }
 .checklistHeader{
@@ -99,7 +100,7 @@ Detective Pad (ideally would be a modal in the future)
 .checklistRow{
     font-size:8pt;
     width: 100%;
-    height: 20px;
+    /*height: 20px;*/
     line-height: 20px;
     display:block;
     clear: both;
@@ -149,7 +150,7 @@ Detective Pad/Suggest/Accuse Component
     width: 100%;
     position:relative;
     text-align:center;
-}*/
+}
 .turnButton{
     background-color: #0073FF;
     width:70%;
@@ -162,7 +163,7 @@ Detective Pad/Suggest/Accuse Component
 }
 .turnButton p{
     font-size:12pt;
-    margin:0px;
+    margin:0;
     padding:0;
 }
 
@@ -309,7 +310,7 @@ Game Feed Table Item Stylings
 /******************************************************************
 Game Map
 *******************************************************************/
-.gameMap{
+/*.gameMap{
     margin-top:30px;
     width: 30%;
     min-width:350px;
@@ -323,7 +324,7 @@ Game Map
     border: solid #444 1px;
     overflow:hidden;
 
-}
+}*/
 
 .gameMap-wrapper{
     margin-top:30px;
@@ -332,7 +333,7 @@ Game Map
     height: 330px;
     display:block;
     padding:0;
-    margin-left:15px;
+    margin-left:450px;
     background-color:#CCC;
 
     border: solid #444 1px;
@@ -445,34 +446,36 @@ Profile Page
 
 .prof-pic-container {
     width: 80%;
-    margin: auto;
+    margin: 30px auto;
+    margin-bottom:15px;
+    background-color:#CCC;
 }
 
 .prof-username {
-    width: 80%;
+    width:100%;
     border:1px solid black;
     text-align: center;
-    font-size: 4em;
+    font-size: 24pt;
+    color:white;
+    background-color:#999;
 }
 
 .my-wins {
-    width: 40%;
-    font-size: 2em;
+    width: 49.77777%;
+    font-size: 18pt;
     color: red;
     float: left;
-    margin: auto;
     border: 1px solid black;
-    text-align: middle;
+    text-align: center;
 }
 
 .my-losses {
-    width: 40%;
-    font-size: 2em;
+    width: 49.77777%;
+    font-size: 18pt;
     color: #000;
     float: left;
-    margin: auto;
     border: 1px solid black;
-    text-align: middle;
+    text-align: center;
 }
 
 /**************************************************************
@@ -480,12 +483,15 @@ Sign In
 ***************************************************************/
 
 .sign-in {
+
     border: 1px solid black;
     clear: both;
     text-align: center;
     width: 300px;
     padding: 50px;
     margin: auto;
+    background-color:#CCC;
+    border-radius:5;
 }
 
 .sign-in-username {
@@ -494,6 +500,18 @@ Sign In
 
 .sign-in-password {
     margin-bottom: 30px;
+}
+.sign-button{
+    height:40px;
+    width:250px;
+    display:block;
+    margin: auto;
+    background-color: #999;
+    color: white;
+
+
+    border-radius: 5px;
+    font-size:14pt;
 }
 
 /**************************************************************
@@ -507,17 +525,31 @@ Sign Up
     width: 350px;
     padding: 50px;
     margin: auto;
+    background-color:#CCC;
+    border-radius:5;
 }
 
 .sign-up-header{
     text-align: center;
     margin-bottom: 20px;
-}
 
+}
+.signup-form{
+    margin:auto;
+}
 .sign-up-input {
+    display:inline-block;
+    vertical-align:middle;
+    margin-left:15px;
 
 }
-
+.sign-label{
+    display: inline-block;
+    width: 180px;
+    text-align: right;
+    float:left;
+    margin-right:15px;
+}
 .sign-up-username {
 
 }
