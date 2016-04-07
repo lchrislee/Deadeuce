@@ -2,6 +2,9 @@ var React = require('react');
 var $ = require('jQuery');
 
 var JoinGameModalContent = React.createClass({ 
+  contextTypes: {
+   router: React.PropTypes.object.isRequired
+   },
   // mixins: [
   //   require('react-onclickoutside')
   // ],
@@ -43,8 +46,7 @@ var JoinGameModalContent = React.createClass({
         });
       }.bind(this)
     });
-    var evt = "";
-    // ^^ is this needed?
+    this.context.router.push('game_home');
   },
   render: function() {
     return (

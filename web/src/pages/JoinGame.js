@@ -15,7 +15,6 @@ var JoinGame = React.createClass({
      <div>
       <br/>
       <JoinGameModalContent />
-      <Link to="game_home" activeClassName="active">Game Home</Link>
      </div>
     );
   }
