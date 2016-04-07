@@ -228,9 +228,6 @@ const CGFloat kPadding = 6;
     [super viewDidLoad];
     
     [self.navigationItem setHidesBackButton:YES animated:YES];
-    
-    UIBarButtonItem *logOutNav = [[UIBarButtonItem alloc] initWithTitle:@"Logout" style:UIBarButtonItemStylePlain target:self action:@selector(logoutPressed:)] ;
-    self.navigationItem.rightBarButtonItem = logOutNav;
 
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
