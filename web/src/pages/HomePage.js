@@ -42,7 +42,6 @@ var HomePage = React.createClass({
        	<div className="center">{this.state.serverStatus}</div>
         <div className="center">
           <button onClick={this.testSlice}>Ping the server</button>
-          <button onClick={this.nextPage}>Go to next page</button>
           <button onClick={this.createGame}>Create New Game</button>
             {this.props.children}
         </div> 

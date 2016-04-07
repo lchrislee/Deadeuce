@@ -571,13 +571,15 @@ Suggest/Accuse
 *******************************************************************/
 
 .SAContainer {
-    height: 300px;
-    border-radius: 5px;
+    height: 200px;
+    display:flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
 }
 
 .SAHeader {
     background-color: #444444;
-    height: 50px;
+    height: 80px;
     width: 300px;
     border-top-left-radius: 5px;
     border-top-right-radius: 5px;
@@ -588,10 +590,14 @@ Suggest/Accuse
     font-weight: bold;
     color: white;
     margin-left: 10px;
-    padding-top: 13px;
+    margin-top: 13px;
 }
 
 .suggestAccuse {
-    padding-top: 10px;
+    background-color: rgba(193, 193, 193, 1.0);
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    width: 300px;
+    margin-bottom: 20px;
 }
 
