@@ -118,80 +118,85 @@ app.put('/joinGame', function(request, response){
   if (gameName === undefined || userID === undefined)
     response.sendStatus(400);
 
-  var set = {};
-  var cursor = db.collection('game').find( { "title": gameName } );
+  var result = {
+    joinSuccess: true
+  };
+  response.json(result);
 
-  cursor.each(function(err, doc) {
-  if (doc != null) {
-    var currentUserIDs = doc.users;
-    currentUserIDs[currentUserIDs.length] = userID;
-    set['users.' + userID] = {"_id": userID};
+  // var set = {};
+  // var cursor = db.collection('game').find( { "title": gameName } );
 
-    var cantJoin = false;
-    if(doc.users != undefined){
-      if(doc.users.length >= doc.maxUser){
-        cantJoin = true;
-      }
-    }
+  // cursor.each(function(err, doc) {
+  // if (doc != null) {
+  //   var currentUserIDs = doc.users;
+  //   currentUserIDs[currentUserIDs.length] = userID;
+  //   set['users.' + userID] = {"_id": userID};
 
-    if(cantJoin){
-      var result = {};
-      result['joinSuccess'] = false;
-      response.json(result);
-    }
+  //   var cantJoin = false;
+  //   if(doc.users != undefined){
+  //     if(doc.users.length >= doc.maxUser){
+  //       cantJoin = true;
+  //     }
+  //   }
 
-    if(!cantJoin){
+  //   if(cantJoin){
+  //     var result = {};
+  //     result['joinSuccess'] = false;
+  //     response.json(result);
+  //   }
 
-      db.collection('game').updateOne(
-        { "title" : gameName  },
-        { $set: set },
-        function(err, results) {
+  //   if(!cantJoin){
+
+  //     db.collection('game').updateOne(
+  //       { "title" : gameName  },
+  //       { $set: set },
+  //       function(err, results) {
         
-         // console.log(results);
+  //        // console.log(results);
 
-          if(!err){
-            var cursor = db.collection('user').find( { "_id": userID } );
-            cursor.each(function(err, userdoc) {
-            if (userdoc != null) {
-              var userGame = userdoc.game;
-              if(!userGame){
-                userGame = [];
-                userGame[userGame.length] = gameID;
-              }else{
-                userGame[userGame.length] = gameID;
-              }
-              db.collection('user').updateOne(
-                { "_id" : userID },
-                { $set: { "game": userGame} },
-                function(err, results) {
-                  if(!err){
-                    var result = {};
-                    result['joinSuccess'] = true;
-                    console.log("success");
-                    result['nextTurn'] = nextTurn;
-                    response.json(result);
-                  }else{
-                    var result = {};
-                    result['joinSuccess'] = false;
-                    console.log("failing");
-                    response.json(result);
+  //         if(!err){
+  //           var cursor = db.collection('user').find( { "_id": userID } );
+  //           cursor.each(function(err, userdoc) {
+  //           if (userdoc != null) {
+  //             var userGame = userdoc.game;
+  //             if(!userGame){
+  //               userGame = [];
+  //               userGame[userGame.length] = gameID;
+  //             }else{
+  //               userGame[userGame.length] = gameID;
+  //             }
+  //             db.collection('user').updateOne(
+  //               { "_id" : userID },
+  //               { $set: { "game": userGame} },
+  //               function(err, results) {
+  //                 if(!err){
+  //                   var result = {};
+  //                   result['joinSuccess'] = true;
+  //                   console.log("success");
+  //                   result['nextTurn'] = nextTurn;
+  //                   response.json(result);
+  //                 }else{
+  //                   var result = {};
+  //                   result['joinSuccess'] = false;
+  //                   console.log("failing");
+  //                   response.json(result);
 
-                  }
-                });
-              }
-            });
-          }else{
-            //error
-            var result = {};
+  //                 }
+  //               });
+  //             }
+  //           });
+  //         }else{
+  //           //error
+  //           var result = {};
 
-            result['joinSuccess'] = false;
-            response.json(result);
-          }
-        });
-        }
-      } else {
-      }
-   });
+  //           result['joinSuccess'] = false;
+  //           response.json(result);
+  //         }
+  //       });
+  //       }
+  //     } else {
+  //     }
+  //  });
 });
 
 
@@ -219,8 +224,22 @@ app.get('/game', function(request, response){
    });
 });
 
-app.get('game/all', function(request, response){
-  response.json({"game":"it works for now"});
+/*
+  Returns Object to Client
+  {gamesList: [{gameName, numberOfPlayers}, ...]}
+*/  
+app.get('/game/all', function(request, response){
+  //var val = db.collection.find('game')
+  var val = [];
+  for(var i = 0; i < 15; i++){
+    var test = "Omar's Occults " + i;
+    val.push({
+      gameName: test,
+      numberOfPlayers: "5"
+    });
+  }
+  
+  response.json({gamesList: val});
 });
 
 app.get('/game/locations', function(request, response){

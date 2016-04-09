@@ -162,7 +162,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [[DeadeuceCaller sharedCaller] testSlice: @{@"Hello": @"World", @"TEST": @"RESULT"}];
+    [[DeadeuceCaller sharedInstance] testSlice: @{@"Hello": @"World", @"TEST": @"RESULT"}];
     [GIDSignIn sharedInstance].uiDelegate = self;
 
     // Do any additional setup after loading the view.

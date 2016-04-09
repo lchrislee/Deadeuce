@@ -14,6 +14,7 @@
 #import <FBSDKLoginKit/FBSDKLoginKit.h>
 #import <GoogleSignIn/GoogleSignIn.h>
 #import "CurrentGameViewController.h"
+#import "DeadeuceCaller.h"
 
 @interface LobbyTableViewCell : UITableViewCell
 
@@ -194,14 +195,17 @@ const CGFloat kPadding = 6;
 
 @end
 
+
 @implementation LobbyTableViewController
 
 -(void) joinGameButtonPressed:(UIButton*)sender
 {
-    //Get the name of the game (or tag) to pass to next VC
-    //data[sender.tag].gameName
-    CurrentGameViewController *cGVc = [[CurrentGameViewController alloc] init];
-    [self.navigationController pushViewController:cGVc animated:YES];
+    GameObject* currentObj = _data[sender.tag];
+    NSMutableDictionary* gameInfo = [[NSMutableDictionary alloc] init];
+    [gameInfo setObject:currentObj.gameName forKey:@"gameName"];
+    [gameInfo setObject:@"1234" forKey:@"userID"];
+    DeadeuceCaller* model = [DeadeuceCaller sharedInstance];
+    [model joinGame:gameInfo];
 }
 
 - (instancetype)initWithStyle:(UITableViewStyle)style
@@ -216,9 +220,9 @@ const CGFloat kPadding = 6;
         self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
         
         _data = [[NSMutableArray alloc] init];
-        for(int i = 0; i < 10; i++){
-            [_data addObject:[[GameObject alloc] init]];
-        }
+        DeadeuceCaller* model = [DeadeuceCaller sharedInstance];
+        model.delegate = self;
+        [model getGames];
     }
     
     return self;
@@ -244,6 +248,7 @@ const CGFloat kPadding = 6;
     [[GIDSignIn sharedInstance] disconnect];
 }
 
+
 -(void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     self.revealViewController.panGestureRecognizer.enabled=NO;
@@ -257,6 +262,36 @@ const CGFloat kPadding = 6;
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+#pragma mark - Deadeuce Delegate
+
+-(void)listOfGames:(NSDictionary *)payload
+{
+    NSArray* newData = [payload objectForKey:@"gamesList"];
+    for(int i = 0; i < newData.count; i++){
+        NSDictionary* singleGame = newData[i];
+        NSString* gameName = [singleGame objectForKey:@"gameName"];
+        NSInteger numberOfPlayers = [[singleGame objectForKey:@"numberOfPlayers"] integerValue];
+        GameObject* obj = [[GameObject alloc] initWithGameName:gameName andNumberOfPlayers:numberOfPlayers];
+        [_data addObject:obj];
+    }
+    [self.tableView reloadData];
+}
+-(void) joinedGame:(BOOL)joined
+{
+    if(joined){
+        dispatch_queue_t queue = dispatch_queue_create("myqueue", NULL);
+        dispatch_async(queue, ^{
+            // create UIwebview, other things too
+            
+            // Perform on main thread/queue
+            dispatch_async(dispatch_get_main_queue(), ^{
+                CurrentGameViewController *cGVc = [[CurrentGameViewController alloc] init];
+                [self.navigationController pushViewController:cGVc animated:YES];
+            });
+        });
+    }
 }
 
 #pragma mark - Table view data source
