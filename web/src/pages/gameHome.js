@@ -20,9 +20,15 @@ var GameHome = React.createClass({
         "locations": [
             {"name":"LYON CENTER", "player":""},{"name":"LEAVEY LIBRARY", "player":"EVKitty, George Tirebiter"},{"name":"TRADDIES", "player":""},
             {"name":"GROUND ZERO", "player":""},{"name":"The 90", "player":""},{"name":"BOVARD", "player":"Pete" +
-            " Carroll"},
-            {"name":"EVK", "player":"Will Ferrell"},{"name":"THE ROW", "player":"President Nikias, Tommy Trojan"},{"name":"CAMPUS CENTER", "player":""}]
-
+            " Carroll"}, {"name":"EVK", "player":"Will Ferrell"},{"name":"THE ROW", "player":"President Nikias," +
+            " Tommy Trojan"},{"name":"CAMPUS CENTER", "player":""}],
+        "suspect": [
+            {"name":"EVKitty"}, {"name":"George Tirebiter"}, {"name":"Will Ferrell"}, {"name":"Pete" + " Carroll"}, {"name":"President Nikias"}, {"name":"Tommy Trojan"}],
+        "weapon": [
+            {"name":"U-lock"}, {"name":"Tommy Trojan's Sword"}, {"name":"Empty soda cans"}, {"name":"Longboard"}, {"name":"Viterbi" + " classes"}, {"name":"Dining" + " hall food"}],
+        "place": [
+            {"name":"Traddies"}, {"name":"The 90"}, {"name":"Ground Zero"}, {"name":"Lyon Center"}, {"name":"The" +
+            " Row"}, {"name":"Leavey Library"}, {"name":"Bovard"}, {"name":"EVK"}, {"name":"Campus Center"}]
     };
   },
     findPlayerGame: function(e) {
@@ -114,7 +120,7 @@ var GameHome = React.createClass({
      <div>
      <div className="gameContainer">
         <TurnBox />
-        <Checklist />
+        <Checklist suspect={this.state.suspect} weapon={this.state.weapon} place={this.state.place}/>
         <GameMap location= {this.state.locations} />
         <SuggestAccuse />
     </div>

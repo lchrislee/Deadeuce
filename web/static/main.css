@@ -57,7 +57,7 @@ Example Modal
     text-align: center;
 }
 /******************************************************************
-Detective Pad (ideally would be a modal in the future)
+Detective Checklist
 *******************************************************************/
 .checklist{
     margin-top:30px;
@@ -67,11 +67,9 @@ Detective Pad (ideally would be a modal in the future)
     display:block;
     padding:0;
     background-color:#CCC;
-
     border: solid #444 1px;
     overflow: hidden;
     float: left;
-
 }
 .checklistHeader{
     font-size:16pt;
@@ -79,6 +77,9 @@ Detective Pad (ideally would be a modal in the future)
     margin: 0;
     padding:0;
     color:white;
+}
+.checklistRow p {
+    margin:0;
 }
 .checklistRow-Header{
     width: 100%;
