@@ -49,6 +49,49 @@ app.post('/test_slice', function(req, res){
  *           GET            *
 \****************************/
 var GameGetFunctions = require('./scripts/game/GameGetFunctions.js');
+
+/*
+  Returns Object to Client
+  {gamesList: [{gameName, numberOfPlayers}, ...]}
+*/  
+app.get('/game/all', function(request, response){
+  response.json(GameGetFunctions.getAllGames());
+});
+
+/*
+  Takes in gameID
+  {gameID:}
+  Returns checklist of game
+  {checkList:{locations:[],weapons:[],suspects:[]}}
+*/
+app.get('/game/checklist', function(request, response){
+  var gameID = request.body.gameID;
+  if (gameID === undefined){
+    response.sendStatus(400);
+  }
+  response.json(GameGetFunctions.getChecklist(gameID));
+});
+
+/*
+  Takes in gameID
+  {gameID:}
+  Returns game name and a map of location names to players in the location
+  {gameName:, locations:[{name:,players:[]},...]}
+*/
+app.post('/game/map', function(request, response){
+  var gameID = request.body.gameID;
+  if (gameID === undefined){
+    response.sendStatus(400);
+  }
+  response.json(GameGetFunctions.getMap(gameID));
+});
+
+// every GET request below this line may not be necessary
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
 /*
   Takes in a gameID or a gameName
   {gameName:}
@@ -63,14 +106,6 @@ app.get('/game', function(request, response){
     response.sendStatus(400);
   }
   response.json(GameGetFunctions.getGame(db));
-});
-
-/*
-  Returns Object to Client
-  {gamesList: [{gameName, numberOfPlayers}, ...]}
-*/  
-app.get('/game/all', function(request, response){
-  response.json(GameGetFunctions.getAllGames());
 });
 
 app.get('/game/locations', function(request, response){
@@ -107,6 +142,15 @@ app.get('/game/users/count', function(request, response){
   response.json(GameGetFunctions.getUsersCount());
 });
 
+// starting CLUES in a GAME for a USER
+app.get('/game/users/clues', function(request, response){
+  var gameIDFind = request.body.gameID;
+  var userIDFind = request.body.userID;
+  var authIDFind = request.body.authID;
+  
+  return GameGetFunctions.getUserClues(db);
+});
+
 //  get CHECKLIST in a GAME
 app.get('/game/users/checklist', function(request, response){
   //this is the database call/logic/everything else
@@ -117,53 +161,10 @@ app.get('/game/users/checklist', function(request, response){
   response.json(GameGetFunctions.getUserChecklist(db));
 });
 
-app.get('/game/checklist', function(request, response){
-  response.json(GameGetFunctions.getChecklist());
-});
-
-// starting CLUES in a GAME for a USER
-app.get('/game/users/clues', function(request, response){
-  var gameIDFind = request.body.gameID;
-  var userIDFind = request.body.userID;
-  var authIDFind = request.body.authID;
-  
-  return GameGetFunctions.getUserClues(db);
-});
-
 // TURN in a GAME
 app.get('/game/users/turn', function(request, response){
   var gameIDFind = request.body.gameID;
   return GameGetFunctions.getUserTurn(db);
-});
-
-/*
-  Takes in gameID
-  {gameID:}
-  Returns game feed, turn player, and checklist
-  {feed:[{accuser:,suspect:,weapon:,location:}],
-   turnPlayer:,
-   checkList:{locations:[],weapons:[],suspects:[]}}
-*/
-app.post('/game/status', function(request, response){
-  var gameID = request.body.gameID;
-  if (gameID === undefined){
-    response.sendStatus(400);
-  }
-  response.json(GameGetFunctions.getStatus(gameID));
-});
-
-/*
-  Takes in gameID
-  {gameID:}
-  Returns game name and a map of location names to players in the location
-  {gameName:, locations:[{name:,players:[]},...]}
-*/
-app.post('/game/map', function(request, response){
-  var gameID = request.body.gameID;
-  if (gameID === undefined){
-    response.sendStatus(400);
-  }
-  response.json(GameGetFunctions.getMap(gameID));
 });
 
 /****************************\
@@ -180,6 +181,21 @@ app.post('/createGame', function(request, response){
   if (hostID === undefined || gameName === undefined)
     response.sendStatus(400);
   response.json(GamePostFunctions.createGame(db));
+});
+
+/*
+  Takes in gameID
+  {gameID:}
+  Returns game feed, and turn player
+  {feed:[{accuser:,suspect:,weapon:,location:}],
+   turnPlayer:}
+*/
+app.post('/game/status', function(request, response){
+  var gameID = request.body.gameID;
+  if (gameID === undefined){
+    response.sendStatus(400);
+  }
+  response.json(GamePostFunctions.getStatus(gameID));
 });
 
 /****************************\

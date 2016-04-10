@@ -337,7 +337,7 @@ const CGFloat kPadding = 6;
     [cell.joinGameButton addTarget:self
                             action:@selector(joinGameButtonPressed:)
                   forControlEvents:UIControlEventTouchUpInside];
-    cell.numberOfPlayersLabel.text = [NSString stringWithFormat:@"Number of players: %d/6", obj.numberOfPlayers];
+    cell.numberOfPlayersLabel.text = [NSString stringWithFormat:@"Number of players: %ld/6", obj.numberOfPlayers];
     [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
     
     return cell;

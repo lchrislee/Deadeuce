@@ -17,6 +17,7 @@
 @optional -(void) listOfGames:(NSDictionary *)payload;
 @optional -(void) joinedGame:(BOOL)joined withGameID:(NSString*)gameID;
 @optional -(void) setGameStatus:(NSDictionary *)gameStatus;
+@optional -(void) setGameCheckList: (NSDictionary *)gameCheckList;
 @optional -(void) setGameMap:(NSDictionary *)gameMapInfo;
 @optional -(void) receiveFeedback:(NSDictionary *)feedback;
 
@@ -37,6 +38,7 @@
 - (BOOL) joinGame: (NSDictionary *) gameInfo;
 - (void) getGames; //goes to server
 - (void) getGameStatus: (NSDictionary *) gameID;
+- (void) getGameCheckList: (NSDictionary *) gameID;
 - (void) getGameMap: (NSDictionary *) gameID;
 - (void) takeAction: (NSDictionary *) action;
 

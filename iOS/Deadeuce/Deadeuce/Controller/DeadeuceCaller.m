@@ -41,10 +41,6 @@
             }else{
                 NSError *error;
                 NSDictionary *output = [NSJSONSerialization JSONObjectWithData:data options:0 error:&error];
-                if (error){
-                    NSLog(@"Error: %@", [error localizedDescription]);
-                    return;
-                }
                 NSLog(@"Data is: %@", output);
             }
         }];
@@ -66,11 +62,6 @@
                 NSError *error;
                 NSDictionary *output = [NSJSONSerialization JSONObjectWithData:data options:0 error:&error];
                 [delegate joinedGame:[output objectForKey:@"joinSuccess"] withGameID:[output objectForKey:@"gameID"]];
-                if (error){
-                    NSLog(@"Error: %@", [error localizedDescription]);
-                    return;
-                }
-                NSLog(@"Data is: %@", output);
             }
         }];
         return true;
@@ -92,10 +83,6 @@
                 NSError *error;
                 NSDictionary *output = [NSJSONSerialization JSONObjectWithData:data options:0 error:&error];
                 [delegate listOfGames:output];
-                if (error){
-                    NSLog(@"Error: %@", [error localizedDescription]);
-                    return;
-                }
             }
         }];
     }
@@ -118,16 +105,33 @@
                 NSError *error;
                 NSDictionary *output = [NSJSONSerialization JSONObjectWithData:data options:0 error:&error];
                 [delegate setGameStatus:output];
-                if (error){
-                    NSLog(@"Error: %@", [error localizedDescription]);
-                    return;
-                }
             }
         }];
     }
 }
 
-//TODO should be post request
+- (void) getGameCheckList:(NSDictionary *)gameID
+{
+    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@game/status/", self.baseRestUrl]];
+    NSURLRequest *request = [self createRequestForURL:url
+                                             withData:gameID
+                                       andRequestType:[self.requestToType objectForKey:@"getGameCheckList"]];
+    if (!request){
+        return;
+    } else {
+        [self sendRequest:request withHandler:^(NSData * data, NSURLResponse * response, NSError * error) {
+            if (error || ((NSHTTPURLResponse *)response).statusCode != 200){
+                NSLog(@"%ld", (long)((NSHTTPURLResponse *)response).statusCode);
+                NSLog(@"Error: %@", [error localizedDescription]);
+            }else{
+                NSError *error;
+                NSDictionary *output = [NSJSONSerialization JSONObjectWithData:data options:0 error:&error];
+                [delegate setGameCheckList:output];
+            }
+        }];
+    }
+}
+
 - (void) getGameMap:(NSDictionary *)gameID
 {
     NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@game/map/", self.baseRestUrl]];
@@ -145,10 +149,6 @@
                 NSError *error;
                 NSDictionary *output = [NSJSONSerialization JSONObjectWithData:data options:0 error:&error];
                 [delegate setGameMap:output];
-                if (error){
-                    NSLog(@"Error: %@", [error localizedDescription]);
-                    return;
-                }
             }
         }];
     }
@@ -161,7 +161,7 @@
     
     if (!request)
     {
-        return ;
+        return;
     }else{
         [self sendRequest:request withHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
             if (error || ((NSHTTPURLResponse *)response).statusCode != 200){
@@ -170,11 +170,6 @@
                 NSError *error;
                 NSDictionary *output = [NSJSONSerialization JSONObjectWithData:data options:0 error:&error];
                 [delegate receiveFeedback:output];
-                if (error){
-                    NSLog(@"Error: %@", [error localizedDescription]);
-                    return;
-                }
-                NSLog(@"Data is: %@", output);
             }
         }];
         return;
@@ -229,7 +224,8 @@
                            @"getGames": @"GET",
                            @"getGameStatus": @"POST", /*Get POST haxxxor*/
                            @"getGameMap": @"POST",
-                           @"takeAction": @"PUT"};
+                           @"takeAction": @"PUT",
+                           @"getGameCheckList":@"GET"};
     }
     return self;
 }
