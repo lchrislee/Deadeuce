@@ -69,7 +69,6 @@ Detective Checklist
     background-color:#CCC;
     border: solid #444 1px;
     overflow: hidden;
-    float: left;
 }
 .checklistHeader{
     font-size:16pt;
