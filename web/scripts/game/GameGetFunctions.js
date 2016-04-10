@@ -93,9 +93,10 @@ exports.getUserTurn = function(db){
 	});
 }
 
+//TODO add timestamps to feed item
 exports.getStatus = function(gameID){
 	var feed = [];
-	for (var i = 0; i < 5; ++i){
+	for (var i = 0; i < 10; i++){
 		feed.push({
 			"accuser":"EVKitty",
 			"suspect":"George Tirebiter",
@@ -135,7 +136,9 @@ exports.getStatus = function(gameID){
 		]
 	};
 
+	//TODO get rid of gameName or include it in query
 	return {"feed": feed,
+			"gameName": "Omar's Occults",
 			"turnPlayer": turnPlayer,
 			"checkList": checkList
 			};

@@ -144,7 +144,7 @@ app.get('/game/users/turn', function(request, response){
    turnPlayer:,
    checkList:{locations:[],weapons:[],suspects:[]}}
 */
-app.get('/game/status', function(request, response){
+app.post('/game/status', function(request, response){
   var gameID = request.body.gameID;
   if (gameID === undefined){
     response.sendStatus(400);

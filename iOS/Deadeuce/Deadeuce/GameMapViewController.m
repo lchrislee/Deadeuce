@@ -116,7 +116,6 @@ const CGFloat kMPadding = 3;
 @property (nonatomic, strong) UILabel *currentGameValueLabel;
 
 @property (nonatomic, strong) NSMutableArray * locations;
-@property (nonatomic, strong) NSString* gameName;
 
 @end
 
@@ -142,9 +141,6 @@ const CGFloat kMPadding = 3;
         model.delegate = self;
         NSString * gameID = [model getGameID];
         [model getGameMap:@{@"gameID":gameID}];
-//        self.locations = @[@"Lyon Center", @"Leavey Library", @"Traddies",
-//                           @"Ground Zero", @"The 90", @"Bovard",
-//                           @"EVK", @"The Row", @"Campus Center"];
     }
     
     return self;
@@ -170,7 +166,9 @@ const CGFloat kMPadding = 3;
     [self.currentGameLabel setFont:[UIFont fontWithName:@"HelveticaNeue" size:22]];
     [self.view addSubview:self.currentGameLabel];
     
-    self.currentGameValueLabel = [[UILabel alloc] init];
+    if(!_currentGameValueLabel){
+        self.currentGameValueLabel = [[UILabel alloc] init];
+    }
     [self.currentGameValueLabel setFrame:CGRectMake(20.0, startingHeight + 50.0, screenWidth - 40.0, 40.0)];
     self.currentGameValueLabel.backgroundColor=[UIColor clearColor];
     self.currentGameValueLabel.textColor=[UIColor colorWithRed:(37/255.0) green:(36/255.0) blue:(45/255.0) alpha:1.0];
@@ -179,10 +177,6 @@ const CGFloat kMPadding = 3;
     self.currentGameValueLabel.clipsToBounds = YES;
     [self.currentGameValueLabel.layer setBackgroundColor:[[UIColor colorWithRed:(193/255.0) green:(193/255.0) blue:(193/255.0) alpha:1.0] CGColor]];
     self.currentGameValueLabel.textAlignment = NSTextAlignmentCenter;
-    if(!_gameName){
-        _gameName = @"Loading...";
-    }
-    self.currentGameValueLabel.text= _gameName;
     [self.currentGameValueLabel setFont:[UIFont fontWithName:@"HelveticaNeue" size:22]];
     [self.view addSubview:self.currentGameValueLabel];
     
@@ -201,8 +195,10 @@ const CGFloat kMPadding = 3;
 #pragma mark Deadeuce Delegate
 -(void) setGameMap:(NSDictionary *)gameMapInfo
 {
+    if(!_currentGameValueLabel){
+        _currentGameValueLabel = [[UILabel alloc] init];
+    }
     _currentGameValueLabel.text = [gameMapInfo objectForKey:@"gameName"];
-    _gameName = [gameMapInfo objectForKey:@"gameName"];
     _locations = [gameMapInfo objectForKey:@"locations"];
     [_collectionView reloadData];
 }

@@ -127,7 +127,6 @@
     }
 }
 
-
 //TODO should be post request
 - (void) getGameMap:(NSDictionary *)gameID
 {
@@ -228,7 +227,7 @@
         _requestToType = @{@"test_slice": @"POST",
                            @"joinGame": @"PUT",
                            @"getGames": @"GET",
-                           @"getGameStatus": @"GET",
+                           @"getGameStatus": @"POST", /*Get POST haxxxor*/
                            @"getGameMap": @"POST",
                            @"takeAction": @"PUT"};
     }

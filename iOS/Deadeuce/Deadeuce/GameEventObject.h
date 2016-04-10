@@ -10,6 +10,8 @@
 
 @interface GameEventObject : NSObject
 
+- (instancetype)initWithPayload:(NSDictionary*)payload;
+
 @property (nonatomic, strong) NSString* suggester;
 @property (nonatomic, strong) NSString* suggestedTo;
 @property (nonatomic, strong) NSString* suggestedWeapon;
