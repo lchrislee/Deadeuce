@@ -12,10 +12,21 @@
 @interface DeadeuceCaller ()
 @property (strong, nonatomic) NSString* baseRestUrl;
 @property (strong, nonatomic) NSDictionary *requestToType;
+@property (nonatomic, strong) NSString* gameID;
 @end
 
 @implementation DeadeuceCaller
 @synthesize delegate;
+
+//TODO this should persist
+- (void) setGameID:(NSString*)gameID
+{
+    _gameID = gameID;
+}
+- (NSString*) getGameID
+{
+    return _gameID;
+}
 
 - (void) testSlice: (NSDictionary *) bodyDict{
     NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@test_slice/", self.baseRestUrl]];
@@ -54,7 +65,7 @@
             }else{
                 NSError *error;
                 NSDictionary *output = [NSJSONSerialization JSONObjectWithData:data options:0 error:&error];
-                [delegate joinedGame:[output objectForKey:@"joinSuccess"]];
+                [delegate joinedGame:[output objectForKey:@"joinSuccess"] withGameID:[output objectForKey:@"gameID"]];
                 if (error){
                     NSLog(@"Error: %@", [error localizedDescription]);
                     return;
@@ -116,6 +127,8 @@
     }
 }
 
+
+//TODO should be post request
 - (void) getGameMap:(NSDictionary *)gameID
 {
     NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@game/map/", self.baseRestUrl]];
@@ -216,7 +229,7 @@
                            @"joinGame": @"PUT",
                            @"getGames": @"GET",
                            @"getGameStatus": @"GET",
-                           @"getGameMap": @"GET",
+                           @"getGameMap": @"POST",
                            @"takeAction": @"PUT"};
     }
     return self;

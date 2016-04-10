@@ -4,9 +4,10 @@ var express = require('express');
 
 exports.joinGame = function(){
 	var result = {
-    	joinSuccess: true
-  	};
-  	return result;
+    	joinSuccess: true,
+      gameID: "1234567"
+  };
+  return result;
 
   // var set = {};
   // var cursor = db.collection('game').find( { "title": gameName } );

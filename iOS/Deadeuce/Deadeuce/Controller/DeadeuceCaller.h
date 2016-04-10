@@ -15,7 +15,7 @@
 @protocol DeadeuceDelegate <NSObject>
 
 @optional -(void) listOfGames:(NSDictionary *)payload;
-@optional -(void) joinedGame:(BOOL)joined;
+@optional -(void) joinedGame:(BOOL)joined withGameID:(NSString*)gameID;
 @optional -(void) setGameStatus:(NSDictionary *)gameStatus;
 @optional -(void) setGameMap:(NSDictionary *)gameMapInfo;
 @optional -(void) receiveFeedback:(NSDictionary *)feedback;
@@ -28,6 +28,11 @@
 
 // designated allocator and initialization
 + (instancetype) sharedInstance;
+
+//Set should be called only once
+- (void) setGameID:(NSString*)gameID;
+- (NSString*) getGameID;
+
 - (void) testSlice: (NSDictionary *) bodyDict;
 - (BOOL) joinGame: (NSDictionary *) gameInfo;
 - (void) getGames; //goes to server

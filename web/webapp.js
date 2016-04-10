@@ -158,7 +158,7 @@ app.get('/game/status', function(request, response){
   Returns game name and a map of location names to players in the location
   {gameName:, locations:[{name:,players:[]},...]}
 */
-app.get('/game/map', function(request, response){
+app.post('/game/map', function(request, response){
   var gameID = request.body.gameID;
   if (gameID === undefined){
     response.sendStatus(400);
@@ -188,6 +188,12 @@ app.post('/createGame', function(request, response){
 var GamePutFunctions = require('./scripts/game/GamePutFunctions.js');
 
 // JOIN GAME
+/*
+  TODO
+  Takes in gamename and user id.
+  Returns:
+  {gameID, joinSuccess}
+*/
 app.put('/joinGame', function(request, response){
   var gameName = request.body.gameName;
   var userID = request.body.userID;

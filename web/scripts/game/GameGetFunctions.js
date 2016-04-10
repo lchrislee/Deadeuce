@@ -144,12 +144,12 @@ exports.getStatus = function(gameID){
 exports.getMap = function(gameID){
 	return {"gameName":"Michelle's Masterminds",
 			"locations": [{"name":"Lyon Center", "players":undefined},
-						  {"name":"Leavey Library", "players":"EVKitty, George Tirebiter"},
+						  {"name":"Leavey Library", "players":["EVKitty", "George Tirebiter"]},
 						  {"name":"Traddies", "players":undefined},
 						  {"name":"Ground Zero", "players":undefined},
 						  {"name":"The 90", "players":undefined},
-						  {"name":"Bovard", "players":"Pete Caroll"},
-						  {"name":"EVK", "players":"Will Ferrell"},
-						  {"name":"The Row", "players":"President Nikias, Tommy Trojan"},
+						  {"name":"Bovard", "players":["Pete Caroll"]},
+						  {"name":"EVK", "players":["Will Ferrell"]},
+						  {"name":"The Row", "players":["President Nikias","Tommy Trojan"]},
 						  {"name":"Campus Center", "players":undefined}]};
 }
