@@ -35,7 +35,6 @@
 
 -(void) setGameCheckList: (NSDictionary *)gameCheckList
 {
-    NSLog(@"%@", gameCheckList);
     NSDictionary* checklist = [gameCheckList objectForKey:@"checkList"];
     
     _locations = [checklist objectForKey:@"locations"];

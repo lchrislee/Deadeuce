@@ -192,8 +192,8 @@ exports.updateTurn = function(){
 
 exports.takeAction = function(gameID, userID, weapon, suspect, location, action){
   if (action == "suggest"){
-    return {"correct":false, "feedback":"I DONE IT"};
+    return {"correct":false, "feedback":"I DONE IT", "action":"Suggestion"};
   }else if (action == "accuse"){
-    return {"correct":true};
+    return {"correct":true, "action":"Accusation"};
   }
 }

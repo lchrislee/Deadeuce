@@ -226,24 +226,22 @@ app.put('/joinGame', function(request, response){
   {correct:, feedback:}
 */
 app.put('/game/action', function(request, response){
-  var gameID = request.body.gameID;
-  var userID = request.body.userID;
-  var weapon = request.body.weapon;
-  var suspect = request.body.suspect;
-  var location = request.body.location;
-  var action = request.body.action;
+ var gameID = request.body.gameID;
+ var userID = request.body.userID;
+ var weapon = request.body.weapon;
+ var suspect = request.body.suspect;
+ var location = request.body.location;
+ var action = request.body.action;
 
-  if (gameID === undefined || userID === undefined || action === undefined){
-    response.sendStatus(400);
-  }else if (weapon === undefined || suspect === undefined || location === undefined){
-    response.sendStatus(400);
-  }else if (action != "suggest" && action != "accuse")
-  var out = GamePutFunctions.takeAction(gameID, userID, weapon, suspect, location, action);
-  if (out === undefined){
-    response.sendStatus(400);
-  }else{
-    response.json(out);
-  }
+ if (gameID === undefined || userID === undefined || action === undefined){
+   response.sendStatus(400);
+ }else if (weapon === undefined || suspect === undefined || location === undefined){
+   response.sendStatus(400);
+ }else if (action != "suggest" && action != "accuse"){
+   response.sendStatus(400);
+ }
+ 
+ response.json(GamePutFunctions.takeAction(gameID, userID, weapon, suspect, location, action));
 });
 
 // ACCUSE in a GAME

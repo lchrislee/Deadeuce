@@ -173,9 +173,6 @@ const CGFloat kPadding3 = 6;
         model.delegate = self;
         NSString * gameID = [model getGameID];
         [model getGameStatus:@{@"gameID":gameID}];
-//        for(int i = 0; i < 10; i++){
-//            [self.data addObject:[[GameEventObject alloc] init]];
-//        }
     }
     
     return self;
