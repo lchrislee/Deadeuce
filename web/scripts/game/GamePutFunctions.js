@@ -194,7 +194,5 @@ exports.takeAction = function(gameID, userID, weapon, suspect, location, action)
     return {"correct":false, "feedback":"I DONE IT"};
   }else if (action == "accuse"){
     return {"correct":true};
-  }else{
-    return undefined;
   }
 }

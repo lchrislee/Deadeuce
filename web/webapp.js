@@ -50,7 +50,11 @@ app.post('/test_slice', function(req, res){
 \****************************/
 var GameGetFunctions = require('./scripts/game/GameGetFunctions.js');
 /*
+  Takes in a gameID or a gameName
+  {gameName:}
+  {gameID:}
   Returns a single Game Object
+  {game:{}} // i don't know how the Game object is structured yet
 */
 app.get('/game', function(request, response){
   var gameID = request.body.gameID;
@@ -132,6 +136,14 @@ app.get('/game/users/turn', function(request, response){
   return GameGetFunctions.getUserTurn(db);
 });
 
+/*
+  Takes in gameID
+  {gameID:}
+  Returns game feed, turn player, and checklist
+  {feed:[{accuser:,suspect:,weapon:,location:}],
+   turnPlayer:,
+   checkList:{locations:[],weapons:[],suspects:[]}}
+*/
 app.get('/game/status', function(request, response){
   var gameID = request.body.gameID;
   if (gameID === undefined){
@@ -140,6 +152,12 @@ app.get('/game/status', function(request, response){
   response.json(GameGetFunctions.getStatus(gameID));
 });
 
+/*
+  Takes in gameID
+  {gameID:}
+  Returns game name and a map of location names to players in the location
+  {gameName:, locations:[{name:,players:[]},...]}
+*/
 app.get('/game/map', function(request, response){
   var gameID = request.body.gameID;
   if (gameID === undefined){
@@ -179,6 +197,12 @@ app.put('/joinGame', function(request, response){
   response.json(GamePutFunctions.joinGame());
 });
 
+/*
+  Takes in gameID, userID, weapon, suspect, location, and the action (suggest/accuse)
+  {gameID:,userID:,weapon:,suspect:,location:,action:}
+  Returns feedback (only on suggest) and correctness
+  {correct:, feedback:}
+*/
 app.put('/game/action', function(request, response){
   var gameID = request.body.gameID;
   var userID = request.body.userID;
@@ -191,7 +215,7 @@ app.put('/game/action', function(request, response){
     response.sendStatus(400);
   }else if (weapon === undefined || suspect === undefined || location === undefined){
     response.sendStatus(400);
-  }
+  }else if (action != "suggest" && action != "accuse")
   var out = GamePutFunctions.takeAction(gameID, userID, weapon, suspect, location, action);
   if (out === undefined){
     response.sendStatus(400);
