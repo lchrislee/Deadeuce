@@ -15,14 +15,14 @@ exports.getGame = function(db){
 
 exports.getAllGames = function(){
 	var val = [];
-  for(var i = 0; i < 15; i++){
-    var test = "Omar's Occults " + i;
-    val.push({
-      gameName: test,
-      numberOfPlayers: "5"
-    });
-  }
-  return {gamesList:val};
+  	for(var i = 0; i < 15; i++){
+    	var test = "Omar's Occults " + i;
+    	val.push({
+      		gameName: test,
+      		numberOfPlayers: "5"
+    	});
+  	}
+  	return {gamesList:val};
 }
 
 exports.getLocations = function(){
@@ -52,11 +52,11 @@ exports.getUsers = function(db){
 }
 
 exports.getUsersCount = function (){
-
+	//FILL ME
 }
 
 exports.getChecklist = function(){
-
+	//FILL ME
 }
 
 exports.getUserChecklist = function(db){
@@ -91,4 +91,65 @@ exports.getUserTurn = function(db){
 			return {"message": undefined};
 		}
 	});
+}
+
+exports.getStatus = function(gameID){
+	var feed = [];
+	for (var i = 0; i < 5; ++i){
+		feed.push({
+			"accuser":"EVKitty",
+			"suspect":"George Tirebiter",
+			"weapon":"overly sharp Skittles wrapper",
+			"location":"The Row"
+		});
+	}
+	var turnPlayer = "President Nikias";
+
+	var checkList = {
+		"locations":[
+			"Lyon Center",
+			"Leavey Library",
+			"Traddies",
+			"Ground Zero",
+			"The 90",
+			"Bovard",
+			"EVK",
+			"The Row",
+			"Campus Center"
+		],
+		"weapons":[
+			"U-Lock",
+			"Tommy Trojan's Sword",
+			"overly sharp Skittles wrapper",
+			"Freshman on a longboard",
+			"Viterbi Finals",
+			"Taco Bell's deal of the week"
+		],
+		"suspects":[
+			"President Nikias",
+			"EVKitty",
+			"George Tirebiter",
+			"Will Ferrell",
+			"Tommy Trojan",
+			"Pete Caroll"
+		]
+	};
+
+	return {"feed": feed,
+			"turnPlayer": turnPlayer,
+			"checkList": checkList
+			};
+}
+
+exports.getMap = function(gameID){
+	return {"gameName":"Michelle's Masterminds",
+			"locations": [{"name":"Lyon Center", "players":undefined},
+						  {"name":"Leavey Library", "players":"EVKitty, George Tirebiter"},
+						  {"name":"Traddies", "players":undefined},
+						  {"name":"Ground Zero", "players":undefined},
+						  {"name":"The 90", "players":undefined},
+						  {"name":"Bovard", "players":"Pete Caroll"},
+						  {"name":"EVK", "players":"Will Ferrell"},
+						  {"name":"The Row", "players":"President Nikias, Tommy Trojan"},
+						  {"name":"Campus Center", "players":undefined}]};
 }

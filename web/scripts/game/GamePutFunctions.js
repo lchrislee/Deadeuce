@@ -188,3 +188,13 @@ exports.updateTurn = function(){
       	}
     });
 }
+
+exports.takeAction = function(gameID, userID, weapon, suspect, location, action){
+  if (action == "suggest"){
+    return {"correct":false, "feedback":"I DONE IT"};
+  }else if (action == "accuse"){
+    return {"correct":true};
+  }else{
+    return undefined;
+  }
+}

@@ -132,6 +132,22 @@ app.get('/game/users/turn', function(request, response){
   return GameGetFunctions.getUserTurn(db);
 });
 
+app.get('/game/status', function(request, response){
+  var gameID = request.body.gameID;
+  if (gameID === undefined){
+    response.sendStatus(400);
+  }
+  response.json(GameGetFunctions.getStatus(gameID));
+});
+
+app.get('/game/map', function(request, response){
+  var gameID = request.body.gameID;
+  if (gameID === undefined){
+    response.sendStatus(400);
+  }
+  response.json(GameGetFunctions.getMap(gameID));
+});
+
 /****************************\
  *           POST           *
 \****************************/
@@ -161,6 +177,27 @@ app.put('/joinGame', function(request, response){
     response.sendStatus(400);
   }
   response.json(GamePutFunctions.joinGame());
+});
+
+app.put('/game/action', function(request, response){
+  var gameID = request.body.gameID;
+  var userID = request.body.userID;
+  var weapon = request.body.weapon;
+  var suspect = request.body.suspect;
+  var location = request.body.location;
+  var action = request.body.action;
+
+  if (gameID === undefined || userID === undefined || action === undefined){
+    response.sendStatus(400);
+  }else if (weapon === undefined || suspect === undefined || location === undefined){
+    response.sendStatus(400);
+  }
+  var out = GamePutFunctions.takeAction(gameID, userID, weapon, suspect, location, action);
+  if (out === undefined){
+    response.sendStatus(400);
+  }else{
+    response.json(out);
+  }
 });
 
 // ACCUSE in a GAME
