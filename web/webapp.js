@@ -64,7 +64,7 @@ app.get('/game/all', function(request, response){
   Returns checklist of game
   {checkList:{locations:[],weapons:[],suspects:[]}}
 */
-app.get('/game/checklist', function(request, response){
+app.post('/game/checklist', function(request, response){
   var gameID = request.body.gameID;
   if (gameID === undefined){
     response.sendStatus(400);

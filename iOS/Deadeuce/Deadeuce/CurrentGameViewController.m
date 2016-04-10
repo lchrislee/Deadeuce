@@ -212,11 +212,9 @@ const CGFloat kPadding3 = 6;
     self.suggestButton.titleLabel.font = [UIFont fontWithName:@"HelveticaNeue" size:20];
     self.suggestButton.frame = CGRectMake(0.0, startingHeight, screenWidth/2, 44.0);
     
-    
     UIImage *btnDetective = [UIImage imageNamed:@"suggest_icon.png"];
     [_suggestButton setTitleEdgeInsets:UIEdgeInsetsMake(0.0, 10.0, 0.0, 0.0)];
     [_suggestButton setImage:btnDetective forState:UIControlStateNormal];
-    
     
     self.detectivePadButton = [UIButton buttonWithType:UIButtonTypeCustom];
     [self.detectivePadButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];

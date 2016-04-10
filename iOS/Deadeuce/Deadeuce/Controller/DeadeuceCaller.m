@@ -112,7 +112,7 @@
 
 - (void) getGameCheckList:(NSDictionary *)gameID
 {
-    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@game/status/", self.baseRestUrl]];
+    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@game/checklist/", self.baseRestUrl]];
     NSURLRequest *request = [self createRequestForURL:url
                                              withData:gameID
                                        andRequestType:[self.requestToType objectForKey:@"getGameCheckList"]];
@@ -225,7 +225,7 @@
                            @"getGameStatus": @"POST", /*Get POST haxxxor*/
                            @"getGameMap": @"POST",
                            @"takeAction": @"PUT",
-                           @"getGameCheckList":@"GET"};
+                           @"getGameCheckList":@"POST"};
     }
     return self;
 }

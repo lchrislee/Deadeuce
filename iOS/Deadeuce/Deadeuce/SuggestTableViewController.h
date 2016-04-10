@@ -7,8 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "DeadeuceCaller.h"
 
-@interface SuggestTableViewController : UITableViewController <UITableViewDataSource>
+@interface SuggestTableViewController : UITableViewController <UITableViewDataSource, DeadeuceDelegate>
 
 @property (nonatomic, strong) NSArray* locations;
 @property (nonatomic, strong) NSArray* weapons;
