@@ -73,7 +73,8 @@
     
     CGFloat startingHeight = self.navigationController.navigationBar.frame.size.height;
     
-    CGRect tableViewFrame = CGRectMake(0.0, 0.0, self.view.frame.size.width, 280);
+    CGFloat tableViewHeight = ([_decisionType isEqualToString:@"Suggestion"]) ? 232 : 280;
+    CGRect tableViewFrame = CGRectMake(0.0, 0.0, self.view.frame.size.width, tableViewHeight);
     _tableView = [[UITableView alloc] initWithFrame:tableViewFrame style:UITableViewStylePlain];
     _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     [_tableView setDataSource:self];
@@ -86,11 +87,13 @@
     self.resultLabel.userInteractionEnabled = NO;
     self.resultLabel.textAlignment = NSTextAlignmentCenter;
     
-    if([_correctOrIncorrect isEqualToString:@"Correct"]){
-        self.resultLabel.text = @"The other players in the game have been notified. You have solved the case and President Nikias will dedicate the next USC building in your name.";
-    } else {
-        self.resultLabel.text = @"You are no longer able to make suggestions in this game, but you may still observe the game.  The other players in the game have been notified.";
-        self.resultLabel.textColor = [UIColor redColor];
+    if(![_decisionType isEqualToString:@"Suggestion"]){
+        if([_correctOrIncorrect isEqualToString:@"Correct"]){
+            self.resultLabel.text = @"The other players in the game have been notified. You have solved the case and President Nikias will dedicate the next USC building in your name.";
+        } else {
+            self.resultLabel.text = @"You are no longer able to make suggestions in this game, but you may still observe the game.  The other players in the game have been notified.";
+            self.resultLabel.textColor = [UIColor redColor];
+        }
     }
     
     [self.resultLabel setFont:[UIFont fontWithName:@"HelveticaNeue" size:20]];
@@ -117,13 +120,18 @@
     [self.gamesListButton addTarget:self
                          action:@selector(gameListButtonPressed:)
                forControlEvents:UIControlEventTouchUpInside];
+    
+    
+    //TODO Detective Checklist pushes to wrong view
     NSString* title = ([_decisionType isEqualToString:@"Suggestion"]) ? @"Detective Checklist" : @"Return to Games List";
     [self.gamesListButton setTitle:title forState:UIControlStateNormal];
     self.gamesListButton.titleLabel.font = [UIFont fontWithName:@"HelveticaNeue" size:20];
     self.gamesListButton.frame = CGRectMake(20.0, screenHeight - 74.0, screenWidth - 40.0, 64.0);
     
     [self.view addSubview:_tableView];
-    [self.view addSubview:self.resultLabel];
+    if(![_decisionType isEqualToString:@"Suggestion"]){
+        [self.view addSubview:self.resultLabel];
+    }
     if([_correctOrIncorrect isEqualToString:@"Incorrect"]){
         [self.view addSubview:self.gameFeedButton];
     }
@@ -169,6 +177,10 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    if([_decisionType isEqualToString:@"Suggestion"]){
+        return self.data.count;
+    }
+    
     return self.data.count + 1;
 }
 
@@ -184,22 +196,30 @@
     
     if(indexPath.row == 0){
         if([self.decisionType isEqualToString:@"Suggestion"]){
-            [cell.textLabel setText:@"You selected:"];
-            [cell.textLabel setFont:[UIFont boldSystemFontOfSize:18]];
+            [cell.textLabel setText:@"Tommy Trojan revealed:"];
+            [cell.textLabel setFont:[UIFont systemFontOfSize:18]];
         } else {
             NSString* totalString = [NSString stringWithFormat:@"Your decision was %@", _correctOrIncorrect];
             
             UIColor* correctnessColor = ([_correctOrIncorrect isEqualToString:@"Incorrect"]) ? [UIColor redColor] : [UIColor greenColor];
             NSMutableAttributedString *text = [[NSMutableAttributedString alloc] initWithString:totalString];
-            NSLog(@"Total String length: %ld, correctOrIncorrectLength: %ld", totalString.length, _correctOrIncorrect.length);
             [text addAttribute:NSForegroundColorAttributeName value:[UIColor blackColor] range: NSMakeRange(0, totalString.length - _correctOrIncorrect.length)];
             [text addAttribute:NSForegroundColorAttributeName value:correctnessColor range:NSMakeRange(totalString.length-_correctOrIncorrect.length, _correctOrIncorrect.length)];
             [cell.textLabel setAttributedText:text];
         }
     } else {
-        //Add suggestion stuff?
-        [cell.textLabel setText:self.data[indexPath.row - 1]];
-        [cell.textLabel setFont:[UIFont systemFontOfSize:18]];
+        if([self.decisionType isEqualToString:@"Suggestion"]){
+            if(indexPath.row == 1){
+                [cell.textLabel setText:@"Lyon Center"];
+                [cell.textLabel setFont:[UIFont systemFontOfSize:18]];
+            } else if(indexPath.row == 2){
+                [cell.textLabel setText:@"Lyon Center has been checked off"];
+                [cell.textLabel setFont:[UIFont boldSystemFontOfSize:18]];
+            }
+        } else {
+            [cell.textLabel setText:self.data[indexPath.row - 1]];
+            [cell.textLabel setFont:[UIFont systemFontOfSize:18]];
+        }
     }
     
     return cell;

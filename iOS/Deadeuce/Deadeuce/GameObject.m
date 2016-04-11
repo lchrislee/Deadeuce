@@ -11,15 +11,12 @@
 
 @implementation GameObject
 
-- (instancetype)init
+- (instancetype)initWithGameName:(NSString*)gameName andNumberOfPlayers:(NSInteger)numberOfPlayers
 {
     if (self = [super init])
     {
-        //Dummy data lols
-        NSArray* random = @[@"Omar's Occults", @"Alex's Artisans", @"Chris's Captains", @"Zoe's Zealots",
-                            @"Rona's Raiders", @"Michelle's Masterminds", @"Trina's Travelers"];
-        _gameName = random[arc4random_uniform(7)];
-        _numberOfPlayers = arc4random_uniform(6);
+        _gameName = gameName;
+        _numberOfPlayers = numberOfPlayers;
     }
     
     return self;
