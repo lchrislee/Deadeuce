@@ -369,11 +369,11 @@ app.put('/user/game', function(request, response){
 /* This actually starts up the server while trying to connect to the
  * database.
  */
-MongoClient.connect('mongodb://localhost:27017', function(err, dbConnection) {
- db = dbConnection;
- var server = app.listen(process.env.PORT || 3000, function() {
+//MongoClient.connect('mongodb://localhost:27017', function(err, dbConnection) {
+// db = dbConnection;
+ var server = app.listen(process.env.PORT || 4000, function() {
       var port = server.address().port;
       console.log("Started server at port", port);
       console.log("Started at ", new Date().toUTCString());
  });
-});
+//});

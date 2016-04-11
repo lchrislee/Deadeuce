@@ -215,10 +215,10 @@
 - (instancetype) init{
     if (self = [super init]){
         BOOL debug = YES;
-         _baseRestUrl = @"http://54.193.7.18:3000/";
-        if(debug){
-            _baseRestUrl = @"http://localhost:3000/";
-        }
+         _baseRestUrl = @"http://54.193.7.18:4000/";
+//        if(debug){
+//            _baseRestUrl = @"http://localhost:3000/";
+//        }
         _requestToType = @{@"test_slice": @"POST",
                            @"joinGame": @"PUT",
                            @"getGames": @"GET",
