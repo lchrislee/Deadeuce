@@ -17,7 +17,7 @@ render: function(){
         <div className="checklist firstRow">
           <div className="checklistHeader">
             <div className="checklistRow-Header">
-              <p>Detective Checklist</p>
+            Detective Checklist
             </div>
           </div>
           <div className="checklist-content">

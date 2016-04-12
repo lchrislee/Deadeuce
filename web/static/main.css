@@ -60,7 +60,6 @@ Example Modal
 Detective Checklist
 *******************************************************************/
 .checklist{
-    margin-top:15px;
     width: 25%;
     min-width:150px;
     /*height: 400px;*/
@@ -72,23 +71,18 @@ Detective Checklist
     float: right;
 }
 .checklistHeader{
-    font-size:16pt;
+    font-size:14pt;
     font-weight:bold;
     margin: 0;
     padding:0;
     color:white;
 }
-.checklistRow p {
-    margin:0;
-}
 .checklistRow-Header{
     width: 100%;
     display:block;
+    padding-left: 10px;
     background-color:#444;
     overflow: auto;
-}
-.checklistRow-Header p {
-    padding-left:15px;
 }
 .checklistContent{
     width: 100%;
@@ -122,7 +116,7 @@ Detective Pad/Suggest/Accuse Component
 .turnBox-wrapper{
     margin:30px 0 15px 0;
     color:white;
-    height: 25px;
+    height: 35px;
     width: 100%;
     min-width:350px;
     border-radius: 5px;
@@ -130,10 +124,10 @@ Detective Pad/Suggest/Accuse Component
  }
 .turnBox-header{
     display:inline-block;
-    font-size:10pt;
+    font-size:14pt;
     background-color: rgba(0,0,0,0.6);
     text-align:left;
-    height:25px;
+    height:35px;
     width:100%;
     border-top-left-radius: 5px;
     border-top-right-radius: 5px;
@@ -209,7 +203,7 @@ Game Tables
     background-color:#444;
 }
 .gamefeed-header{
-    font-size:16pt;
+    font-size:14pt;
     font-weight:bold;
     padding:10px 0 10px 10px;
     color:white;
@@ -334,7 +328,7 @@ Game Map
     height: 530px;
     display:block;
     padding:0;
-    background-color:#CCC;
+    background-color:#000000;
 
     border: solid #444 1px;
     overflow:hidden;
@@ -355,11 +349,14 @@ Game Map
 }
 .gameMapBoxBody{
     width: 99.5555%;
-    min-height: 80px;
+    min-height: 150px;
     float:left;
-    background-color: #CCC;
+    background-color: #000000;
     border-right: solid #444 1px;
-}
+    background-image: url(assets/the90.png);
+    background-size: 130%;
+    opacity: 50%;
+}   
 .mapHeader{
     font-size:8.5pt;
     font-weight:bold;
@@ -377,7 +374,6 @@ Game Map
     width: 100%;
     min-height: 80px;
     display:block;
-    background-color: #CCC;
     clear: both;
 }
 .mapColumn{
@@ -386,10 +382,19 @@ Game Map
     display:block;
     padding: 0 .5%;
     text-align:center;
+
 }
 .mapContent{
     font-size:8.5pt;
     text-align:center;
+    color: #ffffff;
+    background-color: rgba(0,0,0,0.7);
+    padding: 5px;
+    border-radius: 5px;
+    font-weight: bold;
+    width: 90%;
+    margin: auto;
+    margin-top: 10px;
 }
 .mapContentBorder{
     border-left: 1px solid gray;
@@ -601,9 +606,18 @@ Suggest/Accuse
     padding: 0 5% 0 5%;
 }
 
+.suggestAccuse select{
+    width: 80%;
+}
+
+.checklistRow input {
+    width: 100%;
+}
+
 .suggestAccuse form {
     padding-top: 10px;
 }
+
 .suggestAccuseWrapper {
     float: right;
     width: 25%
@@ -619,6 +633,7 @@ Homepage Game Winning Accusations
     display:block;
     background-color:#444;
     overflow: auto;
+    font-size: 14pt;
 }
 .gameWinsBody{
     width: 100%;

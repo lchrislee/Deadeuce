@@ -76,24 +76,24 @@ var SAContent = React.createClass({
                     return <option value={suspect}>{suspect}</option>
                   })}
                 </select>
-                <br/><br/>
+                <br/>
                 <select onChange={this.selectWeapon} name="weapon">
                   {this.state.weapon.map(function(weapon){
                     return <option value={weapon}>{weapon}</option>
                   })}
                 </select>
-                <br/><br/>
+                <br/>
                 <select onChange={this.selectPlace} name="place">
                   {this.state.place.map(function(place){
                     return <option value={place}>{place}</option>
                   })}
                 </select>
-              <br/><br/>
+              <br/>
               <input onChange={this.selectSuggest} type="radio" name="clueType" value="suggest" />Suggestion
               <br/>
               <input onChange={this.selectAccuse} type="radio" name="clueType" value="accuse" />Accusation
-              <br/><br/>
-              <input type="submit" name="submitSA" />
+              <br/>
+              <input className="submit" type="submit" name="submitSA" />
               </form>
           </div>
 	    </div>

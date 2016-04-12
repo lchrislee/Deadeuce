@@ -133,6 +133,14 @@ body {
  	box-shadow: none;
  	border:none;
  }
+ input:submit {
+ 	padding: 10px 20px;
+ 	background-color: rgba(0,0,0,0.6);
+ 	border-radius: 5px;
+ 	color: #ffffff;
+ 	box-shadow: none;
+ 	border:none;
+ }
  .submit:hover {
  	background-color: rgba(0,0,0,0.5);
  }
