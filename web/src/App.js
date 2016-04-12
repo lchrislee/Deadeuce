@@ -7,7 +7,7 @@ var IndexRoute = require('react-router').IndexRoute;
 var browserHistory = require('react-router').browserHistory;
 var hashHistory = require('react-router').hashHistory;
 
-var HomePage = require('./pages/oldHomePage.js');
+var HomePage = require('./pages/HomePage.js');
 var SecondPage = require('./SecondPage.js');
 
 var Games = require('./pages/Games');

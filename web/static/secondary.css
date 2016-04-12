@@ -77,6 +77,7 @@ body {
 }
 .columnheader {
     float: right;
+	margin-right:20px;
     width: 17%;
     height:100%;
     display:block;
@@ -86,6 +87,17 @@ body {
     font-size:8pt;
     vertical-align: top;
  }
+.columnheader2 {
+	float: left;
+	width: 17%;
+	height:100%;
+	display:block;
+	padding-right:1%;
+	padding-top: 15px;
+	text-align:right;
+	font-size:8pt;
+	vertical-align: top;
+}
  .av_games {
  	margin:auto;
  	margin-top:30px;
