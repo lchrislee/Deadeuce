@@ -22,19 +22,19 @@ render: function(){
           </div>
           <div className="checklist-content">
             <div className="checklistRow category">
-              <p>Suspects</p>
+              Suspects
             </div>
                 {this.props.suspect.map(function(suspect){
                   return <ChecklistRow value={suspect} key={suspect.name} ></ChecklistRow>;
                 })}
             <div className="checklistRow category">
-              <p>Weapons</p>
+              Weapons
             </div>
                 {this.props.weapon.map(function(weapon){
                   return <ChecklistRow value={weapon} key={weapon.name} ></ChecklistRow>;
                 })}
             <div className="checklistRow category">
-              <p>Location</p>
+              Location
             </div>
                 {this.props.place.map(function(place){
                   return <ChecklistRow value={place} key={place.name}> </ChecklistRow>;

@@ -80,7 +80,7 @@ Detective Checklist
 .checklistRow-Header{
     width: 100%;
     display:block;
-    padding-left: 10px;
+    padding:10px;
     background-color:#444;
     overflow: auto;
 }
@@ -608,6 +608,8 @@ Suggest/Accuse
 
 .suggestAccuse select{
     width: 80%;
+    margin: 5px 0;
+
 }
 
 .checklistRow input {
