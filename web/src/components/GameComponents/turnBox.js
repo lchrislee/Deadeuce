@@ -11,7 +11,7 @@ render: function(){
     return(
         <div className="turnBox-wrapper">
             <div className="turnBox-header">
-                <p>CURRENT TURN: EVKitty (you)</p>
+                <p>CURRENT TURN: {this.props.currentTurn}</p>
             </div>
         </div>
       );

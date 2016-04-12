@@ -13,16 +13,16 @@ var GameMap = require('../components/GameComponents/gameMap.js')
 
 var GameHome = React.createClass({
 	getInitialState: function() {
+    var gameID = "abcdeg";
+    this.retrieveCheckList(gameID);
     return {
-        "gameID": undefined,
+        "gameID": gameID,
         "userID": 'user1',
         "gamePlayers": [],
-        "locations": [
-            {"name":"LYON CENTER", "player":""},{"name":"LEAVEY LIBRARY", "player":"EVKitty, George Tirebiter"},{"name":"TRADDIES", "player":""},
-            {"name":"GROUND ZERO", "player":""},{"name":"The 90", "player":""},{"name":"BOVARD", "player":"Pete" +
-            " Carroll"},
-            {"name":"EVK", "player":"Will Ferrell"},{"name":"THE ROW", "player":"President Nikias, Tommy Trojan"},{"name":"CAMPUS CENTER", "player":""}]
-
+        "currentTurn": 'Michelle',
+        "suspects": [],
+        "weapons": [],
+        "locations": []
     };
   },
     findPlayerGame: function(e) {
@@ -81,24 +81,24 @@ var GameHome = React.createClass({
         });
     },
 
-    retrieveGameLocations: function(e) {
-        e.preventDefault();
-
-        var stringified = JSON.stringify(gameID);
+    retrieveCheckList: function(gameID) {
+      var out = {"gameID":gameID};
+        var stringified = JSON.stringify(out);
         $.ajax({
             url: '/game/checklist',
-            type: 'GET',
+            type: 'POST',
             contentType: "application/json",
             dataType: 'json',
             data: stringified,
 
             success: function(data) {
                 console.log(data);
-                console.log(data.checklist);
+                var checkList = data.checkList;
                 this.setState({
-                    "locations": data.checklist.locations
+                    "locations": checkList.locations,
+                    "weapons": checkList.weapons,
+                    "suspects": checkList.suspects
                 });
-                assignPlayerLocations();
             }.bind(this),
             error: function(xhr, status, err) {
                 console.log(err);
@@ -109,14 +109,46 @@ var GameHome = React.createClass({
             }.bind(this)
         });
     },
+
+    retrieveCurrentPlayer: function(e) {
+        e.preventDefault();
+
+        var stringified = JSON.stringify(gameID);
+        $.ajax({
+            url: '/game/users/turn',
+            type: 'GET',
+            contentType: "application/json",
+            dataType: 'json',
+            data: stringified,
+
+            success: function(data) {
+                console.log(data);
+                console.log(data.turnBox);
+                this.setState({
+                    "currentTurn": data.turnBox
+                });
+            },
+            error: function(xhr, status, err) {
+                console.log(err);
+                console.log(xhr);
+                this.setState({
+                    "serverStatus": "Error in server request."
+                });
+            }.bind(this)
+        });
+    },
+
   render: function() {
+    var suspects = this.state.suspects;
+    var weapons = this.state.weapons;
+    var locations = this.state.locations;
     return (
      <div>
      <div className="gameContainer">
-        <TurnBox />
-        <Checklist />
-        <GameMap location= {this.state.locations} />
-        <SuggestAccuse />
+        <TurnBox currentTurn = {this.state.currentTurn} />
+        <GameMap />
+        <SuggestAccuse suspects = {suspects} weapons = {weapons} locations = {locations} />
+        <Checklist suspects = {suspects} weapons = {weapons} locations = {locations} />
     </div>
     </div>
     );
