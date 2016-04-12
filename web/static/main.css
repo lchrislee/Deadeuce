@@ -600,4 +600,23 @@ Suggest/Accuse
     width: 300px;
     margin-bottom: 20px;
 }
-
+/******************************************************************
+Homepage Game Winning Accusations
+*******************************************************************/
+.gameWins-wrapper{
+    width: 30%;
+}
+.gameWinsHeader{
+    width: 100%;
+    display:block;
+    background-color:#444;
+    overflow: auto;
+}
+.gameWinsBody{
+    width: 100%;
+    height: 500px;
+    display:block;
+    padding:0;
+    margin:0;
+    background-color:#CCC;
+}
