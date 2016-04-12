@@ -69,13 +69,8 @@ var CreateGameForm = React.createClass({
   render: function() {
     return (
 	    <div>
-        <div className="outercontainer">
-  	      <div className="hero_img"> 
-              <h1 className="center">Create a New Game!</h1>        
-          </div>
           <div className="primary_content">  
             <form onSubmit={this.handleCreateGameSubmit}>
-              You can start by using this form to create a new game! <br/><br/><br/>
               <table>
                 <tr>
                   <th>Game Name:</th>
@@ -103,13 +98,6 @@ var CreateGameForm = React.createClass({
                   </th>
                 </tr>
                 <tr>
-                  <th>Privacy: </th>
-                  <th> 
-                    <input type="radio" name="private"> Private </input> <br/>
-                    <input type="radio" name="private"> Public </input>
-                  </th>
-                </tr>
-                <tr>
                   <th>Character: </th>
                   <th> 
                     <select name="selectCharacter"> 
@@ -121,15 +109,22 @@ var CreateGameForm = React.createClass({
                     </select>
                   </th>
                 </tr>
+                <tr>
+                  <th>Privacy: </th>
+                  <th> 
+                    <input type="radio" name="private"> Private </input> <br/>
+                    <input type="radio" name="private"> Public </input>
+                  </th>
+                </tr>
+              
               </table>
-              <input type="submit" name="submitNewGame" />
+              <input type="submit" name="submitNewGame" className="submit" hoverClassName="hover"/>
             </form>
           </div>
           <div className="secondary_content">
             Story or stats can go here
           </div>
         </div>
-	    </div>
 	);
   },
 });

@@ -60,9 +60,9 @@ Example Modal
 Detective Pad (ideally would be a modal in the future)
 *******************************************************************/
 .checklist{
-    margin-top:30px;
-    width: 30%;
-    min-width:400px;
+    margin-top:15px;
+    width: 25%;
+    min-width:150px;
     /*height: 400px;*/
     display:block;
     padding:0;
@@ -70,7 +70,7 @@ Detective Pad (ideally would be a modal in the future)
 
     border: solid #444 1px;
     overflow: hidden;
-    float: left;
+    float: right;
 
 }
 .checklistHeader{
@@ -91,7 +91,7 @@ Detective Pad (ideally would be a modal in the future)
 }
 .checklistContent{
     width: 100%;
-    height: 500px;
+    height: 900px;
     display:block;
     padding:0;
     margin:0;
@@ -119,10 +119,10 @@ Detective Pad (ideally would be a modal in the future)
 Detective Pad/Suggest/Accuse Component
 *******************************************************************/
 .turnBox-wrapper{
-    margin-top:30px;
+    margin:30px 0 15px 0;
     color:white;
-    height: 50px;
-    width: 30%;
+    height: 25px;
+    width: 100%;
     min-width:350px;
     border-radius: 5px;
     border: solid #444 1px;
@@ -130,9 +130,9 @@ Detective Pad/Suggest/Accuse Component
 .turnBox-header{
     display:inline-block;
     font-size:10pt;
-    background-color:#444;
+    background-color: rgba(0,0,0,0.6);
     text-align:left;
-    height:50px;
+    height:25px;
     width:100%;
     border-top-left-radius: 5px;
     border-top-right-radius: 5px;
@@ -327,17 +327,17 @@ Game Map
 }*/
 
 .gameMap-wrapper{
-    margin-top:30px;
-    width: 30%;
-    min-width:350px;
-    height: 330px;
+    margin: 0 2% 0 0;
+    width: 72%;
+    min-width:250px;
+    height: 530px;
     display:block;
     padding:0;
-    margin-left:450px;
     background-color:#CCC;
 
     border: solid #444 1px;
     overflow:hidden;
+    float: left;
 
 }
 .mapBox{
@@ -359,8 +359,6 @@ Game Map
     background-color: #CCC;
     border-right: solid #444 1px;
 }
-
-
 .mapHeader{
     font-size:8.5pt;
     font-weight:bold;
@@ -402,12 +400,11 @@ Game Map
 Nav Bar
 *******************************************************************/
 .navBar {
-    height: 75px;
+    height: 50px;
     width: 100%;
-    background-color: #444444;
+    background-color: rgba(0,0,0,0.8);    
     display:block;
 }
-
 .navBar p {
     float: left;
     padding-left: 30px;
@@ -415,7 +412,7 @@ Nav Bar
 
 .navBar p a {
     text-decoration: none;
-    color: #FFFFFF;
+    color: #dddddd;
 }
 
 .navLinks {
@@ -427,16 +424,17 @@ Nav Bar
 
 .navLinks li {
     display: inline-block;
-    padding: 0px 60px 60px 0px;
+    padding: 0px 30px 0px 0px;
 }
 
 .navLinks li a {
     text-decoration: none;
-    color: #FFFFFF;
+    color: #dddddd;
 }
 
-.navBar .active {
-    color: red;
+.navBar li .active {
+    color: #ffffff;
+    font-weight: bolder;
 }
 
 
@@ -571,7 +569,7 @@ Suggest/Accuse
 *******************************************************************/
 
 .SAContainer {
-    height: 300px;
+    height: 280px;
     display:flex;
     flex-direction: column;
     flex-wrap: nowrap;
@@ -579,8 +577,8 @@ Suggest/Accuse
 
 .SAHeader {
     background-color: #444444;
-    height: 80px;
-    width: 300px;
+    height: 40px;
+    width: 100%;
     border-top-left-radius: 5px;
     border-top-right-radius: 5px;
 }
@@ -590,14 +588,23 @@ Suggest/Accuse
     font-weight: bold;
     color: white;
     margin-left: 10px;
-    margin-top: 13px;
+    margin-top: 10px;
 }
 
 .suggestAccuse {
     background-color: rgba(193, 193, 193, 1.0);
-    border-top-left-radius: 5px;
-    border-top-right-radius: 5px;
-    width: 300px;
+    border-radius: 0 0 5px 5px;
+    width: 90%;
+    height: 350px;
     margin-bottom: 20px;
+    padding: 0 5% 0 5%;
+}
+
+.suggestAccuse form {
+    padding-top: 10px;
+}
+.suggestAccuseWrapper {
+    float: right;
+    width: 25%
 }
 

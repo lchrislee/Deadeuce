@@ -114,9 +114,10 @@ var GameHome = React.createClass({
      <div>
      <div className="gameContainer">
         <TurnBox />
-        <Checklist />
-        <GameMap location= {this.state.locations} />
+        <GameMap location= {this.state.locations} /> 
         <SuggestAccuse />
+        <Checklist />
+        
     </div>
     </div>
     );

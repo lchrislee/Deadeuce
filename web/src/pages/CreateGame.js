@@ -8,7 +8,12 @@ var CreateGame = React.createClass({
   render: function() {
     return (
       <div>
-        <CreateGameForm />
+      	<div className="outercontainer fixedHeight">
+  	      <div className="hero_img"> 
+              <h1 className="center">Gather your friends to find the killer.</h1>        
+          </div>
+        <CreateGameForm /> 
+      </div>
       </div>
   );
   },
