@@ -7,8 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "DeadeuceCaller.h"
 
-@interface LobbyTableViewController : UITableViewController
+@interface LobbyTableViewController : UITableViewController<DeadeuceDelegate>
 
 @property (nonatomic, strong) NSMutableArray* data;
 

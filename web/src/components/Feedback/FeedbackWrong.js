@@ -17,9 +17,7 @@ var FeedbackWrong = React.createClass({
 	  <div className="feedbackContent">
       <p className="feedback-header"><br/>SUGGESTION FEEDBACK</p>
       <p>No one had any clues to help you!</p>
-
-      <button className="feedback-button" type="button" onClick={this.detectivePad}>DETECTIVE CHECKLIST</button>
-      <br/><br/>
+          <br/>
       <button className="feedback-button" type="button" onClick={this.gameHomeReturn}>RETURN TO GAME</button>
 	  </div>
 	);

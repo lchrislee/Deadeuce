@@ -10,7 +10,9 @@
 
 @interface GameObject : NSObject
 
+- (instancetype)initWithGameName:(NSString*)gameName andNumberOfPlayers:(NSInteger)numberOfPlayers;
+
 @property (nonatomic, strong) NSString* gameName;
-@property int numberOfPlayers;
+@property NSInteger numberOfPlayers;
 
 @end

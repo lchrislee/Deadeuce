@@ -17,12 +17,19 @@ var GameHome = React.createClass({
         "gameID": undefined,
         "userID": 'user1',
         "gamePlayers": [],
+        "currentTurn": undefined,
         "locations": [
             {"name":"LYON CENTER", "player":""},{"name":"LEAVEY LIBRARY", "player":"EVKitty, George Tirebiter"},{"name":"TRADDIES", "player":""},
             {"name":"GROUND ZERO", "player":""},{"name":"The 90", "player":""},{"name":"BOVARD", "player":"Pete" +
-            " Carroll"},
-            {"name":"EVK", "player":"Will Ferrell"},{"name":"THE ROW", "player":"President Nikias, Tommy Trojan"},{"name":"CAMPUS CENTER", "player":""}]
-
+            " Carroll"}, {"name":"EVK", "player":"Will Ferrell"},{"name":"THE ROW", "player":"President Nikias," +
+            " Tommy Trojan"},{"name":"CAMPUS CENTER", "player":""}],
+        "suspect": [
+            {"name":"EVKitty"}, {"name":"George Tirebiter"}, {"name":"Will Ferrell"}, {"name":"Pete" + " Carroll"}, {"name":"President Nikias"}, {"name":"Tommy Trojan"}],
+        "weapon": [
+            {"name":"U-lock"}, {"name":"Tommy Trojan's Sword"}, {"name":"Empty soda cans"}, {"name":"Longboard"}, {"name":"Viterbi" + " classes"}, {"name":"Dining" + " hall food"}],
+        "place": [
+            {"name":"Traddies"}, {"name":"The 90"}, {"name":"Ground Zero"}, {"name":"Lyon Center"}, {"name":"The" +
+            " Row"}, {"name":"Leavey Library"}, {"name":"Bovard"}, {"name":"EVK"}, {"name":"Campus Center"}]
     };
   },
     findPlayerGame: function(e) {
@@ -109,14 +116,44 @@ var GameHome = React.createClass({
             }.bind(this)
         });
     },
+
+    retrieveCurrentPlayer: function(e) {
+        e.preventDefault();
+
+        var stringified = JSON.stringify(gameID);
+        $.ajax({
+            url: '/game/users/turn',
+            type: 'GET',
+            contentType: "application/json",
+            dataType: 'json',
+            data: stringified,
+
+            success: function(data) {
+                console.log(data);
+                console.log(data.turnBox);
+                this.setState({
+                    "currentTurn": data.turnBox
+                });
+            },
+            error: function(xhr, status, err) {
+                console.log(err);
+                console.log(xhr);
+                this.setState({
+                    "serverStatus": "Error in server request."
+                });
+            }.bind(this)
+        });
+    },
+
   render: function() {
     return (
      <div>
      <div className="gameContainer">
-        <TurnBox />
-        <GameMap location= {this.state.locations} /> 
+
+        <TurnBox currentTurn = {this.state.turnBox} />
+        <GameMap location= {this.state.locations} />
         <SuggestAccuse />
-        <Checklist />
+        <Checklist suspect={this.state.suspect} weapon={this.state.weapon} place={this.state.place}/>
         
     </div>
     </div>
