@@ -1,14 +1,15 @@
 var React = require('react');
 var $ = require('jQuery');
-
+var ChecklistRow = require('./checklistRow.js');
 
 var Checklist = React.createClass({
+    contextTypes: {
+        router: React.PropTypes.object.isRequired
+    },
     getInitialState: function() {
 
         return {
-          "suspect": ["EVKitty", "George Tirebiter", "Will Ferrell", "Pete Carroll", "President Nikias", "Tommy Trojan"],
-          "weapon": ["U-lock", "Tommy Trojan's Sword", "Empty soda cans", "Longboard", "Viterbi classes", "Dining hall food"],
-          "place": ["Traddies", "The 90", "Ground Zero", "Lyon Center", "The Row", "Leavey Library", "Bovard", "EVK", "Campus Center"],
+
         }
     },
 render: function(){
@@ -23,27 +24,21 @@ render: function(){
             <div className="checklistRow category">
               <p>Suspects</p>
             </div>
-            <div className="checklistRow">
-                {this.state.suspect.map(function(suspect){
-                  return <input type="checkbox" value={suspect}>{suspect}</input>
+                {this.props.suspect.map(function(suspect){
+                  return <ChecklistRow value={suspect} key={suspect.name} ></ChecklistRow>;
                 })}
-            </div>
             <div className="checklistRow category">
               <p>Weapons</p>
             </div>
-            <div className="checklistRow">
-                {this.state.weapon.map(function(weapon){
-                  return <input type="checkbox" value={weapon}>{weapon}</input>
+                {this.props.weapon.map(function(weapon){
+                  return <ChecklistRow value={weapon} key={weapon.name} ></ChecklistRow>;
                 })}
-            </div>
             <div className="checklistRow category">
               <p>Location</p>
             </div>
-            <div className="checklistRow">
-                {this.state.place.map(function(place){
-                  return <input type="checkbox" value={place}>{place}</input>
+                {this.props.place.map(function(place){
+                  return <ChecklistRow value={place} key={place.name}> </ChecklistRow>;
                 })}
-            </div>
           </div>
         </div>
       );
