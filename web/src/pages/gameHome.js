@@ -8,8 +8,9 @@ var GameMap = require('../components/GameComponents/gameMap.js');
 var TurnBox = require('../components/GameComponents/turnBox.js');
 var Checklist = require('../components/checklist.js')
 var SuggestAccuse = require('../components/Accuse/SuggestAccuse.js');
-var GameMapContentBox = require('../components/GameComponents/gameMapContentBox.js')
-var GameMap = require('../components/GameComponents/gameMap.js')
+var GameMapContentBox = require('../components/GameComponents/gameMapContentBox.js');
+var GameMap = require('../components/GameComponents/gameMap.js');
+var GameFeed = require('../components/GameComponents/gameFeed.js')
 
 var GameHome = React.createClass({
 	getInitialState: function() {
@@ -154,6 +155,7 @@ var GameHome = React.createClass({
         <GameMap location= {this.state.locations} />
         <SuggestAccuse />
         <Checklist suspect={this.state.suspect} weapon={this.state.weapon} place={this.state.place}/>
+        <GameFeed />
         
     </div>
     </div>
