@@ -19,10 +19,10 @@ var AvailableGamesContent = React.createClass({
                     <svg className="gamefeed-svg"><img src="/assets/icons/fingerprint.svg" alt="fingerprint icon" className="icon" /></svg>
                 </div>
                 <div className="divFeedColumn2_small column">
-                    <p className="suggest-body"> GAME NAME </p>
+                    <p className="suggest-body"> {this.props.data.gameName}</p>
                 </div>
-                <div className="divFeedColumn3 column"><p> # players</p></div>
-                <div className="divFeedColumn3 column"><p>-00:00:30 </p></div>
+                <div className="divFeedColumn3 column"><p> {this.props.data.numberOfPlayers}</p></div>
+
             </div>
 
         );
