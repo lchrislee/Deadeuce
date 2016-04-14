@@ -7,10 +7,41 @@ var GameMap = React.createClass({
         router: React.PropTypes.object.isRequired
     },
     getInitialState: function() {
-        return{
-
+        console.log( " I R HERE");
+        var gameID = "abcdeg";
+        this.retrieveGameMap(gameID);
+        return {
+            gameID: gameID,
+            gameName: "",
+            "locations": []
         };
     },
+
+    retrieveGameMap: function(gameID) {
+        var out = {"gameID":gameID};
+        var stringified = JSON.stringify(out);
+        $.ajax({
+            url: '/game/map',
+            type: 'POST',
+            contentType: "application/json",
+            dataType: 'json',
+            data: stringified,
+
+            success: function(data) {
+                this.setState({
+                    "locations": data.locations
+                });
+            }.bind(this),
+            error: function(xhr, status, err) {
+                console.log(err);
+                console.log(xhr);
+                this.setState({
+                    "serverStatus" : "Error in server request."
+                });
+            }.bind(this)
+        })
+    },
+
     render: function(){
         //var data = [];
         //React.Children.map(this.props.location, function(loc){
@@ -19,7 +50,7 @@ var GameMap = React.createClass({
         //});
         return(
         <div className="gameMap-wrapper">
-            {this.props.location.map(function(loc){
+            {this.state.locations.map(function(loc){
                 return <GameMapContentBox data = {loc} key={loc.name}></GameMapContentBox>;
             })}
         </div>

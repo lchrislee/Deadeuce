@@ -7,8 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "DeadeuceCaller.h"
 
-@interface ReviewSuggestionViewController : UIViewController<UITableViewDataSource,UITableViewDelegate>
+@interface ReviewSuggestionViewController : UIViewController<UITableViewDataSource,UITableViewDelegate, DeadeuceDelegate>
 {
     UITableView* _tableView;
 }

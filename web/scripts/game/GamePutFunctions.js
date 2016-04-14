@@ -4,9 +4,10 @@ var express = require('express');
 
 exports.joinGame = function(){
 	var result = {
-    	joinSuccess: true
-  	};
-  	return result;
+    	joinSuccess: true,
+      gameID: "1234567"
+  };
+  return result;
 
   // var set = {};
   // var cursor = db.collection('game').find( { "title": gameName } );
@@ -187,4 +188,12 @@ exports.updateTurn = function(){
          	});
       	}
     });
+}
+
+exports.takeAction = function(gameID, userID, weapon, suspect, location, action){
+  if (action == "suggest"){
+    return {"correct":false, "feedback":"I DONE IT", "action":"Suggestion"};
+  }else if (action == "accuse"){
+    return {"correct":true, "action":"Accusation"};
+  }
 }

@@ -49,8 +49,55 @@ app.post('/test_slice', function(req, res){
  *           GET            *
 \****************************/
 var GameGetFunctions = require('./scripts/game/GameGetFunctions.js');
+
 /*
+  Returns Object to Client
+  {gamesList: [{gameName, numberOfPlayers}, ...]}
+*/  
+app.get('/game/all', function(request, response){
+  response.json(GameGetFunctions.getAllGames());
+});
+
+/*
+  Takes in gameID
+  {gameID:}
+  Returns checklist of game
+  {checkList:{locations:[],weapons:[],suspects:[]}}
+*/
+app.post('/game/checklist', function(request, response){
+  var gameID = request.body.gameID;
+  if (gameID === undefined){
+    response.sendStatus(400);
+  }
+  response.json(GameGetFunctions.getChecklist(gameID));
+});
+
+/*
+  Takes in gameID
+  {gameID:}
+  Returns game name and a map of location names to players in the location
+  {gameName:, locations:[{name:,players:[]},...]}
+*/
+app.post('/game/map', function(request, response){
+  var gameID = request.body.gameID;
+  if (gameID === undefined){
+    response.sendStatus(400);
+  }
+  response.json(GameGetFunctions.getMap(gameID));
+});
+
+// every GET request below this line may not be necessary
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+/*
+  Takes in a gameID or a gameName
+  {gameName:}
+  {gameID:}
   Returns a single Game Object
+  {game:{}} // i don't know how the Game object is structured yet
 */
 app.get('/game', function(request, response){
   var gameID = request.body.gameID;
@@ -59,14 +106,6 @@ app.get('/game', function(request, response){
     response.sendStatus(400);
   }
   response.json(GameGetFunctions.getGame(db));
-});
-
-/*
-  Returns Object to Client
-  {gamesList: [{gameName, numberOfPlayers}, ...]}
-*/  
-app.get('/game/all', function(request, response){
-  response.json(GameGetFunctions.getAllGames());
 });
 
 app.get('/game/locations', function(request, response){
@@ -103,6 +142,15 @@ app.get('/game/users/count', function(request, response){
   response.json(GameGetFunctions.getUsersCount());
 });
 
+// starting CLUES in a GAME for a USER
+app.get('/game/users/clues', function(request, response){
+  var gameIDFind = request.body.gameID;
+  var userIDFind = request.body.userID;
+  var authIDFind = request.body.authID;
+  
+  return GameGetFunctions.getUserClues(db);
+});
+
 //  get CHECKLIST in a GAME
 app.get('/game/users/checklist', function(request, response){
   //this is the database call/logic/everything else
@@ -111,19 +159,6 @@ app.get('/game/users/checklist', function(request, response){
   var authIDFind = request.body.authID;
 
   response.json(GameGetFunctions.getUserChecklist(db));
-});
-
-app.get('/game/checklist', function(request, response){
-  response.json(GameGetFunctions.getChecklist());
-});
-
-// starting CLUES in a GAME for a USER
-app.get('/game/users/clues', function(request, response){
-  var gameIDFind = request.body.gameID;
-  var userIDFind = request.body.userID;
-  var authIDFind = request.body.authID;
-  
-  return GameGetFunctions.getUserClues(db);
 });
 
 // TURN in a GAME
@@ -148,12 +183,33 @@ app.post('/createGame', function(request, response){
   response.json(GamePostFunctions.createGame(db));
 });
 
+/*
+  Takes in gameID
+  {gameID:}
+  Returns game feed, and turn player
+  {feed:[{accuser:,suspect:,weapon:,location:}],
+   turnPlayer:}
+*/
+app.post('/game/status', function(request, response){
+  var gameID = request.body.gameID;
+  if (gameID === undefined){
+    response.sendStatus(400);
+  }
+  response.json(GamePostFunctions.getStatus(gameID));
+});
+
 /****************************\
  *           PUT            *
 \****************************/
 var GamePutFunctions = require('./scripts/game/GamePutFunctions.js');
 
 // JOIN GAME
+/*
+  TODO
+  Takes in gamename and user id.
+  Returns:
+  {gameID, joinSuccess}
+*/
 app.put('/joinGame', function(request, response){
   var gameName = request.body.gameName;
   var userID = request.body.userID;
@@ -161,6 +217,31 @@ app.put('/joinGame', function(request, response){
     response.sendStatus(400);
   }
   response.json(GamePutFunctions.joinGame());
+});
+
+/*
+  Takes in gameID, userID, weapon, suspect, location, and the action (suggest/accuse)
+  {gameID:,userID:,weapon:,suspect:,location:,action:}
+  Returns feedback (only on suggest) and correctness
+  {correct:, feedback:}
+*/
+app.put('/game/action', function(request, response){
+ var gameID = request.body.gameID;
+ var userID = request.body.userID;
+ var weapon = request.body.weapon;
+ var suspect = request.body.suspect;
+ var location = request.body.location;
+ var action = request.body.action;
+
+ if (gameID === undefined || userID === undefined || action === undefined){
+   response.sendStatus(400);
+ }else if (weapon === undefined || suspect === undefined || location === undefined){
+   response.sendStatus(400);
+ }else if (action != "suggest" && action != "accuse"){
+   response.sendStatus(400);
+ }
+ 
+ response.json(GamePutFunctions.takeAction(gameID, userID, weapon, suspect, location, action));
 });
 
 // ACCUSE in a GAME
@@ -288,11 +369,11 @@ app.put('/user/game', function(request, response){
 /* This actually starts up the server while trying to connect to the
  * database.
  */
-MongoClient.connect('mongodb://localhost:27017', function(err, dbConnection) {
- db = dbConnection;
- var server = app.listen(process.env.PORT || 3000, function() {
+//MongoClient.connect('mongodb://localhost:27017', function(err, dbConnection) {
+// db = dbConnection;
+ var server = app.listen(process.env.PORT || 4000, function() {
       var port = server.address().port;
       console.log("Started server at port", port);
       console.log("Started at ", new Date().toUTCString());
  });
-});
+//});

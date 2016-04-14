@@ -278,13 +278,12 @@ const CGFloat kPadding = 6;
     }
     [self.tableView reloadData];
 }
--(void) joinedGame:(BOOL)joined
+-(void) joinedGame:(BOOL)joined withGameID:(NSString*)gameID
 {
     if(joined){
+        [[DeadeuceCaller sharedInstance] setGameID:gameID];
         dispatch_queue_t queue = dispatch_queue_create("myqueue", NULL);
         dispatch_async(queue, ^{
-            // create UIwebview, other things too
-            
             // Perform on main thread/queue
             dispatch_async(dispatch_get_main_queue(), ^{
                 CurrentGameViewController *cGVc = [[CurrentGameViewController alloc] init];
@@ -338,7 +337,7 @@ const CGFloat kPadding = 6;
     [cell.joinGameButton addTarget:self
                             action:@selector(joinGameButtonPressed:)
                   forControlEvents:UIControlEventTouchUpInside];
-    cell.numberOfPlayersLabel.text = [NSString stringWithFormat:@"Number of players: %d/6", obj.numberOfPlayers];
+    cell.numberOfPlayersLabel.text = [NSString stringWithFormat:@"Number of players: %ld/6", obj.numberOfPlayers];
     [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
     
     return cell;

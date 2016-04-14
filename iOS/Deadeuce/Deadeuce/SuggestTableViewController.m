@@ -33,6 +33,16 @@
     [self.navigationController pushViewController:rSVc animated:YES];
 }
 
+-(void) setGameCheckList: (NSDictionary *)gameCheckList
+{
+    NSDictionary* checklist = [gameCheckList objectForKey:@"checkList"];
+    
+    _locations = [checklist objectForKey:@"locations"];
+    _weapons = [checklist objectForKey:@"weapons"];
+    _people = [checklist objectForKey:@"suspects"];
+    [self.tableView reloadData];
+}
+
 - (instancetype)initWithStyle:(UITableViewStyle)style
 {
     if (self = [super initWithStyle:style])
@@ -43,13 +53,14 @@
         
         self.navigationItem.title = @"Suggest";
         self.sectionData = @[@"Location", @"Weapons", @"People"];
-        self.locations = @[@"Ground Zero (you are currently here)", @"Lyon Center", @"Leavey Library",
-                           @"Traddies", @"The 90", @"Bovard",
-                           @"EVK", @"The Row", @"Campus Center"];
-        self.weapons = @[@"empty soda cans", @"overly sharp skittles wrapper", @"tommy trojan's sword",
-                         @"EVKitty's left paw", @"freshman on a longboard", @"rotten chanos nachos"];
-        self.people = @[ @"Trina Gregory", @"Cody Kessler", @"Tommy Trojan",
-                         @"Max Nikias", @"Will Ferrell", @"Bob Saget"];
+        
+        _locations = [[NSMutableArray alloc] init];
+        _weapons = [[NSMutableArray alloc] init];
+        _people = [[NSMutableArray alloc] init];
+        DeadeuceCaller* model = [DeadeuceCaller sharedInstance];
+        model.delegate = self;
+        NSString * gameID = [model getGameID];
+        [model getGameCheckList:@{@"gameID":gameID}];
         
         UIBarButtonItem * cancelButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"X.png"]
                                                                               style:UIBarButtonItemStylePlain target:self action:@selector(dismiss:)];

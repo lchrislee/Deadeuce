@@ -57,3 +57,24 @@ exports.createGame = function(db){
     }
   });
 }
+
+
+//TODO add timestamps to feed item
+exports.getStatus = function(gameID){
+  var feed = [];
+  for (var i = 0; i < 10; i++){
+    feed.push({
+      "accuser":"EVKitty",
+      "suspect":"George Tirebiter",
+      "weapon":"overly sharp Skittles wrapper",
+      "location":"The Row"
+    });
+  }
+  var turnPlayer = "President Nikias";
+
+  //TODO get rid of gameName or include it in query
+  return {"feed": feed,
+      "gameName": "Omar's Occults",
+      "turnPlayer": turnPlayer
+      };
+}

@@ -12,10 +12,169 @@
 @interface DeadeuceCaller ()
 @property (strong, nonatomic) NSString* baseRestUrl;
 @property (strong, nonatomic) NSDictionary *requestToType;
+@property (nonatomic, strong) NSString* gameID;
 @end
 
 @implementation DeadeuceCaller
 @synthesize delegate;
+
+//TODO this should persist
+- (void) setGameID:(NSString*)gameID
+{
+    _gameID = gameID;
+}
+- (NSString*) getGameID
+{
+    return _gameID;
+}
+
+- (void) testSlice: (NSDictionary *) bodyDict{
+    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@test_slice/", self.baseRestUrl]];
+    NSURLRequest *request = [self createRequestForURL:url withData:bodyDict andRequestType:[self.requestToType objectForKey:@"test_slice"]];
+    
+    if (!request){
+        return;
+    }else{
+        [self sendRequest:request withHandler:^(NSData * data, NSURLResponse * response, NSError * error) {
+            if (error || ((NSHTTPURLResponse *)response).statusCode != 200){
+                NSLog(@"Error: %@", [error localizedDescription]);
+            }else{
+                NSError *error;
+                NSDictionary *output = [NSJSONSerialization JSONObjectWithData:data options:0 error:&error];
+                NSLog(@"Data is: %@", output);
+            }
+        }];
+    }
+}
+
+- (BOOL) joinGame: (NSDictionary *) gameInfo{
+    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@joinGame/", self.baseRestUrl] ];
+    NSURLRequest *request = [self createRequestForURL:url withData:gameInfo andRequestType:[self.requestToType objectForKey:@"joinGame"]];
+    
+    if (!request)
+    {
+        return false;
+    }else{
+        [self sendRequest:request withHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
+            if (error || ((NSHTTPURLResponse *)response).statusCode != 200){
+                NSLog(@"Error: %@", [error localizedDescription]);
+            }else{
+                NSError *error;
+                NSDictionary *output = [NSJSONSerialization JSONObjectWithData:data options:0 error:&error];
+                [delegate joinedGame:[output objectForKey:@"joinSuccess"] withGameID:[output objectForKey:@"gameID"]];
+            }
+        }];
+        return true;
+    }
+}
+
+- (void) getGames
+{
+    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@game/all/", self.baseRestUrl]];
+    NSURLRequest *request = [self createRequestForURL:url withData:nil andRequestType:[self.requestToType objectForKey:@"getGames"]];
+    if (!request){
+        return;
+    } else {
+        [self sendRequest:request withHandler:^(NSData * data, NSURLResponse * response, NSError * error) {
+            if (error || ((NSHTTPURLResponse *)response).statusCode != 200){
+                NSLog(@"%ld", (long)((NSHTTPURLResponse *)response).statusCode);
+                NSLog(@"Error: %@", [error localizedDescription]);
+            }else{
+                NSError *error;
+                NSDictionary *output = [NSJSONSerialization JSONObjectWithData:data options:0 error:&error];
+                [delegate listOfGames:output];
+            }
+        }];
+    }
+}
+
+- (void) getGameStatus: (NSDictionary *) gameID
+{
+    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@game/status/", self.baseRestUrl]];
+    NSURLRequest *request = [self createRequestForURL:url
+                                             withData:gameID
+                                       andRequestType:[self.requestToType objectForKey:@"getGameStatus"]];
+    if (!request){
+        return;
+    } else {
+        [self sendRequest:request withHandler:^(NSData * data, NSURLResponse * response, NSError * error) {
+            if (error || ((NSHTTPURLResponse *)response).statusCode != 200){
+                NSLog(@"%ld", (long)((NSHTTPURLResponse *)response).statusCode);
+                NSLog(@"Error: %@", [error localizedDescription]);
+            }else{
+                NSError *error;
+                NSDictionary *output = [NSJSONSerialization JSONObjectWithData:data options:0 error:&error];
+                [delegate setGameStatus:output];
+            }
+        }];
+    }
+}
+
+- (void) getGameCheckList:(NSDictionary *)gameID
+{
+    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@game/checklist/", self.baseRestUrl]];
+    NSURLRequest *request = [self createRequestForURL:url
+                                             withData:gameID
+                                       andRequestType:[self.requestToType objectForKey:@"getGameCheckList"]];
+    if (!request){
+        return;
+    } else {
+        [self sendRequest:request withHandler:^(NSData * data, NSURLResponse * response, NSError * error) {
+            if (error || ((NSHTTPURLResponse *)response).statusCode != 200){
+                NSLog(@"%ld", (long)((NSHTTPURLResponse *)response).statusCode);
+                NSLog(@"Error: %@", [error localizedDescription]);
+            }else{
+                NSError *error;
+                NSDictionary *output = [NSJSONSerialization JSONObjectWithData:data options:0 error:&error];
+                [delegate setGameCheckList:output];
+            }
+        }];
+    }
+}
+
+- (void) getGameMap:(NSDictionary *)gameID
+{
+    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@game/map/", self.baseRestUrl]];
+    NSURLRequest *request = [self createRequestForURL:url
+                                             withData:gameID
+                                       andRequestType:[self.requestToType objectForKey:@"getGameMap"]];
+    if (!request){
+        return;
+    } else {
+        [self sendRequest:request withHandler:^(NSData * data, NSURLResponse * response, NSError * error) {
+            if (error || ((NSHTTPURLResponse *)response).statusCode != 200){
+                NSLog(@"%ld", (long)((NSHTTPURLResponse *)response).statusCode);
+                NSLog(@"Error: %@", [error localizedDescription]);
+            }else{
+                NSError *error;
+                NSDictionary *output = [NSJSONSerialization JSONObjectWithData:data options:0 error:&error];
+                [delegate setGameMap:output];
+            }
+        }];
+    }
+}
+
+- (void) takeAction: (NSDictionary *) action
+{
+    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@game/action/", self.baseRestUrl] ];
+    NSURLRequest *request = [self createRequestForURL:url withData:action andRequestType:[self.requestToType objectForKey:@"takeAction"]];
+    
+    if (!request)
+    {
+        return;
+    }else{
+        [self sendRequest:request withHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
+            if (error || ((NSHTTPURLResponse *)response).statusCode != 200){
+                NSLog(@"Error: %@", [error localizedDescription]);
+            }else{
+                NSError *error;
+                NSDictionary *output = [NSJSONSerialization JSONObjectWithData:data options:0 error:&error];
+                [delegate receiveFeedback:output];
+            }
+        }];
+        return;
+    }
+}
 
 - (NSMutableURLRequest *) createRequestForURL: (NSURL *)url withData:(NSDictionary *) data andRequestType:(NSString *) type{
     NSLog(@"URL IS: %@", [url absoluteString]);
@@ -42,80 +201,6 @@
     [dataTask resume];
 }
 
-- (BOOL) joinGame: (NSDictionary *) gameInfo{
-    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@joinGame/", self.baseRestUrl] ];
-    NSURLRequest *request = [self createRequestForURL:url withData:gameInfo andRequestType:[self.requestToType objectForKey:@"joinGame"]];
-    
-    if (!request)
-    {
-        return false;
-    }else{
-        [self sendRequest:request withHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
-            if (error || ((NSHTTPURLResponse *)response).statusCode != 200){
-                NSLog(@"Error: %@", [error localizedDescription]);
-            }else{
-                NSError *error;
-                NSDictionary *output = [NSJSONSerialization JSONObjectWithData:data options:0 error:&error];
-                [delegate joinedGame:[output objectForKey:@"joinSuccess"]];
-                if (error){
-                    NSLog(@"Error: %@", [error localizedDescription]);
-                    return;
-                }
-                NSLog(@"Data is: %@", output);
-            }
-        }];
-        return true;
-    }
-}
-
-- (void) testSlice: (NSDictionary *) bodyDict{
-    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@test_slice/", self.baseRestUrl]];
-    NSURLRequest *request = [self createRequestForURL:url withData:bodyDict andRequestType:[self.requestToType objectForKey:@"test_slice"]];
-    
-    if (!request){
-        return;
-    }else{
-        [self sendRequest:request withHandler:^(NSData * data, NSURLResponse * response, NSError * error) {
-            if (error || ((NSHTTPURLResponse *)response).statusCode != 200){
-                NSLog(@"Error: %@", [error localizedDescription]);
-            }else{
-                NSError *error;
-                NSDictionary *output = [NSJSONSerialization JSONObjectWithData:data options:0 error:&error];
-                if (error){
-                    NSLog(@"Error: %@", [error localizedDescription]);
-                    return;
-                }
-                NSLog(@"Data is: %@", output);
-            }
-        }];
-    }
-}
-
-- (void) getGames
-{
-    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@game/all/", self.baseRestUrl]];
-    NSURLRequest *request = [self createRequestForURL:url withData:nil andRequestType:[self.requestToType objectForKey:@"getGames"]];
-    if (!request){
-        return;
-    } else {
-        [self sendRequest:request withHandler:^(NSData * data, NSURLResponse * response, NSError * error) {
-            if (error || ((NSHTTPURLResponse *)response).statusCode != 200){
-                NSLog(@"%ld", (long)((NSHTTPURLResponse *)response).statusCode);
-                NSLog(@"Error: %@", [error localizedDescription]);
-            }else{
-                NSError *error;
-                NSDictionary *output = [NSJSONSerialization JSONObjectWithData:data options:0 error:&error];
-                [delegate listOfGames:output];
-                if (error){
-                    NSLog(@"Error: %@", [error localizedDescription]);
-                    return;
-                }
-            }
-        }];
-    }
-    
-}
-
 + (instancetype) sharedInstance{
     static DeadeuceCaller *deadeuceCaller = nil;
     static dispatch_once_t onceToken;
@@ -130,11 +215,17 @@
 - (instancetype) init{
     if (self = [super init]){
         BOOL debug = YES;
-         _baseRestUrl = @"http://54.193.7.18:3000/";
-        if(debug){
-            _baseRestUrl = @"http://localhost:3000/";
-        }
-        _requestToType = @{@"test_slice": @"POST", @"joinGame": @"PUT", @"getGames": @"GET"};
+         _baseRestUrl = @"http://54.193.7.18:4000/";
+//        if(debug){
+//            _baseRestUrl = @"http://localhost:3000/";
+//        }
+        _requestToType = @{@"test_slice": @"POST",
+                           @"joinGame": @"PUT",
+                           @"getGames": @"GET",
+                           @"getGameStatus": @"POST", /*Get POST haxxxor*/
+                           @"getGameMap": @"POST",
+                           @"takeAction": @"PUT",
+                           @"getGameCheckList":@"POST"};
     }
     return self;
 }

@@ -9,23 +9,15 @@ var AllGames = React.createClass({
     },
     handleRetrieveAllGames: function(e) {
     e.preventDefault();
-    var output = JSON.stringify({gameID:id});
     $.ajax({
-      url: '/RetrieveGames',
-      // we don't have a URL yet so this is just a placeholder
+      url: '/game/all',
       type: 'GET',
       contentType: "application/json",
-      data: output,
       success: function(response) {
-        //{joinSuccess:t/f, nextTurn: user_id}
-        console.log(response.xxx);
-        console.log(response.yyy);
-        if (response.yyy){
-          //do something
-          //maybe load the next page?
-        }else{
-          // we don goofed
-        }
+        console.log(data);
+        this.setState ({
+            "gameList": data.gameList
+        });
       }.bind(this),
       error: function(xhr, status, err) {
         console.log(err);
@@ -35,8 +27,6 @@ var AllGames = React.createClass({
         });
       }.bind(this)
     });
-    var evt = "";
-    // ^^ is this needed?
     },
     render: function() {
         return (

@@ -7,11 +7,15 @@ var Checklist = React.createClass({
         router: React.PropTypes.object.isRequired
     },
     getInitialState: function() {
-
+        var gameID = "abcdeg";
         return {
-
+          gameID: gameID,
+          "suspects": [],
+          "weapons": [],
+          "locations": []
         }
     },
+
 render: function(){
     return(
         <div className="checklist firstRow">
@@ -24,20 +28,20 @@ render: function(){
             <div className="checklistRow category">
               Suspects
             </div>
-                {this.props.suspect.map(function(suspect){
-                  return <ChecklistRow value={suspect} key={suspect.name} ></ChecklistRow>;
+                {this.props.suspects.map(function(suspect){
+                  return <ChecklistRow value={suspect} key={suspect} ></ChecklistRow>;
                 })}
             <div className="checklistRow category">
               Weapons
             </div>
-                {this.props.weapon.map(function(weapon){
-                  return <ChecklistRow value={weapon} key={weapon.name} ></ChecklistRow>;
+                {this.props.weapons.map(function(weapon){
+                  return <ChecklistRow value={weapon} key={weapon} ></ChecklistRow>;
                 })}
             <div className="checklistRow category">
               Location
             </div>
-                {this.props.place.map(function(place){
-                  return <ChecklistRow value={place} key={place.name}> </ChecklistRow>;
+                {this.props.locations.map(function(location){
+                  return <ChecklistRow value={location} key={location}> </ChecklistRow>;
                 })}
           </div>
         </div>

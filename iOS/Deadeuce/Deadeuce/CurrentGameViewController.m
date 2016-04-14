@@ -125,6 +125,7 @@ const CGFloat kPadding3 = 6;
 
 @property (nonatomic, strong) UILabel *gameNameLabel;
 @property (nonatomic, strong) UILabel *currentTurnLabel;
+
 @property (nonatomic, strong) UIButton *suggestButton;
 @property (nonatomic, strong) UIButton *detectivePadButton;
 @property (nonatomic, strong) UIImageView* suggestIcon;
@@ -166,11 +167,12 @@ const CGFloat kPadding3 = 6;
         UIBarButtonItem *revealButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"reveal-icon.png"]
                                                                              style:UIBarButtonItemStylePlain target:self action:@selector(toggle:)];
         self.navigationItem.leftBarButtonItem = revealButtonItem;
-        self.data = [[NSMutableArray alloc] init];
 
-        for(int i = 0; i < 10; i++){
-            [self.data addObject:[[GameEventObject alloc] init]];
-        }
+        _data = [[NSMutableArray alloc] init];
+        DeadeuceCaller* model = [DeadeuceCaller sharedInstance];
+        model.delegate = self;
+        NSString * gameID = [model getGameID];
+        [model getGameStatus:@{@"gameID":gameID}];
     }
     
     return self;
@@ -207,11 +209,9 @@ const CGFloat kPadding3 = 6;
     self.suggestButton.titleLabel.font = [UIFont fontWithName:@"HelveticaNeue" size:20];
     self.suggestButton.frame = CGRectMake(0.0, startingHeight, screenWidth/2, 44.0);
     
-    
     UIImage *btnDetective = [UIImage imageNamed:@"suggest_icon.png"];
     [_suggestButton setTitleEdgeInsets:UIEdgeInsetsMake(0.0, 10.0, 0.0, 0.0)];
     [_suggestButton setImage:btnDetective forState:UIControlStateNormal];
-    
     
     self.detectivePadButton = [UIButton buttonWithType:UIButtonTypeCustom];
     [self.detectivePadButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
@@ -238,22 +238,23 @@ const CGFloat kPadding3 = 6;
     shapeLayer.lineWidth = 1.0;
     shapeLayer.fillColor = [[UIColor clearColor] CGColor];
     
-    self.gameNameLabel = [[UILabel alloc] init];
+    if(!_currentTurnLabel){
+        _currentTurnLabel = [[UILabel alloc] init];
+    }
+    if(!_gameNameLabel){
+        _gameNameLabel = [[UILabel alloc] init];
+    }
     [self.gameNameLabel setFrame:CGRectMake(0.0, startingHeight + 44.0, screenWidth, 26.0)];
     self.gameNameLabel.textColor=[UIColor blackColor];
     self.gameNameLabel.backgroundColor = [UIColor whiteColor];
     self.gameNameLabel.userInteractionEnabled = NO;
     self.gameNameLabel.textAlignment = NSTextAlignmentCenter;
-    self.gameNameLabel.text= @"Game: USC Cluemasters";
     [self.gameNameLabel setFont:[UIFont fontWithName:@"HelveticaNeue" size:20]];
-    
-    self.currentTurnLabel = [[UILabel alloc] init];
     [self.currentTurnLabel setFrame:CGRectMake(0.0, startingHeight + 70.0, screenWidth, 26.0)];
     self.currentTurnLabel.textColor=[UIColor blackColor];
     self.currentTurnLabel.backgroundColor = [UIColor whiteColor];
     self.currentTurnLabel.userInteractionEnabled = NO;
     self.currentTurnLabel.textAlignment = NSTextAlignmentCenter;
-    self.currentTurnLabel.text= @"Current Turn: George Tirebiter (you)";
     [self.currentTurnLabel setFont:[UIFont fontWithName:@"HelveticaNeue" size:20]];
  
     [self.view addSubview:_tableView];
@@ -273,6 +274,26 @@ const CGFloat kPadding3 = 6;
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+#pragma mark - Deadeuce Delegate
+-(void) setGameStatus:(NSDictionary *)gameStatus
+{
+    if(!_currentTurnLabel){
+        _currentTurnLabel = [[UILabel alloc] init];
+    }
+    if(!_gameNameLabel){
+        _gameNameLabel = [[UILabel alloc] init];
+    }
+    _gameNameLabel.text = [NSString stringWithFormat:@"Game: %@", [gameStatus objectForKey:@"gameName"]];
+    _currentTurnLabel.text = [NSString stringWithFormat:@"Current Turn: %@", [gameStatus objectForKey:@"turnPlayer"]];
+    
+    NSArray* feedPayload = [gameStatus objectForKey:@"feed"];
+    for(int i = 0; i < feedPayload.count; i++){
+        NSDictionary* feedItem = feedPayload[i];
+        [_data addObject:[[GameEventObject alloc] initWithPayload:feedItem]];
+    }
+    [_tableView reloadData];
 }
 
 #pragma mark - Table view data source
