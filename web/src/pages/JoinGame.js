@@ -7,6 +7,43 @@ var AvailableGames = require('../components/GameComponents/availableGames.js')
 
 
 var JoinGame = React.createClass({
+    contextTypes: {
+        router: React.PropTypes.object.isRequired
+    },
+    handleCreateGameSubmit: function(e) {
+        e.preventDefault();
+        var output = JSON.stringify({gameName:"FAKE NAME", userID:"SOME ID"});
+        $.ajax({
+            url: '/joinGame',
+            type: 'PUT',
+            contentType: "application/json",
+            data: output,
+            success: function(response) {
+                //{joinSuccess:t/f, nextTurn: user_id}
+                // console.log(response.nextTurn);
+                //console.log(response.joinSuccess);
+                console.log(response);
+                if (response.joinSuccess){
+                    //do something
+                    console.log(data);
+                    //maybe load the next page?
+                }else{
+                    // we don goofed
+                }
+                // this.setState({
+
+                // });
+            }.bind(this),
+            error: function(xhr, status, err) {
+                console.log(err);
+                console.log(xhr);
+                this.setState({
+                    "serverStatus" : "Error in server request."
+                });
+            }.bind(this)
+        });
+        this.context.router.push('game_home');
+    },
   getInitialState: function() {
     return {
 
