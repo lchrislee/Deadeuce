@@ -7,8 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "DeadeuceCaller.h"
 
-@interface CurrentGameViewController : UIViewController<UITableViewDataSource,UITableViewDelegate>
+@interface CurrentGameViewController : UIViewController<UITableViewDataSource,UITableViewDelegate, DeadeuceDelegate>
 {
     UITableView* _tableView;
 }

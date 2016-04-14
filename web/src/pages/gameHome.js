@@ -13,23 +13,16 @@ var GameMap = require('../components/GameComponents/gameMap.js')
 
 var GameHome = React.createClass({
 	getInitialState: function() {
+    var gameID = "abcdeg";
+    this.retrieveCheckList(gameID);
     return {
-        "gameID": undefined,
+        "gameID": gameID,
         "userID": 'user1',
         "gamePlayers": [],
-        "currentTurn": undefined,
-        "locations": [
-            {"name":"LYON CENTER", "player":""},{"name":"LEAVEY LIBRARY", "player":"EVKitty, George Tirebiter"},{"name":"TRADDIES", "player":""},
-            {"name":"GROUND ZERO", "player":""},{"name":"The 90", "player":""},{"name":"BOVARD", "player":"Pete" +
-            " Carroll"}, {"name":"EVK", "player":"Will Ferrell"},{"name":"THE ROW", "player":"President Nikias," +
-            " Tommy Trojan"},{"name":"CAMPUS CENTER", "player":""}],
-        "suspect": [
-            {"name":"EVKitty"}, {"name":"George Tirebiter"}, {"name":"Will Ferrell"}, {"name":"Pete" + " Carroll"}, {"name":"President Nikias"}, {"name":"Tommy Trojan"}],
-        "weapon": [
-            {"name":"U-lock"}, {"name":"Tommy Trojan's Sword"}, {"name":"Empty soda cans"}, {"name":"Longboard"}, {"name":"Viterbi" + " classes"}, {"name":"Dining" + " hall food"}],
-        "place": [
-            {"name":"Traddies"}, {"name":"The 90"}, {"name":"Ground Zero"}, {"name":"Lyon Center"}, {"name":"The" +
-            " Row"}, {"name":"Leavey Library"}, {"name":"Bovard"}, {"name":"EVK"}, {"name":"Campus Center"}]
+        "currentTurn": 'Michelle',
+        "suspects": [],
+        "weapons": [],
+        "locations": []
     };
   },
     findPlayerGame: function(e) {
@@ -88,24 +81,24 @@ var GameHome = React.createClass({
         });
     },
 
-    retrieveGameLocations: function(e) {
-        e.preventDefault();
-
-        var stringified = JSON.stringify(gameID);
+    retrieveCheckList: function(gameID) {
+      var out = {"gameID":gameID};
+        var stringified = JSON.stringify(out);
         $.ajax({
             url: '/game/checklist',
-            type: 'GET',
+            type: 'POST',
             contentType: "application/json",
             dataType: 'json',
             data: stringified,
 
             success: function(data) {
                 console.log(data);
-                console.log(data.checklist);
+                var checkList = data.checkList;
                 this.setState({
-                    "locations": data.checklist.locations
+                    "locations": checkList.locations,
+                    "weapons": checkList.weapons,
+                    "suspects": checkList.suspects
                 });
-                assignPlayerLocations();
             }.bind(this),
             error: function(xhr, status, err) {
                 console.log(err);
@@ -144,17 +137,17 @@ var GameHome = React.createClass({
             }.bind(this)
         });
     },
-
   render: function() {
+    var suspects = this.state.suspects;
+    var weapons = this.state.weapons;
+    var locations = this.state.locations;
     return (
      <div>
      <div className="gameContainer">
-
-        <TurnBox currentTurn = {this.state.turnBox} />
-        <GameMap location= {this.state.locations} />
-        <SuggestAccuse />
-        <Checklist suspect={this.state.suspect} weapon={this.state.weapon} place={this.state.place}/>
-        
+        <TurnBox currentTurn = {this.state.currentTurn} />
+        <GameMap />
+        <SuggestAccuse suspects = {suspects} weapons = {weapons} locations = {locations} />
+        <Checklist suspects = {suspects} weapons = {weapons} locations = {locations} />
     </div>
     </div>
     );

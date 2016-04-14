@@ -8,7 +8,6 @@
 
 #import "GameMapViewController.h"
 #import <SWRevealViewController.h>
-#import "GameObject.h"
 
 @interface GameMapCollectionViewCell : UICollectionViewCell
 
@@ -115,7 +114,8 @@ const CGFloat kMPadding = 3;
 
 @property (nonatomic, strong) UILabel *currentGameLabel;
 @property (nonatomic, strong) UILabel *currentGameValueLabel;
-@property (nonatomic, strong) NSArray * locations;
+
+@property (nonatomic, strong) NSMutableArray * locations;
 
 @end
 
@@ -135,9 +135,12 @@ const CGFloat kMPadding = 3;
         UIBarButtonItem *revealButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"reveal-icon.png"]
                                                                              style:UIBarButtonItemStylePlain target:self action:@selector(toggle:)];
         self.navigationItem.leftBarButtonItem = revealButtonItem;
-        self.locations = @[@"Lyon Center", @"Leavey Library", @"Traddies",
-                           @"Ground Zero", @"The 90", @"Bovard",
-                           @"EVK", @"The Row", @"Campus Center"];
+        
+        _locations = [[NSMutableArray alloc] init];
+        DeadeuceCaller* model = [DeadeuceCaller sharedInstance];
+        model.delegate = self;
+        NSString * gameID = [model getGameID];
+        [model getGameMap:@{@"gameID":gameID}];
     }
     
     return self;
@@ -163,7 +166,9 @@ const CGFloat kMPadding = 3;
     [self.currentGameLabel setFont:[UIFont fontWithName:@"HelveticaNeue" size:22]];
     [self.view addSubview:self.currentGameLabel];
     
-    self.currentGameValueLabel = [[UILabel alloc] init];
+    if(!_currentGameValueLabel){
+        self.currentGameValueLabel = [[UILabel alloc] init];
+    }
     [self.currentGameValueLabel setFrame:CGRectMake(20.0, startingHeight + 50.0, screenWidth - 40.0, 40.0)];
     self.currentGameValueLabel.backgroundColor=[UIColor clearColor];
     self.currentGameValueLabel.textColor=[UIColor colorWithRed:(37/255.0) green:(36/255.0) blue:(45/255.0) alpha:1.0];
@@ -172,7 +177,6 @@ const CGFloat kMPadding = 3;
     self.currentGameValueLabel.clipsToBounds = YES;
     [self.currentGameValueLabel.layer setBackgroundColor:[[UIColor colorWithRed:(193/255.0) green:(193/255.0) blue:(193/255.0) alpha:1.0] CGColor]];
     self.currentGameValueLabel.textAlignment = NSTextAlignmentCenter;
-    self.currentGameValueLabel.text= [[GameObject alloc] init].gameName; //TODO fix dis shit
     [self.currentGameValueLabel setFont:[UIFont fontWithName:@"HelveticaNeue" size:22]];
     [self.view addSubview:self.currentGameValueLabel];
     
@@ -188,21 +192,49 @@ const CGFloat kMPadding = 3;
     [self.view addSubview:_collectionView];
 }
 
+#pragma mark Deadeuce Delegate
+-(void) setGameMap:(NSDictionary *)gameMapInfo
+{
+    if(!_currentGameValueLabel){
+        _currentGameValueLabel = [[UILabel alloc] init];
+    }
+    _currentGameValueLabel.text = [gameMapInfo objectForKey:@"gameName"];
+    _locations = [gameMapInfo objectForKey:@"locations"];
+    [_collectionView reloadData];
+}
+
+#pragma mark UICollectionViewDelegate
+
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
-    return 3;
+    return sqrt(_locations.count);
 }
 
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView
 {
-    return 3;
+    return sqrt(_locations.count);
 }
 
 // The cell that is returned must be retrieved from a call to -dequeueReusableCellWithReuseIdentifier:forIndexPath:
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
     GameMapCollectionViewCell *cell=[collectionView dequeueReusableCellWithReuseIdentifier:@"GameMapCollectionViewCell" forIndexPath:indexPath];
-    cell.headerLabel.text = self.locations[indexPath.section*[collectionView numberOfItemsInSection:indexPath.section]+indexPath.item];
+    NSDictionary* obj = self.locations[indexPath.section*[collectionView numberOfItemsInSection:indexPath.section]+indexPath.item];
+    cell.headerLabel.text = [obj objectForKey:@"name"];
+    
+    cell.mainLabel.numberOfLines = 0;
+    NSMutableString* mainLabel = [[NSMutableString alloc] initWithString:@""];
+    NSArray* players = [obj objectForKey:@"players"];
+    if(players){
+        for(int i = 0; i < players.count; i++){
+            [mainLabel appendString:players[i]];
+            [mainLabel appendString:@"\n"];
+        }
+        cell.mainLabel.text = mainLabel;
+    } else {
+        cell.mainLabel.text = @"-";
+    }
+    
     return cell;
 }
 

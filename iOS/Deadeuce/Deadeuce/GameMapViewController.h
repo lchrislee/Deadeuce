@@ -7,8 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "DeadeuceCaller.h"
 
-@interface GameMapViewController : UIViewController<UICollectionViewDataSource,UICollectionViewDelegateFlowLayout>
+@interface GameMapViewController : UIViewController<UICollectionViewDataSource,UICollectionViewDelegateFlowLayout, DeadeuceDelegate>
 {
     UICollectionView* _collectionView;
 }

@@ -27,8 +27,7 @@
 -(void)gameListButtonPressed:(UIButton*)sender
 {
     NSArray *controllers = [self.navigationController viewControllers];
-    if([sender.titleLabel.text isEqualToString:@"Detective Checklist"]){
-        //TODO FIX THIS
+    if([sender.titleLabel.text isEqualToString:@"Return to Game Feed"]){
         [self.navigationController popToViewController:[controllers objectAtIndex:2] animated:YES];
     } else {
         [self.navigationController popToViewController:[controllers objectAtIndex:1] animated:YES];
@@ -40,16 +39,17 @@
     [self.navigationController popToViewController:[controllers objectAtIndex:2] animated:YES];
 }
 
--(instancetype)initWithDecisionType:(NSString*)decisionType andOptions:(NSArray*)options
+-(instancetype)initWithOptions:(NSArray*)options andFeedback:(NSDictionary*)feedback
 {
     if (self = [super init])
     {
-        _decisionType = decisionType;
+        _decisionType = [feedback objectForKey:@"action"];
         
-        //Hard coded decision for now
-        _correctOrIncorrect = @"Incorrect";
+        //TODO parse the feedback
+        NSLog(@"%@", feedback);
+        _correctOrIncorrect = ([feedback objectForKey:@"correct"] == 0) ? @"Incorrect" : @"Correct";
         
-        if([decisionType isEqualToString:@"Suggestion"]){
+        if([_decisionType isEqualToString:@"Suggestion"]){
             self.navigationItem.title = @"Suggest";
         } else {
            self.navigationItem.title = @"Accuse";
@@ -121,9 +121,7 @@
                          action:@selector(gameListButtonPressed:)
                forControlEvents:UIControlEventTouchUpInside];
     
-    
-    //TODO Detective Checklist pushes to wrong view
-    NSString* title = ([_decisionType isEqualToString:@"Suggestion"]) ? @"Detective Checklist" : @"Return to Games List";
+    NSString* title = ([_decisionType isEqualToString:@"Suggestion"]) ? @"Return to Game Feed" : @"Return to Games List";
     [self.gamesListButton setTitle:title forState:UIControlStateNormal];
     self.gamesListButton.titleLabel.font = [UIFont fontWithName:@"HelveticaNeue" size:20];
     self.gamesListButton.frame = CGRectMake(20.0, screenHeight - 74.0, screenWidth - 40.0, 64.0);

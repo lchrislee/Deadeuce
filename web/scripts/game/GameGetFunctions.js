@@ -2,6 +2,64 @@
 
 var express = require('express');
 
+exports.getAllGames = function(){
+	var val = [];
+  	for(var i = 0; i < 15; i++){
+    	var test = "Omar's Occults " + i;
+    	val.push({
+      		gameName: test,
+      		numberOfPlayers: "5"
+    	});
+  	}
+  	return {gamesList:val};
+}
+
+exports.getChecklist = function(gameID){
+	var checkList = {
+    "locations":[
+      "Lyon Center",
+      "Leavey Library",
+      "Traddies",
+      "Ground Zero",
+      "The 90",
+      "Bovard",
+      "EVK",
+      "The Row",
+      "Campus Center"
+    ],
+    "weapons":[
+      "U-Lock",
+      "Tommy Trojan's Sword",
+      "overly sharp Skittles wrapper",
+      "Freshman on a longboard",
+      "Viterbi Finals",
+      "Taco Bell's deal of the week"
+    ],
+    "suspects":[
+      "President Nikias",
+      "EVKitty",
+      "George Tirebiter",
+      "Will Ferrell",
+      "Tommy Trojan",
+      "Pete Caroll"
+    ]
+  };
+  return {"checkList":checkList};
+}
+
+exports.getMap = function(gameID){
+	return {"gameName":"Michelle's Masterminds",
+			"locations": [{"name":"Lyon Center", "players":undefined},
+						  {"name":"Leavey Library", "players":["EVKitty", "George Tirebiter"]},
+						  {"name":"Traddies", "players":undefined},
+						  {"name":"Ground Zero", "players":undefined},
+						  {"name":"The 90", "players":undefined},
+						  {"name":"Bovard", "players":["Pete Caroll"]},
+						  {"name":"EVK", "players":["Will Ferrell"]},
+						  {"name":"The Row", "players":["President Nikias","Tommy Trojan"]},
+						  {"name":"Campus Center", "players":undefined}]};
+}
+
 exports.getGame = function(db){
 	var cursor = db.collection('game').find( { "_id": gameIDFind } );
    cursor.each(function(err, doc) {
@@ -12,18 +70,6 @@ exports.getGame = function(db){
       }
    });
 };
-
-exports.getAllGames = function(){
-	var val = [];
-  for(var i = 0; i < 15; i++){
-    var test = "Omar's Occults " + i;
-    val.push({
-      gameName: test,
-      numberOfPlayers: "5"
-    });
-  }
-  return {gamesList:val};
-}
 
 exports.getLocations = function(){
 	return {"locations": [{"name":"LYON CENTER","player":""},{"name":"LEAVEY LIBRARY", "player":"EVKitty, George Tirebiter"},{"name":"TRADDIES", "player":""},{"name":"GROUND ZERO", "player":""},{"name":"The 90", "player":""},{"name":"BOVARD", "player":"Pete Caroll"},{"name":"EVK", "player":"Will Ferrell"},{"name":"THE ROW", "player":"President Nikias, Tommy Trojan"},{"name":"CAMPUS CENTER", "player":""}]};
@@ -52,11 +98,7 @@ exports.getUsers = function(db){
 }
 
 exports.getUsersCount = function (){
-
-}
-
-exports.getChecklist = function(){
-
+	//FILL ME
 }
 
 exports.getUserChecklist = function(db){

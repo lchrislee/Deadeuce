@@ -10,27 +10,22 @@
 
 @implementation GameEventObject
 
-- (instancetype)init
+- (instancetype)initWithPayload:(NSDictionary*)payload
 {
     if (self = [super init])
     {
-        //Dummy data lols
-        NSArray* randomSuggester = @[@"Omar's Occults", @"Alex's Artisans", @"Chris's Captains", @"Zoe's Zealots",
-                                     @"Rona's Raiders", @"Michelle's Masterminds", @"Trina's Travelers"];
-        NSArray* randomWeapon = @[@"empty soda cans", @"overly sharp skittles wrapper", @"tommy trojan's sword",
-          @"EVKitty's left paw", @"freshman on a longboard", @"rotten chanos nachos"];
-        NSArray* randomLocation = @[@"Lyon Center", @"Leavey Library", @"Traddies",
-          @"Ground Zero", @"The 90", @"Bovard",
-          @"EVK", @"The Row", @"Campus Center"];
-        
-        _suggester = randomSuggester[arc4random_uniform(7)];
-        _suggestedTo = randomSuggester[arc4random_uniform(7)];
-        _suggestedWeapon = randomWeapon[arc4random_uniform(6)];
-        _suggestedLocation = randomLocation[arc4random_uniform(9)];
-        _revealedLocation = randomLocation[arc4random_uniform(9)];
+        NSString* accuser = [payload objectForKey:@"accuser"];
+        NSString* suspect = [payload objectForKey:@"suspect"];
+        NSString* weapon = [payload objectForKey:@"weapon"];
+        NSString* location = [payload objectForKey:@"location"];
         
         _timeStamp = [NSDate date];
-    
+        
+        _suggester = accuser;
+        _suggestedTo = suspect;
+        _suggestedWeapon = weapon;
+        _suggestedLocation = location;
+        _revealedLocation = location;
     }
     
     return self;

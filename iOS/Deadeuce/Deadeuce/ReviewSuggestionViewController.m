@@ -20,6 +20,18 @@
 
 @implementation ReviewSuggestionViewController
 
+-(void) receiveFeedback:(NSDictionary *)feedback
+{
+    dispatch_queue_t queue = dispatch_queue_create("myqueue", NULL);
+    dispatch_async(queue, ^{
+        // Perform on main thread/queue
+        dispatch_async(dispatch_get_main_queue(), ^{
+            DecisionResultViewController * dRVc = [[DecisionResultViewController alloc] initWithOptions:[self.data copy] andFeedback:feedback];
+            [self.navigationController pushViewController:dRVc animated:YES];
+        });
+    });
+   
+}
 -(void)suggestButtonPressed:(id)sender
 {
     UIAlertController *alertController = [UIAlertController
@@ -34,8 +46,17 @@
                                  actionWithTitle:@"Yes"
                                  style:UIAlertActionStyleDefault
                                  handler:^(UIAlertAction * _Nonnull action) {
-                                     DecisionResultViewController * dRVc = [[DecisionResultViewController alloc] initWithDecisionType:@"Suggestion" andOptions:[self.data copy]];
-                                    [self.navigationController pushViewController:dRVc animated:YES];
+                                     DeadeuceCaller* model = [DeadeuceCaller sharedInstance];
+                                     model.delegate = self;
+                                     NSMutableDictionary* upload = [[NSMutableDictionary alloc] init];
+                                     [upload setObject:[model getGameID] forKey:@"gameID"];
+                                     [upload setObject:@"Omar" forKey:@"userID"];
+                                     [upload setObject:_data[0] forKey:@"location"];
+                                     [upload setObject:_data[1] forKey:@"weapon"];
+                                     [upload setObject:_data[2] forKey:@"suspect"];
+                                     [upload setObject:@"suggest" forKey:@"action"];
+                                     
+                                     [model takeAction:upload];
                                 }];
     [alertController addAction:noAction];
     [alertController addAction:yesAction];
@@ -55,8 +76,17 @@
                                 actionWithTitle:@"Okay"
                                 style:UIAlertActionStyleDefault
                                 handler:^(UIAlertAction * _Nonnull action) {
-                                    DecisionResultViewController * dRVc = [[DecisionResultViewController alloc] initWithDecisionType:@"Accusal" andOptions:[self.data copy]];
-                                    [self.navigationController pushViewController:dRVc animated:YES];
+                                    DeadeuceCaller* model = [DeadeuceCaller sharedInstance];
+                                    model.delegate = self;
+                                    NSMutableDictionary* upload = [[NSMutableDictionary alloc] init];
+                                    [upload setObject:[model getGameID] forKey:@"gameID"];
+                                    [upload setObject:@"Omar" forKey:@"userID"];
+                                    [upload setObject:_data[0] forKey:@"location"];
+                                    [upload setObject:_data[1] forKey:@"weapon"];
+                                    [upload setObject:_data[2] forKey:@"suspect"];
+                                    [upload setObject:@"accuse" forKey:@"action"];
+                                    
+                                    [model takeAction:upload];
                                 }];
     [alertController addAction:noAction];
     [alertController addAction:yesAction];

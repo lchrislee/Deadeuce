@@ -6,11 +6,15 @@ var SAContent = React.createClass({
   contextTypes: {
     router: React.PropTypes.object.isRequired
    },
+  getDefaultProps: function() {
+    return {
+      "weapons": [],
+      "suspects": [],
+      "locations": []
+    }
+  },
   getInitialState: function() {
     return {
-      "suspect": ["EVKitty", "George Tirebiter", "Will Ferrell", "Pete Carroll", "President Nikias", "Tommy Trojan"],
-      "weapon": ["U-lock", "Tommy Trojan's Sword", "Empty soda cans", "Longboard", "Viterbi classes", "Dining hall food"],
-      "place": ["Traddies", "The 90", "Ground Zero", "Lyon Center", "The Row", "Leavey Library", "Bovard", "EVK", "Campus Center"],
       "accusationType": "suggest"
     }
   },
@@ -19,11 +23,11 @@ var SAContent = React.createClass({
     var accusation = {
       "weapon": this.state.weapon,
       "suspect": this.state.suspect,
-      "place": this.state.place
+      "location": this.state.location
     };
     console.log(accusation.weapon);
     console.log(accusation.suspect);
-    console.log(accusation.place);
+    console.log(accusation.location);
     var sendMe = {"gameID":"1234", "userID":"1234", "suggestion":accusation};
     var stringified = JSON.stringify(sendMe);
 
@@ -72,20 +76,20 @@ var SAContent = React.createClass({
           <div className="suggestAccuse">
               <form onSubmit={this.makeAccusation}>
                 <select onChange={this.selectSuspect} name="suspect">
-                  {this.state.suspect.map(function(suspect){
+                  {this.props.suspects.map(function(suspect){
                     return <option value={suspect}>{suspect}</option>
                   })}
                 </select>
                 <br/>
                 <select onChange={this.selectWeapon} name="weapon">
-                  {this.state.weapon.map(function(weapon){
+                  {this.props.weapons.map(function(weapon){
                     return <option value={weapon}>{weapon}</option>
                   })}
                 </select>
                 <br/>
-                <select onChange={this.selectPlace} name="place">
-                  {this.state.place.map(function(place){
-                    return <option value={place}>{place}</option>
+                <select onChange={this.selectLocation} name="place">
+                  {this.props.locations.map(function(location){
+                    return <option value={location}>{location}</option>
                   })}
                 </select>
               <br/>
@@ -118,13 +122,13 @@ var SAContent = React.createClass({
       console.log(weapon);
     },
 
-  selectPlace: function(e) {
+  selectLocation: function(e) {
     e.preventDefault();
     var location = e.target.value;
       this.setState ({
-          "place": place
+          "location": location
       });
-      console.log(place);
+      console.log(location);
     },
 
   selectSuggest: function(e) {
