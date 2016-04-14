@@ -5,7 +5,8 @@ var GameFeedContent = require('./gameFeedContent.js')
 var GameFeed = React.createClass({
     getInitialState: function() {
         return{
-
+            "gameFeed": [{accuser:"EVKitty", suspect:"George Tirebiter", weapon:"soda cans", location:"EVK", time:"4-13-16"},
+                {accuser:"Tommy Trojan", suspect:"George Tirebiter", weapon:"free weight", location:"Lyon Center", time:"4-14-16"}]
         };
     },
 render: function(){
@@ -17,8 +18,8 @@ render: function(){
                      </div>
                  </div>
                  <div className="divFeedTable">
-                     {this.props.gameStatus.map(function(gameStatus){
-                         return <GameFeedContent data = {gameStatus} key={gameStatus.name}></GameFeedContent>;
+                     {this.state.gameFeed.map(function(gameStatus){
+                         return <GameFeedContent data = {gameStatus} key={gameStatus.time}></GameFeedContent>;
                      })}
                  </div>
              </div>

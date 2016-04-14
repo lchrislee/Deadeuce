@@ -8,24 +8,23 @@ var GameMap = require('../components/GameComponents/gameMap.js');
 var TurnBox = require('../components/GameComponents/turnBox.js');
 var Checklist = require('../components/checklist.js')
 var SuggestAccuse = require('../components/Accuse/SuggestAccuse.js');
-var GameMapContentBox = require('../components/GameComponents/gameMapContentBox.js');
-var GameMap = require('../components/GameComponents/gameMap.js');
-var GameFeed = require('../components/GameComponents/gameFeed.js')
+var GameMapContentBox = require('../components/GameComponents/gameMapContentBox.js')
+
 
 var GameHome = React.createClass({
-	getInitialState: function() {
-    var gameID = "abcdeg";
-    this.retrieveCheckList(gameID);
-    return {
-        "gameID": gameID,
-        "userID": 'user1',
-        "gamePlayers": [],
-        "currentTurn": 'Michelle',
-        "suspects": [],
-        "weapons": [],
-        "locations": []
-    };
-  },
+    getInitialState: function() {
+        var gameID = "abcdeg";
+        this.retrieveCheckList(gameID);
+        return {
+            "gameID": gameID,
+            "userID": 'user1',
+            "gamePlayers": [],
+            "currentTurn": 'Michelle',
+            "suspects": [],
+            "weapons": [],
+            "locations": []
+        };
+    },
     findPlayerGame: function(e) {
         e.preventDefault();
 
@@ -83,7 +82,7 @@ var GameHome = React.createClass({
     },
 
     retrieveCheckList: function(gameID) {
-      var out = {"gameID":gameID};
+        var out = {"gameID":gameID};
         var stringified = JSON.stringify(out);
         $.ajax({
             url: '/game/checklist',
@@ -138,24 +137,22 @@ var GameHome = React.createClass({
             }.bind(this)
         });
     },
-
-  render: function() {
-    var suspects = this.state.suspects;
-    var weapons = this.state.weapons;
-    var locations = this.state.locations;
-    return (
-     <div>
-     <div className="gameContainer">
-        <TurnBox currentTurn = {this.state.currentTurn} />
-        <GameMap />
-        <SuggestAccuse suspects = {suspects} weapons = {weapons} locations = {locations} />
-        <Checklist suspects = {suspects} weapons = {weapons} locations = {locations} />
-         <GameFeed />
-        
-    </div>
-    </div>
-    );
-  }
+    render: function() {
+        var suspects = this.state.suspects;
+        var weapons = this.state.weapons;
+        var locations = this.state.locations;
+        return (
+            <div>
+                <div className="gameContainer">
+                    <TurnBox currentTurn = {this.state.currentTurn} />
+                    <GameMap />
+                    <SuggestAccuse suspects = {suspects} weapons = {weapons} locations = {locations} />
+                    <Checklist suspects = {suspects} weapons = {weapons} locations = {locations} />
+                    <GameFeed />
+                </div>
+            </div>
+        );
+    }
 });
 
 

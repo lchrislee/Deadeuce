@@ -24,13 +24,13 @@ var GameFeedContent = React.createClass({
                 </div>
                 <div className="divFeedColumn2 column">
                     <p className="suggest-body">
-                        <span className="suggested">{this.props.data.player}</span>
-                        {this.props.data.action} <span className="suggested">{this.props.data.suspect}</span>
-                        with the <span className="suggested">{this.props.data.weapon}</span>
+                        <span className="suggested"> {this.props.data.accuser} </span> suggested
+                        <span className="suggested"> {this.props.data.suspect} </span>
+                        with the <span className="suggested">{this.props.data.weapon} </span>
                         at <span className="suggested">{this.props.data.location}</span>.
                     </p>
                 </div>
-                <div className="divFeedColumn3 column"><p>5 seconds ago</p></div>
+                <div className="divFeedColumn3 column"><p>Date {this.props.data.time}</p></div>
             </div>
 
         );
