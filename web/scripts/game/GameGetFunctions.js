@@ -14,52 +14,6 @@ exports.getAllGames = function(){
   	return {gamesList:val};
 }
 
-exports.getChecklist = function(gameID){
-	var checkList = {
-    "locations":[
-      "Lyon Center",
-      "Leavey Library",
-      "Traddies",
-      "Ground Zero",
-      "The 90",
-      "Bovard",
-      "EVK",
-      "The Row",
-      "Campus Center"
-    ],
-    "weapons":[
-      "U-Lock",
-      "Tommy Trojan's Sword",
-      "overly sharp Skittles wrapper",
-      "Freshman on a longboard",
-      "Viterbi Finals",
-      "Taco Bell's deal of the week"
-    ],
-    "suspects":[
-      "President Nikias",
-      "EVKitty",
-      "George Tirebiter",
-      "Will Ferrell",
-      "Tommy Trojan",
-      "Pete Caroll"
-    ]
-  };
-  return {"checkList":checkList};
-}
-
-exports.getMap = function(gameID){
-	return {"gameName":"Michelle's Masterminds",
-			"locations": [{"name":"Lyon Center", "players":undefined},
-						  {"name":"Leavey Library", "players":["EVKitty", "George Tirebiter"]},
-						  {"name":"Traddies", "players":undefined},
-						  {"name":"Ground Zero", "players":undefined},
-						  {"name":"The 90", "players":undefined},
-						  {"name":"Bovard", "players":["Pete Caroll"]},
-						  {"name":"EVK", "players":["Will Ferrell"]},
-						  {"name":"The Row", "players":["President Nikias","Tommy Trojan"]},
-						  {"name":"Campus Center", "players":undefined}]};
-}
-
 exports.getGame = function(db){
 	var cursor = db.collection('game').find( { "_id": gameIDFind } );
    cursor.each(function(err, doc) {
