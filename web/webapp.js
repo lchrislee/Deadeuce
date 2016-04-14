@@ -58,34 +58,6 @@ app.get('/game/all', function(request, response){
   response.json(GameGetFunctions.getAllGames());
 });
 
-/*
-  Takes in gameID
-  {gameID:}
-  Returns checklist of game
-  {checkList:{locations:[],weapons:[],suspects:[]}}
-*/
-app.post('/game/checklist', function(request, response){
-  var gameID = request.body.gameID;
-  if (gameID === undefined){
-    response.sendStatus(400);
-  }
-  response.json(GameGetFunctions.getChecklist(gameID));
-});
-
-/*
-  Takes in gameID
-  {gameID:}
-  Returns game name and a map of location names to players in the location
-  {gameName:, locations:[{name:,players:[]},...]}
-*/
-app.post('/game/map', function(request, response){
-  var gameID = request.body.gameID;
-  if (gameID === undefined){
-    response.sendStatus(400);
-  }
-  response.json(GameGetFunctions.getMap(gameID));
-});
-
 // every GET request below this line may not be necessary
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -196,6 +168,34 @@ app.post('/game/status', function(request, response){
     response.sendStatus(400);
   }
   response.json(GamePostFunctions.getStatus(gameID));
+});
+
+/*
+  Takes in gameID
+  {gameID:}
+  Returns checklist of game
+  {checkList:{locations:[],weapons:[],suspects:[]}}
+*/
+app.post('/game/checklist', function(request, response){
+  var gameID = request.body.gameID;
+  if (gameID === undefined){
+    response.sendStatus(400);
+  }
+  response.json(GameGetFunctions.getChecklist(gameID));
+});
+
+/*
+  Takes in gameID
+  {gameID:}
+  Returns game name and a map of location names to players in the location
+  {gameName:, locations:[{name:,players:[]},...]}
+*/
+app.post('/game/map', function(request, response){
+  var gameID = request.body.gameID;
+  if (gameID === undefined){
+    response.sendStatus(400);
+  }
+  response.json(GameGetFunctions.getMap(gameID));
 });
 
 /****************************\
