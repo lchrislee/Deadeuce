@@ -19,8 +19,11 @@ body {
 	margin-top: 20px;
 	padding-bottom: 10px;
 }
-.fixedHeight {
-	height: 620px;
+.shortHeight {
+	height: 390px;
+}
+.tallHeight {
+	height: 700px;
 }
 .outercontainer-profile {
     margin: auto;
@@ -36,26 +39,32 @@ body {
 	clear: both;
 	padding: 10px;
 }
+.center h1 {
+	padding: 20px;
+}
 .hero_img {
 	background-image: url(assets/hero_img.png);
 	background-repeat: no-repeat;
 	background-size: 100%;
 	width:100%;
-	height: 200px;
 	border-radius: 5px 5px 0 0;
+	padding: 30px 0;
 }
 .hero_img h1 {
 	color: #ffffff;
-	padding-top: 50px;
+	vertical-align: middle;
 }
-.primary_content, .secondary_content, .primary_content2 {
-	background-color: rgba(200,200,200,0.6);
+.primary_content, .secondary_content, .primary_content2, .only_content{
+	background-color: rgba(200,200,200,0.9);
 	border-radius: 5px;
 	padding: 2%;
 	margin:2%;
 	float: left;
-	height: 400px;
+
     overflow-y: scroll;
+}
+.only_content {
+	width: 90%;
 }
 .primary_content {
 	width: 60%;
@@ -64,6 +73,12 @@ body {
 	padding:5px;
 	vertical-align: text-top;
 	font-weight: normal;
+}
+.primary_content select{
+    width: 100%;
+}
+.primary_content input[type="text"]{
+    width: 100%;
 }
 .primary_content2 {
 	width: 80%;
@@ -144,17 +159,13 @@ body {
  	color: #ffffff;
  	box-shadow: none;
  	border:none;
- }
- input:submit {
- 	padding: 10px 20px;
- 	background-color: rgba(0,0,0,0.6);
- 	border-radius: 5px;
- 	color: #ffffff;
- 	box-shadow: none;
- 	border:none;
+ 	margin: 5px;
  }
  .submit:hover {
  	background-color: rgba(0,0,0,0.5);
+ }
+ .white_text {
+ 	color: #ffffff;
  }
  @media (max-width: 1000px) {
  	.hero_img {
@@ -176,5 +187,4 @@ body {
 		max-height: 130px;
 	}
 }
-
 

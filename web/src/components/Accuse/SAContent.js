@@ -67,7 +67,7 @@ var SAContent = React.createClass({
     return (
 	    <div className="SAContainer">
           <div className="SAHeader">
-            <h3>Make a Suggestion</h3>
+            Make a Suggestion
           </div>
           <div className="suggestAccuse">
               <form onSubmit={this.makeAccusation}>

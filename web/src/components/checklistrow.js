@@ -15,7 +15,7 @@ var ChecklistRow = React.createClass({
 
         return(
             <div className="checklistRow">
-               <input type="checkbox" value={this.props.value.name}>{this.props.value.name}</input>
+               <input type="checkbox" value={this.props.value.name}>{this.props.value.name} <br/></input>
             </div>
         );
     }

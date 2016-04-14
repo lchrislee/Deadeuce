@@ -17,19 +17,18 @@ var JoinGame = React.createClass({
     return (
      <div>
       <br/>
-         <div className="outercontainer">
+         <div className="outercontainer tallHeight">
              <div className="hero_img">
                  <h1 className="center">Come on in!</h1>
              </div>
-             <div className="primary_content">
+             <div className="only_content">
+                <h3> Choose a game from the list below:</h3>
                  <AvailableGames />
-             </div>
-
-             <div className="secondary_content">
                  <form className="center" onSubmit={this.handleCreateGameSubmit}>
                      You are about to join this game. Would you like to continue?
                      <br/>
-                     <input type="submit" name="submitJoinGame"/>
+                     <br/>
+                     <input type="submit" className="submit" name="submitJoinGame" value="Continue"/>
                  </form>
              </div>
          </div>

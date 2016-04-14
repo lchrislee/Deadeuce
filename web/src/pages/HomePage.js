@@ -40,9 +40,9 @@ var HomePage = React.createClass({
           <br/><br/>
         </div>
        	<div className="center">{this.state.serverStatus}</div>
-        <div className="center">
-          <button onClick={this.testSlice}>Ping the server</button>
-          <button onClick={this.createGame}>Create New Game</button>
+        <div className="center white_text">
+          <button className="submit" onClick={this.testSlice}>Ping the server</button>
+          <button className="submit" onClick={this.createGame}>Create New Game</button>
             {this.props.children}
         </div> 
       </div>  
