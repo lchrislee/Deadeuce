@@ -30,7 +30,7 @@ var GameFeedContent = React.createClass({
                         at <span className="suggested">{this.props.data.location}</span>.
                     </p>
                 </div>
-                <div className="divFeedColumn3 column"><p>Date {this.props.data.time}</p></div>
+                <div className="divFeedColumn3 column"><p>Date {new Date(this.props.data.time).toDateString()}</p></div>
             </div>
 
         );

@@ -181,7 +181,7 @@ app.post('/game/checklist', function(request, response){
   if (gameID === undefined){
     response.sendStatus(400);
   }
-  response.json(GameGetFunctions.getChecklist(gameID));
+  response.json(GamePostFunctions.getChecklist(gameID));
 });
 
 /*
@@ -195,7 +195,7 @@ app.post('/game/map', function(request, response){
   if (gameID === undefined){
     response.sendStatus(400);
   }
-  response.json(GameGetFunctions.getMap(gameID));
+  response.json(GamePostFunctions.getMap(gameID));
 });
 
 /****************************\

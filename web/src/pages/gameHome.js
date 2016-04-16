@@ -15,6 +15,7 @@ var GameHome = React.createClass({
     getInitialState: function() {
         var gameID = "abcdeg";
         this.retrieveCheckList(gameID);
+        this.findGameFeed(gameID);
         return {
             "gameID": gameID,
             "userID": 'user1',
@@ -22,8 +23,38 @@ var GameHome = React.createClass({
             "currentTurn": 'Michelle',
             "suspects": [],
             "weapons": [],
-            "locations": []
+            "locations": [],
+            "gameFeed": [{accuser:"EVKitty", suspect:"George Tirebiter", weapon:"soda cans", location:"EVK", time:"4-13-16"},
+                {accuser:"Tommy Trojan", suspect:"George Tirebiter", weapon:"free weight", location:"Lyon Center", time:"4-14-16"}]
         };
+    },
+    findGameFeed: function(gameID) {
+        var input = {'gameID': gameID};
+
+
+        var stringified = JSON.stringify(input);
+        $.ajax({
+            url: '/game/status',
+            type: 'POST',
+            contentType: "application/json",
+            dataType: 'json',
+            data: stringified,
+
+            success: function(data) {
+                console.log(data);
+                console.log(data.feed);
+                this.setState({
+                    "gameFeed": data.feed
+                });
+            }.bind(this),
+            error: function(xhr, status, err) {
+                console.log(err);
+                console.log(xhr);
+                this.setState({
+                    "serverStatus" : "Error in server request."
+                });
+            }.bind(this)
+        });
     },
     findPlayerGame: function(e) {
         e.preventDefault();
@@ -148,7 +179,7 @@ var GameHome = React.createClass({
                     <GameMap />
                     <SuggestAccuse suspects = {suspects} weapons = {weapons} locations = {locations} />
                     <Checklist suspects = {suspects} weapons = {weapons} locations = {locations} />
-                    <GameFeed />
+                    <GameFeed gameFeed = {this.state.gameFeed}/>
                 </div>
             </div>
         );
