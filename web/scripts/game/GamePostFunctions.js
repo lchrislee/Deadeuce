@@ -4,32 +4,32 @@ var express = require('express');
 
 exports.createGame = function(db){
 	var cantCreate = false;
-  gameInfo= {
-    "_id" : String(gameIDValues++),
-    "title": gameName,
-    "weapons" : ["Empty Soda Cans",
-                 "Viterbi Finals",
-                 "U-Lock",
-                 "Tommy Trojan's Sword",
-                 "Dining Hall Food",
-                 "Freshman's Longboard"],
-    "locations" : ["Ground Zero",
-                   "EVK",
-                   "Lyon Center",
-                   "Leavey Library",
-                   "Traddies",
-                   "The 90",
-                   "Bovard",
-                   "The Row",
-                   "Campus Center"],
-    "turnIndex": 0,
-    "users" : {hostID
-              },
-    "answer": {"location":"EVK",
-               "weapon":"U-Lock",
-               "user":hostID}//,
-    // "usersId":[hostID]
-  };
+  //gameInfo= {
+  //  "_id" : String(gameIDValues++),
+  //  "title": gameName,
+  //  "weapons" : ["Empty Soda Cans",
+  //               "Viterbi Finals",
+  //               "U-Lock",
+  //               "Tommy Trojan's Sword",
+  //               "Dining Hall Food",
+  //               "Freshman's Longboard"],
+  //  "locations" : ["Ground Zero",
+  //                 "EVK",
+  //                 "Lyon Center",
+  //                 "Leavey Library",
+  //                 "Traddies",
+  //                 "The 90",
+  //                 "Bovard",
+  //                 "The Row",
+  //                 "Campus Center"],
+  //  "turnIndex": 0,
+  //  "users" : {hostID
+  //            },
+  //  "answer": {"location":"EVK",
+  //             "weapon":"U-Lock",
+  //             "user":hostID}//,
+  //  // "usersId":[hostID]
+  //};
 
   function createGameEntry(){
     db.collection('game').insertOne(gameInfo, function(err, resultGame) {
@@ -63,11 +63,15 @@ exports.createGame = function(db){
 exports.getStatus = function(gameID){
   var feed = [];
   for (var i = 0; i < 10; i++){
+      //var time = Date.now();
+      //var timeUTC = time.toUTCString();
+      //console.log(time);
     feed.push({
       "accuser":"EVKitty",
       "suspect":"George Tirebiter",
       "weapon":"overly sharp Skittles wrapper",
-      "location":"The Row"
+      "location":"The Row",
+        "time":i
     });
   }
   var turnPlayer = "President Nikias";
