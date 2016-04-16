@@ -3,11 +3,12 @@ var $ = require('jQuery');
 var AvailableGamesContent = require('./availableGamesContent.js')
 
 var AvailableGames = React.createClass({
+    contextTypes: {
+        router: React.PropTypes.object.isRequired
+    },
     getInitialState: function() {
         return{
-            "allGames": [{gameName:"Commander Chris's Crew", numberOfPlayers:"6"},
-                {gameName:"Rampant Ronas", numberOfPlayers:"6"}
-            ]
+
         };
     },
 render: function(){
@@ -20,7 +21,7 @@ render: function(){
                 <div className="columnheader2"> <p> Games </p></div>
             </div>
              <div className="av_gamesTable">
-                 {this.state.allGames.map(function(games){
+                 {this.props.allGames.map(function(games){
                      return <AvailableGamesContent data = {games} key={games.gameName}></AvailableGamesContent>;
                  })}
              </div>

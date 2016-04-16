@@ -275,10 +275,21 @@ Game Tables
     font-size:8pt;
     vertical-align: top;
  }
+.divFeedColumn4 {
+    float: left;
+    width: 27%;
+    height:100%;
+    display:block;
+    padding-right:1%;
+    padding-top: 15px;
+    text-align:right;
+    font-size:8pt;
+    vertical-align: top;
+}
 .column{
     background-color: #CCC;
-    padding-bottom: 1000px;
-    margin-bottom: -1000px;
+    padding-bottom: 100px;
+    margin-bottom: -100px;
 }
 /******************************************************************
 Game Feed Table Item Stylings

@@ -9,6 +9,15 @@ var JoinGame = React.createClass({
     contextTypes: {
         router: React.PropTypes.object.isRequired
     },
+    getInitialState: function() {
+        this.findAllGames();
+        return{
+            "allGames": [{gameName:"Commander Chris's Crew", numberOfPlayers:"6"},
+                {gameName:"Rampant Ronas", numberOfPlayers:"6"}
+            ]
+
+        };
+    },
     handleCreateGameSubmit: function(e) {
         e.preventDefault();
         var output = JSON.stringify({gameName:"FAKE NAME", userID:"SOME ID"});
@@ -43,12 +52,34 @@ var JoinGame = React.createClass({
         });
         this.context.router.push('game_home');
     },
-  getInitialState: function() {
-    return {
+    findAllGames: function() {
+        var input = {};
 
+        var stringified = JSON.stringify(input);
 
-    };
-  },
+        $.ajax({
+            url: '/game/all',
+            type: 'GET',
+            contentType: "application/json",
+            dataType: 'json',
+            data: stringified,
+
+            success: function(data) {
+                console.log(data);
+                console.log(data.gamesList);
+                this.setState({
+                    "allGames": data.gamesList
+                });
+            }.bind(this),
+            error: function(xhr, status, err) {
+                console.log(err);
+                console.log(xhr);
+                this.setState({
+                    "serverStatus" : "Error in server request."
+                });
+            }.bind(this)
+        });
+    },
   render: function() {
     return (
      <div>
@@ -59,7 +90,9 @@ var JoinGame = React.createClass({
              </div>
              <div className="only_content">
                 <h3> Choose a game from the list below:</h3>
-                 <AvailableGames />
+
+                 <AvailableGames allGames = {this.state.allGames}/>
+
                  <form className="center" onSubmit={this.handleCreateGameSubmit}>
                      You are about to join this game. Would you like to continue?
                      <br/>

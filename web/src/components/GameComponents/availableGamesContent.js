@@ -21,7 +21,7 @@ var AvailableGamesContent = React.createClass({
                 <div className="divFeedColumn2_small column">
                     <p className="suggest-body"> {this.props.data.gameName}</p>
                 </div>
-                <div className="divFeedColumn3 column"><p> {this.props.data.numberOfPlayers}</p></div>
+                <div className="divFeedColumn4 column"><p> {this.props.data.numberOfPlayers}</p></div>
 
             </div>
 
