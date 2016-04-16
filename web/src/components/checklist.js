@@ -38,7 +38,7 @@ render: function(){
                   return <ChecklistRow value={weapon} key={weapon} ></ChecklistRow>;
                 })}
             <div className="checklistRow category">
-              Location
+              Locations
             </div>
                 {this.props.locations.map(function(location){
                   return <ChecklistRow value={location} key={location}> </ChecklistRow>;
