@@ -2,9 +2,51 @@ var express = require('express');
 var bodyParser = require('body-parser');
 var MongoClient = require('mongodb').MongoClient;
 var ObjectId = require('mongodb').ObjectID;
+var mongoose = require('mongoose');
+
+mongoose.connect('mongodb://localhost/27017');
 
 var app = express();
-var db;
+var db = mongoose.connection;
+
+db.on('error', console.error.bind(console, 'connection error:'));
+db.once('open', function(){
+  // we're connected!
+});
+
+// creating a schema 
+var userSchema = new mongoose.Schema ({
+
+  name: String,
+  username: {type: String, required: true, unique: true},
+  password: {type: String, required: true},
+  admin: Boolean,
+  location: String
+  meta: {
+    age: Number,
+    website: String
+  },
+  created_at: Date,
+  updated_at: Date
+});
+
+userSchema.methods.dudify = function(){
+  this.name = this.name + '-dude';
+
+  return this.name;
+};
+
+// schema is useless
+//  we need to create a model that uses it
+var User = mongoose.model('User', userSchema);
+
+
+
+
+
+
+
+
 
 app.use(express.static('static'));
 app.use(bodyParser.json()); // allows req.body to be parsed in application/json
