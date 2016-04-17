@@ -240,6 +240,7 @@ app.put('/joinGame', function(request, response){
       |-> return a random piece of information from the 3 pieces suggested (that isnt the true weapon/suspect/location)
         |-> update checklist with the "found" information
         |-> update feed with the suggestion
+        |-> update turnplayer to next player
 */
 app.put('/game/action', function(request, response){
  var gameID = request.body.gameID;
