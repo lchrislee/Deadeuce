@@ -23,7 +23,12 @@ var Game = mongoose.model('Game', {
   users: [{
     name : String,
     email : String
-   }]
+   }],
+  answer: {
+    murderer: String,
+    weapon: String,
+    location: String
+  }
 });
 
 module.exports = Game;

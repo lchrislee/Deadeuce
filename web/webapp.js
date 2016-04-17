@@ -165,7 +165,7 @@ app.post('/game/status', function(request, response){
   LOGIC:
     - get checklist
     - mark known info for each user based on info they've seen
-    - keep track of checked checkboxes for each user
+    - keep track of checked checkboxes for each user          <----- lets keep it local for now, don't store - Chris
 */
 app.post('/game/checklist', function(request, response){
   var gameID = request.body.gameID;
@@ -208,7 +208,7 @@ var GamePutFunctions = require('./scripts/game/GamePutFunctions.js');
     -check to make sure user has no gameID already
       |->if user.gameID == true -> alert that they can't join another game
       |->if user.gameID == false -> Add user.Email and user.Name to game.users
-    -return joinSuccess and send user to the next page
+    -return joinSuccess and send user to the next page      <----- assign player to suspect? Chris
     
 
   Takes in gamename and user id.
@@ -235,10 +235,10 @@ app.put('/joinGame', function(request, response){
     -if Accusation
       |-> check if accusation is correct
         |-> if accusation == true -> user wins game (game over)
-        |-> if accusation == false -> user loses game (game over? or they dont get any more turns?)
+        |-> if accusation == false -> user loses game (game over? or they dont get any more turns?) <- player taken out - Chris
     -if suggestion
       |-> return a random piece of information from the 3 pieces suggested (that isnt the true weapon/suspect/location)
-        |-> update checklist with the "found" information
+        |-> update checklist with the "found" information   <- let user do that - Chris
         |-> update feed with the suggestion
         |-> update turnplayer to next player
 */
