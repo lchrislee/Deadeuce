@@ -69,10 +69,16 @@ app.post('/test_slice', function(req, res){
 \****************************/
 var GameGetFunctions = require('./scripts/game/GameGetFunctions.js');
 
-/*
+/* 
   Returns Object to Client
   {gamesList: [{gameName, numberOfPlayers}, ...]}
   MICHAEL
+
+  LOGIC:
+    - retrieve list of all games
+      |-> game.Name, game.numPlayers
+      
+
 */  
 app.get('/game/all', function(request, response){
   response.json(GameGetFunctions.getAllGames());
@@ -229,6 +235,14 @@ var GamePutFunctions = require('./scripts/game/GamePutFunctions.js');
 // JOIN GAME
 /*
   MICHAEL
+  Logic:
+    -get game.Name
+    -check to make sure user has no gameID already
+      |->if user.gameID == true -> alert that they can't join another game
+      |->if user.gameID == false -> Add user.Email and user.Name to game.users
+    -return joinSuccess and send user to the next page
+    
+
   Takes in gamename and user id.
   Returns:
   {gameID, joinSuccess}
