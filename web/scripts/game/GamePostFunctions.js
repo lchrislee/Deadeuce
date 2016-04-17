@@ -64,15 +64,15 @@ exports.createGame = function(db){
 exports.getStatus = function(gameID){
   var feed = [];
   for (var i = 0; i < 10; i++){
-      //var time = Date.now();
-      //var timeUTC = time.toUTCString();
-      //console.log(time);
+      var time = Date.now();
+      var timeUTC = time.valueOf();
+
     feed.push({
-      "accuser":"EVKitty",
+      "accuser":"EVKitty" + i,
       "suspect":"George Tirebiter",
       "weapon":"overly sharp Skittles wrapper",
       "location":"The Row",
-        "time":i
+        "time":timeUTC
     });
   }
   var turnPlayer = "President Nikias";

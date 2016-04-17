@@ -14,9 +14,15 @@ var JoinGame = React.createClass({
         return{
             "allGames": [{gameName:"Commander Chris's Crew", numberOfPlayers:"6"},
                 {gameName:"Rampant Ronas", numberOfPlayers:"6"}
-            ]
+            ],
+            "selectedGame": -1
 
         };
+    },
+    selectGame: function(selectedGame) {
+        console.log("Selected gameName is: " + selectedGame);
+        this.state.selectedGame = selectedGame;
+
     },
     handleCreateGameSubmit: function(e) {
         e.preventDefault();
@@ -91,7 +97,7 @@ var JoinGame = React.createClass({
              <div className="only_content">
                 <h3> Choose a game from the list below:</h3>
 
-                 <AvailableGames allGames = {this.state.allGames}/>
+                 <AvailableGames allGames = {this.state.allGames} selectedFunction = {this.selectGame}/>
 
                  <form className="center" onSubmit={this.handleCreateGameSubmit}>
                      You are about to join this game. Would you like to continue?
