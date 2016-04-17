@@ -84,93 +84,12 @@ app.get('/game/all', function(request, response){
   response.json(GameGetFunctions.getAllGames());
 });
 
-// every GET request below this line may not be necessary
-// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-/*
-  Takes in a gameID or a gameName
-  {gameName:}
-  {gameID:}
-  Returns a single Game Object
-  {game:{}} // i don't know how the Game object is structured yet
-*/
-app.get('/game', function(request, response){
-  var gameID = request.body.gameID;
-  var gameName = request.body.gameName;
-  if (gameID === undefined && gameName === undefined){
-    response.sendStatus(400);
-  }
-  response.json(GameGetFunctions.getGame(db));
-});
-
-app.get('/game/locations', function(request, response){
-  var gameID = request.body.gameID;
-  if (gameID === undefined){
-    response.sendStatus(400);
-  }
-  response.json(GameGetFunctions.getLocations());
-});
-
-// WEAPONS in a GAME
-app.get('/game/weapons', function(request, response){
-  var gameIDFind = request.body.gameID;
-  if (gameIDFind === undefined){
-    response.sendStatus(400);
-  }
-  response.json(GameGetFunctions.getWeapons(db));
-});
-
-// USERS in a GAME
-app.get('/game/users', function(request, response){
-  var gameIDFind = request.body.gameID;
-  if (gameIDFind === undefined){
-    response.sendStatus(400);
-  }
-  response.json(GameGetFunctions.getUsers(db));
-});
-
-app.get('/game/users/count', function(request, response){
-  var gameID = request.body.gameID;
-  if (gameID === undefined){
-    response.sendStatus(400);
-  }
-  response.json(GameGetFunctions.getUsersCount());
-});
-
-// starting CLUES in a GAME for a USER
-app.get('/game/users/clues', function(request, response){
-  var gameIDFind = request.body.gameID;
-  var userIDFind = request.body.userID;
-  var authIDFind = request.body.authID;
-  
-  return GameGetFunctions.getUserClues(db);
-});
-
-//  get CHECKLIST in a GAME
-app.get('/game/users/checklist', function(request, response){
-  //this is the database call/logic/everything else
-  var gameIDFind = request.body.gameID;
-  var userIDFind = request.body.userID;
-  var authIDFind = request.body.authID;
-
-  response.json(GameGetFunctions.getUserChecklist(db));
-});
-
-// TURN in a GAME
-app.get('/game/users/turn', function(request, response){
-  var gameIDFind = request.body.gameID;
-  return GameGetFunctions.getUserTurn(db);
-});
-
 /****************************\
  *           POST           *
 \****************************/
 var GamePostFunctions = require ('./scripts/game/GamePostFunctions.js');
 
-// CREATE GAME
+// TODO THIS IS INCOMPLETE -Chris
 app.post('/createGame', function(request, response){
  var hostID = request.body.hostID;
  var gameName = request.body.gameName;
@@ -281,73 +200,6 @@ app.put('/game/action', function(request, response){
  
  response.json(GamePutFunctions.takeAction(gameID, userID, weapon, suspect, location, action));
 });
-
-// ACCUSE in a GAME
-app.put('/game/accuse', function(request, response){
-  var gameID = request.body.gameID;
-  var userID = request.body.userID;
-  var accusation = request.body.suggestion;
-  console.log(gameID);
-  console.log(userID);
-  console.log(accusation);
-  if (gameID === undefined || userID === undefined || suggestion === undefined){
-    response.sendStatus(400);
-  }
-
-  var weapon = accusation.weapon;
-  var suspect = accusation.suspect;
-  var place = accusation.place;
-
-  if (weapon === undefined || suspect === undefined || place === undefined){
-    response.sendStatus(400);
-  }
-
-  response.json(GamePutFunctions.accuse());
-});
-
-//suggest
-app.put('/game/suggest', function(request, response){
-  var gameID = request.body.gameID;
-  var userID = request.body.userID;
-  var suggestion = request.body.suggestion;
-  if (gameID === undefined || userID === undefined || suggestion === undefined){
-    response.sendStatus(400);
-  }
-
-  var weapon = suggestion.weapon;
-  var suspect = suggestion.suspect;
-  var place = suggestion.place;
-
-  if (weapon === undefined || suspect === undefined || place === undefined){
-    response.sendStatus(400);
-  }
-  response.json(GamePutFunctions.suggest());
-});
-
-// update CHECKLIST in a game
-app.put('/game/checklist', function(request, response){
-  var gameIDFind = request.body.gameID;
-  var userIDFind = request.body.userID;
-  var check = request.body.check;
-  check = {"locations" : [
-                          "test",
-                          "success",
-                          "location3",
-                          "location4",
-                          "location5",
-                          "location6",
-                          "location7",
-                          "location8",
-                          "location9"
-                        ]
-          };
-  response.json(GamePutFunctions.updateChecklist());
-});
-
-app.put('/game/users/turn', function(request, response){
-  response.json(GamePutFunctions.updateTurn());
-});
-
 
 /**********************************
 *                                 *
