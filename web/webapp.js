@@ -1,3 +1,25 @@
+/**************************************************************
+*
+*
+*               THINGS WE REALLY NEED TO DO
+*
+*
+**************************************************************/
+/*
+we need to change the navbar based on the user's game status, 
+they cant try to create a game if they're already in a game,
+they cant try to join a game if they're already in a game
+
+AND
+
+if user is already in a game there is a GAME PAGE button on 
+the nav to take them to the game.
+
+AND
+
+if user isnt logged in, there are only buttons for Home and Log In/Profile page
+
+*/
 var express = require('express');
 var bodyParser = require('body-parser');
 var MongoClient = require('mongodb').MongoClient;
@@ -76,9 +98,7 @@ var GameGetFunctions = require('./scripts/game/GameGetFunctions.js');
 
   LOGIC:
     - retrieve list of all games
-      |-> game.Name, game.numPlayers
-      
-
+      |-> game.Name, game.numPlayers -> displayed on join games page
 */  
 app.get('/game/all', function(request, response){
   response.json(GameGetFunctions.getAllGames());
@@ -90,6 +110,19 @@ app.get('/game/all', function(request, response){
 var GamePostFunctions = require ('./scripts/game/GamePostFunctions.js');
 
 // TODO THIS IS INCOMPLETE -Chris
+/*
+  Logic:
+    - add game to db
+      |-> set turnPlayer to gameCreater
+      |-> randomly select 1 Weapon/Location/Suspect to be the murderer/weapon/location
+      |-> each player gets 18/(# number of players) pieces of the remaining info
+    - # of players (2-6)
+    - Chosen Character (or auto chosen based on when users join) for user creating game
+
+    to DELETE on React component
+      -Theme, Privacy, (character?)
+*/
+
 app.post('/createGame', function(request, response){
  var hostID = request.body.hostID;
  var gameName = request.body.gameName;
@@ -107,6 +140,12 @@ app.post('/createGame', function(request, response){
   {feed:[{accuser:,suspect:,weapon:,location:}],
    turnPlayer:}
    MICHAEL
+
+   LOGIC:
+    - get turnplayer
+    - get game.feed
+    - get checklist
+
 */
 app.post('/game/status', function(request, response){
   var gameID = request.body.gameID;
@@ -122,6 +161,11 @@ app.post('/game/status', function(request, response){
   Returns checklist of game
   {checkList:{locations:[],weapons:[],suspects:[]}}
   MICHAEL
+
+  LOGIC:
+    - get checklist
+    - mark known info for each user based on info they've seen
+    - keep track of checked checkboxes for each user
 */
 app.post('/game/checklist', function(request, response){
   var gameID = request.body.gameID;
@@ -137,6 +181,11 @@ app.post('/game/checklist', function(request, response){
   Returns game name and a map of location names to players in the location
   {gameName:, locations:[{name:,players:[]},...]}
   MICHAEL
+  
+  LOGIC:
+    -get Location
+      |-> get suspects in each location
+
 */
 app.post('/game/map', function(request, response){
   var gameID = request.body.gameID;
@@ -181,6 +230,16 @@ app.put('/joinGame', function(request, response){
   Returns feedback (only on suggest) and correctness
   {correct:, feedback:}
   MICHAEL
+
+  LOGIC:
+    -if Accusation
+      |-> check if accusation is correct
+        |-> if accusation == true -> user wins game (game over)
+        |-> if accusation == false -> user loses game (game over? or they dont get any more turns?)
+    -if suggestion
+      |-> return a random piece of information from the 3 pieces suggested (that isnt the true weapon/suspect/location)
+        |-> update checklist with the "found" information
+        |-> update feed with the suggestion
 */
 app.put('/game/action', function(request, response){
  var gameID = request.body.gameID;
@@ -213,14 +272,19 @@ app.put('/game/action', function(request, response){
 var UserGetFunctions = require('./scripts/user/UserGetFunctions.js');
 
 // USER INFORMATION
+/*
+  LOGIC:
+    -Get user.name and game.name
+*/
 app.get('/user', function(request, response){
   response.json(UserGetFunctions.getUser());
 });
 
-// USER WINS AND LOSSES
-app.get('/user/stats', function(request, response){
-  response.json(UserGetFunctions.getUserStats());
-});
+// DEFUNCT for MVP
+// // USER WINS AND LOSSES
+// app.get('/user/stats', function(request, response){
+//   response.json(UserGetFunctions.getUserStats());
+// });
 
 // USER get GAME
 app.get('/user/game', function(request, response){
