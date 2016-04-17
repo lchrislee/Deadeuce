@@ -3,50 +3,27 @@ var bodyParser = require('body-parser');
 var MongoClient = require('mongodb').MongoClient;
 var ObjectId = require('mongodb').ObjectID;
 var mongoose = require('mongoose');
+var User = require("./models/user.js");
+var Game = require("./models/game.js");
 
-mongoose.connect('mongodb://localhost/27017');
+mongoose.connect('mongodb://localhost:27017/deadeuce_db');
 
 var app = express();
 var db = mongoose.connection;
 
 db.on('error', console.error.bind(console, 'connection error:'));
 db.once('open', function(){
+  var newUser = new User({ 
+    name: 'Omar',
+    email: 'testing@test.com',
+    password: 'swag'
+  });
+  newUser.save(function (err, newUser) {
+    if (err) return console.error(err);
+    console.log(newUser.name);
+  });
   // we're connected!
 });
-
-// creating a schema 
-var userSchema = new mongoose.Schema ({
-
-  name: String,
-  username: {type: String, required: true, unique: true},
-  password: {type: String, required: true},
-  admin: Boolean,
-  location: String
-  meta: {
-    age: Number,
-    website: String
-  },
-  created_at: Date,
-  updated_at: Date
-});
-
-userSchema.methods.dudify = function(){
-  this.name = this.name + '-dude';
-
-  return this.name;
-};
-
-// schema is useless
-//  we need to create a model that uses it
-var User = mongoose.model('User', userSchema);
-
-
-
-
-
-
-
-
 
 app.use(express.static('static'));
 app.use(bodyParser.json()); // allows req.body to be parsed in application/json
@@ -95,6 +72,7 @@ var GameGetFunctions = require('./scripts/game/GameGetFunctions.js');
 /*
   Returns Object to Client
   {gamesList: [{gameName, numberOfPlayers}, ...]}
+  MICHAEL
 */  
 app.get('/game/all', function(request, response){
   response.json(GameGetFunctions.getAllGames());
@@ -203,6 +181,7 @@ app.post('/createGame', function(request, response){
   Returns game feed, and turn player
   {feed:[{accuser:,suspect:,weapon:,location:}],
    turnPlayer:}
+   MICHAEL
 */
 app.post('/game/status', function(request, response){
   var gameID = request.body.gameID;
@@ -217,6 +196,7 @@ app.post('/game/status', function(request, response){
   {gameID:}
   Returns checklist of game
   {checkList:{locations:[],weapons:[],suspects:[]}}
+  MICHAEL
 */
 app.post('/game/checklist', function(request, response){
   var gameID = request.body.gameID;
@@ -231,6 +211,7 @@ app.post('/game/checklist', function(request, response){
   {gameID:}
   Returns game name and a map of location names to players in the location
   {gameName:, locations:[{name:,players:[]},...]}
+  MICHAEL
 */
 app.post('/game/map', function(request, response){
   var gameID = request.body.gameID;
@@ -247,7 +228,7 @@ var GamePutFunctions = require('./scripts/game/GamePutFunctions.js');
 
 // JOIN GAME
 /*
-  TODO
+  MICHAEL
   Takes in gamename and user id.
   Returns:
   {gameID, joinSuccess}
@@ -266,6 +247,7 @@ app.put('/joinGame', function(request, response){
   {gameID:,userID:,weapon:,suspect:,location:,action:}
   Returns feedback (only on suggest) and correctness
   {correct:, feedback:}
+  MICHAEL
 */
 app.put('/game/action', function(request, response){
  var gameID = request.body.gameID;
