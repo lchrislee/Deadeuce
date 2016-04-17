@@ -44,7 +44,8 @@ var GameHome = React.createClass({
                 console.log(data);
                 console.log(data.feed);
                 this.setState({
-                    "gameFeed": data.feed
+                    "gameFeed": data.feed,
+                    "currentTurn": data.turnPlayer
                 });
             }.bind(this),
             error: function(xhr, status, err) {
