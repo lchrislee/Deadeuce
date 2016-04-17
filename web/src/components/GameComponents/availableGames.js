@@ -11,6 +11,9 @@ var AvailableGames = React.createClass({
 
         };
     },
+    selectChildGame: function(selected){
+        this.props.selectedFunction(selected);
+    },
 render: function(){
     return(
 
@@ -22,7 +25,7 @@ render: function(){
             </div>
              <div className="av_gamesTable">
                  {this.props.allGames.map(function(games){
-                     return <AvailableGamesContent data = {games} key={games.gameName}></AvailableGamesContent>;
+                     return <AvailableGamesContent data = {games} key={games.gameName} selectedFunction = {this.selectChildGame}></AvailableGamesContent>;
                  })}
              </div>
         </div>

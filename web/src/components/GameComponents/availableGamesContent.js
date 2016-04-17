@@ -15,8 +15,10 @@ var AvailableGamesContent = React.createClass({
        if (this.state.isSelected == true){
             this.setState({
                 "isSelected": false
+
             })
         } else {
+           this.props.selectedFunction(this.props.data.gameName);
             this.setState({
                 "isSelected": true
             })
