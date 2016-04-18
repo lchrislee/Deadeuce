@@ -5,14 +5,55 @@ var $ = require('jquery');
 
 
 var SignIn = React.createClass({
+    getInitialState: function(){
+        return{
+            email: "",
+            password: ""
+        }
+    },
+    signIn: function(e){
+        e.preventDefault();
+
+        var output = JSON.stringify(this.state);
+        console.log(output);
+
+        $.ajax({
+            url: '/loginUser',
+            type: 'POST',
+            data: output,
+            contentType: 'application/json',
+            success: function(response){
+            }
+        })
+    },
+    emailChanged: function(e){
+        e.preventDefault();
+        this.setState(){
+            email:e.target.value
+        }
+    },
+    passwordChanged: function(e){
+        e.preventDefault();
+        this.setState(){
+            password:e.target.value
+        }
+    },
     render: function(){
         return(
             <div className="sign-in">
                 <form>
                     Sign In<br/><br/>
-                    <input type="text" name="username" placeholder="Username" className="sign-in-username" autofocus /><br/>
-                    <input type="password" name="password" placeholder="Password" className="sign-in-password" /><br/>
-                    <button className="sign-button">SIGN IN</button>
+                    <input type="text" 
+                        onChange={this.emailChanged}
+                        name="username" 
+                        placeholder="Username" 
+                        className="sign-in-username" 
+                        autofocus /><br/>
+                    <input type="password" 
+                        onChange={this.passwordChanged} 
+                        name="password" placeholder="Password" 
+                        className="sign-in-password" /><br/>
+                    <button className="sign-button" onClick="SignIn">SIGN IN</button>
                 </form>
                 or Sign Up
             </div>

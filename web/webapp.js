@@ -419,6 +419,10 @@ app.post('/createUser', function(request, response){
   });
 });
 
+app.post('/loginUser', function(request, response){
+  // blahblahblahblah
+});
+
 /****************************\
  *           PUT            *
 \****************************/
