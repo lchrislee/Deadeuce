@@ -338,18 +338,20 @@ app.put('/joinGame', function(request, response){
           joinSuccess: false
         });
       } else {
-        game.addPlayer({name:name, email:email}, function(){
-          User.update({"email":email}, {"gameName":gameName}, function(err, raw){
-            if (err){
-              console.log("error: " + err);
-            } else {
-              console.log("User updated!");
-            }
-          });
-          console.log("Success!");
-          response.json({
-            joinSuccess: true,
-            gameID: gameName
+        game.save(function(err, game){
+          game.addPlayer({name:name, email:email}, function(){
+            User.update({"email":email}, {"gameName":gameName}, function(err, raw){
+              if (err){
+                console.log("error: " + err);
+              } else {
+                console.log("User updated!");
+              }
+            });
+            console.log("Success!");
+            response.json({
+              joinSuccess: true,
+              gameID: gameName
+            });
           });
         });
       }

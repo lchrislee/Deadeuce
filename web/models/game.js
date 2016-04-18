@@ -34,11 +34,9 @@ var gameSchema = mongoose.Schema({
 });
 
 gameSchema.methods.addPlayer = function (user, cb) {
-  this.user = user;
+  this.users.push(user);
   this.numPlayers = this.numPlayers + 1;
-
-  console.log("numplayers is now" + this.numPlayers);
-  cb();
+  this.save(cb);
 }
 
 var Game = mongoose.model('Game', gameSchema);
