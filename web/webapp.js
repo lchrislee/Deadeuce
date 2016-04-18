@@ -327,20 +327,18 @@ app.put('/joinGame', function(request, response){
   var gameName = request.body.gameName;
   var name = request.body.name;
   var email = request.body.email;
+  console.log(request);
   if (gameName === undefined || email === undefined){
     response.sendStatus(400);
+    return;
   }
 
   var gameModel = db.model('Game', Game);
   var query = gameModel.where({"name":gameName});
   query.findOne(function(err, game) {
-    console.log(game);
-    console.log("1");
     if (err || game == undefined){
-          console.log("2");
       response.json({error:err});
     } else {
-          console.log("3");
       if(game.numPlayers >= 6) {
         response.json({
           joinSuccess: false
