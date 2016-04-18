@@ -4,6 +4,7 @@ var Game = mongoose.model('Game', {
   name: {type: String, required: true, unique: true},
   numPlayers: {type: Number, required: true},
   turnPlayer: {type: String, required: true},
+  gameWinner: String,
   checklist: {
   	locations: [String],
   	suspects: [String],

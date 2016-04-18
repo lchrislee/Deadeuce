@@ -178,7 +178,7 @@ app.post('/createGame', function(request, response){
   var userModel = db.model('User', User);
   var query = userModel.where({'email':hostID});
   query.findOne(function(err, user){
-    if (err || user.gameID !== undefined){
+    if (err){
       response.json({"gameID":undefined});
     }else{
       var answerLocationNum = Math.floor(Math.random() * 9);
@@ -205,7 +205,7 @@ app.post('/createGame', function(request, response){
         }else{
           User.update({"email":hostID}, {"gameID":game.name}, function(err, raw){
             if (err){
-              console.log("error: " + err);
+              console.log("createGame error: " + err);
             }
           });
           response.json({"gameID":game.name});
@@ -370,22 +370,68 @@ app.put('/joinGame', function(request, response){
         |-> update turnplayer to next player
 */
 app.put('/game/action', function(request, response){
- var gameID = request.body.gameID;
- var userID = request.body.userID;
- var weapon = request.body.weapon;
- var suspect = request.body.suspect;
- var location = request.body.location;
- var action = request.body.action;
+  var gameID = request.body.gameID;
+  var userID = request.body.userID;
+  var weapon = request.body.weapon;
+  var suspect = request.body.suspect;
+  var location = request.body.location;
+  var action = request.body.action;
 
- if (gameID === undefined || userID === undefined || action === undefined){
-   response.sendStatus(400);
- }else if (weapon === undefined || suspect === undefined || location === undefined){
-   response.sendStatus(400);
- }else if (action != "suggest" && action != "accuse"){
-   response.sendStatus(400);
- }
- 
- response.json(GamePutFunctions.takeAction(gameID, userID, weapon, suspect, location, action));
+  if (gameID === undefined || userID === undefined || action === undefined){
+    response.sendStatus(400);
+  }else if (weapon === undefined || suspect === undefined || location === undefined){
+    response.sendStatus(400);
+  }else if (action != "suggest" && action != "accuse"){
+    response.sendStatus(400);
+  }
+
+  var gameModel = db.model('Game', Game);
+  var query = gameModel.where({"name":gameID});
+  query.findOne(function(err, game){
+    if (err){
+      response.json({"correct":undefined, "feedback":undefined});
+    }else{
+      var selectedUser = undefined;
+      var selectedUserIndex = -1;
+      for (var i = 0; i < usersLength; i++){
+        var temp = game.users[i];
+        if (temp.email == userID){
+          selectedUser = temp;
+          selectedUserIndex = i;
+          break;
+        }
+      }
+      if (selectedUser === undefined){
+        response.sendStatus(400);
+      }
+      if (action == "accuse"){
+        var answer = game.answer;
+        if (weapon == answer.weapon && suspect == answer.murderer && location == answer.location){
+          var usersLength = game.users.length;
+          Game.update({"name":gameID}, {"gameWinner":selectedUser.name}, function(err, raw){
+            if (err){
+              console.log("game/action win error: " + err);
+            }
+          });
+          response.json({"correct":true});
+        }else if(selectedUserIndex != -1){
+          var updatedArray = game.users.slice(0);
+          updatedArray.splice(selectedUserIndex);
+          var nextPlayer = game.users[selectedUserIndex + 1].name;
+          Game.update({"name":gameID}, {"turnPlayer":nextPlayer, "users":updatedArray}, function(err, raw){
+            if (err){
+              console.log("game/action lose error: " + err);
+            }
+          });
+          response.json({"correct":false});
+        }else{
+          response.sendStatus(400);
+        }
+      }else if (action == "suggest"){
+
+      }
+    }
+  });
 });
 
 /**********************************
