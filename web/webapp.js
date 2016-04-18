@@ -285,7 +285,7 @@ app.get('/user', function(request, response){
   var email = request.userID;
   var user = db.collection('users').findOne({"email": email}, function(err, doc){
     if(doc !== null){
-      response.json({doc.email});
+      response.json({"email":doc.email});
     } else {
       response.json({err});
     }
