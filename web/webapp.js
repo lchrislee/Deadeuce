@@ -279,7 +279,16 @@ app.post('/game/map', function(request, response){
   if (gameID === undefined){
     response.sendStatus(400);
   }
-  response.json(GamePostFunctions.getMap(gameID));
+
+  var gameModel = db.model('Game', Game);
+  var query = gameModel.where({"name":gameID});
+  query.findOne(function(err, game){
+    if (err){
+      response.json({"gameName":undefined, "locations":undefined});
+    }else{
+      response.json({"gameName": game.name, "locations":game.map});
+    }
+  });
 });
 
 /****************************\
