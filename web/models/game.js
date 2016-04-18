@@ -1,17 +1,18 @@
 var mongoose = require('mongoose');
 
-var Game = mongoose.model('Game', {
+
+var gameSchema = mongoose.Schema({
   name: {type: String, required: true, unique: true},
   numPlayers: {type: Number, required: true},
   turnPlayer: {type: String, required: true},
   checklist: {
-  	locations: [String],
-  	suspects: [String],
-  	weapons: [String]
+    locations: [String],
+    suspects: [String],
+    weapons: [String]
   },
   map: [{
-  	location: String,
-  	suspectsInLocation: [String]
+    location: String,
+    suspectsInLocation: [String]
   }],
   feed: [{
     accuser : String,
@@ -30,5 +31,15 @@ var Game = mongoose.model('Game', {
     location: String
   }
 });
+
+gameSchema.methods.addPlayer = function (user, cb) {
+  this.user = user;
+  this.numPlayers = this.numPlayers + 1;
+
+  console.log("numplayers is now" + this.numPlayers);
+  cb();
+}
+
+var Game = mongoose.model('Game', gameSchema);
 
 module.exports = Game;

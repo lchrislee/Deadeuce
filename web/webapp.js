@@ -331,24 +331,34 @@ app.put('/joinGame', function(request, response){
     response.sendStatus(400);
   }
 
-  var cursor = db.collection('games').findOne( { "name": gameName }, function(err, doc){
-    if(doc != null){
-      var numPlayers = parseInt(doc.numPlayers);
-      if(numPlayers < 6){
-        doc.numPlayers = numPlayers+1;
-        doc.users.push({
-          name:name,
-          email:email
-        });
-        doc.save();
-      } else {
+  var gameModel = db.model('Game', Game);
+  var query = gameModel.where({'name':gameName});
+  query.findOne(function(err, game) {
+    if (err || game.gameID !== undefined){
+      response.json({error:err});
+    } else {
+      if(game.numPlayers >== 6) {
         response.json({
           joinSuccess: false
+        });
+      } else {
+        game.addPlayer({name:name, email:email}, function(){
+          User.update({"email":email}, {"gameID":gameName}, function(err, raw){
+            if (err){
+              console.log("error: " + err);
+            } else {
+              console.log("User updated!");
+            }
+          });
+          console.log("Success!");
+          response.json({
+            joinSuccess: true,
+            gameID: gameName
+          });
         });
       }
     }
   });
-  //response.json(GamePutFunctions.joinGame());
 });
 
 /*
