@@ -224,7 +224,6 @@ app.put('/joinGame', function(request, response){
           email:email
         });
         doc.save();
-        //TODO Then we can join AND increment numPlayers
       } else {
         response.json({
           joinSuccess: false
