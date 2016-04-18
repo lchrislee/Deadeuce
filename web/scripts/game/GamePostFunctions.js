@@ -2,8 +2,8 @@
 
 var express = require('express');
 var mongoose = require('mongoose');
-var UserSchema = require("./models/user.js");
-var GameSchema = require("./models/game.js");
+var UserSchema = require("../../models/user.js");
+var GameSchema = require("../../models/game.js");
 
 var checkList = {
   "locations":[
@@ -57,11 +57,11 @@ exports.createGame = function(mongooseDB, hostEmail, gameName){
     if (err){
       return {"gameID":undefined};
     }else{
-      var answerLocationNum = Math.floor((Math.random() * 9);
+      var answerLocationNum = Math.floor(Math.random() * 9);
       var answerLocation = checkList.locations[answerLocationNum];
-      var answerSuspectNum = Math.floor((Math.random() * 6);
+      var answerSuspectNum = Math.floor(Math.random() * 6);
       var answerSuspect = checkList.suspects[answerSuspectNum];
-      var answerWeaponNum = Math.floor((Math.random() * 6);
+      var answerWeaponNum = Math.floor(Math.random() * 6);
       var answerWeapon = checkList.weapons[answerWeaponNum];
 
       var Game = mongooseDB.model('Game', GameSchema);
@@ -89,6 +89,20 @@ exports.createGame = function(mongooseDB, hostEmail, gameName){
         if (err){
           return {"gameID":undefined};
         }else{
+          User.update({"email":hostEmail}, {"gameID":game.name}, function(err, raw){
+            if (err){
+              console.log("error: " + err);
+            }
+          });
+          // console.log(user);
+          // user.gameID = game.name;
+          // user.save(function(err, u){
+          //   if(err){
+          //     console.log("error: " + err);
+          //   }else{
+          //     console.log("good");
+          //   }
+          // });
           return {"gameID":game.name};
         }
       });
