@@ -24,7 +24,8 @@ var gameSchema = mongoose.Schema({
   }],
   users: [{
     name : String,
-    email : String
+    email : String,
+    hand: [String]
    }],
   answer: {
     murderer: String,

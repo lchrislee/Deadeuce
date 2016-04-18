@@ -185,6 +185,7 @@ app.post('/createGame', function(request, response){
       var answerSuspect = checkList.suspects[answerSuspectNum];
       var answerWeaponNum = Math.floor(Math.random() * 6);
       var answerWeapon = checkList.weapons[answerWeaponNum];
+    
 
       var newGame = new Game({
         'name':gameName,
@@ -211,7 +212,17 @@ app.post('/createGame', function(request, response){
     }
   });
 });
-
+  
+/*
+  Start game
+  -Shuffle cards and distribute
+*/     
+app.post('/game/startGame', function(request, response){
+  var locactionUniqueGuarantee = [];
+  var suspectUniqueGuarantee = [];
+  var weaponUniqueGuarantee = [];
+  for(var i = 0; i < 9; i ++){locactionUniqueGuarantee[i] = undefined; suspectUniqueGuarantee[i] = undefined; weaponUniqueGuarantee[i] = undefined;}
+});
 /*
   Takes in gameID
   {gameID:}
