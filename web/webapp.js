@@ -391,8 +391,12 @@ app.put('/game/action', function(request, response){
     if (err){
       response.json({"correct":undefined, "feedback":undefined});
     }else{
+      if (game.gameWinner !== undefined){
+        response.json({"correct": false, "feedback": "Game is over!"});
+      }
       var selectedUser = undefined;
       var selectedUserIndex = -1;
+      var usersLength = game.users.length;
       for (var i = 0; i < usersLength; i++){
         var temp = game.users[i];
         if (temp.email == userID){
@@ -401,20 +405,19 @@ app.put('/game/action', function(request, response){
           break;
         }
       }
-      if (selectedUser === undefined){
+      if (selectedUser === undefined){ // not in game
         response.sendStatus(400);
       }
       if (action == "accuse"){
         var answer = game.answer;
         if (weapon == answer.weapon && suspect == answer.murderer && location == answer.location){
-          var usersLength = game.users.length;
           Game.update({"name":gameID}, {"gameWinner":selectedUser.name}, function(err, raw){
             if (err){
               console.log("game/action win error: " + err);
             }
           });
-          response.json({"correct":true});
-        }else if(selectedUserIndex != -1){
+          response.json({"correct":true}); // won!
+        }else{
           var updatedArray = game.users.slice(0);
           updatedArray.splice(selectedUserIndex);
           var nextPlayer = game.users[selectedUserIndex + 1].name;
@@ -424,11 +427,9 @@ app.put('/game/action', function(request, response){
             }
           });
           response.json({"correct":false});
-        }else{
-          response.sendStatus(400);
         }
       }else if (action == "suggest"){
-
+        
       }
     }
   });
