@@ -413,9 +413,9 @@ app.post('/createUser', function(request, response){
   newUser.save(function (err, newUser) {
     if (err) return console.error(err);
     console.log(newUser.name);
-  });
-  response.json({
-    userID: email
+    response.json({
+      userID: newUser.email
+    });
   });
 });
 
