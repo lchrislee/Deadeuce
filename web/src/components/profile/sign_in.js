@@ -26,17 +26,17 @@ var SignIn = React.createClass({
             }
         })
     },
-    emailChanged: function(e){
+    emailChange: function(e){
         e.preventDefault();
-        this.setState(){
+        this.setState({
             email:e.target.value
-        }
+        });
     },
-    passwordChanged: function(e){
+    passwordChange: function(e){
         e.preventDefault();
-        this.setState(){
+        this.setState({
             password:e.target.value
-        }
+        });
     },
     render: function(){
         return(
@@ -44,13 +44,13 @@ var SignIn = React.createClass({
                 <form>
                     Sign In<br/><br/>
                     <input type="text" 
-                        onChange={this.emailChanged}
+                        onChange={this.emailChange}
                         name="username" 
                         placeholder="Username" 
                         className="sign-in-username" 
                         autofocus /><br/>
                     <input type="password" 
-                        onChange={this.passwordChanged} 
+                        onChange={this.passwordChange} 
                         name="password" placeholder="Password" 
                         className="sign-in-password" /><br/>
                     <button className="sign-button" onClick="SignIn">SIGN IN</button>
