@@ -1,59 +1,39 @@
 'use strict';
 
 var express = require('express');
+var mongoose = require('mongoose');
+var UserSchema = require("./models/user.js");
+var GameSchema = require("./models/game.js");
 
-exports.createGame = function(db){
-	var cantCreate = false;
-  //gameInfo= {
-  //  "_id" : String(gameIDValues++),
-  //  "title": gameName,
-  //  "weapons" : ["Empty Soda Cans",
-  //               "Viterbi Finals",
-  //               "U-Lock",
-  //               "Tommy Trojan's Sword",
-  //               "Dining Hall Food",
-  //               "Freshman's Longboard"],
-  //  "locations" : ["Ground Zero",
-  //                 "EVK",
-  //                 "Lyon Center",
-  //                 "Leavey Library",
-  //                 "Traddies",
-  //                 "The 90",
-  //                 "Bovard",
-  //                 "The Row",
-  //                 "Campus Center"],
-  //  "turnIndex": 0,
-  //  "users" : {hostID
-  //            },
-  //  "answer": {"location":"EVK",
-  //             "weapon":"U-Lock",
-  //             "user":hostID}//,
-  //  // "usersId":[hostID]
-  //};
 
-  function createGameEntry(){
-    db.collection('game').insertOne(gameInfo, function(err, resultGame) {
-      console.log(resultGame);
-      var result = {};
-      if(!err){
-        result['gameID'] = resultGame.ops[0]._id;
-        return result;
-      }else{
-        return result;
-      }
-    });
-  };
+/*
+  Logic:
+    - add game to db
+      |-> set turnPlayer to gameCreater
+      |-> randomly select 1 Weapon/Location/Suspect to be the murderer/weapon/location
+      |-> each player gets 18/(# number of players) pieces of the remaining info
+    - # of players (2-6)
+    - Chosen Character (or auto chosen based on when users join) for user creating game
 
-  db.collection('game').find({"title":gameInfo.title}).count(function(err, count) {
-    var result = {};
-    if(count >= 1){
-      cantCreate = true;
-    }
-    if(cantCreate){
-      result['result'] = "failed";
-      return result;
+    to DELETE on React component
+      -Theme, Privacy, (character?)
+*/
+exports.createGame = function(mongooseDB, hostEmail, gameName){
+  var User = mongooseDB.model('User', UserSchema);
+  var query = User.where({'email':hostEmail});
+  query.findOne(function(err, user){
+    if (err){
+      return {"gameID":undefined};
     }else{
-      return createGameEntry();
+      var Game = mongooseDB.model('Game', GameSchema);
+      var newGame = new Game({'name':gameName, 'numPlayers':1, 'turnPlayer':hostEmail});
+      newGame.save(function(err, game){
+        if (err){
+          return {"gameID":undefined};
+        }else{
+          return {"gameID":game.name};
+        }
+      });
     }
   });
 }

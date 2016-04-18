@@ -117,11 +117,10 @@ var GamePostFunctions = require ('./scripts/game/GamePostFunctions.js');
 app.post('/createGame', function(request, response){
  var hostID = request.body.hostID;
  var gameName = request.body.gameName;
- var gameInfo = request.body.gameInfo;
 
   if (hostID === undefined || gameName === undefined)
     response.sendStatus(400);
-  response.json(GamePostFunctions.createGame(db));
+  response.json(GamePostFunctions.createGame(db, hostID, gameName));
 });
 
 /*
