@@ -35,15 +35,6 @@ var db = mongoose.connection;
 
 db.on('error', console.error.bind(console, 'connection error:'));
 db.once('open', function(){
-  var newUser = new User({ 
-    name: 'Omar',
-    email: 'testing@test.com',
-    password: 'swag'
-  });
-  newUser.save(function (err, newUser) {
-    if (err) return console.error(err);
-    console.log(newUser.name);
-  });
   // we're connected!
 });
 
@@ -299,7 +290,19 @@ var UserPostFunctions = require('./scripts/user/UserPostFunctions.js');
 // CREATE USER
 app.post('/createUser', function(request, response){
   var userinfo = request.body.userInfo;
-  response.json()
+
+  var newUser = new User({ 
+    name: userinfo.name,
+    email: userinfo.email,
+    password: userinfo.password
+  });
+  newUser.save(function (err, newUser) {
+    if (err) return console.error(err);
+    console.log(newUser.name);
+  });
+  response.json({
+    userID: email
+  });
 });
 
 /****************************\
