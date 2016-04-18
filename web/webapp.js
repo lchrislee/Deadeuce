@@ -92,7 +92,19 @@ var GameGetFunctions = require('./scripts/game/GameGetFunctions.js');
       |-> game.Name, game.numPlayers -> displayed on join games page
 */  
 app.get('/game/all', function(request, response){
-  response.json(GameGetFunctions.getAllGames());
+  var gameCollection = db.collection('games');
+  gameCollection.find().toArray(function(err, games){
+    var outputList = [];
+    for (var i = 0; i < games.length; i++){
+      var g = games[i];
+      outputList.push({"gameName":g.name, "numberOfPlayers": g.numPlayers});
+    }
+    if (err){
+      response.json({"gamesList":undefined});
+    }else{
+      response.json({"gamesList":outputList});
+    }
+  });
 });
 
 /****************************\
@@ -166,7 +178,7 @@ app.post('/createGame', function(request, response){
   var userModel = db.model('User', User);
   var query = userModel.where({'email':hostID});
   query.findOne(function(err, user){
-    if (err){
+    if (err || user.gameID !== undefined){
       response.json({"gameID":undefined});
     }else{
       var answerLocationNum = Math.floor(Math.random() * 9);
