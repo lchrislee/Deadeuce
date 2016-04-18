@@ -92,7 +92,19 @@ var GameGetFunctions = require('./scripts/game/GameGetFunctions.js');
       |-> game.Name, game.numPlayers -> displayed on join games page
 */  
 app.get('/game/all', function(request, response){
-  response.json(GameGetFunctions.getAllGames());
+  var gameCollection = db.collection('games');
+  gameCollection.find().toArray(function(err, games){
+    var outputList = [];
+    for (var i = 0; i < games.length; i++){
+      var g = games[i];
+      outputList.push({"gameName":g.name, "numberOfPlayers": g.numPlayers});
+    }
+    if (err){
+      response.json({"gamesList":undefined});
+    }else{
+      response.json({"gamesList":outputList});
+    }
+  });
 });
 
 /****************************\
@@ -166,7 +178,7 @@ app.post('/createGame', function(request, response){
   var userModel = db.model('User', User);
   var query = userModel.where({'email':hostID});
   query.findOne(function(err, user){
-    if (err){
+    if (err || user.gameID !== undefined){
       response.json({"gameID":undefined});
     }else{
       var answerLocationNum = Math.floor(Math.random() * 9);
@@ -180,7 +192,7 @@ app.post('/createGame', function(request, response){
       var newGame = new gameModel({
         'name':gameName,
         'numPlayers':1,
-        'turnPlayer':hostID,
+        'turnPlayer':"President Nikias",
         "checklist":checkList,
         "map":initialMap,
         "users":[{"name":"President Nikias", "email":hostID}],
@@ -214,7 +226,6 @@ app.post('/createGame', function(request, response){
    LOGIC:
     - get turnplayer
     - get game.feed
-    - get checklist
 
 */
 app.post('/game/status', function(request, response){
@@ -222,7 +233,16 @@ app.post('/game/status', function(request, response){
   if (gameID === undefined){
     response.sendStatus(400);
   }
-  response.json(GamePostFunctions.getStatus(gameID));
+
+  var gameModel = db.model('Game', Game);
+  var query = gameModel.where({"name":gameID});
+  query.findOne(function(err, game){
+    if (err){
+      response.json({"feed":undefined});
+    }else{
+      response.json({"feed":game.feed, "turnPlayer":game.turnPlayer});
+    }
+  });
 });
 
 /*
@@ -242,7 +262,16 @@ app.post('/game/checklist', function(request, response){
   if (gameID === undefined){
     response.sendStatus(400);
   }
-  response.json(GamePostFunctions.getChecklist(gameID));
+
+  var gameModel = db.model('Game', Game);
+  var query = gameModel.where({"name":gameID});
+  query.findOne(function(err, game){
+    if (err){
+      response.json({"checkList":undefined});
+    }else{
+      response.json({"checkList":game.checklist});
+    }
+  });
 });
 
 /*
@@ -262,7 +291,16 @@ app.post('/game/map', function(request, response){
   if (gameID === undefined){
     response.sendStatus(400);
   }
-  response.json(GamePostFunctions.getMap(gameID));
+
+  var gameModel = db.model('Game', Game);
+  var query = gameModel.where({"name":gameID});
+  query.findOne(function(err, game){
+    if (err){
+      response.json({"gameName":undefined, "locations":undefined});
+    }else{
+      response.json({"gameName": game.name, "locations":game.map});
+    }
+  });
 });
 
 /****************************\
