@@ -337,7 +337,7 @@ app.put('/joinGame', function(request, response){
     if (err || game.gameID !== undefined){
       response.json({error:err});
     } else {
-      if(game.numPlayers >== 6) {
+      if(game.numPlayers >= 6) {
         response.json({
           joinSuccess: false
         });
