@@ -180,7 +180,7 @@ app.post('/createGame', function(request, response){
       var newGame = new gameModel({
         'name':gameName,
         'numPlayers':1,
-        'turnPlayer':hostID,
+        'turnPlayer':"President Nikias",
         "checklist":checkList,
         "map":initialMap,
         "users":[{"name":"President Nikias", "email":hostID}],
@@ -214,7 +214,6 @@ app.post('/createGame', function(request, response){
    LOGIC:
     - get turnplayer
     - get game.feed
-    - get checklist
 
 */
 app.post('/game/status', function(request, response){
@@ -222,7 +221,16 @@ app.post('/game/status', function(request, response){
   if (gameID === undefined){
     response.sendStatus(400);
   }
-  response.json(GamePostFunctions.getStatus(gameID));
+
+  var gameModel = db.model('Game', Game);
+  var query = gameModel.where({"name":gameID});
+  query.findOne(function(err, game){
+    if (err){
+      response.json({"feed":undefined});
+    }else{
+      response.json({"feed":game.feed, "turnPlayer":game.turnPlayer});
+    }
+  });
 });
 
 /*
