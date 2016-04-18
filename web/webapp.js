@@ -185,7 +185,20 @@ app.post('/createGame', function(request, response){
       var answerSuspect = checkList.suspects[answerSuspectNum];
       var answerWeaponNum = Math.floor(Math.random() * 6);
       var answerWeapon = checkList.weapons[answerWeaponNum];
-    
+
+      var removedLocations = checkList.locations.slice(0);
+      removedLocations.splice(answerLocationNum);
+      var removedWeapons = checkList.weapons.slice(0);
+      removedWeapons.splice(answerWeaponsNum);
+      var removedSuspects = checkList.suspects.slice(0);
+      removedSuspects.splice(answerSuspectNum);
+
+      var startLocationNum = Math.floor(Math.random() * 8);
+      var startLocation = removedLocations[startLocationNum];
+      var startSuspectNum = Math.floor(Math.random() * 5);
+      var startSuspect = removedSuspects[startSuspectNum];
+      var startWeaponNum = Math.floor(Math.random() * 5);
+      var startWeapon = removedWeapons[startWeaponNum];
 
       var newGame = new Game({
         'name':gameName,
@@ -193,20 +206,23 @@ app.post('/createGame', function(request, response){
         'turnPlayer':"President Nikias",
         "checklist":checkList,
         "map":initialMap,
-        "users":[{"name":"President Nikias", "email":hostID}],
+        "users":[{"name":"President Nikias","email":hostID, "hand":[startLocation, startWeapon, startSuspect]}],
         "answer":{"murderer":answerSuspect, "weapon":answerWeapon, "location":answerLocation}
       });
 
       newGame.save(function(err, game){
         if (err){
+          console.log("error creating game: " + err);
           response.json({"gameID":undefined});
         }else{
           User.update({"email":hostID}, {"gameID":game.name}, function(err, raw){
             if (err){
               console.log("createGame error: " + err);
+              response.json({"gameID":undefined});
+            }else{
+              response.json({"gameID":game.name});
             }
           });
-          response.json({"gameID":game.name});
         }
       });
     }
@@ -411,6 +427,8 @@ app.put('/game/action', function(request, response){
     }else{
       if (game.gameWinner !== undefined){
         response.json({"correct": false, "feedback": "Game is over!"});
+      }else if (game.numPlayers < 6){
+        response.json("correct":false, "feedback": "There are not enough players!");
       }
 
       var selectedUser = undefined;
@@ -430,7 +448,12 @@ app.put('/game/action', function(request, response){
         response.sendStatus(400);
       }
       var answer = game.answer;
-      var nextPlayer = game.users[selectedUserIndex + 1].name;
+      var nextPlayer = "";
+      if (selectedUserIndex == game.users.length - 1){
+        nextPlayer = game.users[0].name;
+      }else{
+        nextPlayer = game.users[selectedUserIndex + 1].name;
+      }
 
       var outputOptions = []; // the next 3 should not be else-if
       if (answer.weapon != weapon){
