@@ -208,11 +208,24 @@ var GamePutFunctions = require('./scripts/game/GamePutFunctions.js');
 */
 app.put('/joinGame', function(request, response){
   var gameName = request.body.gameName;
-  var userID = request.body.userID;
-  if (gameName === undefined || userID === undefined){
+  var email = request.body.userID;
+  if (gameName === undefined || email === undefined){
     response.sendStatus(400);
   }
-  response.json(GamePutFunctions.joinGame());
+
+  var cursor = db.collection('games').findOne( { "name": gameName }, function(err, doc){
+    if(doc != null){
+      var numPlayers = doc.numPlayers;
+      if(numPlayers < 6){
+        //TODO Then we can join AND increment numPlayers
+      } else {
+        response.json({
+          joinSuccess: false
+        });
+      }
+    }
+  });
+  //response.json(GamePutFunctions.joinGame());
 });
 
 /*
@@ -269,7 +282,15 @@ var UserGetFunctions = require('./scripts/user/UserGetFunctions.js');
     -Get user.name and game.name
 */
 app.get('/user', function(request, response){
-  response.json(UserGetFunctions.getUser());
+  var email = request.userID;
+  var user = db.collection('users').findOne({"email": email}, function(err, doc){
+    if(doc !== null){
+      response.json({"email":doc.email});
+    } else {
+      response.json({err});
+    }
+  });
+  //response.json(UserGetFunctions.getUser(request.userID));
 });
 
 // DEFUNCT for MVP
@@ -280,7 +301,15 @@ app.get('/user', function(request, response){
 
 // USER get GAME
 app.get('/user/game', function(request, response){
-  response.json(UserGetFunctions.getUserCurrentGame());
+  var name = request.body.gameID;
+  var cursor = db.collection('games').findOne( { "name": name }, function(err, doc){
+    if (doc != null) {
+      response.json({"game":doc.game});
+    } else {
+      response.json({"err":err});
+    }
+  });
+  //response.json(UserGetFunctions.getUserCurrentGame());
 });
 
 /****************************\

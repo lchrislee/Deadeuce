@@ -2,22 +2,27 @@
 
 var express = require('express');
 
-exports.getUser = function(){
-	var user = {
-	    "username": "EVKiller",
-	    "profPicUrl": "/DivePortrait.jpg",
-	    "wins": "100",
-	    "losses": "0",
-  	};
+exports.getUser = function(email){
+  var user = db.collection('users').find({"email": email}, function(err, obj){
+    if(err){
+      return undefined;
+    }
+    return user;
+  });
+	// var user = {
+	//     "username": "EVKiller",
+	//     "profPicUrl": "/DivePortrait.jpg",
+	//     "wins": "100",
+	//     "losses": "0",
+ //  	};
 
-  	return user;
 
-  	// var userIDFind = request.body.userID;
-	// 
+  	 // var userIDFind = request.body.userID;
+	   // 
      // var cursor = db.collection('user').find( { "_id": userIDFind } );
      // cursor.each(function(err, doc) {
      //    if (doc != null) {
-     	// 
+     // 
      //          response.json({"userInfo": doc});
      //    } else {
      //    }
