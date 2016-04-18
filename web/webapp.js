@@ -325,25 +325,29 @@ var GamePutFunctions = require('./scripts/game/GamePutFunctions.js');
 */
 app.put('/joinGame', function(request, response){
   var gameName = request.body.gameName;
-  var name = request.body.userName;//TODO NEED TO PASS THIS UP TO SERVER
-  var email = request.body.userID;
+  var name = request.body.name;
+  var email = request.body.email;
   if (gameName === undefined || email === undefined){
     response.sendStatus(400);
   }
 
   var gameModel = db.model('Game', Game);
-  var query = gameModel.where({'name':gameName});
+  var query = gameModel.where({"name":gameName});
   query.findOne(function(err, game) {
-    if (err || game.gameID !== undefined){
+    console.log(game);
+    console.log("1");
+    if (err || game == undefined){
+          console.log("2");
       response.json({error:err});
     } else {
+          console.log("3");
       if(game.numPlayers >= 6) {
         response.json({
           joinSuccess: false
         });
       } else {
         game.addPlayer({name:name, email:email}, function(){
-          User.update({"email":email}, {"gameID":gameName}, function(err, raw){
+          User.update({"email":email}, {"gameName":gameName}, function(err, raw){
             if (err){
               console.log("error: " + err);
             } else {
