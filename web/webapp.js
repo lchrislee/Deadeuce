@@ -287,6 +287,7 @@ var GamePutFunctions = require('./scripts/game/GamePutFunctions.js');
 */
 app.put('/joinGame', function(request, response){
   var gameName = request.body.gameName;
+  var name = request.body.userName;//TODO NEED TO PASS THIS UP TO SERVER
   var email = request.body.userID;
   if (gameName === undefined || email === undefined){
     response.sendStatus(400);
@@ -294,9 +295,14 @@ app.put('/joinGame', function(request, response){
 
   var cursor = db.collection('games').findOne( { "name": gameName }, function(err, doc){
     if(doc != null){
-      var numPlayers = doc.numPlayers;
+      var numPlayers = parseInt(doc.numPlayers);
       if(numPlayers < 6){
-        //TODO Then we can join AND increment numPlayers
+        doc.numPlayers = numPlayers+1;
+        doc.users.push({
+          name:name,
+          email:email
+        });
+        doc.save();
       } else {
         response.json({
           joinSuccess: false
