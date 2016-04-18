@@ -250,7 +250,16 @@ app.post('/game/checklist', function(request, response){
   if (gameID === undefined){
     response.sendStatus(400);
   }
-  response.json(GamePostFunctions.getChecklist(gameID));
+
+  var gameModel = db.model('Game', Game);
+  var query = gameModel.where({"name":gameID});
+  query.findOne(function(err, game){
+    if (err){
+      response.json({"checkList":undefined});
+    }else{
+      response.json({"checkList":game.checklist});
+    }
+  });
 });
 
 /*
