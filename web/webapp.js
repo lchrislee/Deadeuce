@@ -268,7 +268,15 @@ var UserGetFunctions = require('./scripts/user/UserGetFunctions.js');
     -Get user.name and game.name
 */
 app.get('/user', function(request, response){
-  response.json(UserGetFunctions.getUser());
+  var email = request.userID;
+  var user = db.collection('users').find({"email": email}, function(err, obj){
+    if(doc !== null){
+      response.json({obj.email});
+    } else {
+      response.json({err});
+    }
+  });
+  //response.json(UserGetFunctions.getUser(request.userID));
 });
 
 // DEFUNCT for MVP
@@ -279,7 +287,16 @@ app.get('/user', function(request, response){
 
 // USER get GAME
 app.get('/user/game', function(request, response){
-  response.json(UserGetFunctions.getUserCurrentGame());
+  var name = request.body.gameID;
+  var cursor = db.collection('games').find( { "name": name } );
+  cursor.each(function(err, obj) {
+    if (doc != null) {
+        response.json({"game":obj.game});
+    } else {
+      response.json({"err":err});
+    }
+  });
+  //response.json(UserGetFunctions.getUserCurrentGame());
 });
 
 /****************************\
