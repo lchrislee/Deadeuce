@@ -1,0 +1,22 @@
+curl -H 'Content-Type: application/json' localhost:4000/createUser -X POST -d '{"userInfo":{"name":"Chris", "email":"junk", "password":"password1234"}}';
+curl -H 'Content-Type: application/json' localhost:4000/createUser -X POST -d '{"userInfo":{"name":"Omar", "email":"test", "password":"password1234"}}';
+curl -H 'Content-Type: application/json' localhost:4000/createUser -X POST -d '{"userInfo":{"name":"Michael", "email":"check", "password":"password1234"}}';
+curl -H 'Content-Type: application/json' localhost:4000/createUser -X POST -d '{"userInfo":{"name":"Michelle", "email":"run", "password":"password1234"}}';
+curl -H 'Content-Type: application/json' localhost:4000/createUser -X POST -d '{"userInfo":{"name":"Rona", "email":"go", "password":"password1234"}}';
+curl -H 'Content-Type: application/json' localhost:4000/createUser -X POST -d '{"userInfo":{"name":"Zoe", "email":"stay", "password":"password1234"}}';
+curl -H 'Content-Type: application/json' localhost:4000/createGame -X POST -d '{"hostID":"junk", "gameName":"JOKER"}';
+curl -H 'Content-Type: application/json' localhost:4000/joinGame -X PUT -d '{"gameName":"JOKER", "name":"Michael", "email":"check"}';
+curl -H 'Content-Type: application/json' localhost:4000/joinGame -X PUT -d '{"gameName":"JOKER", "name":"Michelle", "email":"run"}';
+curl -H 'Content-Type: application/json' localhost:4000/joinGame -X PUT -d '{"gameName":"JOKER", "name":"Rona", "email":"go"}';
+curl -H 'Content-Type: application/json' localhost:4000/joinGame -X PUT -d '{"gameName":"JOKER", "name":"Zoe", "email":"stay"}';
+curl -H 'Content-Type: application/json' localhost:4000/joinGame -X PUT -d '{"gameName":"JOKER", "name":"Omar", "email":"test"}';
+curl -H 'Content-Type: application/json' localhost:4000/game/status -X POST -d '{"gameID":"JOKER"}';
+curl -H 'Content-Type: application/json' localhost:4000/game/map -X POST -d '{"gameID":"JOKER"}';
+curl -H 'Content-Type: application/json' localhost:4000/game/checklist -X POST -d '{"gameID":"JOKER"}';
+curl -H 'Content-Type: application/json' localhost:4000/game/action -X PUT -d '{"gameID":"JOKER","userID":"junk","weapon":"U-Lock","suspect":"EVKitty","location":"Traddies", "action":"suggest"}';
+curl -H 'Content-Type: application/json' localhost:4000/game/action -X PUT -d '{"gameID":"JOKER","userID":"check","weapon":"Freshman on a longboard","suspect":"EVKitty","location":"The Row", "action":"suggest"}';
+curl -H 'Content-Type: application/json' localhost:4000/game/action -X PUT -d '{"gameID":"JOKER","userID":"run","weapon":"Viterbi Finals","suspect":"Will Ferrell","location":"Lyon Center", "action":"suggest"}';
+curl -H 'Content-Type: application/json' localhost:4000/game/action -X PUT -d '{"gameID":"JOKER","userID":"go","weapon":"U-Lock","suspect":"Will Ferrell","location":"Lyon Center", "action":"suggest"}';
+curl -H 'Content-Type: application/json' localhost:4000/game/action -X PUT -d '{"gameID":"JOKER","userID":"stay","weapon":"U-Lock","suspect":"Will Ferrell","location":"The Row", "action":"accuse"}';
+curl -H 'Content-Type: application/json' localhost:4000/game/action -X PUT -d '{"gameID":"JOKER","userID":"test","weapon":"U-Lock","suspect":"Will Ferrell","location":"Lyon Center", "action":"accuse"}';
+curl -H 'Content-Type: application/json' localhost:4000/game/action -X PUT -d '{"gameID":"JOKER","userID":"test","weapon":"U-Lock","suspect":"Will Ferrell","location":"Lyon Center", "action":"accuse"}'
