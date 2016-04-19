@@ -355,8 +355,7 @@ app.put('/joinGame', function(request, response){
               if (err){
                 console.log("error: " + err);
                 response.json({
-                  joinSuccess: true,
-                  gameID: gameName
+                  joinSuccess: false
                 });
               } else {
                 response.json({
@@ -509,16 +508,21 @@ var UserGetFunctions = require('./scripts/user/UserGetFunctions.js');
 
 // USER INFORMATION
 /*
-  LOGIC:
+  Input: 
+    userID: String
+  Output:
+    user: {} (user object)
+
+  General Logic:
     -Get user.name and game.name
 */
 app.get('/user', function(request, response){
   var email = request.userID;
   var user = db.collection('users').findOne({"email": email}, function(err, doc){
     if(doc !== null){
-      response.json({"email":doc.email});
+      response.json({});
     } else {
-      response.json({err});
+      response.json({"error":err});
     }
   });
   //response.json(UserGetFunctions.getUser(request.userID));
