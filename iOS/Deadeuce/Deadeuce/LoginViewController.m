@@ -7,11 +7,8 @@
 //
 
 #import "LoginViewController.h"
-#import <FBSDKCoreKit/FBSDKCoreKit.h>
-#import <FBSDKLoginKit/FBSDKLoginKit.h>
-#import "LobbyTableViewController.h"
+#import "AuthViewController.h"
 #import <SWRevealViewController.h>
-#import <GoogleSignIn/GoogleSignIn.h>
 
 #import "DeadeuceCaller.h"
 
@@ -19,36 +16,23 @@
 
 @property (nonatomic, strong) UIImageView *bgImageView;
 @property (nonatomic, strong) UIImageView *logoImageView;
-@property (nonatomic, strong) UIButton *fbButton;
-@property (nonatomic, strong) UIButton *googleButton;
+@property (nonatomic, strong) UIButton *loginButton;
+@property (nonatomic, strong) UIButton *signupButton;
 
 @end
 
 @implementation LoginViewController
 
-- (void)fbButtonPressed:(UIButton*)sender {
-    LobbyTableViewController *lVc = [[LobbyTableViewController alloc] initWithStyle:UITableViewStylePlain];
-    
-    [self.navigationController pushViewController:lVc animated:YES];
+- (void)loginButtonPressed:(UIButton*)sender {
+    AuthViewController *aVc = [[AuthViewController alloc] initWithOption:@"Login"];
+    [self.navigationController pushViewController:aVc animated:YES];
 }
 
 // Once the button is clicked, show the login dialog
--(void)loginButtonClicked:(UIButton*)sender
+-(void)signupButtonPressed:(UIButton*)sender
 {
-    FBSDKLoginManager *login = [[FBSDKLoginManager alloc] init];
-    [login
-     logInWithReadPermissions: @[@"public_profile"]
-     fromViewController:self
-     handler:^(FBSDKLoginManagerLoginResult *result, NSError *error) {
-         if (error) {
-             NSLog(@"Process error");
-         } else if (result.isCancelled) {
-             NSLog(@"Cancelled");
-         } else {
-             LobbyTableViewController *lVc = [[LobbyTableViewController alloc] initWithStyle:UITableViewStylePlain];
-             [self.navigationController pushViewController:lVc animated:YES];
-         }
-     }];
+    AuthViewController *aVc = [[AuthViewController alloc] initWithOption:@"Signup"];
+    [self.navigationController pushViewController:aVc animated:YES];
 }
 
 - (void)loadView {
@@ -69,87 +53,52 @@
     self.logoImageView.image=[UIImage imageNamed:@"griffy.regular.png"];
     
     
-    self.fbButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-    [self.fbButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-    self.fbButton.layer.cornerRadius = 5;
-    self.fbButton.clipsToBounds = YES;
-    [self.fbButton.layer setBackgroundColor:[[UIColor colorWithRed:(44/255.0) green:(67/255.0) blue:(136/255.0) alpha:1.0] CGColor]];
+    self.loginButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+    [self.loginButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    self.loginButton.layer.cornerRadius = 5;
+    self.loginButton.clipsToBounds = YES;
+    [self.loginButton.layer setBackgroundColor:[[UIColor colorWithRed:(44/255.0) green:(67/255.0) blue:(136/255.0) alpha:1.0] CGColor]];
     
-    
-    UIImageView *customViewF = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"facebook.png"]];
-    customViewF.frame = CGRectMake(28.0, 13.0, 34.0, 34.0);
-    [self.fbButton addSubview:customViewF];
-    
-    [self.fbButton addTarget:self
-                          action:@selector(loginButtonClicked:)
-                forControlEvents:UIControlEventTouchUpInside];
-    [self.fbButton setTitle:@"Login with Facebook" forState:UIControlStateNormal];
-    self.fbButton.contentHorizontalAlignment = UIControlContentHorizontalAlignmentRight;
-    self.fbButton.contentEdgeInsets = UIEdgeInsetsMake(0, 0, 0, 30.0);
+    [self.loginButton addTarget:self
+                         action:@selector(loginButtonPressed:)
+               forControlEvents:UIControlEventTouchUpInside];
+    [self.loginButton setTitle:@"Login" forState:UIControlStateNormal];
+    self.loginButton.contentHorizontalAlignment = UIControlContentHorizontalAlignmentCenter;
     if (screenWidth < 340)
     {
-        self.fbButton.titleLabel.font = [UIFont fontWithName:@"HelveticaNeue" size:17.0];
+        self.loginButton.titleLabel.font = [UIFont fontWithName:@"HelveticaNeue" size:17.0];
+    } else {
+        self.loginButton.titleLabel.font = [UIFont fontWithName:@"HelveticaNeue" size:22.0];
     }
-    else
-    {
-        self.fbButton.titleLabel.font = [UIFont fontWithName:@"HelveticaNeue" size:22.0];
-        
-    }
-    self.fbButton.frame = CGRectMake(20.0, screenHeight - 188.0, screenWidth - 40.0, 60.0);
-    
-    //google button
-    
-    self.googleButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-    [self.googleButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-    self.googleButton.layer.cornerRadius = 5;
-    self.googleButton.clipsToBounds = YES;
-    [self.googleButton.layer setBackgroundColor:[[UIColor colorWithRed:(223/255.0) green:(74/255.0) blue:(50/255.0) alpha:1.0] CGColor]];
-    
-    UIImageView *customViewG = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"google_logo.png"]];
-    customViewG.frame = CGRectMake(28.0, 13.0, 34.0, 34.0);
-    [self.googleButton addSubview:customViewG];
+    self.loginButton.frame = CGRectMake(20.0, screenHeight - 188.0, screenWidth - 40.0, 60.0);
     
     
-    [self.googleButton addTarget:self
-                          action:@selector(sI:)
+    self.signupButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+    [self.signupButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    self.signupButton.layer.cornerRadius = 5;
+    self.signupButton.clipsToBounds = YES;
+    [self.signupButton.layer setBackgroundColor:[[UIColor colorWithRed:(223/255.0) green:(74/255.0) blue:(50/255.0) alpha:1.0] CGColor]];
+    
+    [self.signupButton addTarget:self
+                          action:@selector(signupButtonPressed:)
                 forControlEvents:UIControlEventTouchUpInside];
-    [self.googleButton setTitle:@"Login with Google" forState:UIControlStateNormal];
-    self.googleButton.contentHorizontalAlignment = UIControlContentHorizontalAlignmentRight;
-    self.googleButton.contentEdgeInsets = UIEdgeInsetsMake(0, 0, 0, 46.0);
+    [self.signupButton setTitle:@"Sign Up" forState:UIControlStateNormal];
+    self.signupButton.contentHorizontalAlignment = UIControlContentHorizontalAlignmentCenter;
     if (screenWidth < 340)
     {
-        self.googleButton.titleLabel.font = [UIFont fontWithName:@"HelveticaNeue" size:17.0];
+        self.signupButton.titleLabel.font = [UIFont fontWithName:@"HelveticaNeue" size:17.0];
     }else{
-        self.googleButton.titleLabel.font = [UIFont fontWithName:@"HelveticaNeue" size:22.0];
+        self.signupButton.titleLabel.font = [UIFont fontWithName:@"HelveticaNeue" size:22.0];
     }
     
-    self.googleButton.frame = CGRectMake(20.0, screenHeight - 110.0, screenWidth - 40.0, 60.0);
-
-    
-    //Original Title button
-//    UILabel *titleLabel = [[UILabel alloc] init];
-//    [titleLabel setFrame:CGRectMake(20.0, screenHeight/2 - 164.0, screenWidth - 40.0, 88.0)];
-//    titleLabel.backgroundColor=[UIColor clearColor];
-//    titleLabel.textColor=[UIColor blackColor];
-//    titleLabel.userInteractionEnabled = NO;
-//    titleLabel.textAlignment = NSTextAlignmentCenter;
-//    
-//    titleLabel.text= @"Deadeuce";
-//    [titleLabel setFont:[UIFont fontWithName:@"HelveticaNeue" size:50]];
+    self.signupButton.frame = CGRectMake(20.0, screenHeight - 110.0, screenWidth - 40.0, 60.0);
     
     [self.view addSubview:_bgImageView];
     [self.view addSubview:_logoImageView];
-    [self.view addSubview:_googleButton];
-    [self.view addSubview:_fbButton];
-    //[self.view addSubview:titleLabel];
-
+    [self.view addSubview:_signupButton];
+    [self.view addSubview:_loginButton];
 }
 
-- (void)sI:(id) sender
-{
-    [[GIDSignIn sharedInstance] signIn];
-    
-}
 - (void)viewWillAppear:(BOOL)animated {
     [self.navigationController setNavigationBarHidden:YES animated:animated];
     [super viewWillAppear:animated];
@@ -163,8 +112,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [[DeadeuceCaller sharedInstance] testSlice: @{@"Hello": @"World", @"TEST": @"RESULT"}];
-    [GIDSignIn sharedInstance].uiDelegate = self;
-
+    
     // Do any additional setup after loading the view.
 }
 
@@ -186,13 +134,13 @@
 }
 
 /*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
+ #pragma mark - Navigation
+ 
+ // In a storyboard-based application, you will often want to do a little preparation before navigation
+ - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+ // Get the new view controller using [segue destinationViewController].
+ // Pass the selected object to the new view controller.
+ }
+ */
 
 @end

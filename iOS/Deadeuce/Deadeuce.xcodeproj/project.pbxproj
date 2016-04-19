@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		28B421931CB1780E00D5CE48 /* DeadeuceCaller.m in Sources */ = {isa = PBXBuildFile; fileRef = 28B421921CB1780E00D5CE48 /* DeadeuceCaller.m */; };
+		2B1845A31CC5B066000BEE82 /* AuthViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B1845A21CC5B066000BEE82 /* AuthViewController.m */; };
 		2B21FF4F1CB3556E0021D028 /* search.png in Resources */ = {isa = PBXBuildFile; fileRef = 2B21FF4E1CB3556E0021D028 /* search.png */; };
 		2B21FF591CB3590F0021D028 /* X.png in Resources */ = {isa = PBXBuildFile; fileRef = 2B21FF581CB3590F0021D028 /* X.png */; };
 		2B21FF5B1CB35D0B0021D028 /* fingerprint.png in Resources */ = {isa = PBXBuildFile; fileRef = 2B21FF5A1CB35D0B0021D028 /* fingerprint.png */; };
@@ -65,6 +66,8 @@
 /* Begin PBXFileReference section */
 		28B421921CB1780E00D5CE48 /* DeadeuceCaller.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DeadeuceCaller.m; path = Controller/DeadeuceCaller.m; sourceTree = "<group>"; };
 		28B421941CB1782700D5CE48 /* DeadeuceCaller.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DeadeuceCaller.h; path = Controller/DeadeuceCaller.h; sourceTree = "<group>"; };
+		2B1845A11CC5B066000BEE82 /* AuthViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AuthViewController.h; sourceTree = "<group>"; };
+		2B1845A21CC5B066000BEE82 /* AuthViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AuthViewController.m; sourceTree = "<group>"; };
 		2B21FF4E1CB3556E0021D028 /* search.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = search.png; sourceTree = "<group>"; };
 		2B21FF581CB3590F0021D028 /* X.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = X.png; sourceTree = "<group>"; };
 		2B21FF5A1CB35D0B0021D028 /* fingerprint.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = fingerprint.png; sourceTree = "<group>"; };
@@ -258,6 +261,8 @@
 				AA0A53AA1CB0A916005BA0A2 /* ReviewSuggestionViewController.m */,
 				AAF1297B1C93D73400BAE9F4 /* AppDelegate.h */,
 				AAF1297C1C93D73400BAE9F4 /* AppDelegate.m */,
+				2B1845A11CC5B066000BEE82 /* AuthViewController.h */,
+				2B1845A21CC5B066000BEE82 /* AuthViewController.m */,
 				AA8542651C93DFAC006EA952 /* LoginViewController.h */,
 				AA8542661C93DFAC006EA952 /* LoginViewController.m */,
 				AA8542621C93DF1A006EA952 /* LobbyTableViewController.h */,
@@ -452,6 +457,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				28B421931CB1780E00D5CE48 /* DeadeuceCaller.m in Sources */,
+				2B1845A31CC5B066000BEE82 /* AuthViewController.m in Sources */,
 				AA7E1E9D1CA2128D0060901E /* GameObject.m in Sources */,
 				AAC311C61C9FAFA6003862A8 /* DetectivePadTableViewController.m in Sources */,
 				AA85426F1C93E8F6006EA952 /* LeftPanelViewController.m in Sources */,
