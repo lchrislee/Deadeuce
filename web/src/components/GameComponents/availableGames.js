@@ -3,15 +3,24 @@ var $ = require('jQuery');
 var AvailableGamesContent = require('./availableGamesContent.js')
 
 var AvailableGames = React.createClass({
+
     contextTypes: {
         router: React.PropTypes.object.isRequired
     },
     getInitialState: function() {
-        return{
 
+          // this.selectChildGame = this.selectChildGame.bind(this);
+        return{
+          "selected": undefined,
+          "unselect": undefined
         };
     },
-    selectChildGame: function(selected){
+    selectChildGame: function(selected, unselect){
+        if(this.state.selected && this.state.selected != selected){
+          this.state.unselect();
+        }
+        this.state.unselect = unselect;
+        this.state.selected = selected;
         this.props.selectedFunction(selected);
     },
 render: function(){
@@ -24,9 +33,10 @@ render: function(){
                 <div className="columnheader2"> <p> Games </p></div>
             </div>
              <div className="av_gamesTable">
-                 {this.props.allGames.map(function(games){
-                     return <AvailableGamesContent data = {games} key={games.gameName} selectedFunction = {this.selectChildGame}></AvailableGamesContent>;
-                 })}
+                 {
+                  this.props.allGames.map(function(games){
+                     return <AvailableGamesContent data = {games} key={games.gameName} selectedFunction={this.selectChildGame}></AvailableGamesContent>
+                 }.bind(this))}
              </div>
         </div>
 

@@ -97,7 +97,7 @@ var JoinGame = React.createClass({
              <div className="only_content">
                 <h3> Choose a game from the list below:</h3>
 
-                 <AvailableGames allGames = {this.state.allGames} selectedFunction = {this.selectGame}/>
+                 <AvailableGames allGames = {this.state.allGames} selectedFunction={this.selectGame}/>
 
                  <form className="center" onSubmit={this.handleCreateGameSubmit}>
                      You are about to join this game. Would you like to continue?
