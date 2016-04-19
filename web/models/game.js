@@ -31,7 +31,8 @@ var gameSchema = mongoose.Schema({
     murderer: String,
     weapon: String,
     location: String
-  }
+  },
+  potentialCards: [String]
 });
 
 gameSchema.methods.addPlayer = function (user, cb) {
