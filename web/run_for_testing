@@ -19,4 +19,5 @@ curl -H 'Content-Type: application/json' localhost:4000/game/action -X PUT -d '{
 curl -H 'Content-Type: application/json' localhost:4000/game/action -X PUT -d '{"gameID":"JOKER","userID":"go","weapon":"U-Lock","suspect":"Will Ferrell","location":"Lyon Center", "action":"suggest"}';
 curl -H 'Content-Type: application/json' localhost:4000/game/action -X PUT -d '{"gameID":"JOKER","userID":"stay","weapon":"U-Lock","suspect":"Will Ferrell","location":"The Row", "action":"accuse"}';
 curl -H 'Content-Type: application/json' localhost:4000/game/action -X PUT -d '{"gameID":"JOKER","userID":"test","weapon":"U-Lock","suspect":"Will Ferrell","location":"Lyon Center", "action":"accuse"}';
-curl -H 'Content-Type: application/json' localhost:4000/game/action -X PUT -d '{"gameID":"JOKER","userID":"test","weapon":"U-Lock","suspect":"Will Ferrell","location":"Lyon Center", "action":"accuse"}'
+curl -H 'Content-Type: application/json' localhost:4000/game/status -X POST -d '{"gameID":"JOKER"}';
+curl -H 'Content-Type: application/json' localhost:4000/game/map -X POST -d '{"gameID":"JOKER"}';

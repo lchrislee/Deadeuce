@@ -375,7 +375,7 @@ app.put('/joinGame', function(request, response){
   var gameName = request.body.gameName;
   var name = request.body.name; //TODO push up to server on ios
   var email = request.body.email;
-  console.log(request);
+
   if (gameName === undefined || email === undefined){
     response.sendStatus(400);
     return;
@@ -395,26 +395,12 @@ app.put('/joinGame', function(request, response){
         return;
       } else {
         game.save(function(err, game){
-          var number1 = Math.floor(Math.random()*18);
-          var number2 = Math.floor(Math.random()*18);
-          while (number2 == number1){
-            number2 = Math.floor(Math.random()*18);
-          }
-          var number3 = Math.floor(Math.random()*18);
-          while (number3 == number1 || number3 == number2){
-            number3 = Math.floor(Math.random()*18);
-          }
-          var userCard1 = game.potentialCards[number1];
-          var userCard2 = game.potentialCards[number2];
-          var userCard3 = game.potentialCards[number3];
-          
-          game.addPlayer({name:game.checklist.suspects[game.numPlayers], email:email, hand:[userCard1, userCard2, userCard3]}, function(){
+          game.addPlayer({name:game.checklist.suspects[game.numPlayers], email:email}, function(){
             User.update({"email":email}, {"gameID":game.name}, function(err, raw){
               if (err){
                 console.log("error: " + err);
                 response.json({
-                  joinSuccess: true,
-                  gameID: gameName
+                  joinSuccess: false
                 });
                 return;
               } else {
@@ -534,7 +520,7 @@ app.put('/game/action', function(request, response){
       newFeed.push(feedInput);
 
       if (action == "accuse"){
-        if (outputOptions.length == 0){
+        if (outputOptions.length == 0){ // correct accusation
           Game.update({"name":gameID}, {"gameWinner":selectedUser.name, "feed":newFeed}, function(err, raw){
             if (err){
               console.log("game/action win error: " + err);
@@ -544,7 +530,7 @@ app.put('/game/action', function(request, response){
               return;
             }
           });
-        }else{
+        }else{ // wrong accusation
           var updatedArray = game.users.slice(0);
           updatedArray.splice(selectedUserIndex, 1);
           Game.update({"name":gameID}, {"turnPlayer":nextPlayer, "users":updatedArray}, function(err, raw){
@@ -553,7 +539,7 @@ app.put('/game/action', function(request, response){
               response.sendStatus(400);
               return;
             }else{
-              response.json({"correct":false});
+              response.json({"correct":false}); // lost!
               return;
             }
           });
@@ -565,10 +551,10 @@ app.put('/game/action', function(request, response){
             response.sendStatus(400);
             return;
           }else{
-            if (outputOptions.length == 0){
+            if (outputOptions.length == 0){ // correct suggestion
               response.json({"correct":true, "feedback":"GUESS THIS!"});
               return;
-            }else{
+            }else{ // incorrect
               var outPutHint = Math.floor(Math.random()*outputOptions.length);
               response.json({"correct":false, "feedback":"It is not " + outputOptions[outPutHint] + "."});
               return;
@@ -593,7 +579,12 @@ var UserGetFunctions = require('./scripts/user/UserGetFunctions.js');
 
 // USER INFORMATION
 /*
-  LOGIC:
+  Input: 
+    userID: String
+  Output:
+    user: {} (user object)
+
+  General Logic:
     -Get user.name and game.name
 */
 app.get('/user', function(request, response){
@@ -654,8 +645,18 @@ app.post('/createUser', function(request, response){
   });
 });
 
+//Login user
+//Input: userID: String (email address)
+//Output: loginSuccess: boolean (says if login was success or not)
 app.post('/loginUser', function(request, response){
-  // blahblahblahblah
+  var name = request.body.userID;
+  var cursor = db.collection('users').findOne( { "name": name }, function(err, doc){
+    if (doc != null) {
+      response.json({"loginSuccess":true});
+    } else {
+      response.json({"loginSuccess":false});
+    }
+  });
 });
 
 /****************************\
