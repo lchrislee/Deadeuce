@@ -615,8 +615,18 @@ app.post('/createUser', function(request, response){
   });
 });
 
+//Login user
+//Input: userID: String (email address)
+//Output: loginSuccess: boolean (says if login was success or not)
 app.post('/loginUser', function(request, response){
-  // blahblahblahblah
+  var name = request.body.userID;
+  var cursor = db.collection('users').findOne( { "name": name }, function(err, doc){
+    if (doc != null) {
+      response.json({"loginSuccess":true});
+    } else {
+      response.json({"loginSuccess":false});
+    }
+  });
 });
 
 /****************************\
