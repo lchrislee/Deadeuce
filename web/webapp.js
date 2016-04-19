@@ -101,8 +101,10 @@ app.get('/game/all', function(request, response){
     }
     if (err){
       response.json({"gamesList":undefined});
+      return;
     }else{
       response.json({"gamesList":outputList});
+      return;
     }
   });
 });
@@ -172,12 +174,15 @@ app.post('/createGame', function(request, response){
  var hostID = request.body.hostID;
  var gameName = request.body.gameName;
 
-  if (hostID === undefined || gameName === undefined)
+  if (hostID === undefined || gameName === undefined){
     response.sendStatus(400);
+    return;
+  }
   var query = User.where({'email':hostID});
   query.findOne(function(err, user){
-    if (err){
+    if (err || user == undefined){
       response.json({"gameID":undefined});
+      return;
     }else{
       var removedLocations = checkList.locations.slice(0);
       var removedWeapons = checkList.weapons.slice(0);
@@ -224,13 +229,16 @@ app.post('/createGame', function(request, response){
         if (err){
           console.log("error creating game: " + err);
           response.json({"gameID":undefined});
+          return;
         }else{
           User.update({"email":hostID}, {"gameID":game.name}, function(err, raw){
             if (err){
               console.log("createGame error: " + err);
               response.json({"gameID":undefined});
+              return;
             }else{
               response.json({"gameID":game.name});
+              return;
             }
           });
         }
@@ -266,14 +274,17 @@ app.post('/game/status', function(request, response){
   var gameID = request.body.gameID;
   if (gameID === undefined){
     response.sendStatus(400);
+    return;
   }
 
   var query = Game.where({"name":gameID});
   query.findOne(function(err, game){
-    if (err){
+    if (err || game == undefined){
       response.json({"feed":undefined});
+      return;
     }else{
       response.json({"feed":game.feed, "turnPlayer":game.turnPlayer});
+      return;
     }
   });
 });
@@ -294,14 +305,17 @@ app.post('/game/checklist', function(request, response){
   var gameID = request.body.gameID;
   if (gameID === undefined){
     response.sendStatus(400);
+    return;
   }
 
   var query = Game.where({"name":gameID});
   query.findOne(function(err, game){
-    if (err){
+    if (err || game == undefined){
       response.json({"checkList":undefined});
+      return;
     }else{
       response.json({"checkList":game.checklist});
+      return;
     }
   });
 });
@@ -322,14 +336,17 @@ app.post('/game/map', function(request, response){
   var gameID = request.body.gameID;
   if (gameID === undefined){
     response.sendStatus(400);
+    return;
   }
 
   var query = Game.where({"name":gameID});
   query.findOne(function(err, game){
-    if (err){
+    if (err || game == undefined){
       response.json({"gameName":undefined, "locations":undefined});
+      return;
     } else{
       response.json({"gameName": game.name, "locations":game.map});
+      return;
     }
   });
 });
@@ -358,7 +375,7 @@ app.put('/joinGame', function(request, response){
   var gameName = request.body.gameName;
   var name = request.body.name; //TODO push up to server on ios
   var email = request.body.email;
-  console.log(request);
+
   if (gameName === undefined || email === undefined){
     response.sendStatus(400);
     return;
@@ -369,38 +386,29 @@ app.put('/joinGame', function(request, response){
   query.findOne(function(err, game) {
     if (err || game == undefined){
       response.json({error:err});
+      return;
     } else {
       if(game.numPlayers >= 6) {
         response.json({
           joinSuccess: false
         });
+        return;
       } else {
         game.save(function(err, game){
-          var number1 = Math.floor(Math.random()*18);
-          var number2 = Math.floor(Math.random()*18);
-          while (number2 == number1){
-            number2 = Math.floor(Math.random()*18);
-          }
-          var number3 = Math.floor(Math.random()*18);
-          while (number3 == number1 || number3 == number2){
-            number3 = Math.floor(Math.random()*18);
-          }
-          var userCard1 = game.potentialCards[number1];
-          var userCard2 = game.potentialCards[number2];
-          var userCard3 = game.potentialCards[number3];
-          
-          game.addPlayer({name:name, email:email, hand:[userCard1, userCard2, userCard3]}, function(){
+          game.addPlayer({name:game.checklist.suspects[game.numPlayers], email:email}, function(){
             User.update({"email":email}, {"gameID":game.name}, function(err, raw){
               if (err){
                 console.log("error: " + err);
                 response.json({
                   joinSuccess: false
                 });
+                return;
               } else {
                 response.json({
                   joinSuccess: true,
                   gameID: gameName
                 });
+                return;
               }
             });
           });
@@ -438,21 +446,27 @@ app.put('/game/action', function(request, response){
 
   if (gameID === undefined || userID === undefined || action === undefined){
     response.sendStatus(400);
+    return;
   }else if (weapon === undefined || suspect === undefined || location === undefined){
     response.sendStatus(400);
+    return;
   }else if (action != "suggest" && action != "accuse"){
     response.sendStatus(400);
+    return;
   }
 
   var query = Game.where({"name":gameID});
   query.findOne(function(err, game){
-    if (err){
+    if (err || game == undefined){
       response.json({"correct":undefined, "feedback":undefined});
+      return;
     }else{
       if (game.gameWinner !== undefined){
         response.json({"correct": false, "feedback": "Game is over!"});
+        return;
       }else if (game.numPlayers < 6){
         response.json({"correct":false, "feedback": "There are not enough players!"});
+        return;
       }
 
       var selectedUser = undefined;
@@ -470,7 +484,12 @@ app.put('/game/action', function(request, response){
 
       if (selectedUser === undefined){ // not in game
         response.sendStatus(400);
+        return;
+      }else if (game.turnPlayer != selectedUser.name){
+        response.json({"correct":false, "feedback": "Not your turn!"});
+        return;
       }
+
       var answer = game.answer;
       var nextPlayer = "";
       if (selectedUserIndex == game.users.length - 1){
@@ -501,24 +520,27 @@ app.put('/game/action', function(request, response){
       newFeed.push(feedInput);
 
       if (action == "accuse"){
-        if (outputOptions.length == 0){
+        if (outputOptions.length == 0){ // correct accusation
           Game.update({"name":gameID}, {"gameWinner":selectedUser.name, "feed":newFeed}, function(err, raw){
             if (err){
               console.log("game/action win error: " + err);
               response.sendStatus(400);
             }else{
               response.json({"correct":true}); // won!
+              return;
             }
           });
-        }else{
+        }else{ // wrong accusation
           var updatedArray = game.users.slice(0);
           updatedArray.splice(selectedUserIndex, 1);
           Game.update({"name":gameID}, {"turnPlayer":nextPlayer, "users":updatedArray}, function(err, raw){
             if (err){
               console.log("game/action lose error: " + err);
               response.sendStatus(400);
+              return;
             }else{
-              response.json({"correct":false});
+              response.json({"correct":false}); // lost!
+              return;
             }
           });
         }
@@ -527,12 +549,15 @@ app.put('/game/action', function(request, response){
           if (err){
             console.log("game/action suggest error: " + err);
             response.sendStatus(400);
+            return;
           }else{
-            if (outputOptions.length == 0){
+            if (outputOptions.length == 0){ // correct suggestion
               response.json({"correct":true, "feedback":"GUESS THIS!"});
-            }else{
+              return;
+            }else{ // incorrect
               var outPutHint = Math.floor(Math.random()*outputOptions.length);
               response.json({"correct":false, "feedback":"It is not " + outputOptions[outPutHint] + "."});
+              return;
             }
           }
         });
@@ -566,9 +591,11 @@ app.get('/user', function(request, response){
   var email = request.userID;
   var user = db.collection('users').findOne({"email": email}, function(err, doc){
     if(doc !== null){
-      response.json({});
+      response.json({"email":doc.email});
+      return;
     } else {
-      response.json({"error":err});
+      response.json({err});
+      return;
     }
   });
   //response.json(UserGetFunctions.getUser(request.userID));
@@ -586,8 +613,10 @@ app.get('/user/game', function(request, response){
   var cursor = db.collection('games').findOne( { "name": name }, function(err, doc){
     if (doc != null) {
       response.json({"game":doc.game});
+      return;
     } else {
       response.json({"err":err});
+      return;
     }
   });
   //response.json(UserGetFunctions.getUserCurrentGame());
@@ -612,6 +641,7 @@ app.post('/createUser', function(request, response){
     response.json({
       userID: newUser.email
     });
+    return;
   });
 });
 
@@ -638,12 +668,14 @@ var UserPutFunctions = require('./scripts/user/UserPutFunctions.js');
 app.put('/updateUser', function(request, response){
   //this is the database call/logic/everything else
   response.json(UserPutFunctions.updateUser());
+  return;
 });
 
 // USER update GAME
 app.put('/user/game', function(request, response){
   //this is the database call/logic/everything else
   response.json(UserPutFunctions.updateUserGame());
+  return;
 });
 
 
