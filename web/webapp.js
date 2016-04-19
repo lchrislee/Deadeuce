@@ -328,7 +328,7 @@ app.post('/game/map', function(request, response){
   query.findOne(function(err, game){
     if (err){
       response.json({"gameName":undefined, "locations":undefined});
-    }else{
+    } else{
       response.json({"gameName": game.name, "locations":game.map});
     }
   });
@@ -356,7 +356,7 @@ var GamePutFunctions = require('./scripts/game/GamePutFunctions.js');
 */
 app.put('/joinGame', function(request, response){
   var gameName = request.body.gameName;
-  var name = request.body.name;
+  var name = request.body.name; //TODO push up to server on ios
   var email = request.body.email;
   console.log(request);
   if (gameName === undefined || email === undefined){
@@ -393,14 +393,16 @@ app.put('/joinGame', function(request, response){
             User.update({"email":email}, {"gameID":game.name}, function(err, raw){
               if (err){
                 console.log("error: " + err);
+                response.json({
+                  joinSuccess: true,
+                  gameID: gameName
+                });
               } else {
-                console.log("User updated!");
+                response.json({
+                  joinSuccess: true,
+                  gameID: gameName
+                });
               }
-            });
-            console.log("Success!");
-            response.json({
-              joinSuccess: true,
-              gameID: gameName
             });
           });
         });
