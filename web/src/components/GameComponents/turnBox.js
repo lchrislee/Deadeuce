@@ -11,7 +11,8 @@ render: function(){
     return(
         <div className="turnBox-wrapper">
             <div className="turnBox-header">
-                <p>CURRENT TURN: {this.props.currentTurn}</p>
+                <p>CURRENT TURN: {this.props.currentTurn} <button>Refresh</button></p>
+
             </div>
         </div>
       );

@@ -164,6 +164,13 @@ body {
  .submit:hover {
  	background-color: rgba(0,0,0,0.5);
  }
+
+#game_name {
+	width: 350px;
+	margin-left: 10px;
+	margin-right: 20px;
+}
+
  .white_text {
  	color: #ffffff;
  }
