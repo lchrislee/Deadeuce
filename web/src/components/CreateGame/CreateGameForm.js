@@ -7,16 +7,17 @@ var CreateGameForm = React.createClass({
    },
   getInitialState: function() {
     return {
-      "temp": undefined,
+      "gameID": undefined,
       "theme": "USC",
       "numberOfPlayers": 6,
-      "gameName": "Example Name"
+      "gameName": "Example Name",
+      "hostID": '12345429579572'
     }
   },
   handleCreateGameSubmit: function(e) {
     e.preventDefault();
     var testData = {
-      hostID: '12345429579572',
+      hostID: this.state.hostID,
       gameName: this.state.gameName
     };
     //TEst
@@ -37,9 +38,14 @@ var CreateGameForm = React.createClass({
       success: function(data) {
         console.log(data);
         console.log(data.gameID);
+        if (data.gameID === undefined) {
+          alert("LERT LERT LERT");
+          return;
+        }
         this.setState({
-          "temp": data.gameID
+          "gameID": data.gameID
         });
+        this.context.router.push('game_home');
       }.bind(this),
       error: function(xhr, status, err) {
         console.log(err);
@@ -49,7 +55,6 @@ var CreateGameForm = React.createClass({
         });
       }.bind(this)
     });
-    this.context.router.push('game_home');
   },
   themeChanged: function(e){
     this.setState({
@@ -89,11 +94,10 @@ var CreateGameForm = React.createClass({
                   <th>Players:</th>
                   <th>
                     <select name="numberOfPlayers" value={this.state.numberOfPlayers} onChange={this.numberOfPlayersChanged}> 
+                      <option>3</option>
                       <option>4</option>
                       <option>5</option>
                       <option>6</option>
-                      <option>7</option>
-                      <option>8</option>
                     </select>
                   </th>
                 </tr>
@@ -106,6 +110,7 @@ var CreateGameForm = React.createClass({
                       <option>George Tirebiter</option>
                       <option>President Nikias</option>
                       <option>Pete Carroll</option>
+                      <option>Will Ferrell</option>
                     </select>
                   </th>
                 </tr>

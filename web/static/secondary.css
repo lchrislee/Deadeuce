@@ -20,7 +20,7 @@ body {
 	padding-bottom: 10px;
 }
 .shortHeight {
-	height: 390px;
+	height: 420px;
 }
 .tallHeight {
 	height: 700px;
@@ -92,7 +92,7 @@ body {
 }
 .columnheader {
     float: right;
-	margin-right:20px;
+	margin-right:50px;
     width: 17%;
     height:100%;
     display:block;

@@ -6,68 +6,95 @@ var SAContent = React.createClass({
   contextTypes: {
     router: React.PropTypes.object.isRequired
    },
-  getDefaultProps: function() {
-    return {
-      "weapons": [],
-      "suspects": [],
-      "locations": []
-    }
-  },
   getInitialState: function() {
+    var text = "Select an option";
     return {
-      "accusationType": "suggest"
+      "action": "suggest",
+      "weapon": text,
+      "suspect": text, 
+      "location": text,
+      "defaultText": text
     }
   },
   makeAccusation: function(e) {
     e.preventDefault();
-    var accusation = {
-      "weapon": this.state.weapon,
-      "suspect": this.state.suspect,
-      "location": this.state.location
-    };
-    console.log(accusation.weapon);
-    console.log(accusation.suspect);
-    console.log(accusation.location);
-    var sendMe = {"gameID":"1234", "userID":"1234", "suggestion":accusation};
-    var stringified = JSON.stringify(sendMe);
-
-    var url;
-    if (this.state.accusationType == "suggest"){
-      url = "/game/suggest";
-    }else if (this.state.accusationType == "accuse"){
-      url = "/game/accuse";
+    if (this.state.weapon == this.state.defaultText){
+      return;
     }
+    if (this.state.location == this.state.defaultText){
+      return;
+    }
+    if (this.state.suspect == this.state.defaultText){
+      return;
+    }
+    var sendMe = {"gameID":"1234", 
+                  "userID":"1234",
+                  "weapon": this.state.weapon,
+                  "suspect": this.state.suspect, 
+                  "location": this.state.location, 
+                  "action":this.state.action};
+    var stringified = JSON.stringify(sendMe);
+    
+    console.log(sendMe);
+    $.ajax({
+      url: "/game/action",
+      type: 'PUT',
+      contentType: "application/json",
+      dataType: 'json',
+      data: stringified,
+      // transformRequest: function(obj){
+      //   var str = [];
+      //   for(var p in obj){
+      //     str.push(encodeURLComponent(p) + '=' + encodeURLComponent(obj[p]));
+      //   }
+      //   return str.join('&');
+      // },
+      success: function(data) {
+        console.log(data);
+        if (data.correct == true) {
+          
+        }
+        this.context.router.push('/game_home/feedback');
+        // this.setState({
+        //   "accusation": data.accusation
+        // });
+      }.bind(this),
+      error: function(xhr, status, err) {
+        console.log(err);
+        console.log(xhr);
+        this.setState({
+          "serverStatus" : "Error in server request."
+        });
+      }.bind(this)
+    });
+  },
+  selectSuggest: function(e) {
 
-    // $.ajax({
-    //   url: url,
-    //   type: 'PUT',
-    //   contentType: "application/json",
-    //   dataType: 'json',
-    //   data: stringified,
-    //   // transformRequest: function(obj){
-    //   //   var str = [];
-    //   //   for(var p in obj){
-    //   //     str.push(encodeURLComponent(p) + '=' + encodeURLComponent(obj[p]));
-    //   //   }
-    //   //   return str.join('&');
-    //   // },
-    //   success: function(data) {
-    //     console.log(data);
-    //     this.setState({
-    //       "temp": data.gameID
-    //     });
-    //   }.bind(this),
-    //   error: function(xhr, status, err) {
-    //     console.log(err);
-    //     console.log(xhr);
-    //     this.setState({
-    //       "serverStatus" : "Error in server request."
-    //     });
-    //   }.bind(this)
-    // });
-    this.context.router.push('/game_home/feedback');
+      this.setState ({
+        "action": "suggest"
+      });
+  },
+  selectAccuse: function(e) {
+      this.setState ({
+        "action": "accuse"
+      });
   },
   render: function() {
+    var modifiedSuspects = [];
+    modifiedSuspects.push(this.state.defaultText);
+    for (var i = 0; i < this.props.suspects.length; i++){
+      modifiedSuspects.push(this.props.suspects[i]);
+    }
+    var modifiedWeapons = [];
+    modifiedWeapons.push(this.state.defaultText);
+    for (var i = 0; i < this.props.weapons.length; i++){
+      modifiedWeapons.push(this.props.weapons[i]);
+    }
+    var modifiedLocations = [];
+    modifiedLocations.push(this.state.defaultText);
+    for (var i = 0; i < this.props.locations.length; i++){
+      modifiedLocations.push(this.props.locations[i]);
+    }
     return (
 	    <div className="SAContainer">
           <div className="SAHeader">
@@ -75,27 +102,32 @@ var SAContent = React.createClass({
           </div>
           <div className="suggestAccuse">
               <form onSubmit={this.makeAccusation}>
+                <label>Suspect:</label>
                 <select onChange={this.selectSuspect} name="suspect">
-                  {this.props.suspects.map(function(suspect){
+                  {modifiedSuspects.map(function(suspect){
                     return <option value={suspect}>{suspect}</option>
                   })}
                 </select>
                 <br/>
+                <label>Weapon:</label>
                 <select onChange={this.selectWeapon} name="weapon">
-                  {this.props.weapons.map(function(weapon){
+                  {modifiedWeapons.map(function(weapon){
                     return <option value={weapon}>{weapon}</option>
                   })}
                 </select>
                 <br/>
+                <label>Location:</label>
                 <select onChange={this.selectLocation} name="place">
-                  {this.props.locations.map(function(location){
+                  {modifiedLocations.map(function(location){
                     return <option value={location}>{location}</option>
                   })}
                 </select>
               <br/>
-              <input onChange={this.selectSuggest} type="radio" name="clueType" value="suggest" />Suggestion
+              <input onChange={this.selectSuggest} type="radio" name="clue" 
+                checked={this.state.action=="suggest"}/>Suggestion
               <br/>
-              <input onChange={this.selectAccuse} type="radio" name="clueType" value="accuse" />Accusation
+              <input onChange={this.selectAccuse} type="radio" name="clue"
+                checked={this.state.action=="accuse"}/>Accusation
               <br/>
               <input className="submit" type="submit" name="submitSA" />
               </form>
@@ -103,7 +135,6 @@ var SAContent = React.createClass({
 	    </div>
 	);
   },
-
   selectSuspect: function(e) {
     e.preventDefault();
     var suspect = e.target.value;
@@ -129,23 +160,7 @@ var SAContent = React.createClass({
           "location": location
       });
       console.log(location);
-    },
-
-  selectSuggest: function(e) {
-    e.preventDefault();
-    var suggest = e.target.value;
-      this.setState ({
-        "accusationType": "suggest"
-      });
-  },
-
-  selectAccuse: function(e) {
-    e.preventDefault();
-    var accuse = e.target.value;
-      this.setState ({
-        "accusationType": "accuse"
-      });
-  }
+    }
 });
 
 module.exports = SAContent;

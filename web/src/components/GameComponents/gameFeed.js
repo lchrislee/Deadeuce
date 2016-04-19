@@ -18,7 +18,7 @@ render: function(){
                  </div>
                  <div className="divFeedTable">
                      {this.props.gameFeed.map(function(gameStatus){
-                         return <GameFeedContent data = {gameStatus} key={gameStatus.time}></GameFeedContent>;
+                         return <GameFeedContent data = {gameStatus} key={gameStatus.accuser + " " + gameStatus.time}></GameFeedContent>;
                      })}
                  </div>
              </div>
