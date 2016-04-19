@@ -12,8 +12,8 @@ var gameSchema = mongoose.Schema({
     weapons: [String]
   },
   map: [{
-    location: String,
-    suspectsInLocation: [String]
+    name: String,
+    players: [String]
   }],
   feed: [{
     accuser : String,
@@ -54,7 +54,7 @@ gameSchema.methods.addPlayer = function (user, cb) {
   this.users.push(user);
   this.numPlayers = this.numPlayers + 1;
   var mapIndex = Math.floor(Math.random()*this.map.length);
-  this.map[mapIndex].suspectsInLocation.push(user.name);
+  this.map[mapIndex].players.push(user.name);
   this.save(cb);
 }
 

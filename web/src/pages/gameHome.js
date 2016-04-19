@@ -13,9 +13,10 @@ var GameMapContentBox = require('../components/GameComponents/gameMapContentBox.
 
 var GameHome = React.createClass({
     getInitialState: function() {
-        var gameID = "abcdeg";
+        var gameID = "JOKER";
         this.retrieveCheckList(gameID);
         this.findGameFeed(gameID);
+        this.retrieveGameMap(gameID);
         return {
             "gameID": gameID,
             "userID": 'user1',
@@ -24,14 +25,13 @@ var GameHome = React.createClass({
             "suspects": [],
             "weapons": [],
             "locations": [],
+            "map":[],
             "gameFeed": [{accuser:"EVKitty", suspect:"George Tirebiter", weapon:"soda cans", location:"EVK", time:"4-13-16"},
                 {accuser:"Tommy Trojan", suspect:"George Tirebiter", weapon:"free weight", location:"Lyon Center", time:"4-14-16"}]
         };
     },
     findGameFeed: function(gameID) {
         var input = {'gameID': gameID};
-
-
         var stringified = JSON.stringify(input);
         $.ajax({
             url: '/game/status',
@@ -46,61 +46,6 @@ var GameHome = React.createClass({
                 this.setState({
                     "gameFeed": data.feed,
                     "currentTurn": data.turnPlayer
-                });
-            }.bind(this),
-            error: function(xhr, status, err) {
-                console.log(err);
-                console.log(xhr);
-                this.setState({
-                    "serverStatus" : "Error in server request."
-                });
-            }.bind(this)
-        });
-    },
-    findPlayerGame: function(e) {
-        e.preventDefault();
-
-        var stringified = JSON.stringify(userID);
-        $.ajax({
-            url: '/user/game',
-            type: 'GET',
-            contentType: "application/json",
-            dataType: 'json',
-            data: stringified,
-
-            success: function(data) {
-                console.log(data);
-                console.log(data.gameID);
-                this.setState({
-                    "gameID": data.gameID
-                });
-            }.bind(this),
-            error: function(xhr, status, err) {
-                console.log(err);
-                console.log(xhr);
-                this.setState({
-                    "serverStatus" : "Error in server request."
-                });
-            }.bind(this)
-        });
-    },
-
-    retrieveGamePlayers: function(e) {
-        e.preventDefault();
-
-        var stringified = JSON.stringify(gameID);
-        $.ajax({
-            url: '/game/users',
-            type: 'GET',
-            contentType: "application/json",
-            dataType: 'json',
-            data: stringified,
-
-            success: function(data) {
-                console.log(data);
-                console.log(data.users);
-                this.setState({
-                    "gamePlayers": data.users
                 });
             }.bind(this),
             error: function(xhr, status, err) {
@@ -142,33 +87,32 @@ var GameHome = React.createClass({
         });
     },
 
-    retrieveCurrentPlayer: function(e) {
-        e.preventDefault();
-
-        var stringified = JSON.stringify(gameID);
+    retrieveGameMap: function(gameID) {
+        var out = {"gameID":gameID};
+        var stringified = JSON.stringify(out);
         $.ajax({
-            url: '/game/users/turn',
-            type: 'GET',
+            url: '/game/map',
+            type: 'POST',
             contentType: "application/json",
             dataType: 'json',
             data: stringified,
 
             success: function(data) {
                 console.log(data);
-                console.log(data.turnBox);
                 this.setState({
-                    "currentTurn": data.turnBox
+                    "map": data.locations
                 });
-            },
+            }.bind(this),
             error: function(xhr, status, err) {
                 console.log(err);
                 console.log(xhr);
                 this.setState({
-                    "serverStatus": "Error in server request."
+                    "serverStatus" : "Error in server request."
                 });
             }.bind(this)
-        });
+        })
     },
+
     render: function() {
         var suspects = this.state.suspects;
         var weapons = this.state.weapons;
@@ -177,7 +121,7 @@ var GameHome = React.createClass({
             <div>
                 <div className="gameContainer">
                     <TurnBox currentTurn = {this.state.currentTurn} />
-                    <GameMap />
+                    <GameMap locations = {this.state.map}/>
                     <SuggestAccuse suspects = {suspects} weapons = {weapons} locations = {locations} />
                     <Checklist suspects = {suspects} weapons = {weapons} locations = {locations} />
                     <GameFeed gameFeed = {this.state.gameFeed}/>

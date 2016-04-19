@@ -33,8 +33,8 @@ var SAContent = React.createClass({
       return;
     }
     
-    var sendMe = {"gameID":"1234", 
-                  "userID":"1234",
+    var sendMe = {"gameID":"JOKER", 
+                  "userID":"junk", // change me for different calls
                   "weapon": this.state.weapon,
                   "suspect": this.state.suspect, 
                   "location": this.state.location, 
@@ -123,21 +123,21 @@ var SAContent = React.createClass({
                 <label>Suspect:</label>
                 <select onChange={this.selectSuspect} name="suspect">
                   {modifiedSuspects.map(function(suspect){
-                    return <option value={suspect}>{suspect}</option>
+                    return <option value={suspect} key={suspect}>{suspect}</option>
                   })}
                 </select>
                 <br/>
                 <label>Weapon:</label>
                 <select onChange={this.selectWeapon} name="weapon">
                   {modifiedWeapons.map(function(weapon){
-                    return <option value={weapon}>{weapon}</option>
+                    return <option value={weapon} key={weapon}>{weapon}</option>
                   })}
                 </select>
                 <br/>
                 <label>Location:</label>
                 <select onChange={this.selectLocation} name="place">
                   {modifiedLocations.map(function(location){
-                    return <option value={location}>{location}</option>
+                    return <option value={location} key={location}>{location}</option>
                   })}
                 </select>
               <br/>

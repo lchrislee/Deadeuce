@@ -145,15 +145,15 @@ var checkList = {
 };
 
 var initialMap = [
-          {"location": "Lyon Center", "suspectsInLocation":["President Nikias"]},
-          {"location": "Leavey Library", "suspectsInLocation":[]},
-          {"location": "Traddies", "suspectsInLocation": []},
-          {"location": "Ground Zero", "suspectsInLocation": []},
-          {"location": "The 90", "suspectsInLocation": []},
-          {"location": "Bovard", "suspectsInLocation": []},
-          {"location": "EVK", "suspectsInLocation": []},
-          {"location": "The Row", "suspectsInLocation": []},
-          {"location": "Campus Center", "suspectsInLocation": []}
+          {"name": "Lyon Center", "players":["President Nikias"]},
+          {"name": "Leavey Library", "players":[]},
+          {"name": "Traddies", "players": []},
+          {"name": "Ground Zero", "players": []},
+          {"name": "The 90", "players": []},
+          {"name": "Bovard", "players": []},
+          {"name": "EVK", "players": []},
+          {"name": "The Row", "players": []},
+          {"name": "Campus Center", "players": []}
         ];
 
 // TODO THIS IS INCOMPLETE -Chris
