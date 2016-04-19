@@ -302,7 +302,7 @@ app.post('/game/map', function(request, response){
   query.findOne(function(err, game){
     if (err){
       response.json({"gameName":undefined, "locations":undefined});
-    }else{
+    } else{
       response.json({"gameName": game.name, "locations":game.map});
     }
   });
@@ -354,14 +354,16 @@ app.put('/joinGame', function(request, response){
             User.update({"email":email}, {"gameName":gameName}, function(err, raw){
               if (err){
                 console.log("error: " + err);
+                response.json({
+                  joinSuccess: true,
+                  gameID: gameName
+                });
               } else {
-                console.log("User updated!");
+                response.json({
+                  joinSuccess: true,
+                  gameID: gameName
+                });
               }
-            });
-            console.log("Success!");
-            response.json({
-              joinSuccess: true,
-              gameID: gameName
             });
           });
         });
