@@ -17,11 +17,11 @@ var SAContent = React.createClass({
       "response": ""
     }
   },
-  componentDidMount() {
-    document.querySelector('.accuse-response').style.visibility="hidden";
-  },
+  // componentDidMount() {
+  //   document.querySelector('.accuse-response').style.visibility="hidden";
+  // },
   makeAccusation: function(e) {
-    // e.preventDefault();
+    e.preventDefault();
 
     if (this.state.weapon == this.state.defaultText){
       return;
@@ -119,7 +119,6 @@ var SAContent = React.createClass({
             Make a Suggestion
           </div>
           <div className="suggestAccuse">
-              <form>
                 <label>Suspect:</label>
                 <select onChange={this.selectSuspect} name="suspect">
                   {modifiedSuspects.map(function(suspect){
@@ -148,9 +147,8 @@ var SAContent = React.createClass({
                 checked={this.state.action=="accuse"}/>Accuse
               <br/>
               <input className="submit" type="submit" name="submitSA" onClick={this.makeAccusation} />
-              </form>
               <div className="accuse-response">
-                Lorem ipsum{this.state.response} did NOT do it nor did anyone else
+                {this.state.response}
               </div>
           </div>
 	    </div>
