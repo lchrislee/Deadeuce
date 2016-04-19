@@ -330,7 +330,7 @@ var GamePutFunctions = require('./scripts/game/GamePutFunctions.js');
 */
 app.put('/joinGame', function(request, response){
   var gameName = request.body.gameName;
-  var name = request.body.name;
+  var name = request.body.name; //TODO push up to server on ios
   var email = request.body.email;
   console.log(request);
   if (gameName === undefined || email === undefined){
