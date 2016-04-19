@@ -32,7 +32,7 @@ var HomePage = React.createClass({
           <br/>
           George Tirebiter with empty beer bottles at the 90
           <br/><br/>
-          Will Ferrel with Tommy's Sword at Bovard
+          Will Ferrell with Tommy's Sword at Bovard
           <br/><br/>
           President Nikias with a U-lock at the Row 
           <br/><br/>

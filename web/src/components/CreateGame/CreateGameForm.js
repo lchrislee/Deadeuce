@@ -56,16 +56,6 @@ var CreateGameForm = React.createClass({
       }.bind(this)
     });
   },
-  themeChanged: function(e){
-    this.setState({
-      "theme":e.target.value
-    });
-  },
-  numberOfPlayersChanged: function(e){
-    this.setState({
-      "numberOfPlayers":e.target.value
-    });
-  },
   gameNameChanged: function(e){
     this.setState({
       "gameName":e.target.value
@@ -75,61 +65,21 @@ var CreateGameForm = React.createClass({
     return (
 	    <div>
           <div className="primary_content">  
-            <form onSubmit={this.handleCreateGameSubmit}>
-              <table>
-                <tr>
-                  <th>Game Name:</th>
-                  <th><input type="text" name="gameName" onChange={this.gameNameChanged} defaultValue="Example Name"/> </th>
-                </tr>
-                <tr>
-                  <th>Theme:</th>
-                  <th>
-                    <select name="theme" value={this.state.theme} onChange={this.themeChanged}> 
-                      <option>USC</option>
-                      <option>Capstone Class</option>
-                    </select>  
-                  </th>
-                </tr>  
-                <tr>
-                  <th>Players:</th>
-                  <th>
-                    <select name="numberOfPlayers" value={this.state.numberOfPlayers} onChange={this.numberOfPlayersChanged}> 
-                      <option>3</option>
-                      <option>4</option>
-                      <option>5</option>
-                      <option>6</option>
-                    </select>
-                  </th>
-                </tr>
-                <tr>
-                  <th>Character: </th>
-                  <th> 
-                    <select name="selectCharacter"> 
-                      <option>EV Kitty</option>
-                      <option>Tommy Trojan</option>
-                      <option>George Tirebiter</option>
-                      <option>President Nikias</option>
-                      <option>Pete Carroll</option>
-                      <option>Will Ferrell</option>
-                    </select>
-                  </th>
-                </tr>
-                <tr>
-                  <th>Privacy: </th>
-                  <th> 
-                    <input type="radio" name="private"> Private </input> <br/>
-                    <input type="radio" name="private"> Public </input>
-                  </th>
-                </tr>
+
+
+            <div className="create_game_form">
+              <label>
+                Game Name: 
+                <input type="text" name="gameName" onChange={this.gameNameChanged} placeholder="Example Name" id="game_name" />
+              </label>
               
-              </table>
-              <input type="submit" name="submitNewGame" className="submit" hoverClassName="hover"/>
-            </form>
+              <button name="submitNewGame" className="submit" hoverClassName="hover" onClick={this.handleCreateGameSubmit}>Submit</button>
+            </div>
           </div>
           <div className="secondary_content">
             Story or stats can go here
           </div>
-        </div>
+      </div>
 	);
   },
 });
