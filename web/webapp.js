@@ -179,6 +179,10 @@ app.post('/createGame', function(request, response){
     if (err){
       response.json({"gameID":undefined});
     }else{
+      var removedLocations = checkList.locations.slice(0);
+      var removedWeapons = checkList.weapons.slice(0);
+      var removedSuspects = checkList.suspects.slice(0);
+
       var answerLocationNum = Math.floor(Math.random() * 9);
       var answerLocation = checkList.locations[answerLocationNum];
       var answerSuspectNum = Math.floor(Math.random() * 6);
@@ -186,19 +190,24 @@ app.post('/createGame', function(request, response){
       var answerWeaponNum = Math.floor(Math.random() * 6);
       var answerWeapon = checkList.weapons[answerWeaponNum];
 
-      var removedLocations = checkList.locations.slice(0);
-      removedLocations.splice(answerLocationNum);
-      var removedWeapons = checkList.weapons.slice(0);
-      removedWeapons.splice(answerWeaponsNum);
-      var removedSuspects = checkList.suspects.slice(0);
-      removedSuspects.splice(answerSuspectNum);
+      removedLocations.splice(answerLocationNum, 1);
+      removedWeapons.splice(answerWeaponNum, 1);
+      removedSuspects.splice(answerSuspectNum, 1);
 
-      var startLocationNum = Math.floor(Math.random() * 8);
-      var startLocation = removedLocations[startLocationNum];
-      var startSuspectNum = Math.floor(Math.random() * 5);
-      var startSuspect = removedSuspects[startSuspectNum];
-      var startWeaponNum = Math.floor(Math.random() * 5);
-      var startWeapon = removedWeapons[startWeaponNum];
+      var possibleList = removedSuspects.concat(removedWeapons, removedLocations);
+      var number1 = Math.floor(Math.random()*18);
+      var number2 = Math.floor(Math.random()*18);
+      while (number2 == number1){
+        number2 = Math.floor(Math.random()*18);
+      }
+      var number3 = Math.floor(Math.random()*18);
+      while (number3 == number1 || number3 == number2){
+        number3 = Math.floor(Math.random()*18);
+      }
+
+      var userCard1 = possibleList[number1];
+      var userCard2 = possibleList[number2];
+      var userCard3 = possibleList[number3];
 
       var newGame = new Game({
         'name':gameName,
@@ -206,8 +215,9 @@ app.post('/createGame', function(request, response){
         'turnPlayer':"President Nikias",
         "checklist":checkList,
         "map":initialMap,
-        "users":[{"name":"President Nikias","email":hostID, "hand":[startLocation, startWeapon, startSuspect]}],
-        "answer":{"murderer":answerSuspect, "weapon":answerWeapon, "location":answerLocation}
+        "users":[{"name":"President Nikias","email":hostID, "hand":[userCard1, userCard2, userCard3]}],
+        "answer":{"murderer":answerSuspect, "weapon":answerWeapon, "location":answerLocation},
+        "potentialCards":possibleList
       });
 
       newGame.save(function(err, game){
@@ -366,8 +376,21 @@ app.put('/joinGame', function(request, response){
         });
       } else {
         game.save(function(err, game){
-          game.addPlayer({name:name, email:email}, function(){
-            User.update({"email":email}, {"gameName":gameName}, function(err, raw){
+          var number1 = Math.floor(Math.random()*18);
+          var number2 = Math.floor(Math.random()*18);
+          while (number2 == number1){
+            number2 = Math.floor(Math.random()*18);
+          }
+          var number3 = Math.floor(Math.random()*18);
+          while (number3 == number1 || number3 == number2){
+            number3 = Math.floor(Math.random()*18);
+          }
+          var userCard1 = game.potentialCards[number1];
+          var userCard2 = game.potentialCards[number2];
+          var userCard3 = game.potentialCards[number3];
+          
+          game.addPlayer({name:name, email:email, hand:[userCard1, userCard2, userCard3]}, function(){
+            User.update({"email":email}, {"gameID":game.name}, function(err, raw){
               if (err){
                 console.log("error: " + err);
               } else {
@@ -428,7 +451,7 @@ app.put('/game/action', function(request, response){
       if (game.gameWinner !== undefined){
         response.json({"correct": false, "feedback": "Game is over!"});
       }else if (game.numPlayers < 6){
-        response.json("correct":false, "feedback": "There are not enough players!");
+        response.json({"correct":false, "feedback": "There are not enough players!"});
       }
 
       var selectedUser = undefined;
@@ -488,7 +511,7 @@ app.put('/game/action', function(request, response){
           });
         }else{
           var updatedArray = game.users.slice(0);
-          updatedArray.splice(selectedUserIndex);
+          updatedArray.splice(selectedUserIndex, 1);
           Game.update({"name":gameID}, {"turnPlayer":nextPlayer, "users":updatedArray}, function(err, raw){
             if (err){
               console.log("game/action lose error: " + err);
