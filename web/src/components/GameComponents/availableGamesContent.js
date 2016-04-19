@@ -1,29 +1,37 @@
 
 var React = require('react');
 var $ = require('jQuery');
-
+var style = {};
 var AvailableGamesContent = React.createClass({
     contextTypes: {
         router: React.PropTypes.object.isRequired
     },
     getInitialState: function(){
+       // this.handleClick = this.handleClick.bind(this);
         return{
             "isSelected": false
+
         };
     },
     handleClick: function() {
        if (this.state.isSelected == true){
             this.setState({
                 "isSelected": false
-
             })
         } else {
-           this.props.selectedFunction(this.props.data.gameName);
+           this.props.selectedFunction(this.props.data.gameName, this.unselect);
             this.setState({
                 "isSelected": true
             })
         }
     },
+    unselect: function() {
+        this.setState({
+                "isSelected": false
+            })
+       console.log("unselect " + this.props.data.gameName);
+
+   },
     //selected: function(obj){
     //    console.log(obj);
     //    obj.style.backgroundColor = '#444';
@@ -31,7 +39,7 @@ var AvailableGamesContent = React.createClass({
     //},
     render: function(){
         var isSelected = this.state.isSelected;
-        var style = {};
+        console.log("here " + this.props.data.gameName);
         if (isSelected) {
             style = {
                 'background-color': '#444'
