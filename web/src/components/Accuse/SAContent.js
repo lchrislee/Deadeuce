@@ -13,11 +13,16 @@ var SAContent = React.createClass({
       "weapon": text,
       "suspect": text, 
       "location": text,
-      "defaultText": text
+      "defaultText": text,
+      "response": ""
     }
   },
+  componentDidMount() {
+    document.querySelector('.accuse-response').style.visibility="hidden";
+  },
   makeAccusation: function(e) {
-    e.preventDefault();
+    // e.preventDefault();
+
     if (this.state.weapon == this.state.defaultText){
       return;
     }
@@ -27,6 +32,7 @@ var SAContent = React.createClass({
     if (this.state.suspect == this.state.defaultText){
       return;
     }
+    
     var sendMe = {"gameID":"1234", 
                   "userID":"1234",
                   "weapon": this.state.weapon,
@@ -51,13 +57,26 @@ var SAContent = React.createClass({
       // },
       success: function(data) {
         console.log(data);
-        if (data.correct == true) {
-          
+        
+        document.querySelector('.accuse-response').style.visibility="visible";
+
+        if (data.correct == false && this.state.action == 'suggest' ) {
+          this.setState({
+            response: data.feedback
+          });
+        } else if(data.correct == false && this.state.action == 'accuse') {
+          this.setState({
+            response: "YOU LOSE!"
+          });
+        } else if(data.correct == true && this.state.action == 'suggest') {
+          this.setState({
+            response: "Guess this on your next turn."
+          });
+        } else if(data.correct == true && this.state.action == 'accuse'){
+          this.setState({
+            response: "YOU WIN"
+          });
         }
-        this.context.router.push('/game_home/feedback');
-        // this.setState({
-        //   "accusation": data.accusation
-        // });
       }.bind(this),
       error: function(xhr, status, err) {
         console.log(err);
@@ -69,7 +88,6 @@ var SAContent = React.createClass({
     });
   },
   selectSuggest: function(e) {
-
       this.setState ({
         "action": "suggest"
       });
@@ -101,7 +119,7 @@ var SAContent = React.createClass({
             Make a Suggestion
           </div>
           <div className="suggestAccuse">
-              <form onSubmit={this.makeAccusation}>
+              <form>
                 <label>Suspect:</label>
                 <select onChange={this.selectSuspect} name="suspect">
                   {modifiedSuspects.map(function(suspect){
@@ -123,14 +141,17 @@ var SAContent = React.createClass({
                   })}
                 </select>
               <br/>
-              <input onChange={this.selectSuggest} type="radio" name="clue" 
-                checked={this.state.action=="suggest"}/>Suggestion
+              <input onChange={this.selectSuggest} type="radio" title="For more INFORMATION" name="clue" 
+                checked={this.state.action=="suggest"}/>Suggest
               <br/>
-              <input onChange={this.selectAccuse} type="radio" name="clue"
-                checked={this.state.action=="accuse"}/>Accusation
+              <input onChange={this.selectAccuse} type="radio" title="to win/lose the game" name="clue"
+                checked={this.state.action=="accuse"}/>Accuse
               <br/>
-              <input className="submit" type="submit" name="submitSA" />
+              <input className="submit" type="submit" name="submitSA" onClick={this.makeAccusation} />
               </form>
+              <div className="accuse-response">
+                Lorem ipsum{this.state.response} did NOT do it nor did anyone else
+              </div>
           </div>
 	    </div>
 	);

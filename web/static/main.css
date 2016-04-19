@@ -287,7 +287,6 @@ Game Tables
     vertical-align: top;
 }
 .column{
-    background-color: ;
     padding-bottom: 100px;
     margin-bottom: -100px;
 }
@@ -623,6 +622,15 @@ Suggest/Accuse
     float: right;
     width: 25%
 }
+
+.accuse-response {
+    position: absolute;
+    width: 140px;
+    right: 50px;
+    bottom: 130px;
+    z-index: 100;
+}
+
 /******************************************************************
 Homepage Game Winning Accusations
 *******************************************************************/
