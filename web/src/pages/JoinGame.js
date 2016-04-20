@@ -22,29 +22,21 @@ var JoinGame = React.createClass({
     selectGame: function(selectedGame) {
         this.state.selectedGame = selectedGame;
     },
-    handleCreateGameSubmit: function(e) {
-        e.preventDefault();
-        var output = JSON.stringify({gameName:"FAKE NAME", userID:localStorage.userID});
+    handleCreateGameSubmit: function() {
+        var output = JSON.stringify({gameName:this.state.selectedGame, userID:localStorage.userID});
         $.ajax({
             url: '/joinGame',
             type: 'PUT',
             contentType: "application/json",
             data: output,
             success: function(response) {
-                //{joinSuccess:t/f, nextTurn: user_id}
-                // console.log(response.nextTurn);
-                //console.log(response.joinSuccess);
                 console.log(response);
                 if (response.joinSuccess){
-                    //do something
-                    console.log(data);
                     //maybe load the next page?
+                    this.context.router.push('game_home');
                 }else{
                     // we don goofed
                 }
-                // this.setState({
-
-                // });
             }.bind(this),
             error: function(xhr, status, err) {
                 console.log(err);
@@ -54,7 +46,6 @@ var JoinGame = React.createClass({
                 });
             }.bind(this)
         });
-        this.context.router.push('game_home');
     },
     findAllGames: function() {
         var input = {};
