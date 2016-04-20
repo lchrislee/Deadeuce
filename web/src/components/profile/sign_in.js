@@ -23,9 +23,11 @@ var SignIn = React.createClass({
             success: function(response){
                 if (response.loginSucess == undefined){
                     console.log("BROKEN");
-                }else{
+                }else if (response.loginSucess){
                     console.log(response.loginSucess);
-                    //TODO Michael, add this part to local storage
+                    localStorage.setItem("userID", this.state.email);
+                }else{
+                    console.log("improper login");
                 }
             }
         })
