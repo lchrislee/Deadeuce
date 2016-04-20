@@ -13,13 +13,13 @@ var GameMapContentBox = require('../components/GameComponents/gameMapContentBox.
 
 var GameHome = React.createClass({
     getInitialState: function() {
-        var gameID = "JOKER";
+        var gameID = "testGame1";
         this.retrieveCheckList(gameID);
         this.findGameFeed(gameID);
         this.retrieveGameMap(gameID);
         return {
             "gameID": gameID,
-            "userID": 'user1',
+            "userID": localStorage.userID,
             "gamePlayers": [],
             "currentTurn": 'Michelle',
             "suspects": [],
@@ -41,16 +41,12 @@ var GameHome = React.createClass({
             data: stringified,
 
             success: function(data) {
-                console.log(data);
-                console.log(data.feed);
                 this.setState({
                     "gameFeed": data.feed,
                     "currentTurn": data.turnPlayer
                 });
             }.bind(this),
             error: function(xhr, status, err) {
-                console.log(err);
-                console.log(xhr);
                 this.setState({
                     "serverStatus" : "Error in server request."
                 });
@@ -69,7 +65,6 @@ var GameHome = React.createClass({
             data: stringified,
 
             success: function(data) {
-                console.log(data);
                 var checkList = data.checkList;
                 this.setState({
                     "locations": checkList.locations,
@@ -78,8 +73,6 @@ var GameHome = React.createClass({
                 });
             }.bind(this),
             error: function(xhr, status, err) {
-                console.log(err);
-                console.log(xhr);
                 this.setState({
                     "serverStatus" : "Error in server request."
                 });
@@ -98,19 +91,22 @@ var GameHome = React.createClass({
             data: stringified,
 
             success: function(data) {
-                console.log(data);
                 this.setState({
                     "map": data.locations
                 });
             }.bind(this),
             error: function(xhr, status, err) {
-                console.log(err);
-                console.log(xhr);
                 this.setState({
                     "serverStatus" : "Error in server request."
                 });
             }.bind(this)
         })
+    },
+
+    refreshGame: function(){
+        this.retrieveCheckList(this.state.gameID);
+        this.findGameFeed(this.state.gameID);
+        this.retrieveGameMap(this.state.gameID);
     },
 
     render: function() {
@@ -120,7 +116,7 @@ var GameHome = React.createClass({
         return (
             <div>
                 <div className="gameContainer">
-                    <TurnBox currentTurn = {this.state.currentTurn} />
+                    <TurnBox currentTurn = {this.state.currentTurn} refresh={this.refreshGame}/>
                     <GameMap locations = {this.state.map}/>
                     <SuggestAccuse suspects = {suspects} weapons = {weapons} locations = {locations} />
                     <Checklist suspects = {suspects} weapons = {weapons} locations = {locations} />

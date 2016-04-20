@@ -7,11 +7,8 @@ var CreateGameForm = React.createClass({
    },
   getInitialState: function() {
     return {
-      "gameID": undefined,
-      "theme": "USC",
-      "numberOfPlayers": 6,
-      "gameName": "Example Name",
-      "hostID": '12345429579572'
+      "gameName": undefined,
+      "hostID": localStorage.userID
     }
   },
   handleCreateGameSubmit: function(e) {
@@ -36,20 +33,12 @@ var CreateGameForm = React.createClass({
       //   return str.join('&');
       // },
       success: function(data) {
-        console.log(data);
-        console.log(data.gameID);
-        if (data.gameID === undefined) {
-          alert("LERT LERT LERT");
-          return;
-        }
         this.setState({
           "gameID": data.gameID
         });
         this.context.router.push('game_home');
       }.bind(this),
       error: function(xhr, status, err) {
-        console.log(err);
-        console.log(xhr);
         this.setState({
           "serverStatus" : "Error in server request."
         });

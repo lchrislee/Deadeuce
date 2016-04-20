@@ -7,10 +7,8 @@ var AvailableGamesContent = React.createClass({
         router: React.PropTypes.object.isRequired
     },
     getInitialState: function(){
-       // this.handleClick = this.handleClick.bind(this);
         return{
             "isSelected": false
-
         };
     },
     handleClick: function() {
@@ -29,17 +27,9 @@ var AvailableGamesContent = React.createClass({
         this.setState({
                 "isSelected": false
             })
-       console.log("unselect " + this.props.data.gameName);
-
    },
-    //selected: function(obj){
-    //    console.log(obj);
-    //    obj.style.backgroundColor = '#444';
-    //    obj.style.color = 'white';
-    //},
     render: function(){
         var isSelected = this.state.isSelected;
-        console.log("here " + this.props.data.gameName);
         if (isSelected) {
             style = {
                 'background-color': '#444'

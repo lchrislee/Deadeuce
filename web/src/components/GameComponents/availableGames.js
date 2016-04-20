@@ -8,8 +8,6 @@ var AvailableGames = React.createClass({
         router: React.PropTypes.object.isRequired
     },
     getInitialState: function() {
-
-          // this.selectChildGame = this.selectChildGame.bind(this);
         return{
           "selected": undefined,
           "unselect": undefined

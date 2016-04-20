@@ -17,9 +17,6 @@ var SAContent = React.createClass({
       "response": ""
     }
   },
-  // componentDidMount() {
-  //   document.querySelector('.accuse-response').style.visibility="hidden";
-  // },
   makeAccusation: function(e) {
     e.preventDefault();
 
@@ -33,8 +30,8 @@ var SAContent = React.createClass({
       return;
     }
     
-    var sendMe = {"gameID":"JOKER", 
-                  "userID":"junk", // change me for different calls
+    var sendMe = {"gameID":"JOKER", // change me for different calls
+                  "userID":localStorage.userID, // change me for different calls
                   "weapon": this.state.weapon,
                   "suspect": this.state.suspect, 
                   "location": this.state.location, 
@@ -48,16 +45,7 @@ var SAContent = React.createClass({
       contentType: "application/json",
       dataType: 'json',
       data: stringified,
-      // transformRequest: function(obj){
-      //   var str = [];
-      //   for(var p in obj){
-      //     str.push(encodeURLComponent(p) + '=' + encodeURLComponent(obj[p]));
-      //   }
-      //   return str.join('&');
-      // },
       success: function(data) {
-        console.log(data);
-        
         document.querySelector('.accuse-response').style.visibility="visible";
 
         if (data.correct == false && this.state.action == 'suggest' ) {
@@ -79,8 +67,6 @@ var SAContent = React.createClass({
         }
       }.bind(this),
       error: function(xhr, status, err) {
-        console.log(err);
-        console.log(xhr);
         this.setState({
           "serverStatus" : "Error in server request."
         });
@@ -160,7 +146,6 @@ var SAContent = React.createClass({
       this.setState ({
           "suspect": suspect
       });
-      console.log(suspect);
     },
 
   selectWeapon: function(e) {
@@ -169,7 +154,6 @@ var SAContent = React.createClass({
       this.setState ({
           "weapon": weapon
       });
-      console.log(weapon);
     },
 
   selectLocation: function(e) {
@@ -178,7 +162,6 @@ var SAContent = React.createClass({
       this.setState ({
           "location": location
       });
-      console.log(location);
     }
 });
 

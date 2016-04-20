@@ -13,26 +13,6 @@ var SignUp = React.createClass({
             confirmPassword: ""
         }
     },
-    signUp: function(e){
-        e.preventDefault();
-        
-        var output = JSON.stringify(this.state);
-
-        console.log(output);
-
-        if(this.state.password === this.state.confirmPassword) {
-            $.ajax({
-                url: '/createUser',
-                type: 'POST',
-                data: output,
-                contentType: 'application/json',
-                success: function(response){
-                }
-            });
-        } else {
-            alert('password did not match confirm Password');
-        }
-    },
     nameChanged: function(e){
         e.preventDefault();
         this.setState({
@@ -57,31 +37,57 @@ var SignUp = React.createClass({
             confirmPassword:e.target.value
         });
     },
+    createUser: function() {
+        console.log("called");
+        var output = JSON.stringify(this.state);
+        if(this.state.password == this.state.confirmPassword) {
+            $.ajax({
+              url: '/createUser',
+              type: 'PUT',
+              contentType: "application/json",
+              dataType: 'json',
+              data: stringified,
+              success: function(data) {
+                console.log("AJAX went through");
+                    if (response.userID != undefined){
+                        console.log("DONE: " + response.userID);
+                        localStorage.setItem("userID", response.userID);
+                    }
+              }.bind(this),
+              error: function(xhr, status, err) {
+                this.setState({
+                        "serverStatus" : "Error in server request."
+                    });
+              }.bind(this)
+            });
+        } else {
+            alert('password did not match confirm Password');
+        }
+    },
     render: function(){
         return(
             <div className="sign-up">
             <div className="sign-up-header">Sign Up for an Account</div>
-                <div className="signup-form"> <form>
-                    <label className="sign-label" for="username"> Name:</label> <input onChange={this.nameChanged} type="text"
+                <div className="signup-form">
+                    <label className="sign-label" htmlFor="username"> Name:</label> <input onChange={this.nameChanged} type="text"
                         placeholder="Name"
                         className="sign-up-username sign-up-input"/><br/>
-                    <label className="sign-label"for="e-mail">Email:</label><input type="text" onChange={this.emailChanged}
+                    <label className="sign-label"htmlFor="e-mail">Email:</label><input type="text" onChange={this.emailChanged}
                         placeholder="Email" 
                         name="sign-up-email" 
                         className="sign-up-email sign-up-input" /><br/>
-                    <label className="sign-label" for="password">Password:</label><input onChange={this.passwordChanged}
+                    <label className="sign-label" htmlFor="password">Password:</label><input onChange={this.passwordChanged}
                         type="password" 
                         placeholder="Password" 
                         name="sign-up-pw1" 
                         className="sign-up-pw sign-up-input" /><br/>
-                    <label className="sign-label" for="confirm-password">Confirm Password:</label> <input onChange={this.confirmPasswordChanged}
+                    <label className="sign-label" htmlFor="confirm-password">Confirm Password:</label> <input onChange={this.confirmPasswordChanged}
                         type="password" 
-                        placeholder="Confirm Password" 
+                        placeholder="Confirm Password"
                         name="sign-up-pw2" 
                         className="sign-up-pw sign-up-input"/><br/> <br/>
-                    <button className="sign-button" type="button" onClick={this.signUp}>SIGN UP</button>
-                </form></div>
-
+                    <button className="sign-button" onClick={this.createUser}>SIGN UP</button>
+                </div>
             </div>
         );
     }
