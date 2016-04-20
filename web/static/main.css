@@ -512,7 +512,7 @@ Sign In
     width: 300px;
     padding: 50px;
     margin: auto;
-    margin-left: 45px;
+    margin-left: 4%;
     background-color:#CCC;
     border-radius: 5px;
     float:left;
@@ -550,7 +550,7 @@ Sign Up
     padding: 50px;
     margin: auto;
     margin-top: -272px;
-    margin-right: 45px;
+    margin-right: 4%;
     background-color:#CCC;
     border-radius: 5px;
     float: right;
