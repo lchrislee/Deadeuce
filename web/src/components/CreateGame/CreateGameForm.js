@@ -35,6 +35,9 @@ var CreateGameForm = React.createClass({
       success: function(data) {
         this.setState({
           "gameID": data.gameID
+        },
+        function(){
+          localStorage.gameID = this.state.gameID;
         });
         this.context.router.push('game_home');
       }.bind(this),
