@@ -512,8 +512,10 @@ Sign In
     width: 300px;
     padding: 50px;
     margin: auto;
+    margin-left: 4%;
     background-color:#CCC;
-    border-radius:5;
+    border-radius: 5px;
+    float:left;
 }
 
 .sign-in-username {
@@ -547,8 +549,11 @@ Sign Up
     width: 350px;
     padding: 50px;
     margin: auto;
+    margin-top: -272px;
+    margin-right: 4%;
     background-color:#CCC;
-    border-radius:5;
+    border-radius: 5px;
+    float: right;
 }
 
 .sign-up-header{

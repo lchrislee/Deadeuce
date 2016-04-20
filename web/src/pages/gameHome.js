@@ -21,7 +21,8 @@ var GameHome = React.createClass({
             "gameID": localStorage.gameID,
             "userID": localStorage.userID,
             "gamePlayers": [],
-            "currentTurn": 'Michelle',
+            "currentTurnNickname": 'Michelle',
+            "currentTurnID":'test',
             "suspects": [],
             "weapons": [],
             "locations": [],
@@ -43,7 +44,8 @@ var GameHome = React.createClass({
             success: function(data) {
                 this.setState({
                     "gameFeed": data.feed,
-                    "currentTurn": data.turnPlayer
+                    "currentTurnNickname": data.turnPlayerNickname,
+                    "currentTurnID": data.turnPlayerID
                 });
             }.bind(this),
             error: function(xhr, status, err) {
@@ -116,7 +118,7 @@ var GameHome = React.createClass({
         return (
             <div>
                 <div className="gameContainer">
-                    <TurnBox currentTurn = {this.state.currentTurn} refresh={this.refreshGame}/>
+                    <TurnBox currentTurnNickname = {this.state.currentTurnNickname} currentTurnID = {this.state.currentTurnID} refresh={this.refreshGame}/>
                     <GameMap locations = {this.state.map}/>
                     <SuggestAccuse suspects = {suspects} weapons = {weapons} locations = {locations} />
                     <Checklist suspects = {suspects} weapons = {weapons} locations = {locations} />

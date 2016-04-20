@@ -2,6 +2,8 @@ var React = require('react');
 var ReactDOM = require('react-dom');
 var Link = require('react-router').Link;
 var $ = require('jquery');
+var SignIn = require('./sign_in');
+var SignUp = require('./sign_up');
 
 var MyProfile = React.createClass({
     getInitialState: function(){
@@ -55,6 +57,8 @@ var MyProfile = React.createClass({
                                 {this.state.username}'s losses: {this.state.losses}
                             </div>
                     </div>
+                <SignIn />
+                <SignUp />
             </div>
 
         )

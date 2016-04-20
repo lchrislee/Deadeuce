@@ -15,8 +15,6 @@ var Profile = React.createClass({
     return (
      <div>
       <MyProfile />
-      <SignIn />
-      <SignUp />
      </div>
     );
   }
