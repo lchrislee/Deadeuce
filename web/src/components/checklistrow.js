@@ -14,7 +14,7 @@ var ChecklistRow = React.createClass({
     render: function(){
         return(
             <div className="checklistRow">
-               <input type="checkbox">{this.props.value}</input>
+               <input type="checkbox" dangerouslySetInnerHTML={this.props.value}></input>
             </div>
         );
     }

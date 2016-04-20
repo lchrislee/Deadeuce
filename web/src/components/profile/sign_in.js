@@ -11,9 +11,7 @@ var SignIn = React.createClass({
             password: ""
         }
     },
-    signIn: function(e){
-        e.preventDefault();
-
+    signIn: function(){
         var output = JSON.stringify(this.state);
         console.log(output);
 
@@ -23,17 +21,27 @@ var SignIn = React.createClass({
             data: output,
             contentType: 'application/json',
             success: function(response){
+                if (response.loginSucess == undefined){
+                    console.log("BROKEN");
+                }else if (response.loginSucess){
+                    console.log(response.loginSucess);
+                    localStorage.setItem("userID", this.state.email);
+                }else{
+                    console.log("improper login");
+                }
             }
         })
     },
     emailChange: function(e){
         e.preventDefault();
+        console.log("STUFF: " + e.target.value);
         this.setState({
             email:e.target.value
         });
     },
     passwordChange: function(e){
         e.preventDefault();
+        console.log("stuff: " + e.target.value);
         this.setState({
             password:e.target.value
         });
@@ -41,20 +49,18 @@ var SignIn = React.createClass({
     render: function(){
         return(
             <div className="sign-in">
-                <form>
-                    Sign In<br/><br/>
-                    <input type="text" 
-                        onChange={this.emailChange}
-                        name="username" 
-                        placeholder="Username" 
-                        className="sign-in-username" 
-                        autofocus /><br/>
-                    <input type="password" 
-                        onChange={this.passwordChange} 
-                        name="password" placeholder="Password" 
-                        className="sign-in-password" /><br/>
-                    <button className="sign-button" onClick="SignIn">SIGN IN</button>
-                </form>
+                Sign In<br/><br/>
+                <input type="text" 
+                    onChange={this.emailChange}
+                    name="username" 
+                    placeholder="Username" 
+                    className="sign-in-username" 
+                    autofocus /><br/>
+                <input type="password" 
+                    onChange={this.passwordChange} 
+                    name="password" placeholder="Password" 
+                    className="sign-in-password" /><br/>
+                <button className="sign-button" onClick={this.signIn}>SIGN IN</button>
                 or Sign Up
             </div>
         );

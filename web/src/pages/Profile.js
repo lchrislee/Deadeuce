@@ -14,7 +14,6 @@ var Profile = React.createClass({
   render: function() {
     return (
      <div>
-     
       <MyProfile />
       <SignIn />
       <SignUp />

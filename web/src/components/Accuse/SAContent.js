@@ -17,9 +17,6 @@ var SAContent = React.createClass({
       "response": ""
     }
   },
-  // componentDidMount() {
-  //   document.querySelector('.accuse-response').style.visibility="hidden";
-  // },
   makeAccusation: function(e) {
     e.preventDefault();
 

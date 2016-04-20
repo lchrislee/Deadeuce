@@ -19,7 +19,7 @@ var GameHome = React.createClass({
         this.retrieveGameMap(gameID);
         return {
             "gameID": gameID,
-            "userID": 'user1',
+            "userID": localStorage.userID,
             "gamePlayers": [],
             "currentTurn": 'Michelle',
             "suspects": [],
