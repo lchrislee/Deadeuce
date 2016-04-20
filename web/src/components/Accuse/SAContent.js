@@ -31,7 +31,7 @@ var SAContent = React.createClass({
     }
     
     var sendMe = {"gameID":"JOKER", // change me for different calls
-                  "userID":"junk", // change me for different calls
+                  "userID":localStorage.userID, // change me for different calls
                   "weapon": this.state.weapon,
                   "suspect": this.state.suspect, 
                   "location": this.state.location, 
