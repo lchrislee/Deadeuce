@@ -160,7 +160,7 @@ var initialMap = [
 /*
   Logic:
     - add game to db
-      |-> set turnPlayer to gameCreater
+      |-> set turnPlayerNickname to gameCreater
       |-> randomly select 1 Weapon/Location/Suspect to be the murderer/weapon/location
       |-> each player gets 18/(# number of players) pieces of the remaining info
     - # of players (2-6)
@@ -217,7 +217,8 @@ app.post('/createGame', function(request, response){
       var newGame = new Game({
         'name':gameName,
         'numPlayers':1,
-        'turnPlayer':"President Nikias",
+        'turnPlayerNickname':"President Nikias",
+        'turnPlayerEmail':user.email,
         "checklist":checkList,
         "map":initialMap,
         "users":[{"name":"President Nikias","email":hostID, "hand":[userCard1, userCard2, userCard3]}],
@@ -252,11 +253,13 @@ app.post('/createGame', function(request, response){
   {gameID:}
   Returns game feed, and turn player
   {feed:[{accuser:,suspect:,weapon:,location:}],
-   turnPlayer:}
+   turnPlayerNickname:,
+   turnPlayerEmail:}
    MICHAEL
 
    LOGIC:
-    - get turnplayer
+    - get turnPlayerNickname
+    - get turnPlayerEmail
     - get game.feed
 
 */
@@ -273,7 +276,7 @@ app.post('/game/status', function(request, response){
       response.json({"feed":undefined});
       return;
     }else{
-      response.json({"feed":game.feed, "turnPlayer":game.turnPlayer});
+      response.json({"feed":game.feed, "turnPlayerNickname":game.turnPlayerNickname, "turnPlayerID":game.turnPlayerEmail});
       return;
     }
   });
@@ -424,7 +427,8 @@ app.put('/joinGame', function(request, response){
       |-> return a random piece of information from the 3 pieces suggested (that isnt the true weapon/suspect/location)
         |-> update checklist with the "found" information   <- let user do that - Chris
         |-> update feed with the suggestion
-        |-> update turnplayer to next player
+        |-> update turnPlayerNickname to next player
+        |-> update turnPlayerEmail to next player
 */
 app.put('/game/action', function(request, response){
   var gameID = request.body.gameID;
@@ -475,7 +479,7 @@ app.put('/game/action', function(request, response){
       if (selectedUser === undefined){ // not in game
         response.sendStatus(400);
         return;
-      }else if (game.turnPlayer != selectedUser.name){
+      }else if (game.turnPlayerNickname != selectedUser.name){
         response.json({"correct":false, "feedback": "Not your turn!"});
         return;
       }
@@ -483,9 +487,9 @@ app.put('/game/action', function(request, response){
       var answer = game.answer;
       var nextPlayer = "";
       if (selectedUserIndex == game.users.length - 1){
-        nextPlayer = game.users[0].name;
+        nextPlayer = game.users[0];
       }else{
-        nextPlayer = game.users[selectedUserIndex + 1].name;
+        nextPlayer = game.users[selectedUserIndex + 1];
       }
 
       var outputOptions = []; // the next 3 should not be else-if
@@ -523,7 +527,7 @@ app.put('/game/action', function(request, response){
         }else{ // wrong accusation
           var updatedArray = game.users.slice(0);
           updatedArray.splice(selectedUserIndex, 1);
-          Game.update({"name":gameID}, {"turnPlayer":nextPlayer, "users":updatedArray}, function(err, raw){
+          Game.update({"name":gameID}, {"turnPlayerNickname":nextPlayer.name, "turnPlayerEmail":nextPlayer.email, "users":updatedArray}, function(err, raw){
             if (err){
               console.log("game/action lose error: " + err);
               response.sendStatus(400);
@@ -535,7 +539,7 @@ app.put('/game/action', function(request, response){
           });
         }
       }else if (action == "suggest"){
-        Game.update({"name":gameID}, {"feed":newFeed, "turnPlayer":nextPlayer}, function(err, raw){
+        Game.update({"name":gameID}, {"feed":newFeed, "turnPlayerNickname":nextPlayer.name, "turnPlayerEmail":nextPlayer.email}, function(err, raw){
           if (err){
             console.log("game/action suggest error: " + err);
             response.sendStatus(400);

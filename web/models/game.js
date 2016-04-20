@@ -4,7 +4,8 @@ var mongoose = require('mongoose');
 var gameSchema = mongoose.Schema({
   name: {type: String, required: true, unique: true},
   numPlayers: {type: Number, required: true},
-  turnPlayer: {type: String, required: true},
+  turnPlayerNickname: {type: String, required: true},
+  turnPlayerEmail: {type: String, required: true},
   gameWinner: String,
   checklist: {
     locations: [String],
