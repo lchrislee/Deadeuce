@@ -8,7 +8,7 @@ var CreateGameForm = React.createClass({
   getInitialState: function() {
     return {
       "gameName": undefined,
-      "hostID": 'junk'
+      "hostID": localStorage.userID
     }
   },
   handleCreateGameSubmit: function(e) {

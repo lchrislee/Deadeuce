@@ -20,13 +20,11 @@ var JoinGame = React.createClass({
         };
     },
     selectGame: function(selectedGame) {
-        console.log("Selected gameName is: " + selectedGame);
         this.state.selectedGame = selectedGame;
-
     },
     handleCreateGameSubmit: function(e) {
         e.preventDefault();
-        var output = JSON.stringify({gameName:"FAKE NAME", userID:"SOME ID"});
+        var output = JSON.stringify({gameName:"FAKE NAME", userID:localStorage.userID});
         $.ajax({
             url: '/joinGame',
             type: 'PUT',
@@ -99,12 +97,12 @@ var JoinGame = React.createClass({
 
                  <AvailableGames allGames = {this.state.allGames} selectedFunction={this.selectGame}/>
 
-                 <form className="center" onSubmit={this.handleCreateGameSubmit}>
+                 <div className="center">
                      You are about to join this game. Would you like to continue?
                      <br/>
                      <br/>
-                     <input type="submit" className="submit" name="submitJoinGame" value="Continue"/>
-                 </form>
+                    <button className="submit" onClick={this.handleCreateGameSubmit}>Continue</button>
+                 </div>
              </div>
          </div>
      </div>

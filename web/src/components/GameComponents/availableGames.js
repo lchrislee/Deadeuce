@@ -21,6 +21,7 @@ var AvailableGames = React.createClass({
         }
         this.state.unselect = unselect;
         this.state.selected = selected;
+        console.log(selected);
         this.props.selectedFunction(selected);
     },
 render: function(){
