@@ -8,14 +8,8 @@ var HomePage = React.createClass({
     },
     getInitialState: function() {
         return {
-          "serverStatus": "Server hasn't sent anything",
-          "modalIsVisible" : false
+          "serverStatus": "Server hasn't sent anything"
         };
-    },
-    toggleModal: function(e) {
-        this.setState({
-            "modalIsVisible" : !this.state.modalIsVisible
-        });
     },
   render: function() {
     return (
