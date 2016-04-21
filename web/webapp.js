@@ -475,7 +475,7 @@ app.put('/game/action', function(request, response){
             response.json({"correct": false, "feedback": game.gameWinner + " has found the murderer!", "gameWinner":game.gameWinner});
           });
         });
-      }else if (game.numPlayers < 1){
+      }else if (game.numPlayers < 6){
         response.json({"correct":false, "feedback": "There are not enough players!"});
         return;
       }
