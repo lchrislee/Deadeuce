@@ -656,9 +656,9 @@ app.post('/loginUser', function(request, response){
   var password = request.body.password;
   var cursor = db.collection('users').findOne({"email": email}, function(err, doc){
     if (doc != undefined && doc.password == password) {
-      response.json({"loginSuccess":true});
+      response.json({"loginSuccess":true, "gameID":doc.name});
     } else {
-      response.json({"loginSuccess":false});
+      response.json({"loginSuccess":false, "gameID":""});
     }
   });
 });

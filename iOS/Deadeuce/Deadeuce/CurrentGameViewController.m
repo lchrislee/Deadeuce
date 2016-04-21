@@ -286,7 +286,7 @@ const CGFloat kPadding3 = 6;
         _gameNameLabel = [[UILabel alloc] init];
     }
     _gameNameLabel.text = [NSString stringWithFormat:@"Game: %@", [gameStatus objectForKey:@"gameName"]];
-    _currentTurnLabel.text = [NSString stringWithFormat:@"Current Turn: %@", [gameStatus objectForKey:@"turnPlayer"]];
+    _currentTurnLabel.text = [NSString stringWithFormat:@"Current Turn: %@", [gameStatus objectForKey:@"turnPlayerNickname"]];
     
     NSArray* feedPayload = [gameStatus objectForKey:@"feed"];
     for(int i = 0; i < feedPayload.count; i++){

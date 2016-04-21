@@ -68,13 +68,13 @@
         [self sendRequest:request withHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
             if (error || ((NSHTTPURLResponse *)response).statusCode != 200){
                 NSLog(@"Error: %@", [error localizedDescription]);
-                [delegate loginSuccess:NO];
+                [delegate loginSuccess:NO andGameID:nil];
             } else{
                 NSError *error;
                 NSDictionary *output = [NSJSONSerialization JSONObjectWithData:data options:0 error:&error];
-                NSNumber * isSuccessNumber = (NSNumber *)[output objectForKey: @"loginSuccess"];
+                NSNumber * isSuccessNumber = (NSNumber *)[output objectForKey:@"loginSuccess"];
                 [self setUserID:info[@"userID"]];
-                ([isSuccessNumber boolValue] == YES) ? [delegate loginSuccess:YES] : [delegate loginSuccess:NO];
+                ([isSuccessNumber boolValue] == YES) ? [delegate loginSuccess:YES andGameID:[output objectForKey:@"gameID"]] : [delegate loginSuccess:NO andGameID:nil];
             }
         }];
         return true;
@@ -94,7 +94,7 @@
         [self sendRequest:request withHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
             if (error || ((NSHTTPURLResponse *)response).statusCode != 200){
                 NSLog(@"Error: %@", [error localizedDescription]);
-                [delegate loginSuccess:NO];
+                [delegate signupSuccess:nil];
             } else{
                 NSError *error;
                 NSDictionary *output = [NSJSONSerialization JSONObjectWithData:data options:0 error:&error];
