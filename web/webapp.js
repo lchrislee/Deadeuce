@@ -472,7 +472,7 @@ app.put('/game/action', function(request, response){
       if (game.gameWinner !== undefined){
         game.removePlayer(userID, function(){
           User.update({"email":userID}, {"gameID":undefined}, function(err, raw){
-            response.json({"correct": false, "feedback": game.gameWinner + " has found the murderer!"});
+            response.json({"correct": false, "feedback": game.gameWinner + " has found the murderer!", "gameWinner":game.gameWinner});
           });
         });
       }else if (game.numPlayers < 1){
@@ -539,7 +539,7 @@ app.put('/game/action', function(request, response){
             }else{
               game.removePlayer(userID, function(){
                 User.update({"email":userID}, {"gameID":undefined}, function(err, raw){
-                  response.json({"correct":true}); // won!
+                  response.json({"correct":true, "gameWinner":game.gameWinner}); // won!
                 });
               });
             }

@@ -47,6 +47,10 @@ var SAContent = React.createClass({
       data: stringified,
       success: function(data) {
         document.querySelector('.accuse-response').style.visibility="visible";
+        console.log("gameWinner: " + data.gameWinner);
+        if (data.gameWinner != undefined){
+          sessionStorage.gameID = undefined;
+        }
 
         if (data.correct == false && this.state.action == 'suggest' ) {
           this.setState({
