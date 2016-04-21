@@ -22,7 +22,7 @@ var JoinGame = React.createClass({
     selectGame: function(selectedGame) {
         this.state.selectedGame = selectedGame;
     },
-    handleCreateGameSubmit: function() {
+    joinGameSubmit: function() {
         var output = JSON.stringify({gameName:this.state.selectedGame, userID:localStorage.userID});
         $.ajax({
             url: '/joinGame',
@@ -32,6 +32,7 @@ var JoinGame = React.createClass({
             success: function(response) {
                 console.log(response);
                 if (response.joinSuccess){
+                    localStorage.gameID = this.state.selectedGame;
                     //maybe load the next page?
                     this.context.router.push('game_home');
                 }else{
@@ -92,7 +93,7 @@ var JoinGame = React.createClass({
                      You are about to join this game. Would you like to continue?
                      <br/>
                      <br/>
-                    <button className="submit" onClick={this.handleCreateGameSubmit}>Continue</button>
+                    <button className="submit" onClick={this.joinGameSubmit}>Continue</button>
                  </div>
              </div>
          </div>

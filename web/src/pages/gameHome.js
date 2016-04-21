@@ -18,7 +18,7 @@ var GameHome = React.createClass({
         this.findGameFeed(gameID);
         this.retrieveGameMap(gameID);
         return {
-            "gameID": gameID,
+            "gameID": localStorage.gameID,
             "userID": localStorage.userID,
             "gamePlayers": [],
             "currentTurnNickname": 'Michelle',
