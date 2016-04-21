@@ -13,12 +13,13 @@ var GameMapContentBox = require('../components/GameComponents/gameMapContentBox.
 
 var GameHome = React.createClass({
     getInitialState: function() {
-        var gameID = "testGame1";
+        var gameID = localStorage.gameID;
+        console.log("gameHome (initialState) " + gameID);
         this.retrieveCheckList(gameID);
         this.findGameFeed(gameID);
         this.retrieveGameMap(gameID);
         return {
-            "gameID": localStorage.gameID,
+            "gameID": gameID,
             "userID": localStorage.userID,
             "gamePlayers": [],
             "currentTurnNickname": 'Michelle',
@@ -42,6 +43,9 @@ var GameHome = React.createClass({
             data: stringified,
 
             success: function(data) {
+                console.log("findGameFeed gameFeed: " + data);
+                console.log("findGameFeed currentTurnNickname: " + data);
+                console.log("findGameFeed currentTurnID: " + data);
                 this.setState({
                     "gameFeed": data.feed,
                     "currentTurnNickname": data.turnPlayerNickname,
@@ -68,6 +72,7 @@ var GameHome = React.createClass({
 
             success: function(data) {
                 var checkList = data.checkList;
+                console.log("retrieveCheckList " + data.checkList);
                 this.setState({
                     "locations": checkList.locations,
                     "weapons": checkList.weapons,
@@ -93,6 +98,7 @@ var GameHome = React.createClass({
             data: stringified,
 
             success: function(data) {
+                console.log("retrieveGameMap locations: " + data.locations);
                 this.setState({
                     "map": data.locations
                 });
