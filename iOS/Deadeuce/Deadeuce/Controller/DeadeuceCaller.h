@@ -21,7 +21,7 @@
 @optional -(void) setGameMap:(NSDictionary *)gameMapInfo;
 @optional -(void) receiveFeedback:(NSDictionary *)feedback;
 
-@optional -(void) loginSuccess:(BOOL)success;
+@optional -(void) loginSuccess:(BOOL)success andGameID:(NSString*)gameID;
 @optional -(void) signupSuccess:(NSString*)userID;
 
 @end

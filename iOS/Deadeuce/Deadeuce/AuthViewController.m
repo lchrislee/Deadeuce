@@ -9,6 +9,8 @@
 #import "LobbyTableViewController.h"
 #import <SWRevealViewController.h>
 #import "AuthViewController.h"
+#import "DeadeuceCaller.h"
+#import "CurrentGameViewController.h"
 
 @interface AuthViewController ()
 
@@ -53,15 +55,20 @@
     return self;
 }
 
--(void) loginSuccess:(BOOL)success
+-(void) loginSuccess:(BOOL)success andGameID:(NSString*)gameID
 {
     if(success){
         dispatch_queue_t queue = dispatch_queue_create("myqueue", NULL);
         dispatch_async(queue, ^{
             // Perform on main thread/queue
             dispatch_async(dispatch_get_main_queue(), ^{
-                LobbyTableViewController *lVc = [[LobbyTableViewController alloc] initWithStyle:UITableViewStylePlain];
-                [self.navigationController pushViewController:lVc animated:YES];
+                if([[DeadeuceCaller sharedInstance] getGameID]){
+                    CurrentGameViewController *cGVc = [[CurrentGameViewController alloc] init];
+                    [self.navigationController pushViewController:cGVc animated:YES];
+                } else {
+                    LobbyTableViewController *lVc = [[LobbyTableViewController alloc] initWithStyle:UITableViewStylePlain];
+                    [self.navigationController pushViewController:lVc animated:YES];
+                }
             });
         });
         

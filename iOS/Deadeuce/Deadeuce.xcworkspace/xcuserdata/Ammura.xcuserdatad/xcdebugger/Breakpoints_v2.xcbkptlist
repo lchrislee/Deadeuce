@@ -506,12 +506,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Deadeuce/AuthViewController.m"
-            timestampString = "482895160.58459"
+            timestampString = "482902394.840055"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "67"
-            endingLineNumber = "67"
-            landmarkName = "-loginSuccess:"
+            startingLineNumber = "74"
+            endingLineNumber = "74"
+            landmarkName = "-loginSuccess:andGameID:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -522,12 +522,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Deadeuce/AuthViewController.m"
-            timestampString = "482895129.049998"
+            timestampString = "482902394.840055"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "58"
-            endingLineNumber = "58"
-            landmarkName = "-loginSuccess:"
+            startingLineNumber = "60"
+            endingLineNumber = "60"
+            landmarkName = "-loginSuccess:andGameID:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -554,11 +554,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Deadeuce/AuthViewController.m"
-            timestampString = "482897124.598169"
+            timestampString = "482902394.840055"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "87"
-            endingLineNumber = "87"
+            startingLineNumber = "94"
+            endingLineNumber = "94"
             landmarkName = "-submitButtonPressed:"
             landmarkType = "5">
          </BreakpointContent>
@@ -640,6 +640,22 @@
             startingLineNumber = "37"
             endingLineNumber = "37"
             landmarkName = "-getUserID"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Deadeuce/AuthViewController.m"
+            timestampString = "482902434.637699"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "65"
+            endingLineNumber = "65"
+            landmarkName = "-loginSuccess:andGameID:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
