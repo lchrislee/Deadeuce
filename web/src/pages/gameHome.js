@@ -43,9 +43,9 @@ var GameHome = React.createClass({
             data: stringified,
 
             success: function(data) {
-                console.log("findGameFeed gameFeed: " + data);
-                console.log("findGameFeed currentTurnNickname: " + data);
-                console.log("findGameFeed currentTurnID: " + data);
+                console.log("findGameFeed gameFeed: " + data.gameFeed);
+                console.log("findGameFeed currentTurnNickname: " + data.turnPlayerNickname);
+                console.log("findGameFeed currentTurnID: " + data.turnPlayerID);
                 this.setState({
                     "gameFeed": data.feed,
                     "currentTurnNickname": data.turnPlayerNickname,
