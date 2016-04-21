@@ -39,15 +39,21 @@ var SignUp = React.createClass({
     },
     createUser: function() {
         console.log("called");
-        var output = JSON.stringify(this.state);
+        var userInfo = {
+            "name":this.state.name,
+            "email":this.state.email,
+            "password":this.state.password
+        };
+        var outputWhole = {"userInfo":userInfo};
+        var output = JSON.stringify(outputWhole);
         if(this.state.password == this.state.confirmPassword) {
             $.ajax({
               url: '/createUser',
-              type: 'PUT',
+              type: 'POST',
               contentType: "application/json",
               dataType: 'json',
-              data: stringified,
-              success: function(data) {
+              data: output,
+              success: function(response) {
                 console.log("AJAX went through");
                     if (response.userID != undefined){
                         console.log("DONE: " + response.userID);

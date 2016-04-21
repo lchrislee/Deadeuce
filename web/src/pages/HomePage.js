@@ -41,9 +41,6 @@ var HomePage = React.createClass({
     );
   },
 
-  nextPage: function(e) {
-      this.context.router.push('secondPage');
-  },
   createGame: function(e) {
       this.context.router.push('create_game');
   },
