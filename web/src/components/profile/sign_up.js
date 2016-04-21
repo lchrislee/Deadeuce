@@ -58,6 +58,7 @@ var SignUp = React.createClass({
                     if (response.userID != undefined){
                         console.log("DONE: " + response.userID);
                         localStorage.setItem("userID", response.userID);
+                        localStorage.setItem("name",this.state.name);
                     }
               }.bind(this),
               error: function(xhr, status, err) {
