@@ -278,7 +278,12 @@ app.post('/game/status', function(request, response){
       return;
     }else{
       console.log(game);
-      response.json({"gameName":game.name, "feed":game.feed, "turnPlayerNickname":game.turnPlayerNickname, "turnPlayerID":game.turnPlayerEmail, "gameWinner":game.gameWinner});
+      response.json({
+        "gameName":game.name,
+        "feed":game.feed,
+        "turnPlayerNickname":game.turnPlayerNickname,
+        "turnPlayerID":game.turnPlayerEmail,
+        "gameWinner":game.gameWinner});
       return;
     }
   });
@@ -331,6 +336,7 @@ app.post('/game/checklist', function(request, response){
 */
 app.post('/game/map', function(request, response){
   var gameID = request.body.gameID;
+  console.log(gameID);
   if (gameID === undefined){
     response.sendStatus(400);
     return;

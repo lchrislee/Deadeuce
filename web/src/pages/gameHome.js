@@ -8,23 +8,20 @@ var GameMap = require('../components/GameComponents/gameMap.js');
 var TurnBox = require('../components/GameComponents/turnBox.js');
 var Checklist = require('../components/checklist.js')
 var SuggestAccuse = require('../components/Accuse/SuggestAccuse.js');
-var GameMapContentBox = require('../components/GameComponents/gameMapContentBox.js')
-
 
 var GameHome = React.createClass({
     getInitialState: function() {
-        var gameID = localStorage.gameID;
-        console.log("gameHome (initialState) " + gameID);
+        var gameID = sessionStorage.gameID
         this.retrieveCheckList(gameID);
         this.findGameFeed(gameID);
         this.retrieveGameMap(gameID);
         return {
             "gameID": gameID,
-            "userID": sessiongStorage.userID,
+            "userID": sessionStorage.userID,
             "gamePlayers": [],
             "currentTurnNickname": 'Michelle',
             "currentTurnID":'test',
-            "gameWinner":undefined,
+            "gameWinner": undefined,
             "suspects": [],
             "weapons": [],
             "locations": [],
@@ -44,9 +41,6 @@ var GameHome = React.createClass({
             data: stringified,
 
             success: function(data) {
-                console.log("findGameFeed gameFeed: " + data.gameFeed);
-                console.log("findGameFeed currentTurnNickname: " + data.turnPlayerNickname);
-                console.log("findGameFeed currentTurnID: " + data.turnPlayerID);
                 this.setState({
                     "gameFeed": data.feed,
                     "currentTurnNickname": data.turnPlayerNickname,

@@ -60,7 +60,7 @@ gameSchema.methods.addPlayer = function (user, cb) {
 }
 
 gameSchema.methods.removePlayer = function(userID, cb){
-  var length - this.users.length;
+  var length = this.users.length;
   var copy = [];
   for (var i = 0; i < length; i++){
     if (this.users[i].email == userID){

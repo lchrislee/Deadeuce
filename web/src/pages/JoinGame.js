@@ -25,7 +25,7 @@ var JoinGame = React.createClass({
     joinGameSubmit: function() {
         var output = JSON.stringify({
                       gameName:this.state.selectedGame,
-                      name:localStorage.name,
+                      name:sessionStorage.name,
                       email:sessionStorage.userID
                     });
         $.ajax({
@@ -36,7 +36,7 @@ var JoinGame = React.createClass({
             success: function(response) {
                 console.log(response);
                 if (response.joinSuccess){
-                    localStorage.gameID = this.state.selectedGame;
+                    sessionStorage.gameID = this.state.selectedGame;
                     //maybe load the next page?
                     this.context.router.push('game_home');
                 }else{
