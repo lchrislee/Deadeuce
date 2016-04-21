@@ -372,6 +372,10 @@ app.put('/joinGame', function(request, response){
   var name = request.body.name; //TODO push up to server on ios
   var email = request.body.email;
 
+  console.log("gameName: " + gameName);
+  console.log("name: " + name);
+  console.log("email: " + email);
+
   if (gameName === undefined || email === undefined){
     response.sendStatus(400);
     return;
