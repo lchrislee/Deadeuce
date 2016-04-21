@@ -173,7 +173,8 @@ var initialMap = [
 app.post('/createGame', function(request, response){
  var hostID = request.body.hostID;
  var gameName = request.body.gameName;
-
+console.log("hostID: " + hostID);
+console.log("gameName: " + gameName);
   if (hostID === undefined || gameName === undefined){
     response.sendStatus(400);
     return;
@@ -277,7 +278,7 @@ app.post('/game/status', function(request, response){
       return;
     }else{
       console.log(game);
-      response.json({"feed":game.feed, "turnPlayerNickname":game.turnPlayerNickname, "turnPlayerID":game.turnPlayerEmail});
+      response.json({"gameName":game.name, "feed":game.feed, "turnPlayerNickname":game.turnPlayerNickname, "turnPlayerID":game.turnPlayerEmail});
       return;
     }
   });
