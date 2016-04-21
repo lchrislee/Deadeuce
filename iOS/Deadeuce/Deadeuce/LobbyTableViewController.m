@@ -203,8 +203,10 @@ const CGFloat kPadding = 6;
     GameObject* currentObj = _data[sender.tag];
     NSMutableDictionary* gameInfo = [[NSMutableDictionary alloc] init];
     [gameInfo setObject:currentObj.gameName forKey:@"gameName"];
-    [gameInfo setObject:@"1234" forKey:@"userID"];
+    
     DeadeuceCaller* model = [DeadeuceCaller sharedInstance];
+    [gameInfo setObject:[model getUserID] forKey:@"email"];
+    [gameInfo setObject:@"1234" forKey:@"name"];
     [model joinGame:gameInfo];
 }
 
@@ -300,7 +302,7 @@ const CGFloat kPadding = 6;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return [_data count];
+    return [_data count] + 1;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -328,12 +330,13 @@ const CGFloat kPadding = 6;
     //Normal cell
     LobbyTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"LobbyTableViewCell" forIndexPath:indexPath];
     
-    GameObject *obj = _data[indexPath.row];
+    GameObject *obj = _data[indexPath.row -1];
     
+   // NSLog(@"%@", obj.gameName);
     cell.gameNameLabel.text = obj.gameName;
     
     //TODO this should be the game ID not just the row
-    cell.joinGameButton.tag = indexPath.row;
+    cell.joinGameButton.tag = indexPath.row - 1;
     [cell.joinGameButton addTarget:self
                             action:@selector(joinGameButtonPressed:)
                   forControlEvents:UIControlEventTouchUpInside];

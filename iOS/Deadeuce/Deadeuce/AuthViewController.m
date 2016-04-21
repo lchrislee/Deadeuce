@@ -69,7 +69,6 @@
 }
 -(void) signupSuccess:(NSString*)userID
 {
-    //TODO SAVE USER ID
     dispatch_queue_t queue = dispatch_queue_create("myqueue", NULL);
     dispatch_async(queue, ^{
         // Perform on main thread/queue

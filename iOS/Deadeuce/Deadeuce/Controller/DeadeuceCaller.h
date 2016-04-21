@@ -36,6 +36,7 @@
 //Set should be called only once
 - (void) setGameID:(NSString*)gameID;
 - (NSString*) getGameID;
+- (NSString*) getUserID;
 
 
 - (BOOL) loginWithInfo: (NSDictionary*) info;

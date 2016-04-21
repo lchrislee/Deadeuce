@@ -73,6 +73,7 @@
                 NSError *error;
                 NSDictionary *output = [NSJSONSerialization JSONObjectWithData:data options:0 error:&error];
                 NSNumber * isSuccessNumber = (NSNumber *)[output objectForKey: @"loginSuccess"];
+                [self setUserID:info[@"userID"]];
                 ([isSuccessNumber boolValue] == YES) ? [delegate loginSuccess:YES] : [delegate loginSuccess:NO];
             }
         }];
@@ -272,7 +273,7 @@
 
 - (instancetype) init{
     if (self = [super init]){
-        BOOL debug = YES;
+        BOOL debug = NO;
          _baseRestUrl = @"http://54.193.7.18:4000/";
         if(debug){
             _baseRestUrl = @"http://localhost:4000/";
