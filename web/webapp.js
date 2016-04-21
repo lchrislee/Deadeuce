@@ -643,9 +643,15 @@ app.post('/createUser', function(request, response){
 //Input: userID: String (email address)
 //Output: loginSuccess: boolean (says if login was success or not)
 app.post('/loginUser', function(request, response){
-  var name = request.body.userID;
-  var cursor = db.collection('users').findOne( { "name": name }, function(err, doc){
-    if (doc != null) {
+  var email = request.body.userID;
+  var password = request.body.password;
+  // console.log("email " + email);
+  // console.log("password " + password);
+  var cursor = db.collection('users').findOne({"email": email}, function(err, doc){
+    console.log(doc);
+    console.log(doc != undefined);
+    console.log(doc.password == password);
+    if (doc != undefined && doc.password == password) {
       response.json({"loginSuccess":true});
     } else {
       response.json({"loginSuccess":false});

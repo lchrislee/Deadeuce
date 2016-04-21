@@ -12,7 +12,8 @@ var SignIn = React.createClass({
         }
     },
     signIn: function(){
-        var output = JSON.stringify(this.state);
+        var dataSend = {"userID":this.state.email, "password":this.state.password};
+        var output = JSON.stringify(dataSend);
         console.log(output);
 
         $.ajax({
@@ -21,15 +22,19 @@ var SignIn = React.createClass({
             data: output,
             contentType: 'application/json',
             success: function(response){
-                if (response.loginSucess == undefined){
+                console.log(response);
+                if (response.loginSuccess == undefined){
                     console.log("BROKEN");
-                }else if (response.loginSucess){
+                }else if (response.loginSuccess == true){
                     console.log(response.loginSucess);
                     localStorage.setItem("userID", this.state.email);
                 }else{
                     console.log("improper login");
                 }
-            }
+            }.bind(this),
+            error: function(err){
+                console.log(err);
+            }.bind(this)
         })
     },
     emailChange: function(e){
