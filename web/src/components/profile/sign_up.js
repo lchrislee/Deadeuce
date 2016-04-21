@@ -57,7 +57,8 @@ var SignUp = React.createClass({
                 console.log("AJAX went through");
                     if (response.userID != undefined){
                         console.log("DONE: " + response.userID);
-                        localStorage.setItem("userID", response.userID);
+                        sessionStorage.setItem("userID", response.userID);
+                        sessionStorage.setItem("name",this.state.name);
                     }
               }.bind(this),
               error: function(xhr, status, err) {

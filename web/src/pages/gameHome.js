@@ -8,22 +8,28 @@ var GameMap = require('../components/GameComponents/gameMap.js');
 var TurnBox = require('../components/GameComponents/turnBox.js');
 var Checklist = require('../components/checklist.js')
 var SuggestAccuse = require('../components/Accuse/SuggestAccuse.js');
-var GameMapContentBox = require('../components/GameComponents/gameMapContentBox.js')
-
 
 var GameHome = React.createClass({
+    contextTypes: {
+        router: React.PropTypes.object.isRequired
+    },
     getInitialState: function() {
-        var gameID = localStorage.gameID;
-        console.log("gameHome (initialState) " + gameID);
+        var gameID = sessionStorage.gameID;
+        console.log("gameID: " + gameID);
+        if (gameID === undefined){
+            console.log("go home");
+            this.context.router.push('home');
+        }
         this.retrieveCheckList(gameID);
         this.findGameFeed(gameID);
         this.retrieveGameMap(gameID);
         return {
             "gameID": gameID,
-            "userID": localStorage.userID,
+            "userID": sessionStorage.userID,
             "gamePlayers": [],
             "currentTurnNickname": 'Michelle',
             "currentTurnID":'test',
+            "gameWinner": undefined,
             "suspects": [],
             "weapons": [],
             "locations": [],
@@ -43,13 +49,11 @@ var GameHome = React.createClass({
             data: stringified,
 
             success: function(data) {
-                console.log("findGameFeed gameFeed: " + data.gameFeed);
-                console.log("findGameFeed currentTurnNickname: " + data.turnPlayerNickname);
-                console.log("findGameFeed currentTurnID: " + data.turnPlayerID);
                 this.setState({
                     "gameFeed": data.feed,
                     "currentTurnNickname": data.turnPlayerNickname,
-                    "currentTurnID": data.turnPlayerID
+                    "currentTurnID": data.turnPlayerID,
+                    "gameWinner":data.gameWinner
                 });
             }.bind(this),
             error: function(xhr, status, err) {
@@ -126,7 +130,7 @@ var GameHome = React.createClass({
                 <div className="gameContainer">
                     <TurnBox currentTurnNickname = {this.state.currentTurnNickname} currentTurnID = {this.state.currentTurnID} refresh={this.refreshGame}/>
                     <GameMap locations = {this.state.map}/>
-                    <SuggestAccuse suspects = {suspects} weapons = {weapons} locations = {locations} />
+                    <SuggestAccuse suspects = {suspects} weapons = {weapons} locations = {locations} gameID = {this.state.gameID} userID = {this.state.userID}/>
                     <Checklist suspects = {suspects} weapons = {weapons} locations = {locations} />
                     <GameFeed gameFeed = {this.state.gameFeed}/>
                 </div>

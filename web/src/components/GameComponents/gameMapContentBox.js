@@ -4,6 +4,9 @@
 var React = require('react');
 var $ = require('jQuery');
 
+var ClassNames = 'gameMapBoxBody';
+var number = -1;
+
 var GameMapContentBox = React.createClass({
     contextTypes: {
         router: React.PropTypes.object.isRequired
@@ -12,6 +15,10 @@ var GameMapContentBox = React.createClass({
         return{
 
         };
+    },
+    gameMapBoxBody: function(){
+        number += 1;
+        return('className="gameMapBoxBody ' + i + '"');
     },
     render: function(){
 

@@ -173,7 +173,8 @@ var initialMap = [
 app.post('/createGame', function(request, response){
  var hostID = request.body.hostID;
  var gameName = request.body.gameName;
-
+console.log("hostID: " + hostID);
+console.log("gameName: " + gameName);
   if (hostID === undefined || gameName === undefined){
     response.sendStatus(400);
     return;
@@ -277,7 +278,12 @@ app.post('/game/status', function(request, response){
       return;
     }else{
       console.log(game);
-      response.json({"feed":game.feed, "turnPlayerNickname":game.turnPlayerNickname, "turnPlayerID":game.turnPlayerEmail});
+      response.json({
+        "gameName":game.name,
+        "feed":game.feed,
+        "turnPlayerNickname":game.turnPlayerNickname,
+        "turnPlayerID":game.turnPlayerEmail,
+        "gameWinner":game.gameWinner});
       return;
     }
   });
@@ -301,10 +307,12 @@ app.post('/game/checklist', function(request, response){
     response.sendStatus(400);
     return;
   }
-
+  console.log("CHECKLIST");
   var query = Game.where({"name":gameID});
   query.findOne(function(err, game){
     if (err || game == undefined){
+      console.log(err);
+      console.log(game);
       response.json({"checkList":undefined});
       return;
     }else{
@@ -328,6 +336,7 @@ app.post('/game/checklist', function(request, response){
 */
 app.post('/game/map', function(request, response){
   var gameID = request.body.gameID;
+  console.log(gameID);
   if (gameID === undefined){
     response.sendStatus(400);
     return;
@@ -369,6 +378,10 @@ app.put('/joinGame', function(request, response){
   var gameName = request.body.gameName;
   var name = request.body.name; //TODO push up to server on ios
   var email = request.body.email;
+
+  console.log("gameName: " + gameName);
+  console.log("name: " + name);
+  console.log("email: " + email);
 
   if (gameName === undefined || email === undefined){
     response.sendStatus(400);
@@ -457,9 +470,12 @@ app.put('/game/action', function(request, response){
       return;
     }else{
       if (game.gameWinner !== undefined){
-        response.json({"correct": false, "feedback": "Game is over!"});
-        return;
-      }else if (game.numPlayers < 6){
+        game.removePlayer(userID, function(){
+          User.update({"email":userID}, {"gameID":undefined}, function(err, raw){
+            response.json({"correct": false, "feedback": game.gameWinner + " has found the murderer!", "gameWinner":game.gameWinner});
+          });
+        });
+      }else if (game.numPlayers < 1){
         response.json({"correct":false, "feedback": "There are not enough players!"});
         return;
       }
@@ -512,7 +528,7 @@ app.put('/game/action', function(request, response){
           "time": Date.now()
       };
       var newFeed = game.feed.slice(0);
-      newFeed.push(feedInput);
+      newFeed.unshift(feedInput);
 
       if (action == "accuse"){
         if (outputOptions.length == 0){ // correct accusation
@@ -521,8 +537,11 @@ app.put('/game/action', function(request, response){
               console.log("game/action win error: " + err);
               response.sendStatus(400);
             }else{
-              response.json({"correct":true}); // won!
-              return;
+              game.removePlayer(userID, function(){
+                User.update({"email":userID}, {"gameID":undefined}, function(err, raw){
+                  response.json({"correct":true, "gameWinner":selectedUser.name}); // won!
+                });
+              });
             }
           });
         }else{ // wrong accusation
@@ -534,8 +553,11 @@ app.put('/game/action', function(request, response){
               response.sendStatus(400);
               return;
             }else{
-              response.json({"correct":false}); // lost!
-              return;
+              game.removePlayer(userID, function(){
+                User.update({"email":userID}, {"gameID":undefined}, function(err, raw){
+                  response.json({"correct":false}); // lost!
+                });
+              });
             }
           });
         }
@@ -622,9 +644,10 @@ app.get('/user/game', function(request, response){
 \****************************/
 var UserPostFunctions = require('./scripts/user/UserPostFunctions.js');
 // CREATE USER
+//input userInfo {name, email, password}
+//output userID (user email)
 app.post('/createUser', function(request, response){
   var userinfo = request.body.userInfo;
-
   var newUser = new User({ 
     name: userinfo.name,
     email: userinfo.email,
@@ -646,16 +669,11 @@ app.post('/createUser', function(request, response){
 app.post('/loginUser', function(request, response){
   var email = request.body.userID;
   var password = request.body.password;
-  // console.log("email " + email);
-  // console.log("password " + password);
   var cursor = db.collection('users').findOne({"email": email}, function(err, doc){
-    console.log(doc);
-    console.log(doc != undefined);
-    console.log(doc.password == password);
     if (doc != undefined && doc.password == password) {
-      response.json({"loginSuccess":true});
+      response.json({"loginSuccess":true, "gameID":doc.name});
     } else {
-      response.json({"loginSuccess":false});
+      response.json({"loginSuccess":false, "gameID":""});
     }
   });
 });

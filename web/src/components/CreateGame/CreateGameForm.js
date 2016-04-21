@@ -8,7 +8,7 @@ var CreateGameForm = React.createClass({
   getInitialState: function() {
     return {
       "gameName": undefined,
-      "hostID": localStorage.userID
+      "hostID": sessionStorage.userID
     }
   },
   handleCreateGameSubmit: function(e) {
@@ -17,7 +17,7 @@ var CreateGameForm = React.createClass({
       hostID: this.state.hostID,
       gameName: this.state.gameName
     };
-    //TEst
+
     var stringified = JSON.stringify(testData);
     $.ajax({
       url: '/createGame',
@@ -25,19 +25,12 @@ var CreateGameForm = React.createClass({
       contentType: "application/json",
       dataType: 'json',
       data: stringified,
-      // transformRequest: function(obj){
-      //   var str = [];
-      //   for(var p in obj){
-      //     str.push(encodeURLComponent(p) + '=' + encodeURLComponent(obj[p]));
-      //   }
-      //   return str.join('&');
-      // },
       success: function(data) {
         this.setState({
           "gameID": data.gameID
         },
         function(){
-          localStorage.gameID = this.state.gameID;
+          sessionStorage.gameID = this.state.gameID;
         });
         this.context.router.push('game_home');
       }.bind(this),

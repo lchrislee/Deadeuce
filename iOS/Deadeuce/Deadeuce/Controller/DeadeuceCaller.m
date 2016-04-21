@@ -13,6 +13,7 @@
 @property (strong, nonatomic) NSString* baseRestUrl;
 @property (strong, nonatomic) NSDictionary *requestToType;
 @property (nonatomic, strong) NSString* gameID;
+@property (nonatomic, strong) NSString* userID;
 @end
 
 @implementation DeadeuceCaller
@@ -26,6 +27,14 @@
 - (NSString*) getGameID
 {
     return _gameID;
+}
+- (void) setUserID:(NSString*)userID
+{
+    _userID = userID;
+}
+- (NSString*) getUserID
+{
+    return _userID;
 }
 
 - (void) testSlice: (NSDictionary *) bodyDict{
@@ -44,6 +53,56 @@
                 NSLog(@"Data is: %@", output);
             }
         }];
+    }
+}
+
+- (BOOL) loginWithInfo: (NSDictionary*) info
+{
+    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@loginUser/", self.baseRestUrl] ];
+    NSURLRequest *request = [self createRequestForURL:url withData:info andRequestType:[self.requestToType objectForKey:@"login"]];
+    
+    if (!request)
+    {
+        return false;
+    } else{
+        [self sendRequest:request withHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
+            if (error || ((NSHTTPURLResponse *)response).statusCode != 200){
+                NSLog(@"Error: %@", [error localizedDescription]);
+                [delegate loginSuccess:NO andGameID:nil];
+            } else{
+                NSError *error;
+                NSDictionary *output = [NSJSONSerialization JSONObjectWithData:data options:0 error:&error];
+                NSNumber * isSuccessNumber = (NSNumber *)[output objectForKey:@"loginSuccess"];
+                [self setUserID:info[@"userID"]];
+                ([isSuccessNumber boolValue] == YES) ? [delegate loginSuccess:YES andGameID:[output objectForKey:@"gameID"]] : [delegate loginSuccess:NO andGameID:nil];
+            }
+        }];
+        return true;
+    }
+}
+
+//Input: userInfo {name, email, password}
+- (BOOL) signupWithInfo: (NSDictionary*) info
+{
+    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@createUser/", self.baseRestUrl] ];
+    NSURLRequest *request = [self createRequestForURL:url withData:info andRequestType:[self.requestToType objectForKey:@"signup"]];
+    
+    if (!request)
+    {
+        return false;
+    } else{
+        [self sendRequest:request withHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
+            if (error || ((NSHTTPURLResponse *)response).statusCode != 200){
+                NSLog(@"Error: %@", [error localizedDescription]);
+                [delegate signupSuccess:nil];
+            } else{
+                NSError *error;
+                NSDictionary *output = [NSJSONSerialization JSONObjectWithData:data options:0 error:&error];
+                [self setUserID:output[@"userID"]];
+                [delegate signupSuccess:output[@"userID"]];
+            }
+        }];
+        return true;
     }
 }
 
@@ -214,12 +273,14 @@
 
 - (instancetype) init{
     if (self = [super init]){
-        BOOL debug = YES;
+        BOOL debug = NO;
          _baseRestUrl = @"http://54.193.7.18:4000/";
-//        if(debug){
-//            _baseRestUrl = @"http://localhost:3000/";
-//        }
+        if(debug){
+            _baseRestUrl = @"http://localhost:4000/";
+        }
         _requestToType = @{@"test_slice": @"POST",
+                           @"login": @"POST",
+                           @"signup": @"POST",
                            @"joinGame": @"PUT",
                            @"getGames": @"GET",
                            @"getGameStatus": @"POST", /*Get POST haxxxor*/

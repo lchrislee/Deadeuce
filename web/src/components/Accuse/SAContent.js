@@ -1,6 +1,9 @@
 var React = require('react');
 var Router = require('react-router');
 var $ = require('jQuery');
+var AccuseFeed = require('./AccuseFeed');
+
+var feed = '';
 
 var SAContent = React.createClass({ 
   contextTypes: {
@@ -30,8 +33,8 @@ var SAContent = React.createClass({
       return;
     }
     
-    var sendMe = {"gameID":"JOKER", // change me for different calls
-                  "userID":localStorage.userID, // change me for different calls
+    var sendMe = {"gameID":this.props.gameID, // change me for different calls
+                  "userID":this.props.userID, // change me for different calls
                   "weapon": this.state.weapon,
                   "suspect": this.state.suspect, 
                   "location": this.state.location, 
@@ -47,10 +50,15 @@ var SAContent = React.createClass({
       data: stringified,
       success: function(data) {
         document.querySelector('.accuse-response').style.visibility="visible";
-
+        console.log("gameWinner: " + data.gameWinner);
+        if (data.gameWinner != undefined){
+          sessionStorage.gameID = undefined;
+        }
         if (data.correct == false && this.state.action == 'suggest' ) {
+          feed = data.feedback + "\n" + feed;
+          console.log(feed);
           this.setState({
-            response: data.feedback
+            response: feed
           });
         } else if(data.correct == false && this.state.action == 'accuse') {
           this.setState({
@@ -133,10 +141,9 @@ var SAContent = React.createClass({
                 checked={this.state.action=="accuse"}/>Accuse
               <br/>
               <input className="submit" type="submit" name="submitSA" onClick={this.makeAccusation} />
-              <div className="accuse-response">
-                {this.state.response}
-              </div>
+                   <AccuseFeed response={this.state.response} />
           </div>
+
 	    </div>
 	);
   },

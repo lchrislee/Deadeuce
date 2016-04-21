@@ -637,6 +637,28 @@ Suggest/Accuse
     z-index: 100;
 }
 
+.AccuseFeed-wrapper{
+    border-radius: 5px;
+}
+
+.AccuseFeed-header{
+    border-radius: 5px 5px 0px 0px;
+    width: 100%;
+    color: #FFF;
+    background-color: #444;
+    padding: 5px;
+    margin-left: -5px;
+
+}
+
+.AccuseFeed-Feed{
+    width: 100%;
+    max-height: 50px;
+    overflow: scroll;
+    font-size: 10pt;
+    background-color: rgba(193, 193, 193, 1.0);
+}
+
 /******************************************************************
 Homepage Game Winning Accusations
 *******************************************************************/
@@ -658,3 +680,66 @@ Homepage Game Winning Accusations
     margin:0;
     background-color:#CCC;
 }
+
+
+
+
+
+/******************************************************************
+different images for the mapboxes
+*******************************************************************/
+
+.gameMapBoxBody .1 {
+background-image: url(assets/Lyon.jpg);
+}
+
+.gameMapBoxBody .2{
+background-image: url(assets/Leavey.jpg);
+}
+
+.gameMapBoxBody .3 {
+background-image: url(assets/Traddies.jpeg);
+}
+
+.gameMapBoxBody .4 {
+background-image: url(assets/Ground.jpg);
+}
+
+.gameMapBoxBody .5 {
+background-image: url(assets/the90.png);
+}
+
+.gameMapBoxBody .6 {
+background-image: url(assets/Bovard.jpg);
+}
+
+.gameMapBoxBody .7 {
+background-image: url(assets/EVK.jpg);
+}
+
+.gameMapBoxBody .8{
+background-image: url(assets/Row.jpg);
+}
+
+.gameMapBoxBody .9 {
+background-image: url(assets/Campus.jpg);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
