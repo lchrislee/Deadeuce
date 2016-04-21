@@ -21,6 +21,9 @@
 @optional -(void) setGameMap:(NSDictionary *)gameMapInfo;
 @optional -(void) receiveFeedback:(NSDictionary *)feedback;
 
+@optional -(void) loginSuccess:(BOOL)success;
+@optional -(void) signupSuccess:(NSString*)userID;
+
 @end
 
 @interface DeadeuceCaller : NSObject
@@ -33,6 +36,10 @@
 //Set should be called only once
 - (void) setGameID:(NSString*)gameID;
 - (NSString*) getGameID;
+
+
+- (BOOL) loginWithInfo: (NSDictionary*) info;
+- (BOOL) signupWithInfo: (NSDictionary*) info;
 
 - (void) testSlice: (NSDictionary *) bodyDict;
 - (BOOL) joinGame: (NSDictionary *) gameInfo;

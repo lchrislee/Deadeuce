@@ -7,8 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "DeadeuceCaller.h"
 
-@interface AuthViewController : UIViewController<UITextFieldDelegate>
+@interface AuthViewController : UIViewController<UITextFieldDelegate, DeadeuceDelegate>
 
 -(instancetype)initWithOption:(NSString*)option;
 

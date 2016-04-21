@@ -621,6 +621,8 @@ app.get('/user/game', function(request, response){
 \****************************/
 var UserPostFunctions = require('./scripts/user/UserPostFunctions.js');
 // CREATE USER
+//input userInfo {name, email, password}
+//output userID (user email)
 app.post('/createUser', function(request, response){
   var userinfo = request.body.userInfo;
 
@@ -645,12 +647,7 @@ app.post('/createUser', function(request, response){
 app.post('/loginUser', function(request, response){
   var email = request.body.userID;
   var password = request.body.password;
-  // console.log("email " + email);
-  // console.log("password " + password);
   var cursor = db.collection('users').findOne({"email": email}, function(err, doc){
-    console.log(doc);
-    console.log(doc != undefined);
-    console.log(doc.password == password);
     if (doc != undefined && doc.password == password) {
       response.json({"loginSuccess":true});
     } else {

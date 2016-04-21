@@ -47,6 +47,55 @@
     }
 }
 
+- (BOOL) loginWithInfo: (NSDictionary*) info
+{
+    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@loginUser/", self.baseRestUrl] ];
+    NSURLRequest *request = [self createRequestForURL:url withData:info andRequestType:[self.requestToType objectForKey:@"login"]];
+    
+    if (!request)
+    {
+        return false;
+    } else{
+        [self sendRequest:request withHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
+            if (error || ((NSHTTPURLResponse *)response).statusCode != 200){
+                NSLog(@"Error: %@", [error localizedDescription]);
+                [delegate loginSuccess:NO];
+            } else{
+                NSError *error;
+                NSDictionary *output = [NSJSONSerialization JSONObjectWithData:data options:0 error:&error];
+                NSNumber * isSuccessNumber = (NSNumber *)[output objectForKey: @"loginSuccess"];
+                ([isSuccessNumber boolValue] == YES) ? [delegate loginSuccess:YES] : [delegate loginSuccess:NO];
+                
+            }
+        }];
+        return true;
+    }
+}
+
+//Input: userInfo {name, email, password}
+- (BOOL) signupWithInfo: (NSDictionary*) info
+{
+    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@createUser/", self.baseRestUrl] ];
+    NSURLRequest *request = [self createRequestForURL:url withData:info andRequestType:[self.requestToType objectForKey:@"signup"]];
+    
+    if (!request)
+    {
+        return false;
+    } else{
+        [self sendRequest:request withHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
+            if (error || ((NSHTTPURLResponse *)response).statusCode != 200){
+                NSLog(@"Error: %@", [error localizedDescription]);
+                [delegate loginSuccess:NO];
+            } else{
+                NSError *error;
+                NSDictionary *output = [NSJSONSerialization JSONObjectWithData:data options:0 error:&error];
+                [delegate signupSuccess:output[@"userID"]];
+            }
+        }];
+        return true;
+    }
+}
+
 - (BOOL) joinGame: (NSDictionary *) gameInfo{
     NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@joinGame/", self.baseRestUrl] ];
     NSURLRequest *request = [self createRequestForURL:url withData:gameInfo andRequestType:[self.requestToType objectForKey:@"joinGame"]];
@@ -216,10 +265,12 @@
     if (self = [super init]){
         BOOL debug = YES;
          _baseRestUrl = @"http://54.193.7.18:4000/";
-//        if(debug){
-//            _baseRestUrl = @"http://localhost:3000/";
-//        }
+        if(debug){
+            _baseRestUrl = @"http://localhost:4000/";
+        }
         _requestToType = @{@"test_slice": @"POST",
+                           @"login": @"POST",
+                           @"signup": @"POST",
                            @"joinGame": @"PUT",
                            @"getGames": @"GET",
                            @"getGameStatus": @"POST", /*Get POST haxxxor*/

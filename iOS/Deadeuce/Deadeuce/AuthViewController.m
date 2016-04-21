@@ -14,6 +14,9 @@
 
 @property (nonatomic, strong) NSString* option; //Either "Login" or "Sign Up"
 
+@property (nonatomic, strong) UILabel* nameLabel;
+@property (nonatomic, strong) UITextField *nameTextField;
+
 @property (nonatomic, strong) UILabel* emailLabel;
 @property (nonatomic, strong) UITextField* emailTextField;
 
@@ -50,27 +53,52 @@
     return self;
 }
 
--(void) login:(BOOL)success
+-(void) loginSuccess:(BOOL)success
 {
     if(success){
-        LobbyTableViewController *lVc = [[LobbyTableViewController alloc] initWithStyle:UITableViewStylePlain];
-        [self.navigationController pushViewController:lVc animated:YES];
+        dispatch_queue_t queue = dispatch_queue_create("myqueue", NULL);
+        dispatch_async(queue, ^{
+            // Perform on main thread/queue
+            dispatch_async(dispatch_get_main_queue(), ^{
+                LobbyTableViewController *lVc = [[LobbyTableViewController alloc] initWithStyle:UITableViewStylePlain];
+                [self.navigationController pushViewController:lVc animated:YES];
+            });
+        });
+        
     }
 }
--(void) signup:(BOOL)success
+-(void) signupSuccess:(NSString*)userID
 {
-    if(success){
-        LobbyTableViewController *lVc = [[LobbyTableViewController alloc] initWithStyle:UITableViewStylePlain];
-        [self.navigationController pushViewController:lVc animated:YES];
-    }
+    //TODO SAVE USER ID
+    dispatch_queue_t queue = dispatch_queue_create("myqueue", NULL);
+    dispatch_async(queue, ^{
+        // Perform on main thread/queue
+        dispatch_async(dispatch_get_main_queue(), ^{
+            LobbyTableViewController *lVc = [[LobbyTableViewController alloc] initWithStyle:UITableViewStylePlain];
+            [self.navigationController pushViewController:lVc animated:YES];
+        });
+    });
 }
 
 -(void) submitButtonPressed:(UIButton*)sender
 {
+    DeadeuceCaller* model = [DeadeuceCaller sharedInstance];
+    model.delegate = self;
+    NSString* email = _emailTextField.text;
+    NSString* password = _passwordTextField.text;
+    NSLog(@"email: %@, password: %@", email, password);
+    NSMutableDictionary* upload = [[NSMutableDictionary alloc] init];
     if([self.option isEqualToString:@"Login"]){
-//        [self.model loginRequestWithEmail:self.emailTextField.text andPassword:self.passwordTextField.text];
+        [upload setObject:email forKey:@"userID"];
+        [upload setObject:password forKey:@"password"];
+        [model loginWithInfo:upload];
     } else {
-//        [self.model signupRequestWithEmail:self.emailTextField.text password:self.passwordTextField.text];
+        NSString* name = _nameTextField.text;
+        NSMutableDictionary* userInfo = [[NSMutableDictionary alloc] init];
+        [userInfo setObject:name forKey:@"name"];
+        [userInfo setObject:email forKey:@"email"];
+        [userInfo setObject:password forKey:@"password"];
+        [upload setObject:userInfo forKey:@"userInfo"];
     }
 }
 
@@ -95,12 +123,21 @@
     self.bgImageView = [[UIImageView alloc] initWithFrame:bgFrame];
     self.bgImageView.image=[UIImage imageNamed:@"cropdark-curve-forest-rails.png"];
     
-    
-    
     [self.view addSubview:_bgImageView];
     //Serious Hackathon quality right here
     if([self.option isEqualToString:@"Signup"]){
-        //TODO ALEX ADD THE CONFIRM PASSWORD FIELD
+        CGRect nameLabelRect = CGRectMake(20.0, screenHeight/2.0 - 300.0, screenWidth - 40.0, 44.0);
+        self.nameLabel = [[UILabel alloc] initWithFrame:nameLabelRect];
+        [self.nameLabel setText:@"Name"];
+        
+        //Init Name UITextField
+        CGRect nameTextFieldRect = CGRectMake(20.0, screenHeight/2.0 - 266.0, screenWidth - 40.0, 44.0);
+        self.nameTextField = [[UITextField alloc] initWithFrame:nameTextFieldRect];
+        self.nameTextField.delegate = self;
+        self.nameTextField.borderStyle = UITextBorderStyleRoundedRect;
+        self.nameTextField.placeholder = @"John Smith";
+        [self.nameTextField setReturnKeyType:UIReturnKeyDone];
+        
         CGRect passwordLabelConfirmRect = CGRectMake(20.0, screenHeight/2.0 +44.0, screenWidth - 40.0, 44.0);
         self.passwordLabelConfirm = [[UILabel alloc] initWithFrame:passwordLabelConfirmRect];
         [self.passwordLabelConfirm setText:@"Confirm Password"];
@@ -113,7 +150,8 @@
         [self.passwordTextFieldConfirm setReturnKeyType:UIReturnKeyDone];
         
         
-        
+        [self.view addSubview:_nameLabel];
+        [self.view addSubview:_nameTextField];
         [self.view addSubview:_passwordLabelConfirm];
         [self.view addSubview:_passwordTextFieldConfirm];
         
