@@ -7,8 +7,8 @@ var SuggestAccuse = React.createClass({
    },
   render: function() {
   	var testDummyData = {
-  		gameID: "123456789",
-        userID: undefined,
+  		gameID: this.props.gameID,
+        userID: this.props.userID,
         "suspects": [],
         "weapons": [],
         "locations": []

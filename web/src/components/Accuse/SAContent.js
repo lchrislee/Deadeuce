@@ -30,8 +30,8 @@ var SAContent = React.createClass({
       return;
     }
     
-    var sendMe = {"gameID":"JOKER", // change me for different calls
-                  "userID":localStorage.userID, // change me for different calls
+    var sendMe = {"gameID":this.props.gameID, // change me for different calls
+                  "userID":this.props.userID, // change me for different calls
                   "weapon": this.state.weapon,
                   "suspect": this.state.suspect, 
                   "location": this.state.location, 

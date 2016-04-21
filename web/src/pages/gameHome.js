@@ -126,7 +126,7 @@ var GameHome = React.createClass({
                 <div className="gameContainer">
                     <TurnBox currentTurnNickname = {this.state.currentTurnNickname} currentTurnID = {this.state.currentTurnID} refresh={this.refreshGame}/>
                     <GameMap locations = {this.state.map}/>
-                    <SuggestAccuse suspects = {suspects} weapons = {weapons} locations = {locations} />
+                    <SuggestAccuse suspects = {suspects} weapons = {weapons} locations = {locations} gameID = {this.state.gameID} userID = {this.state.userID}/>
                     <Checklist suspects = {suspects} weapons = {weapons} locations = {locations} />
                     <GameFeed gameFeed = {this.state.gameFeed}/>
                 </div>
