@@ -20,10 +20,11 @@ var GameHome = React.createClass({
         this.retrieveGameMap(gameID);
         return {
             "gameID": gameID,
-            "userID": sessionStorage.userID,
+            "userID": sessiongStorage.userID,
             "gamePlayers": [],
             "currentTurnNickname": 'Michelle',
             "currentTurnID":'test',
+            "gameWinner":undefined,
             "suspects": [],
             "weapons": [],
             "locations": [],
@@ -49,7 +50,8 @@ var GameHome = React.createClass({
                 this.setState({
                     "gameFeed": data.feed,
                     "currentTurnNickname": data.turnPlayerNickname,
-                    "currentTurnID": data.turnPlayerID
+                    "currentTurnID": data.turnPlayerID,
+                    "gameWinner":data.gameWinner
                 });
             }.bind(this),
             error: function(xhr, status, err) {

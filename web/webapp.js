@@ -277,7 +277,7 @@ app.post('/game/status', function(request, response){
       return;
     }else{
       console.log(game);
-      response.json({"feed":game.feed, "turnPlayerNickname":game.turnPlayerNickname, "turnPlayerID":game.turnPlayerEmail});
+      response.json({"feed":game.feed, "turnPlayerNickname":game.turnPlayerNickname, "turnPlayerID":game.turnPlayerEmail, "gameWinner":game.gameWinner});
       return;
     }
   });
@@ -463,9 +463,9 @@ app.put('/game/action', function(request, response){
       return;
     }else{
       if (game.gameWinner !== undefined){
-        response.json({"correct": false, "feedback": "Game is over!"});
+        response.json({"correct": false, "feedback": game.gameWinner + " has found the murderer!"});
         return;
-      }else if (game.numPlayers < 6){
+      }else if (game.numPlayers < 1){
         response.json({"correct":false, "feedback": "There are not enough players!"});
         return;
       }
