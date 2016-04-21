@@ -8,14 +8,8 @@ var HomePage = React.createClass({
     },
     getInitialState: function() {
         return {
-          "serverStatus": "Server hasn't sent anything",
-          "modalIsVisible" : false
+          
         };
-    },
-    toggleModal: function(e) {
-        this.setState({
-            "modalIsVisible" : !this.state.modalIsVisible
-        });
     },
   render: function() {
     return (
@@ -39,20 +33,14 @@ var HomePage = React.createClass({
           Tommy Trojan with Viterbi Classes at Traddies
           <br/><br/>
         </div>
-       	<div className="center" style={{color: 'white'}}>{this.state.serverStatus}</div>
+       	<div className="center"></div>
         <div className="center white_text">
-          <button className="submit" onClick={this.testSlice}>Ping the server</button>
-          <button className="submit" onClick={this.createGame}>Create New Game</button>
-            {this.props.children}
         </div> 
       </div>  
      </div>
     );
   },
 
-  nextPage: function(e) {
-      this.context.router.push('secondPage');
-  },
   createGame: function(e) {
       this.context.router.push('create_game');
   },

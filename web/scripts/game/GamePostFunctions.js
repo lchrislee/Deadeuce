@@ -1,62 +1,113 @@
 'use strict';
 
 var express = require('express');
+var mongoose = require('mongoose');
+var UserSchema = require("../../models/user.js");
+var GameSchema = require("../../models/game.js");
 
-exports.createGame = function(db){
-  return {gameID: 1234};
-	// var cantCreate = false;
- //  gameInfo= {
- //    "_id" : String(gameIDValues++),
- //    "title": gameName,
- //    "weapons" : ["Empty Soda Cans",
- //                 "Viterbi Finals",
- //                 "U-Lock",
- //                 "Tommy Trojan's Sword",
- //                 "Dining Hall Food",
- //                 "Freshman's Longboard"],
- //    "locations" : ["Ground Zero",
- //                   "EVK",
- //                   "Lyon Center",
- //                   "Leavey Library",
- //                   "Traddies",
- //                   "The 90",
- //                   "Bovard",
- //                   "The Row",
- //                   "Campus Center"],
- //    "turnIndex": 0,
- //    "users" : {hostID
- //              },
- //    "answer": {"location":"EVK",
- //               "weapon":"U-Lock",
- //               "user":hostID}//,
- //    // "usersId":[hostID]
- //  };
+var checkList = {
+  "locations":[
+    "Lyon Center",
+    "Leavey Library",
+    "Traddies",
+    "Ground Zero",
+    "The 90",
+    "Bovard",
+    "EVK",
+    "The Row",
+    "Campus Center"
+  ],
+  "weapons":[
+    "U-Lock",
+    "Tommy Trojan's Sword",
+    "overly sharp Skittles wrapper",
+    "Freshman on a longboard",
+    "Viterbi Finals",
+    "Taco Bell's deal of the week"
+  ],
+  "suspects":[
+    "President Nikias",
+    "EVKitty",
+    "George Tirebiter",
+    "Will Ferrell",
+    "Tommy Trojan",
+    "Pete Caroll"
+  ]
+};
 
- //  function createGameEntry(){
- //    db.collection('game').insertOne(gameInfo, function(err, resultGame) {
- //      console.log(resultGame);
- //      var result = {};
- //      if(!err){
- //        result['gameID'] = resultGame.ops[0]._id;
- //        return result;
- //      }else{
- //        return result;
- //      }
- //    });
- //  };
+var initialMap = [
+];
 
- //  db.collection('game').find({"title":gameInfo.title}).count(function(err, count) {
- //    var result = {};
- //    if(count >= 1){
- //      cantCreate = true;
- //    }
- //    if(cantCreate){
- //      result['result'] = "failed";
- //      return result;
- //    }else{
- //      return createGameEntry();
- //    }
- //  });
+/*
+  Logic:
+    - add game to db
+      |-> set turnPlayer to gameCreater
+      |-> randomly select 1 Weapon/Location/Suspect to be the murderer/weapon/location
+      |-> each player gets 18/(# number of players) pieces of the remaining info
+    - # of players (2-6)
+    - Chosen Character (or auto chosen based on when users join) for user creating game
+
+    to DELETE on React component
+      -Theme, Privacy, (character?)
+*/
+exports.createGame = function(mongooseDB, hostEmail, gameName){
+  var User = mongooseDB.model('User', UserSchema);
+  var query = User.where({'email':hostEmail});
+  query.findOne(function(err, user){
+    if (err){
+      return {"gameID":undefined};
+    }else{
+      var answerLocationNum = Math.floor(Math.random() * 9);
+      var answerLocation = checkList.locations[answerLocationNum];
+      var answerSuspectNum = Math.floor(Math.random() * 6);
+      var answerSuspect = checkList.suspects[answerSuspectNum];
+      var answerWeaponNum = Math.floor(Math.random() * 6);
+      var answerWeapon = checkList.weapons[answerWeaponNum];
+
+      var Game = mongooseDB.model('Game', GameSchema);
+      var newGame = new Game({
+        'name':gameName,
+        'numPlayers':1,
+        'turnPlayer':hostEmail,
+        "checklist":checkList,
+        "map":[
+          {"location": "Lyon Center", "suspectsInLocation":["President Nikias"]},
+          {"location": "Leavey Library", "suspectsInLocation":[]},
+          {"location": "Traddies", "suspectsInLocation": []},
+          {"location": "Ground Zero", "suspectsInLocation": []},
+          {"location": "The 90", "suspectsInLocation": []},
+          {"location": "Bovard", "suspectsInLocation": []},
+          {"location": "EVK", "suspectsInLocation": []},
+          {"location": "The Row", "suspectsInLocation": []},
+          {"location": "Campus Center", "suspectsInLocation": []}
+        ],
+        "users":[{"name":"President Nikias", "email":hostEmail}],
+        "answer":{"murderer":answerSuspect, "weapon":answerWeapon, "location":answerLocation}
+      });
+
+      newGame.save(function(err, game){
+        if (err){
+          return {"gameID":undefined};
+        }else{
+          User.update({"email":hostEmail}, {"gameID":game.name}, function(err, raw){
+            if (err){
+              console.log("error: " + err);
+            }
+          });
+          // console.log(user);
+          // user.gameID = game.name;
+          // user.save(function(err, u){
+          //   if(err){
+          //     console.log("error: " + err);
+          //   }else{
+          //     console.log("good");
+          //   }
+          // });
+          return {"gameID":game.name};
+        }
+      });
+    }
+  });
 }
 
 
@@ -85,35 +136,6 @@ exports.getStatus = function(gameID){
 }
 
 exports.getChecklist = function(gameID){
-  var checkList = {
-    "locations":[
-      "Lyon Center",
-      "Leavey Library",
-      "Traddies",
-      "Ground Zero",
-      "The 90",
-      "Bovard",
-      "EVK",
-      "The Row",
-      "Campus Center"
-    ],
-    "weapons":[
-      "U-Lock",
-      "Tommy Trojan's Sword",
-      "overly sharp Skittles wrapper",
-      "Freshman on a longboard",
-      "Viterbi Finals",
-      "Taco Bell's deal of the week"
-    ],
-    "suspects":[
-      "President Nikias",
-      "EVKitty",
-      "George Tirebiter",
-      "Will Ferrell",
-      "Tommy Trojan",
-      "Pete Caroll"
-    ]
-  };
   return {"checkList":checkList};
 }
 

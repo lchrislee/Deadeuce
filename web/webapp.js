@@ -1,10 +1,42 @@
+/**************************************************************
+*
+*
+*               THINGS WE REALLY NEED TO DO
+*
+*
+**************************************************************/
+/*
+we need to change the navbar based on the user's game status, 
+they cant try to create a game if they're already in a game,
+they cant try to join a game if they're already in a game
+
+AND
+
+if user is already in a game there is a GAME PAGE button on 
+the nav to take them to the game.
+
+AND
+
+if user isnt logged in, there are only buttons for Home and Log In/Profile page
+
+*/
 var express = require('express');
 var bodyParser = require('body-parser');
 var MongoClient = require('mongodb').MongoClient;
 var ObjectId = require('mongodb').ObjectID;
+var mongoose = require('mongoose');
+var User = require("./models/user.js");
+var Game = require("./models/game.js");
+
+mongoose.connect('mongodb://localhost:27017/deadeuce_db');
 
 var app = express();
-var db;
+var db = mongoose.connection;
+
+db.on('error', console.error.bind(console, 'connection error:'));
+db.once('open', function(){
+  // we're connected!
+});
 
 app.use(express.static('static'));
 app.use(bodyParser.json()); // allows req.body to be parsed in application/json
@@ -50,93 +82,31 @@ app.post('/test_slice', function(req, res){
 \****************************/
 var GameGetFunctions = require('./scripts/game/GameGetFunctions.js');
 
-/*
+/* 
   Returns Object to Client
   {gamesList: [{gameName, numberOfPlayers}, ...]}
+  MICHAEL
+
+  LOGIC:
+    - retrieve list of all games
+      |-> game.Name, game.numPlayers -> displayed on join games page
 */  
 app.get('/game/all', function(request, response){
-  response.json(GameGetFunctions.getAllGames());
-});
-
-// every GET request below this line may not be necessary
-// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-/*
-  Takes in a gameID or a gameName
-  {gameName:}
-  {gameID:}
-  Returns a single Game Object
-  {game:{}} // i don't know how the Game object is structured yet
-*/
-app.get('/game', function(request, response){
-  var gameID = request.body.gameID;
-  var gameName = request.body.gameName;
-  if (gameID === undefined && gameName === undefined){
-    response.sendStatus(400);
-  }
-  response.json(GameGetFunctions.getGame(db));
-});
-
-app.get('/game/locations', function(request, response){
-  var gameID = request.body.gameID;
-  if (gameID === undefined){
-    response.sendStatus(400);
-  }
-  response.json(GameGetFunctions.getLocations());
-});
-
-// WEAPONS in a GAME
-app.get('/game/weapons', function(request, response){
-  var gameIDFind = request.body.gameID;
-  if (gameIDFind === undefined){
-    response.sendStatus(400);
-  }
-  response.json(GameGetFunctions.getWeapons(db));
-});
-
-// USERS in a GAME
-app.get('/game/users', function(request, response){
-  var gameIDFind = request.body.gameID;
-  if (gameIDFind === undefined){
-    response.sendStatus(400);
-  }
-  response.json(GameGetFunctions.getUsers(db));
-});
-
-app.get('/game/users/count', function(request, response){
-  var gameID = request.body.gameID;
-  if (gameID === undefined){
-    response.sendStatus(400);
-  }
-  response.json(GameGetFunctions.getUsersCount());
-});
-
-// starting CLUES in a GAME for a USER
-app.get('/game/users/clues', function(request, response){
-  var gameIDFind = request.body.gameID;
-  var userIDFind = request.body.userID;
-  var authIDFind = request.body.authID;
-  
-  return GameGetFunctions.getUserClues(db);
-});
-
-//  get CHECKLIST in a GAME
-app.get('/game/users/checklist', function(request, response){
-  //this is the database call/logic/everything else
-  var gameIDFind = request.body.gameID;
-  var userIDFind = request.body.userID;
-  var authIDFind = request.body.authID;
-
-  response.json(GameGetFunctions.getUserChecklist(db));
-});
-
-// TURN in a GAME
-app.get('/game/users/turn', function(request, response){
-  var gameIDFind = request.body.gameID;
-  return GameGetFunctions.getUserTurn(db);
+  var gameCollection = db.collection('games');
+  gameCollection.find().toArray(function(err, games){
+    var outputList = [];
+    for (var i = 0; i < games.length; i++){
+      var g = games[i];
+      outputList.push({"gameName":g.name, "numberOfPlayers": g.numPlayers});
+    }
+    if (err){
+      response.json({"gamesList":undefined});
+      return;
+    }else{
+      response.json({"gamesList":outputList});
+      return;
+    }
+  });
 });
 
 /****************************\
@@ -144,15 +114,138 @@ app.get('/game/users/turn', function(request, response){
 \****************************/
 var GamePostFunctions = require ('./scripts/game/GamePostFunctions.js');
 
-// CREATE GAME
+var checkList = {
+  "locations":[
+    "Lyon Center",
+    "Leavey Library",
+    "Traddies",
+    "Ground Zero",
+    "The 90",
+    "Bovard",
+    "EVK",
+    "The Row",
+    "Campus Center"
+  ],
+  "weapons":[
+    "U-Lock",
+    "Tommy Trojan's Sword",
+    "overly sharp Skittles wrapper",
+    "Freshman on a longboard",
+    "Viterbi Finals",
+    "Taco Bell's deal of the week"
+  ],
+  "suspects":[
+    "President Nikias",
+    "EVKitty",
+    "George Tirebiter",
+    "Will Ferrell",
+    "Tommy Trojan",
+    "Pete Caroll"
+  ]
+};
+
+var initialMap = [
+          {"name": "Lyon Center", "players":["President Nikias"]},
+          {"name": "Leavey Library", "players":[]},
+          {"name": "Traddies", "players": []},
+          {"name": "Ground Zero", "players": []},
+          {"name": "The 90", "players": []},
+          {"name": "Bovard", "players": []},
+          {"name": "EVK", "players": []},
+          {"name": "The Row", "players": []},
+          {"name": "Campus Center", "players": []}
+        ];
+
+// TODO THIS IS INCOMPLETE -Chris
+/*
+  Logic:
+    - add game to db
+      |-> set turnPlayerNickname to gameCreater
+      |-> randomly select 1 Weapon/Location/Suspect to be the murderer/weapon/location
+      |-> each player gets 18/(# number of players) pieces of the remaining info
+    - # of players (2-6)
+    - Chosen Character (or auto chosen based on when users join) for user creating game
+
+    to DELETE on React component
+      -Theme, Privacy, (character?)
+*/
+
 app.post('/createGame', function(request, response){
  var hostID = request.body.hostID;
  var gameName = request.body.gameName;
- var gameInfo = request.body.gameInfo;
 
-  if (hostID === undefined || gameName === undefined)
+  if (hostID === undefined || gameName === undefined){
     response.sendStatus(400);
-  response.json(GamePostFunctions.createGame(db));
+    return;
+  }
+  var query = User.where({'email':hostID});
+  query.findOne(function(err, user){
+    if (err || user == undefined){
+      response.json({"gameID":undefined});
+      return;
+    }else{
+      var removedLocations = checkList.locations.slice(0);
+      var removedWeapons = checkList.weapons.slice(0);
+      var removedSuspects = checkList.suspects.slice(0);
+
+      var answerLocationNum = Math.floor(Math.random() * 9);
+      var answerLocation = checkList.locations[answerLocationNum];
+      var answerSuspectNum = Math.floor(Math.random() * 6);
+      var answerSuspect = checkList.suspects[answerSuspectNum];
+      var answerWeaponNum = Math.floor(Math.random() * 6);
+      var answerWeapon = checkList.weapons[answerWeaponNum];
+
+      removedLocations.splice(answerLocationNum, 1);
+      removedWeapons.splice(answerWeaponNum, 1);
+      removedSuspects.splice(answerSuspectNum, 1);
+
+      var possibleList = removedSuspects.concat(removedWeapons, removedLocations);
+      var number1 = Math.floor(Math.random()*18);
+      var number2 = Math.floor(Math.random()*18);
+      while (number2 == number1){
+        number2 = Math.floor(Math.random()*18);
+      }
+      var number3 = Math.floor(Math.random()*18);
+      while (number3 == number1 || number3 == number2){
+        number3 = Math.floor(Math.random()*18);
+      }
+
+      var userCard1 = possibleList[number1];
+      var userCard2 = possibleList[number2];
+      var userCard3 = possibleList[number3];
+
+      var newGame = new Game({
+        'name':gameName,
+        'numPlayers':1,
+        'turnPlayerNickname':"President Nikias",
+        'turnPlayerEmail':user.email,
+        "checklist":checkList,
+        "map":initialMap,
+        "users":[{"name":"President Nikias","email":hostID, "hand":[userCard1, userCard2, userCard3]}],
+        "answer":{"murderer":answerSuspect, "weapon":answerWeapon, "location":answerLocation},
+        "potentialCards":possibleList
+      });
+
+      newGame.save(function(err, game){
+        if (err){
+          console.log("error creating game: " + err);
+          response.json({"gameID":undefined});
+          return;
+        }else{
+          User.update({"email":hostID}, {"gameID":game.name}, function(err, raw){
+            if (err){
+              console.log("createGame error: " + err);
+              response.json({"gameID":undefined});
+              return;
+            }else{
+              response.json({"gameID":game.name});
+              return;
+            }
+          });
+        }
+      });
+    }
+  });
 });
 
 /*
@@ -160,14 +253,34 @@ app.post('/createGame', function(request, response){
   {gameID:}
   Returns game feed, and turn player
   {feed:[{accuser:,suspect:,weapon:,location:}],
-   turnPlayer:}
+   turnPlayerNickname:,
+   turnPlayerEmail:}
+   MICHAEL
+
+   LOGIC:
+    - get turnPlayerNickname
+    - get turnPlayerEmail
+    - get game.feed
+
 */
 app.post('/game/status', function(request, response){
   var gameID = request.body.gameID;
   if (gameID === undefined){
     response.sendStatus(400);
+    return;
   }
-  response.json(GamePostFunctions.getStatus(gameID));
+  console.log("working");
+  var query = Game.where({"name":gameID});
+  query.findOne(function(err, game){
+    if (err || game == undefined){
+      response.json({"feed":undefined});
+      return;
+    }else{
+      console.log(game);
+      response.json({"feed":game.feed, "turnPlayerNickname":game.turnPlayerNickname, "turnPlayerID":game.turnPlayerEmail});
+      return;
+    }
+  });
 });
 
 /*
@@ -175,13 +288,30 @@ app.post('/game/status', function(request, response){
   {gameID:}
   Returns checklist of game
   {checkList:{locations:[],weapons:[],suspects:[]}}
+  MICHAEL
+
+  LOGIC:
+    - get checklist
+    - mark known info for each user based on info they've seen
+    - keep track of checked checkboxes for each user          <----- lets keep it local for now, don't store - Chris
 */
 app.post('/game/checklist', function(request, response){
   var gameID = request.body.gameID;
   if (gameID === undefined){
     response.sendStatus(400);
+    return;
   }
-  response.json(GamePostFunctions.getChecklist(gameID));
+
+  var query = Game.where({"name":gameID});
+  query.findOne(function(err, game){
+    if (err || game == undefined){
+      response.json({"checkList":undefined});
+      return;
+    }else{
+      response.json({"checkList":game.checklist});
+      return;
+    }
+  });
 });
 
 /*
@@ -189,13 +319,30 @@ app.post('/game/checklist', function(request, response){
   {gameID:}
   Returns game name and a map of location names to players in the location
   {gameName:, locations:[{name:,players:[]},...]}
+  MICHAEL
+  
+  LOGIC:
+    -get Location
+      |-> get suspects in each location
+
 */
 app.post('/game/map', function(request, response){
   var gameID = request.body.gameID;
   if (gameID === undefined){
     response.sendStatus(400);
+    return;
   }
-  response.json(GamePostFunctions.getMap(gameID));
+
+  var query = Game.where({"name":gameID});
+  query.findOne(function(err, game){
+    if (err || game == undefined){
+      response.json({"gameName":undefined, "locations":undefined});
+      return;
+    } else{
+      response.json({"gameName": game.name, "locations":game.map});
+      return;
+    }
+  });
 });
 
 /****************************\
@@ -205,18 +352,64 @@ var GamePutFunctions = require('./scripts/game/GamePutFunctions.js');
 
 // JOIN GAME
 /*
-  TODO
+  MICHAEL
+  Logic:
+    -get game.Name
+    -check to make sure user has no gameID already
+      |->if user.gameID == true -> alert that they can't join another game
+      |->if user.gameID == false -> Add user.Email and user.Name to game.users
+    -return joinSuccess and send user to the next page      <----- assign player to suspect? Chris
+    
+
   Takes in gamename and user id.
   Returns:
   {gameID, joinSuccess}
 */
 app.put('/joinGame', function(request, response){
   var gameName = request.body.gameName;
-  var userID = request.body.userID;
-  if (gameName === undefined || userID === undefined){
+  var name = request.body.name; //TODO push up to server on ios
+  var email = request.body.email;
+
+  if (gameName === undefined || email === undefined){
     response.sendStatus(400);
+    return;
   }
-  response.json(GamePutFunctions.joinGame());
+
+  var gameModel = db.model('Game', Game);
+  var query = gameModel.where({"name":gameName});
+  query.findOne(function(err, game) {
+    if (err || game == undefined){
+      response.json({error:err});
+      return;
+    } else {
+      if(game.numPlayers >= 6) {
+        response.json({
+          joinSuccess: false
+        });
+        return;
+      } else {
+        game.save(function(err, game){
+          game.addPlayer({name:game.checklist.suspects[game.numPlayers], email:email}, function(){
+            User.update({"email":email}, {"gameID":game.name}, function(err, raw){
+              if (err){
+                console.log("error: " + err);
+                response.json({
+                  joinSuccess: false
+                });
+                return;
+              } else {
+                response.json({
+                  joinSuccess: true,
+                  gameID: gameName
+                });
+                return;
+              }
+            });
+          });
+        });
+      }
+    }
+  });
 });
 
 /*
@@ -224,92 +417,149 @@ app.put('/joinGame', function(request, response){
   {gameID:,userID:,weapon:,suspect:,location:,action:}
   Returns feedback (only on suggest) and correctness
   {correct:, feedback:}
+  MICHAEL
+
+  LOGIC:
+    -if Accusation
+      |-> check if accusation is correct
+        |-> if accusation == true -> user wins game (game over)
+        |-> if accusation == false -> user loses game (game over? or they dont get any more turns?) <- player taken out - Chris
+    -if suggestion
+      |-> return a random piece of information from the 3 pieces suggested (that isnt the true weapon/suspect/location)
+        |-> update checklist with the "found" information   <- let user do that - Chris
+        |-> update feed with the suggestion
+        |-> update turnPlayerNickname to next player
+        |-> update turnPlayerEmail to next player
 */
 app.put('/game/action', function(request, response){
- var gameID = request.body.gameID;
- var userID = request.body.userID;
- var weapon = request.body.weapon;
- var suspect = request.body.suspect;
- var location = request.body.location;
- var action = request.body.action;
-
- if (gameID === undefined || userID === undefined || action === undefined){
-   response.sendStatus(400);
- }else if (weapon === undefined || suspect === undefined || location === undefined){
-   response.sendStatus(400);
- }else if (action != "suggest" && action != "accuse"){
-   response.sendStatus(400);
- }
- 
- response.json(GamePutFunctions.takeAction(gameID, userID, weapon, suspect, location, action));
-});
-
-// ACCUSE in a GAME
-app.put('/game/accuse', function(request, response){
   var gameID = request.body.gameID;
   var userID = request.body.userID;
-  var accusation = request.body.suggestion;
-  console.log(gameID);
-  console.log(userID);
-  console.log(accusation);
-  if (gameID === undefined || userID === undefined || suggestion === undefined){
+  var weapon = request.body.weapon;
+  var suspect = request.body.suspect;
+  var location = request.body.location;
+  var action = request.body.action;
+
+  if (gameID === undefined || userID === undefined || action === undefined){
     response.sendStatus(400);
+    return;
+  }else if (weapon === undefined || suspect === undefined || location === undefined){
+    response.sendStatus(400);
+    return;
+  }else if (action != "suggest" && action != "accuse"){
+    response.sendStatus(400);
+    return;
   }
 
-  var weapon = accusation.weapon;
-  var suspect = accusation.suspect;
-  var place = accusation.place;
+  var query = Game.where({"name":gameID});
+  query.findOne(function(err, game){
+    if (err || game == undefined){
+      response.json({"correct":undefined, "feedback":undefined});
+      return;
+    }else{
+      if (game.gameWinner !== undefined){
+        response.json({"correct": false, "feedback": "Game is over!"});
+        return;
+      }else if (game.numPlayers < 6){
+        response.json({"correct":false, "feedback": "There are not enough players!"});
+        return;
+      }
 
-  if (weapon === undefined || suspect === undefined || place === undefined){
-    response.sendStatus(400);
-  }
+      var selectedUser = undefined;
+      var selectedUserIndex = -1;
+      var usersLength = game.users.length;
 
-  response.json(GamePutFunctions.accuse());
+      for (var i = 0; i < usersLength; i++){
+        var temp = game.users[i];
+        if (temp.email == userID){
+          selectedUser = temp;
+          selectedUserIndex = i;
+          break;
+        }
+      }
+
+      if (selectedUser === undefined){ // not in game
+        response.sendStatus(400);
+        return;
+      }else if (game.turnPlayerNickname != selectedUser.name){
+        response.json({"correct":false, "feedback": "Not your turn!"});
+        return;
+      }
+
+      var answer = game.answer;
+      var nextPlayer = "";
+      if (selectedUserIndex == game.users.length - 1){
+        nextPlayer = game.users[0];
+      }else{
+        nextPlayer = game.users[selectedUserIndex + 1];
+      }
+
+      var outputOptions = []; // the next 3 should not be else-if
+      if (answer.weapon != weapon){
+        outputOptions.push(weapon);
+      }
+      if (answer.murderer != suspect){
+        outputOptions.push(suspect);
+      }
+      if (answer.location != location){
+        outputOptions.push(location);
+      }
+
+      var feedInput = {
+          "accuser": selectedUser.name,
+          "suspect": suspect,
+          "weapon": weapon,
+          "location": location,
+          "time": Date.now()
+      };
+      var newFeed = game.feed.slice(0);
+      newFeed.push(feedInput);
+
+      if (action == "accuse"){
+        if (outputOptions.length == 0){ // correct accusation
+          Game.update({"name":gameID}, {"gameWinner":selectedUser.name, "feed":newFeed}, function(err, raw){
+            if (err){
+              console.log("game/action win error: " + err);
+              response.sendStatus(400);
+            }else{
+              response.json({"correct":true}); // won!
+              return;
+            }
+          });
+        }else{ // wrong accusation
+          var updatedArray = game.users.slice(0);
+          updatedArray.splice(selectedUserIndex, 1);
+          Game.update({"name":gameID}, {"turnPlayerNickname":nextPlayer.name, "turnPlayerEmail":nextPlayer.email, "users":updatedArray}, function(err, raw){
+            if (err){
+              console.log("game/action lose error: " + err);
+              response.sendStatus(400);
+              return;
+            }else{
+              response.json({"correct":false}); // lost!
+              return;
+            }
+          });
+        }
+      }else if (action == "suggest"){
+        Game.update({"name":gameID}, {"feed":newFeed, "turnPlayerNickname":nextPlayer.name, "turnPlayerEmail":nextPlayer.email}, function(err, raw){
+          if (err){
+            console.log("game/action suggest error: " + err);
+            response.sendStatus(400);
+            return;
+          }else{
+            if (outputOptions.length == 0){ // correct suggestion
+              response.json({"correct":true, "feedback":"GUESS THIS!"});
+              return;
+            }else{ // incorrect
+              var outPutHint = Math.floor(Math.random()*outputOptions.length);
+              response.json({"correct":false, "feedback":"It is not " + outputOptions[outPutHint] + "."});
+              return;
+            }
+          }
+        });
+      }
+    }
+  });
 });
-
-//suggest
-app.put('/game/suggest', function(request, response){
-  var gameID = request.body.gameID;
-  var userID = request.body.userID;
-  var suggestion = request.body.suggestion;
-  if (gameID === undefined || userID === undefined || suggestion === undefined){
-    response.sendStatus(400);
-  }
-
-  var weapon = suggestion.weapon;
-  var suspect = suggestion.suspect;
-  var place = suggestion.place;
-
-  if (weapon === undefined || suspect === undefined || place === undefined){
-    response.sendStatus(400);
-  }
-  response.json(GamePutFunctions.suggest());
-});
-
-// update CHECKLIST in a game
-app.put('/game/checklist', function(request, response){
-  var gameIDFind = request.body.gameID;
-  var userIDFind = request.body.userID;
-  var check = request.body.check;
-  check = {"locations" : [
-                          "test",
-                          "success",
-                          "location3",
-                          "location4",
-                          "location5",
-                          "location6",
-                          "location7",
-                          "location8",
-                          "location9"
-                        ]
-          };
-  response.json(GamePutFunctions.updateChecklist());
-});
-
-app.put('/game/users/turn', function(request, response){
-  response.json(GamePutFunctions.updateTurn());
-});
-
 
 /**********************************
 *                                 *
@@ -323,18 +573,48 @@ app.put('/game/users/turn', function(request, response){
 var UserGetFunctions = require('./scripts/user/UserGetFunctions.js');
 
 // USER INFORMATION
+/*
+  Input: 
+    userID: String
+  Output:
+    user: {} (user object)
+
+  General Logic:
+    -Get user.name and game.name
+*/
 app.get('/user', function(request, response){
-  response.json(UserGetFunctions.getUser());
+  var email = request.userID;
+  var user = db.collection('users').findOne({"email": email}, function(err, doc){
+    if(doc !== null){
+      response.json({"email":doc.email});
+      return;
+    } else {
+      response.json({err});
+      return;
+    }
+  });
+  //response.json(UserGetFunctions.getUser(request.userID));
 });
 
-// USER WINS AND LOSSES
-app.get('/user/stats', function(request, response){
-  response.json(UserGetFunctions.getUserStats());
-});
+// DEFUNCT for MVP
+// // USER WINS AND LOSSES
+// app.get('/user/stats', function(request, response){
+//   response.json(UserGetFunctions.getUserStats());
+// });
 
 // USER get GAME
 app.get('/user/game', function(request, response){
-  response.json(UserGetFunctions.getUserCurrentGame());
+  var name = request.body.gameID;
+  var cursor = db.collection('games').findOne( { "name": name }, function(err, doc){
+    if (doc != null) {
+      response.json({"game":doc.game});
+      return;
+    } else {
+      response.json({"err":err});
+      return;
+    }
+  });
+  //response.json(UserGetFunctions.getUserCurrentGame());
 });
 
 /****************************\
@@ -344,7 +624,40 @@ var UserPostFunctions = require('./scripts/user/UserPostFunctions.js');
 // CREATE USER
 app.post('/createUser', function(request, response){
   var userinfo = request.body.userInfo;
-  response.json()
+
+  var newUser = new User({ 
+    name: userinfo.name,
+    email: userinfo.email,
+    password: userinfo.password
+  });
+  newUser.save(function (err, newUser) {
+    if (err) return console.error(err);
+    console.log(newUser.name);
+    response.json({
+      userID: newUser.email
+    });
+    return;
+  });
+});
+
+//Login user
+//Input: userID: String (email address)
+//Output: loginSuccess: boolean (says if login was success or not)
+app.post('/loginUser', function(request, response){
+  var email = request.body.userID;
+  var password = request.body.password;
+  // console.log("email " + email);
+  // console.log("password " + password);
+  var cursor = db.collection('users').findOne({"email": email}, function(err, doc){
+    console.log(doc);
+    console.log(doc != undefined);
+    console.log(doc.password == password);
+    if (doc != undefined && doc.password == password) {
+      response.json({"loginSuccess":true});
+    } else {
+      response.json({"loginSuccess":false});
+    }
+  });
 });
 
 /****************************\
@@ -356,12 +669,14 @@ var UserPutFunctions = require('./scripts/user/UserPutFunctions.js');
 app.put('/updateUser', function(request, response){
   //this is the database call/logic/everything else
   response.json(UserPutFunctions.updateUser());
+  return;
 });
 
 // USER update GAME
 app.put('/user/game', function(request, response){
   //this is the database call/logic/everything else
   response.json(UserPutFunctions.updateUserGame());
+  return;
 });
 
 

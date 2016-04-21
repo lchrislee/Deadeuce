@@ -1,6 +1,6 @@
 var React = require('react');
 var $ = require('jQuery');
-var ChecklistRow = require('./checklistRow.js');
+var ChecklistRow = require('./checklistrow.js');
 
 var Checklist = React.createClass({
     contextTypes: {

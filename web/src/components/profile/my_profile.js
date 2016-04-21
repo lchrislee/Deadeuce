@@ -2,6 +2,8 @@ var React = require('react');
 var ReactDOM = require('react-dom');
 var Link = require('react-router').Link;
 var $ = require('jquery');
+var SignIn = require('./sign_in');
+var SignUp = require('./sign_up');
 
 var MyProfile = React.createClass({
     getInitialState: function(){
@@ -37,24 +39,8 @@ var MyProfile = React.createClass({
     render: function(){
         return(
             <div className="outercontainer-profile">
-                <div className="hero_img">
-                    <h1 className="center">You are safe...for now...</h1>
-                </div>
-                    <div className="prof-pic-container">
-                        <div className="prof-img"> 
-                            <img src="assets/the90.png" />
-                        </div>
-                            <div className="prof-username">Profile: {this.state.username}
-                                <br/>
-                                <button className="submit" onClick={this.Login}>Login</button>
-                            </div>
-                            <div className="my-wins">
-                                {this.state.username}'s wins: {this.state.wins}
-                            </div>
-                            <div className="my-losses">
-                                {this.state.username}'s losses: {this.state.losses}
-                            </div>
-                    </div>
+                <SignIn />
+                <SignUp />
             </div>
 
         )

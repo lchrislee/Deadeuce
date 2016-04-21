@@ -20,33 +20,24 @@ var JoinGame = React.createClass({
         };
     },
     selectGame: function(selectedGame) {
-        console.log("Selected gameName is: " + selectedGame);
         this.state.selectedGame = selectedGame;
-
     },
-    handleCreateGameSubmit: function(e) {
-        e.preventDefault();
-        var output = JSON.stringify({gameName:"FAKE NAME", userID:"SOME ID"});
+    joinGameSubmit: function() {
+        var output = JSON.stringify({gameName:this.state.selectedGame, userID:localStorage.userID});
         $.ajax({
             url: '/joinGame',
             type: 'PUT',
             contentType: "application/json",
             data: output,
             success: function(response) {
-                //{joinSuccess:t/f, nextTurn: user_id}
-                // console.log(response.nextTurn);
-                //console.log(response.joinSuccess);
                 console.log(response);
                 if (response.joinSuccess){
-                    //do something
-                    console.log(data);
+                    localStorage.gameID = this.state.selectedGame;
                     //maybe load the next page?
+                    this.context.router.push('game_home');
                 }else{
                     // we don goofed
                 }
-                // this.setState({
-
-                // });
             }.bind(this),
             error: function(xhr, status, err) {
                 console.log(err);
@@ -56,7 +47,6 @@ var JoinGame = React.createClass({
                 });
             }.bind(this)
         });
-        this.context.router.push('game_home');
     },
     findAllGames: function() {
         var input = {};
@@ -99,12 +89,12 @@ var JoinGame = React.createClass({
 
                  <AvailableGames allGames = {this.state.allGames} selectedFunction={this.selectGame}/>
 
-                 <form className="center" onSubmit={this.handleCreateGameSubmit}>
+                 <div className="center">
                      You are about to join this game. Would you like to continue?
                      <br/>
                      <br/>
-                     <input type="submit" className="submit" name="submitJoinGame" value="Continue"/>
-                 </form>
+                    <button className="submit" onClick={this.joinGameSubmit}>Continue</button>
+                 </div>
              </div>
          </div>
      </div>

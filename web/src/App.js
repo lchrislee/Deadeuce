@@ -8,7 +8,6 @@ var browserHistory = require('react-router').browserHistory;
 var hashHistory = require('react-router').hashHistory;
 
 var HomePage = require('./pages/HomePage.js');
-var SecondPage = require('./SecondPage.js');
 
 var Games = require('./pages/Games');
 var Nav = require('./components/NavBar');
@@ -37,7 +36,6 @@ ReactDOM.render(
       <IndexRoute component={HomePage}/>
       
       <Route path="/home" component={HomePage} />
-      <Route path="/secondPage" component={SecondPage} />
       <Route path="/games" component={Games}/>
       <Route path="/profile" component={Profile}/>
       <Route path="/create_game" component={CreateGame}/>
