@@ -3,6 +3,7 @@ var Router = require('react-router');
 var $ = require('jQuery');
 var AccuseFeed = require('./AccuseFeed');
 
+var feed = '';
 
 var SAContent = React.createClass({ 
   contextTypes: {
@@ -48,11 +49,11 @@ var SAContent = React.createClass({
       dataType: 'json',
       data: stringified,
       success: function(data) {
-        document.querySelector('.accuse-response').style.visibility="visible";
-
         if (data.correct == false && this.state.action == 'suggest' ) {
+          feed = data.feedback + "\n" + feed;
+          console.log(feed);
           this.setState({
-            response: data.feedback
+            response: feed
           });
         } else if(data.correct == false && this.state.action == 'accuse') {
           this.setState({
@@ -135,7 +136,7 @@ var SAContent = React.createClass({
                 checked={this.state.action=="accuse"}/>Accuse
               <br/>
               <input className="submit" type="submit" name="submitSA" onClick={this.makeAccusation} />
-                   <AccuseFeed />
+                   <AccuseFeed response={this.state.response} />
           </div>
 
 	    </div>
