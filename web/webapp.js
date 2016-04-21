@@ -173,7 +173,8 @@ var initialMap = [
 app.post('/createGame', function(request, response){
  var hostID = request.body.hostID;
  var gameName = request.body.gameName;
-
+console.log("hostID: " + hostID);
+console.log("gameName: " + gameName);
   if (hostID === undefined || gameName === undefined){
     response.sendStatus(400);
     return;
@@ -277,7 +278,7 @@ app.post('/game/status', function(request, response){
       return;
     }else{
       console.log(game);
-      response.json({"feed":game.feed, "turnPlayerNickname":game.turnPlayerNickname, "turnPlayerID":game.turnPlayerEmail, "gameWinner":game.gameWinner});
+      response.json({"gameName":game.name, "feed":game.feed, "turnPlayerNickname":game.turnPlayerNickname, "turnPlayerID":game.turnPlayerEmail, "gameWinner":game.gameWinner});
       return;
     }
   });
@@ -521,10 +522,11 @@ app.put('/game/action', function(request, response){
           "time": Date.now()
       };
       var newFeed = game.feed.slice(0);
-      newFeed.push(feedInput);
+      newFeed.unshift(feedInput);
 
       if (action == "accuse"){
         if (outputOptions.length == 0){ // correct accusation
+	  newsFeed[0].location += " AND WON!";
           Game.update({"name":gameID}, {"gameWinner":selectedUser.name, "feed":newFeed}, function(err, raw){
             if (err){
               console.log("game/action win error: " + err);
