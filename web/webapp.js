@@ -519,10 +519,11 @@ app.put('/game/action', function(request, response){
           "time": Date.now()
       };
       var newFeed = game.feed.slice(0);
-      newFeed.push(feedInput);
+      newFeed.unshift(feedInput);
 
       if (action == "accuse"){
         if (outputOptions.length == 0){ // correct accusation
+	  newsFeed[0].location += " AND WON!";
           Game.update({"name":gameID}, {"gameWinner":selectedUser.name, "feed":newFeed}, function(err, raw){
             if (err){
               console.log("game/action win error: " + err);
