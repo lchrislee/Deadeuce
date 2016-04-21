@@ -27,7 +27,7 @@ var HomePage = React.createClass({
         <div className="primary_content">
           <h3> FOUND: EVKitty dead. University offering reward for the killer.</h3>
         </div>
-        <div className="secondary_content">
+        <div style={{fontSize: '14px'}} className="secondary_content">
           <h3> Game winning accusations: </h3>
           <br/>
           George Tirebiter with empty beer bottles at the 90
@@ -39,7 +39,7 @@ var HomePage = React.createClass({
           Tommy Trojan with Viterbi Classes at Traddies
           <br/><br/>
         </div>
-       	<div className="center">{this.state.serverStatus}</div>
+       	<div className="center" style={{color: 'white'}}>{this.state.serverStatus}</div>
         <div className="center white_text">
           <button className="submit" onClick={this.testSlice}>Ping the server</button>
           <button className="submit" onClick={this.createGame}>Create New Game</button>

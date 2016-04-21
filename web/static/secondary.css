@@ -18,6 +18,7 @@ body {
 	border-radius: 5px;
 	margin-top: 20px;
 	padding-bottom: 10px;
+	margin-bottom: 100px;
 }
 .shortHeight {
 	height: 420px;
@@ -31,7 +32,8 @@ body {
 	background-color: rgba(0,0,0,0.6);
     border-radius: 5px;
     margin-top: 20px;
-    height:500px;
+    padding:10px;
+    margin-bottom: 100px;
 }
 .center {
 	margin:auto;
@@ -55,7 +57,7 @@ body {
 	vertical-align: middle;
 }
 .primary_content, .secondary_content, .primary_content2, .only_content{
-	background-color: rgba(200,200,200,0.9);
+	background-color: rgba(244,244,244,0.9);
 	border-radius: 5px;
 	padding: 2%;
 	margin:2%;

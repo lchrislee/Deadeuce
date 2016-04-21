@@ -70,10 +70,11 @@ var CreateGameForm = React.createClass({
             <div className="create_game_form">
               <label>
                 Game Name: 
-                <input type="text" name="gameName" onChange={this.gameNameChanged} placeholder="Example Name" id="game_name" />
+                <input type="text" style={{height: '27px'}} name="gameName" onChange={this.gameNameChanged} placeholder="Example Name" id="game_name" />
+                <button name="submitNewGame" className="submit" hoverClassName="hover" onClick={this.handleCreateGameSubmit}>Submit</button>
               </label>
               
-              <button name="submitNewGame" className="submit" hoverClassName="hover" onClick={this.handleCreateGameSubmit}>Submit</button>
+              
             </div>
           </div>
           <div className="secondary_content">
