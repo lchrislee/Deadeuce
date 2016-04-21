@@ -27,7 +27,7 @@ var SignIn = React.createClass({
                     console.log("BROKEN");
                 }else if (response.loginSuccess == true){
                     console.log(response.loginSucess);
-                    localStorage.setItem("userID", this.state.email);
+                    sessionStorage.setItem("userID", this.state.email);
                 }else{
                     console.log("improper login");
                 }
