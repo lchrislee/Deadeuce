@@ -9,6 +9,8 @@ var TurnBox = React.createClass({
     },
 render: function(){
     var out;
+    console.log("currentTurnID: " + this.props.currentTurnID);
+    console.log("userID: " + localStorage.userID);
     if (this.props.currentTurnID == localStorage.userID){
         out = <p>CURRENT TURN: {this.props.currentTurn} (YOU) <button onClick={this.props.refresh}>Refresh</button></p>
     }else{

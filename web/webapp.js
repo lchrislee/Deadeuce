@@ -269,13 +269,14 @@ app.post('/game/status', function(request, response){
     response.sendStatus(400);
     return;
   }
-
+  console.log("working");
   var query = Game.where({"name":gameID});
   query.findOne(function(err, game){
     if (err || game == undefined){
       response.json({"feed":undefined});
       return;
     }else{
+      console.log(game);
       response.json({"feed":game.feed, "turnPlayerNickname":game.turnPlayerNickname, "turnPlayerID":game.turnPlayerEmail});
       return;
     }
@@ -300,10 +301,12 @@ app.post('/game/checklist', function(request, response){
     response.sendStatus(400);
     return;
   }
-
+  console.log("CHECKLIST");
   var query = Game.where({"name":gameID});
   query.findOne(function(err, game){
     if (err || game == undefined){
+      console.log(err);
+      console.log(game);
       response.json({"checkList":undefined});
       return;
     }else{
