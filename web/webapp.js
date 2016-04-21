@@ -463,8 +463,11 @@ app.put('/game/action', function(request, response){
       return;
     }else{
       if (game.gameWinner !== undefined){
-        response.json({"correct": false, "feedback": game.gameWinner + " has found the murderer!"});
-        return;
+        game.removePlayer(userID, function(){
+          User.update({"email":userID}, function(err, raw){
+            response.json({"correct": false, "feedback": game.gameWinner + " has found the murderer!"});
+          });
+        });
       }else if (game.numPlayers < 1){
         response.json({"correct":false, "feedback": "There are not enough players!"});
         return;
@@ -527,8 +530,11 @@ app.put('/game/action', function(request, response){
               console.log("game/action win error: " + err);
               response.sendStatus(400);
             }else{
-              response.json({"correct":true}); // won!
-              return;
+              game.removePlayer(userID, function(){
+                User.update({"email":userID}, function(err, raw){
+                  response.json({"correct":true}); // won!
+                });
+              });
             }
           });
         }else{ // wrong accusation
@@ -540,8 +546,11 @@ app.put('/game/action', function(request, response){
               response.sendStatus(400);
               return;
             }else{
-              response.json({"correct":false}); // lost!
-              return;
+              game.removePlayer(userID, function(){
+                User.update({"email":userID}, function(err, raw){
+                  response.json({"correct":false}); // lost!
+                });
+              });
             }
           });
         }

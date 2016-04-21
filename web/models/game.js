@@ -59,6 +59,19 @@ gameSchema.methods.addPlayer = function (user, cb) {
   this.save(cb);
 }
 
+gameSchema.methods.removePlayer = function(userID, cb){
+  var length - this.users.length;
+  var copy = [];
+  for (var i = 0; i < length; i++){
+    if (this.users[i].email == userID){
+      copy = this.users.splice(i, 1);
+      break;
+    }
+  }
+  this.users = copy;
+  this.save(cb);
+}
+
 var Game = mongoose.model('Game', gameSchema);
 
 module.exports = Game;
