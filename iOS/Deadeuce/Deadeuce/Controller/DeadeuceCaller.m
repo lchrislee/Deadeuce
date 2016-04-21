@@ -13,6 +13,7 @@
 @property (strong, nonatomic) NSString* baseRestUrl;
 @property (strong, nonatomic) NSDictionary *requestToType;
 @property (nonatomic, strong) NSString* gameID;
+@property (nonatomic, strong) NSString* userID;
 @end
 
 @implementation DeadeuceCaller
@@ -26,6 +27,14 @@
 - (NSString*) getGameID
 {
     return _gameID;
+}
+- (void) setUserID:(NSString*)userID
+{
+    _userID = userID;
+}
+- (NSString*) getUserID
+{
+    return _userID;
 }
 
 - (void) testSlice: (NSDictionary *) bodyDict{
@@ -65,7 +74,6 @@
                 NSDictionary *output = [NSJSONSerialization JSONObjectWithData:data options:0 error:&error];
                 NSNumber * isSuccessNumber = (NSNumber *)[output objectForKey: @"loginSuccess"];
                 ([isSuccessNumber boolValue] == YES) ? [delegate loginSuccess:YES] : [delegate loginSuccess:NO];
-                
             }
         }];
         return true;
@@ -89,6 +97,7 @@
             } else{
                 NSError *error;
                 NSDictionary *output = [NSJSONSerialization JSONObjectWithData:data options:0 error:&error];
+                [self setUserID:output[@"userID"]];
                 [delegate signupSuccess:output[@"userID"]];
             }
         }];

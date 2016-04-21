@@ -86,7 +86,6 @@
     model.delegate = self;
     NSString* email = _emailTextField.text;
     NSString* password = _passwordTextField.text;
-    NSLog(@"email: %@, password: %@", email, password);
     NSMutableDictionary* upload = [[NSMutableDictionary alloc] init];
     if([self.option isEqualToString:@"Login"]){
         [upload setObject:email forKey:@"userID"];
