@@ -44,31 +44,6 @@ var HomePage = React.createClass({
   createGame: function(e) {
       this.context.router.push('create_game');
   },
-  testSlice: function() {
-    var d = {
-      sendTestToServer : "yo"
-    };
-    var stringified = JSON.stringify(d);
-    $.ajax({
-      url: "/test_slice",
-      type: 'POST',
-      contentType: "application/json; charset=utf-8",
-      dataType: "json",
-      data: stringified,
-      success: function(data) {
-        this.setState({
-          "serverStatus" : data.test
-        });
-      }.bind(this),
-      error: function(xhr, status, err) {
-        console.log(err);
-        console.log(xhr);
-        this.setState({
-          "serverStatus" : "Error in server request."
-        });
-      }.bind(this)
-    });
-  }
 });
 
 

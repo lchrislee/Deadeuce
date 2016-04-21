@@ -539,7 +539,7 @@ app.put('/game/action', function(request, response){
             }else{
               game.removePlayer(userID, function(){
                 User.update({"email":userID}, {"gameID":undefined}, function(err, raw){
-                  response.json({"correct":true, "gameWinner":game.gameWinner}); // won!
+                  response.json({"correct":true, "gameWinner":selectedUser.name}); // won!
                 });
               });
             }

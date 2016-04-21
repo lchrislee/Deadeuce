@@ -10,8 +10,16 @@ var Checklist = require('../components/checklist.js')
 var SuggestAccuse = require('../components/Accuse/SuggestAccuse.js');
 
 var GameHome = React.createClass({
+    contextTypes: {
+        router: React.PropTypes.object.isRequired
+    },
     getInitialState: function() {
-        var gameID = sessionStorage.gameID
+        var gameID = sessionStorage.gameID;
+        console.log("gameID: " + gameID);
+        if (gameID === undefined){
+            console.log("go home");
+            this.context.router.push('home');
+        }
         this.retrieveCheckList(gameID);
         this.findGameFeed(gameID);
         this.retrieveGameMap(gameID);
