@@ -532,7 +532,6 @@ app.put('/game/action', function(request, response){
 
       if (action == "accuse"){
         if (outputOptions.length == 0){ // correct accusation
-	  newsFeed[0].location += " AND WON!";
           Game.update({"name":gameID}, {"gameWinner":selectedUser.name, "feed":newFeed}, function(err, raw){
             if (err){
               console.log("game/action win error: " + err);
