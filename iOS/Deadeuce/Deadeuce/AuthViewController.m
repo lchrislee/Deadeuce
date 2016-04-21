@@ -99,6 +99,7 @@
         [userInfo setObject:email forKey:@"email"];
         [userInfo setObject:password forKey:@"password"];
         [upload setObject:userInfo forKey:@"userInfo"];
+        [model signupWithInfo:upload];
     }
 }
 
@@ -126,12 +127,12 @@
     [self.view addSubview:_bgImageView];
     //Serious Hackathon quality right here
     if([self.option isEqualToString:@"Signup"]){
-        CGRect nameLabelRect = CGRectMake(20.0, screenHeight/2.0 - 300.0, screenWidth - 40.0, 44.0);
+        CGRect nameLabelRect = CGRectMake(20.0, screenHeight/2.0 - 266.0, screenWidth - 40.0, 44.0);
         self.nameLabel = [[UILabel alloc] initWithFrame:nameLabelRect];
         [self.nameLabel setText:@"Name"];
         
         //Init Name UITextField
-        CGRect nameTextFieldRect = CGRectMake(20.0, screenHeight/2.0 - 266.0, screenWidth - 40.0, 44.0);
+        CGRect nameTextFieldRect = CGRectMake(20.0, screenHeight/2.0 - 222.0, screenWidth - 40.0, 44.0);
         self.nameTextField = [[UITextField alloc] initWithFrame:nameTextFieldRect];
         self.nameTextField.delegate = self;
         self.nameTextField.borderStyle = UITextBorderStyleRoundedRect;
@@ -146,7 +147,7 @@
         self.passwordTextFieldConfirm = [[UITextField alloc] initWithFrame:passwordTextFieldConfirmRect];
         self.passwordTextFieldConfirm.delegate = self;
         self.passwordTextFieldConfirm.borderStyle = UITextBorderStyleRoundedRect;
-        self.passwordTextFieldConfirm.placeholder = @"Comfirm Password";
+        self.passwordTextFieldConfirm.placeholder = @"Confirm Password";
         [self.passwordTextFieldConfirm setReturnKeyType:UIReturnKeyDone];
         
         
@@ -157,12 +158,12 @@
         
     }
     
-    CGRect emailLabelRect = CGRectMake(20.0, screenHeight/2.0 - 200.0, screenWidth - 40.0, 44.0);
+    CGRect emailLabelRect = CGRectMake(20.0, screenHeight/2.0 - 166.0, screenWidth - 40.0, 44.0);
     self.emailLabel = [[UILabel alloc] initWithFrame:emailLabelRect];
     [self.emailLabel setText:@"Email"];
     
     //Init Email UITextField
-    CGRect emailTextFieldRect = CGRectMake(20.0, screenHeight/2.0 - 166.0, screenWidth - 40.0, 44.0);
+    CGRect emailTextFieldRect = CGRectMake(20.0, screenHeight/2.0 - 122.0, screenWidth - 40.0, 44.0);
     self.emailTextField = [[UITextField alloc] initWithFrame:emailTextFieldRect];
     self.emailTextField.delegate = self;
     self.emailTextField.borderStyle = UITextBorderStyleRoundedRect;
@@ -189,9 +190,6 @@
     
     //Submit Button
     self.submitButton = [UIButton buttonWithType:UIButtonTypeSystem];
-    if([self.option isEqualToString:@"Sign Up"]){
-        self.submitButton.alpha = 0.4;
-    }
     [self.submitButton addTarget:self
                           action:@selector(submitButtonPressed:)
                 forControlEvents:UIControlEventTouchUpInside];
@@ -200,7 +198,6 @@
     _submitButton.userInteractionEnabled = YES;
 
     [self.submitButton setTitle:self.option forState:UIControlStateNormal];
-    [self.submitButton setUserInteractionEnabled:([self.option isEqualToString:@"Login"])];
     self.submitButton.frame = CGRectMake(0.0, screenHeight - 88.0, screenWidth, 44.0);
     
     [self.view addSubview:_submitButton];

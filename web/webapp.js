@@ -628,7 +628,6 @@ var UserPostFunctions = require('./scripts/user/UserPostFunctions.js');
 //output userID (user email)
 app.post('/createUser', function(request, response){
   var userinfo = request.body.userInfo;
-
   var newUser = new User({ 
     name: userinfo.name,
     email: userinfo.email,
