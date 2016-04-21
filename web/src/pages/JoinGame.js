@@ -23,7 +23,11 @@ var JoinGame = React.createClass({
         this.state.selectedGame = selectedGame;
     },
     joinGameSubmit: function() {
-        var output = JSON.stringify({gameName:this.state.selectedGame, userID:localStorage.userID});
+        var output = JSON.stringify({
+                      gameName:this.state.selectedGame,
+                      userID:localStorage.userID,
+                      name:localStorage.name
+                    });
         $.ajax({
             url: '/joinGame',
             type: 'PUT',
