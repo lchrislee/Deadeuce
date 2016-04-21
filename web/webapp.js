@@ -301,10 +301,12 @@ app.post('/game/checklist', function(request, response){
     response.sendStatus(400);
     return;
   }
-
+  console.log("CHECKLIST");
   var query = Game.where({"name":gameID});
   query.findOne(function(err, game){
     if (err || game == undefined){
+      console.log(err);
+      console.log(game);
       response.json({"checkList":undefined});
       return;
     }else{
