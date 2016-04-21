@@ -663,12 +663,44 @@ Homepage Game Winning Accusations
 
 
 /******************************************************************
-Homepage Game Winning Accusations
+different images for the mapboxes
 *******************************************************************/
 
+.gameMapBoxBody .1 {
+background-image: url(assets/Lyon.jpg);
+}
 
+.gameMapBoxBody .2{
+background-image: url(assets/Leavey.jpg);
+}
 
+.gameMapBoxBody .3 {
+background-image: url(assets/Traddies.jpeg);
+}
 
+.gameMapBoxBody .4 {
+background-image: url(assets/Ground.jpg);
+}
+
+.gameMapBoxBody .5 {
+background-image: url(assets/the90.png);
+}
+
+.gameMapBoxBody .6 {
+background-image: url(assets/Bovard.jpg);
+}
+
+.gameMapBoxBody .7 {
+background-image: url(assets/EVK.jpg);
+}
+
+.gameMapBoxBody .8{
+background-image: url(assets/Row.jpg);
+}
+
+.gameMapBoxBody .9 {
+background-image: url(assets/Campus.jpg);
+}
 
 
 

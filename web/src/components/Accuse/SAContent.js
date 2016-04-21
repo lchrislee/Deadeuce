@@ -1,6 +1,8 @@
 var React = require('react');
 var Router = require('react-router');
 var $ = require('jQuery');
+var AccuseFeed = require('./AccuseFeed');
+
 
 var SAContent = React.createClass({ 
   contextTypes: {
@@ -133,10 +135,9 @@ var SAContent = React.createClass({
                 checked={this.state.action=="accuse"}/>Accuse
               <br/>
               <input className="submit" type="submit" name="submitSA" onClick={this.makeAccusation} />
-              <div className="accuse-response">
-                {this.state.response}
-              </div>
+                   <AccuseFeed />
           </div>
+
 	    </div>
 	);
   },
