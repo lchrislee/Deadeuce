@@ -15,6 +15,16 @@
 
 @implementation DetectivePadTableViewController
 
+-(void) setGameCheckList: (NSDictionary *)gameCheckList
+{
+    NSDictionary* checklist = [gameCheckList objectForKey:@"checkList"];
+    
+    _locations = [checklist objectForKey:@"locations"];
+    _weapons = [checklist objectForKey:@"weapons"];
+    _people = [checklist objectForKey:@"suspects"];
+    [self.tableView reloadData];
+}
+
 -(void)dismiss:(id)sender
 {
     [self.navigationController popViewControllerAnimated:YES];
@@ -26,11 +36,15 @@
     {
         self.navigationItem.title = @"Detective Pad";
         self.sectionData = @[@"Location", @"Weapons", @"People"];
-        self.locations = @[@"Ground Zero (You are currently here)"];
-        self.weapons = @[@"empty soda cans", @"overly sharp skittles wrapper", @"tommy trojan's sword",
-                         @"EVKitty's left paw", @"freshman on a longboard", @"rotten chanos nachos"];
-        self.people = @[ @"Trina Gregory", @"Cody Kessler", @"Tommy Trojan",
-                            @"Max Nikias", @"Will Ferrell", @"Bob Saget"];
+        
+        _locations = [[NSMutableArray alloc] init];
+        _weapons = [[NSMutableArray alloc] init];
+        _people = [[NSMutableArray alloc] init];
+        _selectedRows = [[NSMutableDictionary alloc] init];
+        DeadeuceCaller* model = [DeadeuceCaller sharedInstance];
+        model.delegate = self;
+        NSString * gameID = [model getGameID];
+        [model getGameCheckList:@{@"gameID":gameID}];
         
         UIBarButtonItem * cancelButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"X.png"]
                                                                              style:UIBarButtonItemStylePlain target:self action:@selector(dismiss:)];
@@ -104,6 +118,34 @@
     return retVal;
 }
 
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    switch(indexPath.section)
+    {
+        case 0:
+            if(![_selectedRows[self.locations[indexPath.row]] isEqualToString:@"checked"]){
+                [_selectedRows setValue:@"checked" forKey:self.locations[indexPath.row]];
+            } else {
+                [_selectedRows removeObjectForKey:self.locations[indexPath.row]];
+            }
+            break;
+        case 1:
+            if(![_selectedRows[self.weapons[indexPath.row]] isEqualToString:@"checked"]){
+                [_selectedRows setValue:@"checked" forKey:self.weapons[indexPath.row]];
+            } else {
+                [_selectedRows removeObjectForKey:self.weapons[indexPath.row]];
+            }
+            break;
+        default:
+            if(![_selectedRows[self.people[indexPath.row]] isEqualToString:@"checked"]){
+                [_selectedRows setValue:@"checked" forKey:self.people[indexPath.row]];
+            } else {
+                [_selectedRows removeObjectForKey:self.people[indexPath.row]];
+            }
+            break;
+    }
+    [tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
+}
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     static NSString *cellIdentifier = @"Cell";
@@ -119,12 +161,27 @@
     {
         case 0:
             text = self.locations[indexPath.row];
+            if([_selectedRows[self.locations[indexPath.row]] isEqualToString:@"checked"]){
+                 [cell.imageView setImage:[UIImage imageNamed:@"selected.png"]];
+            } else {
+                [cell.imageView setImage:nil];
+            }
             break;
         case 1:
             text = self.weapons[indexPath.row];
+            if([_selectedRows[self.weapons[indexPath.row]] isEqualToString:@"checked"]){
+                 [cell.imageView setImage:[UIImage imageNamed:@"selected.png"]];
+            } else {
+                [cell.imageView setImage:nil];
+            }
             break;
         default:
             text = self.people[indexPath.row];
+            if([_selectedRows[self.people[indexPath.row]] isEqualToString:@"checked"]){
+                 [cell.imageView setImage:[UIImage imageNamed:@"selected.png"]];
+            } else {
+                [cell.imageView setImage:nil];
+            }
             break;
     }
     [cell.textLabel setText:text];

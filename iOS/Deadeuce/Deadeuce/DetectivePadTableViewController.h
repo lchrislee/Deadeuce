@@ -7,12 +7,14 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "DeadeuceCaller.h"
 
-@interface DetectivePadTableViewController : UITableViewController <UITableViewDataSource>
+@interface DetectivePadTableViewController : UITableViewController <UITableViewDataSource, DeadeuceDelegate>
 
 @property (nonatomic, strong) NSArray* locations;
 @property (nonatomic, strong) NSArray* weapons;
 @property (nonatomic, strong) NSArray* people;
 @property (nonatomic, strong) NSArray* sectionData;
+@property (nonatomic, strong) NSMutableDictionary* selectedRows;
 
 @end
