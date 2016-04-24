@@ -517,6 +517,9 @@ Profile Page
     background-color: #CCC;
     height: 330px;
     border-radius: 5px;
+    width: 80%;
+    margin: auto;
+    padding-top: 15px;
 }
 
 
@@ -526,7 +529,7 @@ Sign In
 
 .sign-in {
     text-align: center;
-    width: 300px;
+    width: 200px;
     padding: 50px;
     margin: auto;
     margin-left: 4%;
@@ -543,7 +546,7 @@ Sign In
 }
 .sign-button{
     height:40px;
-    width:250px;
+    width:200px;
     display:block;
     margin: auto;
     background-color: #999;
@@ -561,7 +564,7 @@ Sign Up
 .sign-up{
     clear: both;
     text-align: left;
-    width: 350px;
+    width: 200px;
     padding: 50px;
     margin: auto;
     margin-top: -230px ;

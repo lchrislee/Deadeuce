@@ -33,7 +33,8 @@ body {
 	background-color: rgba(0,0,0,0.6);
     border-radius: 5px;
     margin-top: 20px;
-    height:960px;
+    height:400px;
+    padding-top: 50px;
 }
 .center {
 	margin:auto;
@@ -194,6 +195,9 @@ body {
 }
 .create_game_form {
 	text-align: center;
+}
+.signup-form label {
+	text-align: left;
 }
  .submit {
  	padding: 10px 20px;
