@@ -205,7 +205,6 @@ Game Tables
 }
 .FeedHeader{
     width: 100%;
-    height:80px;
     display:block;
     padding:0;
     margin:0;
@@ -477,7 +476,6 @@ Profile Page
     border-radius: 5px;
     padding: 10px;
 }
-
 .prof-img {
     width: 50%;
     margin:auto;
@@ -502,8 +500,8 @@ Profile Page
 .my-wins .my-losses {
     font-size: 18pt;
     float: right;
-/*    border: 1px solid black;
-*/    text-align: center;
+    border: 1px solid black;
+    text-align: center;
     display:block;
 }
 .my-wins {
@@ -521,7 +519,6 @@ Profile Page
     margin: auto;
     padding-top: 15px;
 }
-
 
 /**************************************************************
 Sign In
@@ -546,7 +543,7 @@ Sign In
 }
 .sign-button{
     height:40px;
-    width:200px;
+    width:250px;
     display:block;
     margin: auto;
     background-color: #999;

@@ -31,8 +31,8 @@ var CreateGameForm = React.createClass({
         },
         function(){
           sessionStorage.gameID = this.state.gameID;
-          sessionStorage.nickName = data.nickName;
         });
+        sessionStorage.setItem('nickName', data.nickName); 
         this.context.router.push('game_home');
       }.bind(this),
       error: function(xhr, status, err) {
@@ -50,15 +50,14 @@ var CreateGameForm = React.createClass({
   render: function() {
     return (
 	    <div>
-          <div className="only_content">  
+          <div className="only_content" style={{padding: '0px',width: '100%', margin:'0px', marginTop: '30px',marginBottom: '30px',borderRadius: '0px', paddingBottom: '30px'}}>  
 
 
             <div className="create_game_form">
-              <label>
-                Game Name: 
-                <input type="text" style={{height: '27px'}} name="gameName" onChange={this.gameNameChanged} placeholder="Example Name" id="game_name" />
-                <button name="submitNewGame" className="submit" hoverClassName="hover" onClick={this.handleCreateGameSubmit}>Submit</button>
-              </label>
+              <p style={{fontSize: '35px'}}>To Create a New Game</p>
+              <p style={{fontSize: '18px'}}>Simply Enter the Game Name</p>
+                <input type="text" name="gameName" onChange={this.gameNameChanged} placeholder="USC ITP460!" id="game_name" />
+              <button name="submitNewGame" className="submit" hoverClassName="hover" onClick={this.handleCreateGameSubmit}>Submit</button>
               
               
             </div>

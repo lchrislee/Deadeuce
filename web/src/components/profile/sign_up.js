@@ -2,9 +2,13 @@ var React = require('react');
 var ReactDOM = require('react-dom');
 var Link = require('react').Link;
 var $ = require('jquery');
+var Router = require('react-router');
 
 
 var SignUp = React.createClass({
+    contextTypes: {
+        router: React.PropTypes.object.isRequired
+    },
     getInitialState: function(){
         return{
             name: "",
@@ -30,9 +34,19 @@ var SignUp = React.createClass({
                     console.log("BROKEN");
                 }else if (response.loginSuccess == true){
                     console.log(response.loginSucess);
+                    console.log(response.nickName);
                     sessionStorage.setItem("userID", this.state.email);
+                    sessionStorage.setItem("gameID", response.gameID);
+                    sessionStorage.setItem("nickName", response.nickName);
+                    if(sessionStorage.gameID == undefined){
+                        this.context.router.push('join_game');
+                        window.location.reload();
+                    } else {
+                        this.context.router.push('game_home');
+                        window.location.reload();
+                    }
                 }else{
-                    console.log("improper login");
+                    alert("improper login");
                 }
             }.bind(this),
             error: function(err){
@@ -94,11 +108,14 @@ var SignUp = React.createClass({
               data: output,
               success: function(response) {
                 console.log("AJAX went through");
+                console.log(response.nickName + " is the your");
                     if (response.userID != undefined){
                         console.log("DONE: " + response.userID);
                         sessionStorage.setItem("userID", response.userID);
                         sessionStorage.setItem("name",this.state.name);
+                        sessionStorage.setItem("nickName", response.nickName);
                     }
+                this.context.router.push('join_game');
               }.bind(this),
               error: function(xhr, status, err) {
                 this.setState({
