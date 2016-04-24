@@ -32,6 +32,7 @@ var CreateGameForm = React.createClass({
         function(){
           sessionStorage.gameID = this.state.gameID;
         });
+        sessionStorage.setItem('nickName', data.nickName); 
         this.context.router.push('game_home');
       }.bind(this),
       error: function(xhr, status, err) {
