@@ -239,7 +239,7 @@ console.log("gameName: " + gameName);
               response.json({"gameID":undefined});
               return;
             }else{
-              response.json({"gameID":game.name});
+              response.json({"gameID":game.name, "nickName":"President Nikias"});
               return;
             }
           });
@@ -278,11 +278,15 @@ app.post('/game/status', function(request, response){
       return;
     }else{
       console.log(game);
+	var gamePlayerID = undefined;
+	if (game.numPlayers == 1){ // TODO SET THIS BACK TO 6
+		gamePlayerID = game.turnPlayerEmail;
+	}
       response.json({
         "gameName":game.name,
         "feed":game.feed,
         "turnPlayerNickname":game.turnPlayerNickname,
-        "turnPlayerID":game.turnPlayerEmail,
+        "turnPlayerID":gamePlayerID,
         "gameWinner":game.gameWinner});
       return;
     }
@@ -402,7 +406,8 @@ app.put('/joinGame', function(request, response){
         return;
       } else {
         game.save(function(err, game){
-          game.addPlayer({name:game.checklist.suspects[game.numPlayers], email:email}, function(){
+	  var playerNickName = game.checklist.suspects[game.numPlayers];
+          game.addPlayer({name:playerNickName, email:email}, function(){
             User.update({"email":email}, {"gameID":game.name}, function(err, raw){
               if (err){
                 console.log("error: " + err);
@@ -413,7 +418,8 @@ app.put('/joinGame', function(request, response){
               } else {
                 response.json({
                   joinSuccess: true,
-                  gameID: gameName
+                  gameID: gameName,
+		  nickName: playerNickName
                 });
                 return;
               }
@@ -466,17 +472,17 @@ app.put('/game/action', function(request, response){
   var query = Game.where({"name":gameID});
   query.findOne(function(err, game){
     if (err || game == undefined){
-      response.json({"correct":undefined, "feedback":undefined});
+      response.json({"action":action, "correct":undefined, "feedback":undefined});
       return;
     }else{
       if (game.gameWinner !== undefined){
         game.removePlayer(userID, function(){
           User.update({"email":userID}, {"gameID":undefined}, function(err, raw){
-            response.json({"correct": false, "feedback": game.gameWinner + " has found the murderer!", "gameWinner":game.gameWinner});
+            response.json({"action":action,"correct": false, "feedback": game.gameWinner + " has found the murderer!", "gameWinner":game.gameWinner});
           });
         });
       }else if (game.numPlayers < 1){
-        response.json({"correct":false, "feedback": "There are not enough players!"});
+        response.json({"action":action, "correct":false, "feedback": "There are not enough players!"});
         return;
       }
 
@@ -497,7 +503,7 @@ app.put('/game/action', function(request, response){
         response.sendStatus(400);
         return;
       }else if (game.turnPlayerNickname != selectedUser.name){
-        response.json({"correct":false, "feedback": "Not your turn!"});
+        response.json({"action":action,"correct":false, "feedback": "Not your turn!"});
         return;
       }
 
@@ -539,7 +545,7 @@ app.put('/game/action', function(request, response){
             }else{
               game.removePlayer(userID, function(){
                 User.update({"email":userID}, {"gameID":undefined}, function(err, raw){
-                  response.json({"correct":true, "gameWinner":selectedUser.name}); // won!
+                  response.json({"action":action,"correct":true, "gameWinner":selectedUser.name}); // won!
                 });
               });
             }
@@ -555,7 +561,7 @@ app.put('/game/action', function(request, response){
             }else{
               game.removePlayer(userID, function(){
                 User.update({"email":userID}, {"gameID":undefined}, function(err, raw){
-                  response.json({"correct":false}); // lost!
+                  response.json({"action":action,"correct":false}); // lost!
                 });
               });
             }
@@ -569,11 +575,11 @@ app.put('/game/action', function(request, response){
             return;
           }else{
             if (outputOptions.length == 0){ // correct suggestion
-              response.json({"correct":true, "feedback":"GUESS THIS!"});
+              response.json({"action":action,"correct":true, "feedback":"GUESS THIS!"});
               return;
             }else{ // incorrect
               var outPutHint = Math.floor(Math.random()*outputOptions.length);
-              response.json({"correct":false, "feedback":"It is not " + outputOptions[outPutHint] + "."});
+              response.json({"action":action,"correct":false, "feedback":"It is not " + outputOptions[outPutHint] + "."});
               return;
             }
           }
