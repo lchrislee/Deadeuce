@@ -28,7 +28,7 @@ var mongoose = require('mongoose');
 var User = require("./models/user.js");
 var Game = require("./models/game.js");
 
-//mongoose.connect('mongodb://localhost:27017/deadeuce_db');
+mongoose.connect('mongodb://localhost:27017/deadeuce_db');
 
 var app = express();
 var db = mongoose.connection;
