@@ -322,15 +322,17 @@ const CGFloat kPadding = 6;
 
 -(void)listOfGames:(NSDictionary *)payload
 {
-    NSArray* newData = [payload objectForKey:@"gamesList"];
-    for(int i = 0; i < newData.count; i++){
-        NSDictionary* singleGame = newData[i];
-        NSString* gameName = [singleGame objectForKey:@"gameName"];
-        NSInteger numberOfPlayers = [[singleGame objectForKey:@"numberOfPlayers"] integerValue];
-        GameObject* obj = [[GameObject alloc] initWithGameName:gameName andNumberOfPlayers:numberOfPlayers];
-        [_data addObject:obj];
-    }
-    [self.tableView reloadData];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        NSArray* newData = [payload objectForKey:@"gamesList"];
+        for(int i = 0; i < newData.count; i++){
+            NSDictionary* singleGame = newData[i];
+            NSString* gameName = [singleGame objectForKey:@"gameName"];
+            NSInteger numberOfPlayers = [[singleGame objectForKey:@"numberOfPlayers"] integerValue];
+            GameObject* obj = [[GameObject alloc] initWithGameName:gameName andNumberOfPlayers:numberOfPlayers];
+            [_data addObject:obj];
+        }
+        [self.tableView reloadData];
+    });
 }
 -(void) joinedGame:(BOOL)joined withGameID:(NSString*)gameID
 {
