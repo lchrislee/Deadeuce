@@ -20,11 +20,14 @@ render: function(){
     return(
         <div className="turnBox-wrapper">
             <div className="turnBox-header">
-                {out}
+                <div className="current-turn">
+                    {out}
+                </div>
+                <div className="user-nickname">
+                    YOU ARE: {this.state.nickName}
+                </div>
             </div>
-            <div className="user-nickname">
-                {this.state.nickName}
-            </div>
+
         </div>
       );
     }
