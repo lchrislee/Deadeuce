@@ -8,7 +8,6 @@
 
 #import <UIKit/UIKit.h>
 #import "DeadeuceCaller.h"
-#import <SVPullToRefresh.h>
 
 @interface CurrentGameViewController : UIViewController<UITableViewDataSource,UITableViewDelegate, DeadeuceDelegate>
 {

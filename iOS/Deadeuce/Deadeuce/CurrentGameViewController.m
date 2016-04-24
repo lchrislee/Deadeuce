@@ -131,6 +131,8 @@ const CGFloat kPadding3 = 6;
 @property (nonatomic, strong) UIImageView* suggestIcon;
 @property (nonatomic, strong) UIImageView* detectiveIcon;
 
+@property (nonatomic, strong) UIButton *refreshButton;
+
 @end
 
 @implementation CurrentGameViewController
@@ -152,6 +154,15 @@ const CGFloat kPadding3 = 6;
     [self.navigationController pushViewController:detectivePadVc animated:YES];
 }
 
+-(void)refresh:(id)sender
+{
+    _data = [[NSMutableArray alloc] init];
+    DeadeuceCaller* model = [DeadeuceCaller sharedInstance];
+    model.delegate = self;
+    NSString * gameID = [model getGameID];
+    [model getGameStatus:@{@"gameID":gameID}];
+}
+
 - (instancetype)init
 {
     if (self = [super init])
@@ -167,17 +178,19 @@ const CGFloat kPadding3 = 6;
         UIBarButtonItem *revealButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"reveal-icon.png"]
                                                                              style:UIBarButtonItemStylePlain target:self action:@selector(toggle:)];
         self.navigationItem.leftBarButtonItem = revealButtonItem;
-
-        _data = [[NSMutableArray alloc] init];
-        DeadeuceCaller* model = [DeadeuceCaller sharedInstance];
-        model.delegate = self;
-        NSString * gameID = [model getGameID];
-        [model getGameStatus:@{@"gameID":gameID}];
     }
     
     return self;
 }
 
+-(void)viewWillAppear:(BOOL)animated
+{
+    _data = [[NSMutableArray alloc] init];
+    DeadeuceCaller* model = [DeadeuceCaller sharedInstance];
+    model.delegate = self;
+    NSString * gameID = [model getGameID];
+    [model getGameStatus:@{@"gameID":gameID}];
+}
 
 - (void)loadView
 {
@@ -190,22 +203,13 @@ const CGFloat kPadding3 = 6;
     
     CGFloat startingHeight = self.navigationController.navigationBar.frame.size.height + 20.0;
     
-    CGRect tableViewFrame = CGRectMake(0.0, 100.0, self.view.frame.size.width, screenHeight - 100.0);
+    CGRect tableViewFrame = CGRectMake(0.0, 144.0, self.view.frame.size.width, screenHeight - 144.0);
     _tableView = [[UITableView alloc] initWithFrame:tableViewFrame style:UITableViewStylePlain];
     [_tableView registerClass:[GameEventTableViewCell class] forCellReuseIdentifier:@"GameEventTableViewCell"];
     _tableView.rowHeight = [GameEventTableViewCell cellHeight];
     _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     [_tableView setDataSource:self];
     [_tableView setDelegate:self];
-    
-    __weak UITableView *weakSelf = _tableView;
-    [_tableView addPullToRefreshWithActionHandler:^{
-        _data = [[NSMutableArray alloc] init];
-        DeadeuceCaller* model = [DeadeuceCaller sharedInstance];
-        NSString * gameID = [model getGameID];
-        [model getGameStatus:@{@"gameID":gameID}];
-        [weakSelf.pullToRefreshView stopAnimating];
-    }];
     
     if(!_suggestButton){
         self.suggestButton = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -268,12 +272,25 @@ const CGFloat kPadding3 = 6;
     self.currentTurnLabel.userInteractionEnabled = NO;
     self.currentTurnLabel.textAlignment = NSTextAlignmentCenter;
     [self.currentTurnLabel setFont:[UIFont fontWithName:@"HelveticaNeue" size:20]];
+    
+    _refreshButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [_refreshButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    _refreshButton.clipsToBounds = YES;
+    [_refreshButton.layer setBackgroundColor:[[UIColor colorWithRed:(134/255.0) green:(134/255.0) blue:(134/255.0) alpha:1.0] CGColor]];
+    [_refreshButton addTarget:self
+                                action:@selector(refresh:)
+                      forControlEvents:UIControlEventTouchUpInside];
+    [_refreshButton setTitle:@"Refresh Feed" forState:UIControlStateNormal];
+    _refreshButton.titleLabel.font = [UIFont fontWithName:@"HelveticaNeue" size:20];
+    [_refreshButton.layer setBorderColor:[[UIColor whiteColor] CGColor]];
+    _refreshButton.frame = CGRectMake(0.0, startingHeight + 100.0, screenWidth, 44.0);
  
     [self.view addSubview:_tableView];
     [self.view addSubview:self.suggestButton];
     [self.view addSubview:self.detectivePadButton];
     [self.view addSubview:self.gameNameLabel];
     [self.view addSubview:self.currentTurnLabel];
+    [self.view addSubview:_refreshButton];
     
     [self.view.layer addSublayer:shapeLayer];
 }

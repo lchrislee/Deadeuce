@@ -6,6 +6,5 @@
 target 'Deadeuce' do
 
 pod 'SWRevealViewController', '~> 2.3'
-pod 'SVPullToRefresh'
 
 end
