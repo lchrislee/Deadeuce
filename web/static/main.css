@@ -63,12 +63,14 @@ Detective Checklist
     width: 25%;
     min-width:150px;
     /*height: 400px;*/
+    display:block;
     padding:0;
     background-color:#CCC;
     border: solid #444 1px;
     overflow: hidden;
     float: left;
     margin-top:0px;
+    margin-left:30px;
     display: inline-block;
     vertical-align: top;
 }
@@ -186,6 +188,7 @@ Game Components
 Game Tables
 *******************************************************************/
 .gamefeed{
+    margin-top:20px;
     width: 72%;
     min-width:500px;
     height: 418px;
@@ -199,7 +202,6 @@ Game Tables
     vertical-align: top;
 
     margin-bottom:30px;
-    margin-right:20px;
 }
 .FeedHeader{
     width: 100%;
@@ -248,15 +250,15 @@ Game Tables
     height: 50px;
     display:block;
     padding-bottom:5px;
-    vertical-align: middle;
     clear: both;
 }
 .divFeedColumn1 {
     float: left;
     width: 5%;
     height:100%;
-    display:inline-block;
+    display:block;
     padding: 0 .5%;
+    text-align:center;
 }
 .divFeedColumn2 {
     width: 74%;
@@ -303,12 +305,12 @@ Game Feed Table Item Stylings
 .gamefeed-svg{
     width: 20px;
     height: 20px;
-
+    float:left;
 }
 .icon{
+    float:left;
     height:20px;
     width:20px;
-    margin-top:12px;
 }
 .suggested{
     font-weight:bold;
@@ -338,10 +340,10 @@ Game Map
 }*/
 
 .gameMap-wrapper{
-    margin: 0 30px 0 0;
+    margin: 0 2% 0 0;
     width: 72%;
     min-width:250px;
-    height: 525px;
+    height: 530px;
     padding:0;
     background-color:#000000;
 
@@ -360,11 +362,10 @@ Game Map
 }
 .gameMapBoxHeader{
     width: 100%;
-    height: 25px;
+    height: 30px;
     float:left;
     background-color: #444;
     text-align:center;
-    vertical-align: middle;
 }
 .gameMapBoxBody{
     width: 99.5555%;
@@ -379,11 +380,8 @@ Game Map
 .mapHeader{
     font-size:8.5pt;
     font-weight:bold;
-    margin:0;
-    padding:0;
+    margin-bottom: auto 0;
     color: #FFF;
-    display:inline-block;
-    vertical-align: middle;
 }
 .mapRow-header{
     width: 100%;
@@ -478,7 +476,6 @@ Profile Page
     border-radius: 5px;
     padding: 10px;
 }
-
 .prof-img {
     width: 50%;
     margin:auto;
@@ -503,8 +500,8 @@ Profile Page
 .my-wins .my-losses {
     font-size: 18pt;
     float: right;
-/*    border: 1px solid black;
-*/    text-align: center;
+    border: 1px solid black;
+    text-align: center;
     display:block;
 }
 .my-wins {
@@ -522,7 +519,6 @@ Profile Page
     margin: auto;
     padding-top: 15px;
 }
-
 
 /**************************************************************
 Sign In
@@ -547,7 +543,7 @@ Sign In
 }
 .sign-button{
     height:40px;
-    width:200px;
+    width:250px;
     display:block;
     margin: auto;
     background-color: #999;
@@ -681,9 +677,12 @@ Suggest/Accuse
     font-size: 10pt;
     background-color: #CCC;
 }
+<<<<<<< HEAD
 .firstSuggestLabel{
     padding-top:25px;
 }
+=======
+>>>>>>> b0b5e6e364697c5b82af0694ed7f9f5fe6b65b28
 
 /******************************************************************
 Homepage Game Winning Accusations

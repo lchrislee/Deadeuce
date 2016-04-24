@@ -89,8 +89,8 @@ body {
 }
 .thumb_background{
 	background: black url(assets/icons/fingerprint.svg);
-	background-size: 20%;
-	background-position: 60% -10%;
+	background-size: 5%;
+	background-position: 60% 40%;
 	background-repeat: no-repeat;
 }
 .primary_content, .secondary_content, .primary_content2, .only_content{
