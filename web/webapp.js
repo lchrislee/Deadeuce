@@ -278,10 +278,10 @@ app.post('/game/status', function(request, response){
       return;
     }else{
       console.log(game);
-	var gamePlayerID = undefined;
-	if (game.numPlayers == 1){ // TODO SET THIS BACK TO 6
-		gamePlayerID = game.turnPlayerEmail;
-	}
+      var gamePlayerID = undefined;
+      if (game.numPlayers == 6){
+      	gamePlayerID = game.turnPlayerEmail;
+      }
       response.json({
         "gameName":game.name,
         "feed":game.feed,
@@ -419,7 +419,7 @@ app.put('/joinGame', function(request, response){
                 response.json({
                   joinSuccess: true,
                   gameID: gameName,
-		  nickName: playerNickName
+                  nickName: playerNickName
                 });
                 return;
               }
@@ -481,7 +481,7 @@ app.put('/game/action', function(request, response){
             response.json({"action":action,"correct": false, "feedback": game.gameWinner + " has found the murderer!", "gameWinner":game.gameWinner});
           });
         });
-      }else if (game.numPlayers < 1){
+      }else if (game.numPlayers < 6){
         response.json({"action":action, "correct":false, "feedback": "There are not enough players!"});
         return;
       }
