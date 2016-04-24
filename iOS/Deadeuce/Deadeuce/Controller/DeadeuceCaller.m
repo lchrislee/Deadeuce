@@ -12,29 +12,29 @@
 @interface DeadeuceCaller ()
 @property (strong, nonatomic) NSString* baseRestUrl;
 @property (strong, nonatomic) NSDictionary *requestToType;
-@property (nonatomic, strong) NSString* gameID;
-@property (nonatomic, strong) NSString* userID;
 @end
 
 @implementation DeadeuceCaller
 @synthesize delegate;
 
-//TODO this should persist
 - (void) setGameID:(NSString*)gameID
 {
-    _gameID = gameID;
+    [[NSUserDefaults standardUserDefaults] setObject:gameID forKey:@"gameID"];
+    [[NSUserDefaults standardUserDefaults] synchronize];
 }
 - (NSString*) getGameID
 {
-    return _gameID;
+    
+    return [[NSUserDefaults standardUserDefaults] stringForKey:@"gameID"];
 }
 - (void) setUserID:(NSString*)userID
 {
-    _userID = userID;
+    [[NSUserDefaults standardUserDefaults] setObject:userID forKey:@"userID"];
+    [[NSUserDefaults standardUserDefaults] synchronize];
 }
 - (NSString*) getUserID
 {
-    return _userID;
+    return [[NSUserDefaults standardUserDefaults] stringForKey:@"userID"];
 }
 
 - (void) testSlice: (NSDictionary *) bodyDict{
