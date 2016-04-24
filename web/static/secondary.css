@@ -87,6 +87,12 @@ body {
 .main_page_smallfont{
 	font-size: 30px;
 }
+.thumb_background{
+	background: black url(assets/icons/fingerprint.svg);
+	background-size: 20%;
+	background-position: 60% -10%;
+	background-repeat: no-repeat;
+}
 .primary_content, .secondary_content, .primary_content2, .only_content{
 	background-color: rgba(244,244,244,0.9);
 	border-radius: 5px;
@@ -127,10 +133,8 @@ body {
     float: right;
 	margin-right:50px;
     width: 17%;
-    height:100%;
     display:block;
     padding-right:1%;
-    padding-top: 15px;
     text-align:right;
     font-size:8pt;
     vertical-align: top;
@@ -138,10 +142,8 @@ body {
 .columnheader2 {
 	float: left;
 	width: 17%;
-	height:100%;
 	display:block;
 	padding-right:1%;
-	padding-top: 15px;
 	text-align:right;
 	font-size:8pt;
 	vertical-align: top;
@@ -155,14 +157,14 @@ body {
     display:block;
     padding:0;
     background-color:#CCC;
-    border: solid #444 1px;
+/*    border: solid #444 1px;*/
     overflow: hidden;
  }
  .av_gamesTable {
-    width: 103%;
+ 	padding: 0px;
+    width: 100%;
     height: 350px;
     display:block;
-    padding:0;
     margin:0;
     background-color:#CCC;
     overflow-y: scroll;
@@ -214,8 +216,11 @@ body {
 
 #game_name {
 	width: 350px;
-	margin-left: 10px;
-	margin-right: 20px;
+	height: 45px;
+	 width: 89%;
+	 margin: 5%;
+	 text-align: center;
+	 font-size: 32px;
 }
 
  .white_text {

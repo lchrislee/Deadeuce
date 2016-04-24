@@ -85,12 +85,12 @@ var JoinGame = React.createClass({
     return (
      <div>
       <br/>
-         <div className="outercontainer tallHeight">
+         <div className="outercontainer">
              <div className="hero_img">
                  <h1 className="center">Come on in!</h1>
              </div>
-             <div className="only_content">
-                <h3> Choose a game from the list below:</h3>
+             <div className="only_content" style={{width: '100%', margin:'0px', padding: '0px', marginTop: '30px',marginBottom: '30px',borderRadius: '0px'}}>
+                <h3 style={{textAlign: 'center', fontSize: '24px',fontWeight: '200'}}> Choose a game from the list below</h3>
 
                  <AvailableGames allGames = {this.state.allGames} selectedFunction={this.selectGame}/>
 

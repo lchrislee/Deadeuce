@@ -26,7 +26,7 @@ render: function(){
 
         <div className="av_games firstRow">
             <div className="FeedHeader">
-                <div className="gamefeed-header"> Available Games</div>
+                <div className="gamefeed-header" style={{textAlign: 'center', fontWeight: '200', fontSize: '32px'}}> Available Games</div>
                 <div className="columnheader"> <p> Players </p></div>
                 <div className="columnheader2"> <p> Games </p></div>
             </div>
