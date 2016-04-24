@@ -37,7 +37,7 @@ ReactDOM.render(
       
       <Route path="/home" component={HomePage} />
       <Route path="/games" component={Games}/>
-      <Route path="/profile" component={Profile}/>
+      <Route path="/profile" component={Profile} />
       <Route path="/create_game" component={CreateGame}/>
       <Route path="/join_game" component={JoinGame}/>
       
