@@ -13,8 +13,10 @@
 
 @interface DecisionResultViewController ()
 
-@property (nonatomic, strong) NSString* decisionType;
-@property (nonatomic, strong) NSString* correctOrIncorrect;
+@property BOOL isSuggestion;
+@property (nonatomic, strong) NSString* feedback;
+@property BOOL correct;
+
 @property (nonatomic, strong) UILabel *resultLabel;
 
 @property (nonatomic, strong) UIButton *gameFeedButton;
@@ -27,29 +29,25 @@
 -(void)gameListButtonPressed:(UIButton*)sender
 {
     NSArray *controllers = [self.navigationController viewControllers];
-    if([sender.titleLabel.text isEqualToString:@"Return to Game Feed"]){
-        [self.navigationController popToViewController:[controllers objectAtIndex:2] animated:YES];
-    } else {
-        [self.navigationController popToViewController:[controllers objectAtIndex:1] animated:YES];
-    }
+    [self.navigationController popToViewController:[controllers objectAtIndex:2] animated:YES];
 }
 -(void)gameFeedButtonPressed:(id)sender
 {
     NSArray *controllers = [self.navigationController viewControllers];
-    [self.navigationController popToViewController:[controllers objectAtIndex:2] animated:YES];
+    [self.navigationController popToViewController:[controllers objectAtIndex:3] animated:YES];
 }
 
 -(instancetype)initWithOptions:(NSArray*)options andFeedback:(NSDictionary*)feedback
 {
     if (self = [super init])
     {
-        _decisionType = [feedback objectForKey:@"action"];
+        _isSuggestion = [[feedback objectForKey:@"action"] isEqualToString:@"suggest"];
         
-        //TODO parse the feedback
         NSLog(@"%@", feedback);
-        _correctOrIncorrect = ([feedback objectForKey:@"correct"] == 0) ? @"Incorrect" : @"Correct";
+        _feedback = [feedback objectForKey:@"feedback"];
+        _correct = ([[feedback objectForKey:@"correct"] boolValue]);
         
-        if([_decisionType isEqualToString:@"Suggestion"]){
+        if(_isSuggestion){
             self.navigationItem.title = @"Suggest";
         } else {
            self.navigationItem.title = @"Accuse";
@@ -73,7 +71,7 @@
     
     CGFloat startingHeight = self.navigationController.navigationBar.frame.size.height;
     
-    CGFloat tableViewHeight = ([_decisionType isEqualToString:@"Suggestion"]) ? 232 : 280;
+    CGFloat tableViewHeight = (_isSuggestion) ? 232 : 280;
     CGRect tableViewFrame = CGRectMake(0.0, 0.0, self.view.frame.size.width, tableViewHeight);
     _tableView = [[UITableView alloc] initWithFrame:tableViewFrame style:UITableViewStylePlain];
     _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
@@ -87,53 +85,53 @@
     self.resultLabel.userInteractionEnabled = NO;
     self.resultLabel.textAlignment = NSTextAlignmentCenter;
     
-    if(![_decisionType isEqualToString:@"Suggestion"]){
-        if([_correctOrIncorrect isEqualToString:@"Correct"]){
+    if(!_isSuggestion){
+        if(_correct){
             self.resultLabel.text = @"The other players in the game have been notified. You have solved the case and President Nikias will dedicate the next USC building in your name.";
+            self.resultLabel.textColor = [UIColor greenColor];
         } else {
             self.resultLabel.text = @"You are no longer able to make suggestions in this game, but you may still observe the game.  The other players in the game have been notified.";
             self.resultLabel.textColor = [UIColor redColor];
         }
+    } else {
+        self.resultLabel.text = _feedback;
     }
     
     [self.resultLabel setFont:[UIFont fontWithName:@"HelveticaNeue" size:20]];
     
-    if(!([_decisionType isEqualToString:@"Accusation"] && [_correctOrIncorrect isEqualToString:@"Correct"])){
-        self.gameFeedButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-        [self.gameFeedButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-        self.gameFeedButton.layer.cornerRadius = 5;
-        self.gameFeedButton.clipsToBounds = YES;
-        [self.gameFeedButton.layer setBackgroundColor:[[UIColor colorWithRed:(134/255.0) green:(134/255.0) blue:(134/255.0) alpha:1.0] CGColor]];
-        [self.gameFeedButton addTarget:self
-                                 action:@selector(gameFeedButtonPressed:)
+    if(!_isSuggestion){
+        self.gamesListButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+        [self.gamesListButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+        self.gamesListButton.layer.cornerRadius = 5;
+        self.gamesListButton.clipsToBounds = YES;
+        [self.gamesListButton.layer setBackgroundColor:[[UIColor colorWithRed:(134/255.0) green:(134/255.0) blue:(134/255.0) alpha:1.0] CGColor]];
+        [self.gamesListButton addTarget:self
+                                 action:@selector(gameListButtonPressed:)
                        forControlEvents:UIControlEventTouchUpInside];
-        [self.gameFeedButton setTitle:@"Current Game Feed" forState:UIControlStateNormal];
-        self.gameFeedButton.titleLabel.font = [UIFont fontWithName:@"HelveticaNeue" size:20];
-        self.gameFeedButton.frame = CGRectMake(20.0, screenHeight - 143.0, screenWidth - 40.0, 64.0);
+        [self.gamesListButton setTitle:@"Return to Games List" forState:UIControlStateNormal];
+        self.gamesListButton.titleLabel.font = [UIFont fontWithName:@"HelveticaNeue" size:20];
+        self.gamesListButton.frame = CGRectMake(20.0, screenHeight - 143.0, screenWidth - 40.0, 64.0);
     }
     
-    self.gamesListButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-    [self.gamesListButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-    self.gamesListButton.layer.cornerRadius = 5;
-    self.gamesListButton.clipsToBounds = YES;
-    [self.gamesListButton.layer setBackgroundColor:[[UIColor colorWithRed:(134/255.0) green:(134/255.0) blue:(134/255.0) alpha:1.0] CGColor]];
-    [self.gamesListButton addTarget:self
-                         action:@selector(gameListButtonPressed:)
+    self.gameFeedButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+    [self.gameFeedButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    self.gameFeedButton.layer.cornerRadius = 5;
+    self.gameFeedButton.clipsToBounds = YES;
+    [self.gameFeedButton.layer setBackgroundColor:[[UIColor colorWithRed:(134/255.0) green:(134/255.0) blue:(134/255.0) alpha:1.0] CGColor]];
+    [self.gameFeedButton addTarget:self
+                         action:@selector(gameFeedButtonPressed:)
                forControlEvents:UIControlEventTouchUpInside];
     
-    NSString* title = ([_decisionType isEqualToString:@"Suggestion"]) ? @"Return to Game Feed" : @"Return to Games List";
-    [self.gamesListButton setTitle:title forState:UIControlStateNormal];
-    self.gamesListButton.titleLabel.font = [UIFont fontWithName:@"HelveticaNeue" size:20];
-    self.gamesListButton.frame = CGRectMake(20.0, screenHeight - 74.0, screenWidth - 40.0, 64.0);
+    [self.gameFeedButton setTitle:@"Return to Game Feed" forState:UIControlStateNormal];
+    self.gameFeedButton.titleLabel.font = [UIFont fontWithName:@"HelveticaNeue" size:20];
+    self.gameFeedButton.frame = CGRectMake(20.0, screenHeight - 74.0, screenWidth - 40.0, 64.0);
     
     [self.view addSubview:_tableView];
-    if(![_decisionType isEqualToString:@"Suggestion"]){
-        [self.view addSubview:self.resultLabel];
+    [self.view addSubview:self.resultLabel];
+    if(!_isSuggestion){
+        [self.view addSubview:self.gamesListButton];
     }
-    if([_correctOrIncorrect isEqualToString:@"Incorrect"]){
-        [self.view addSubview:self.gameFeedButton];
-    }
-    [self.view addSubview:self.gamesListButton];
+    [self.view addSubview:self.gameFeedButton];
 }
 
 - (void)viewDidLoad {
@@ -167,7 +165,7 @@
     /* Hackathon Quality */
     UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(10.0, -1.0, tableView.frame.size.width, 44.0)];
     [label setFont:[UIFont boldSystemFontOfSize:18]];
-    NSString *title = [_decisionType isEqualToString:@"Accusation"] ? @"Accusal Results" : @"Suggestion Feedback";
+    NSString *title = _isSuggestion ? @"Suggestion Feedback" : @"Accusation Result";
     /* Section header is in 0th index... */
     [label setText:title];
     [view addSubview:label];
@@ -175,10 +173,6 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    if([_decisionType isEqualToString:@"Suggestion"]){
-        return self.data.count;
-    }
-    
     return self.data.count + 1;
 }
 
@@ -193,31 +187,18 @@
     }
     
     if(indexPath.row == 0){
-        if([self.decisionType isEqualToString:@"Suggestion"]){
-            [cell.textLabel setText:@"Tommy Trojan revealed:"];
-            [cell.textLabel setFont:[UIFont systemFontOfSize:18]];
-        } else {
-            NSString* totalString = [NSString stringWithFormat:@"Your decision was %@", _correctOrIncorrect];
-            
-            UIColor* correctnessColor = ([_correctOrIncorrect isEqualToString:@"Incorrect"]) ? [UIColor redColor] : [UIColor greenColor];
-            NSMutableAttributedString *text = [[NSMutableAttributedString alloc] initWithString:totalString];
-            [text addAttribute:NSForegroundColorAttributeName value:[UIColor blackColor] range: NSMakeRange(0, totalString.length - _correctOrIncorrect.length)];
-            [text addAttribute:NSForegroundColorAttributeName value:correctnessColor range:NSMakeRange(totalString.length-_correctOrIncorrect.length, _correctOrIncorrect.length)];
-            [cell.textLabel setAttributedText:text];
-        }
+        NSString* correctOrIncorrect = (_correct) ? @"Correct" : @"Incorrect";
+        NSString* suggestionOrAccusation = (_isSuggestion) ? @"Suggestion" : @"Accusation";
+        NSString* totalString = [NSString stringWithFormat:@"Your %@ was %@", suggestionOrAccusation, correctOrIncorrect];
+        
+        UIColor* correctnessColor = (_correct) ? [UIColor greenColor] : [UIColor redColor];
+        NSMutableAttributedString *text = [[NSMutableAttributedString alloc] initWithString:totalString];
+        [text addAttribute:NSForegroundColorAttributeName value:[UIColor blackColor] range: NSMakeRange(0, totalString.length - correctOrIncorrect.length)];
+        [text addAttribute:NSForegroundColorAttributeName value:correctnessColor range:NSMakeRange(totalString.length-correctOrIncorrect.length, correctOrIncorrect.length)];
+        [cell.textLabel setAttributedText:text];
     } else {
-        if([self.decisionType isEqualToString:@"Suggestion"]){
-            if(indexPath.row == 1){
-                [cell.textLabel setText:@"Lyon Center"];
-                [cell.textLabel setFont:[UIFont systemFontOfSize:18]];
-            } else if(indexPath.row == 2){
-                [cell.textLabel setText:@"Lyon Center has been checked off"];
-                [cell.textLabel setFont:[UIFont boldSystemFontOfSize:18]];
-            }
-        } else {
-            [cell.textLabel setText:self.data[indexPath.row - 1]];
-            [cell.textLabel setFont:[UIFont systemFontOfSize:18]];
-        }
+        [cell.textLabel setText:self.data[indexPath.row - 1]];
+        [cell.textLabel setFont:[UIFont systemFontOfSize:18]];
     }
     
     return cell;
