@@ -159,6 +159,7 @@ const CGFloat kPadding = 6;
         _createGameName.textAlignment = NSTextAlignmentCenter;
         [_createGameName setBorderStyle:UITextBorderStyleRoundedRect];
         [_createGameName setPlaceholder:@"Omar's Occults"];
+        _createGameName.autocapitalizationType = UITextAutocapitalizationTypeNone;
         [self.contentView addSubview:_createGameName];
         
         _createGameButton = [[UIButton alloc] init];
@@ -243,6 +244,7 @@ const CGFloat kPadding = 6;
     [gameInfo setObject:currentObj.gameName forKey:@"gameName"];
     
     DeadeuceCaller* model = [DeadeuceCaller sharedInstance];
+    model.delegate = self;
     [gameInfo setObject:[model getUserID] forKey:@"email"];
     [gameInfo setObject:@"1234" forKey:@"name"];
     [model joinGame:gameInfo];
@@ -256,6 +258,7 @@ const CGFloat kPadding = 6;
         [gameInfo setObject:_gameName forKey:@"gameName"];
         
         DeadeuceCaller* model = [DeadeuceCaller sharedInstance];
+        model.delegate = self;
         [gameInfo setObject:[model getUserID] forKey:@"hostID"];
         [model createGame:gameInfo];
     }
@@ -274,9 +277,6 @@ const CGFloat kPadding = 6;
         self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
         
         _data = [[NSMutableArray alloc] init];
-        DeadeuceCaller* model = [DeadeuceCaller sharedInstance];
-        model.delegate = self;
-        [model getGames];
     }
     
     return self;
@@ -302,10 +302,13 @@ const CGFloat kPadding = 6;
     [[GIDSignIn sharedInstance] disconnect];
 }
 
-
--(void)viewWillAppear:(BOOL)animated {
+-(void)viewWillAppear:(BOOL)animated
+{
     [super viewWillAppear:animated];
     self.revealViewController.panGestureRecognizer.enabled=NO;
+    DeadeuceCaller* model = [DeadeuceCaller sharedInstance];
+    model.delegate = self;
+    [model getGames];
 }
 
 -(void)viewWillDisappear:(BOOL)animated {
@@ -323,6 +326,7 @@ const CGFloat kPadding = 6;
 -(void)listOfGames:(NSDictionary *)payload
 {
     dispatch_async(dispatch_get_main_queue(), ^{
+        [_data removeAllObjects];
         NSArray* newData = [payload objectForKey:@"gamesList"];
         for(int i = 0; i < newData.count; i++){
             NSDictionary* singleGame = newData[i];

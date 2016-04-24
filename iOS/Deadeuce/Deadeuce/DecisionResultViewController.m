@@ -10,6 +10,9 @@
 #import <SWRevealViewController.h>
 #import "LobbyTableViewController.h"
 #import "DetectivePadTableViewController.h"
+#import "LobbyTableViewController.h"
+#import "CurrentGameViewController.h"
+#import "DeadeuceCaller.h"
 
 @interface DecisionResultViewController ()
 
@@ -28,13 +31,27 @@
 
 -(void)gameListButtonPressed:(UIButton*)sender
 {
-    NSArray *controllers = [self.navigationController viewControllers];
-    [self.navigationController popToViewController:[controllers objectAtIndex:2] animated:YES];
+    //TODO reset gameID properly
+    [[DeadeuceCaller sharedInstance] setGameID:@""];
+    NSMutableArray *allViewControllers = [NSMutableArray arrayWithArray:[self.navigationController viewControllers]];
+    for (UIViewController *aViewController in allViewControllers) {
+        if ([aViewController isKindOfClass:[LobbyTableViewController class]]) {
+            [self.navigationController popToViewController:aViewController animated:YES];
+        }
+    }
+//    NSArray *controllers = [self.navigationController viewControllers];
+//    [self.navigationController popToViewController:[controllers objectAtIndex:2] animated:YES];
 }
 -(void)gameFeedButtonPressed:(id)sender
 {
-    NSArray *controllers = [self.navigationController viewControllers];
-    [self.navigationController popToViewController:[controllers objectAtIndex:3] animated:YES];
+    NSMutableArray *allViewControllers = [NSMutableArray arrayWithArray:[self.navigationController viewControllers]];
+    for (UIViewController *aViewController in allViewControllers) {
+        if ([aViewController isKindOfClass:[CurrentGameViewController class]]) {
+            [self.navigationController popToViewController:aViewController animated:YES];
+        }
+    }
+//    NSArray *controllers = [self.navigationController viewControllers];
+//    [self.navigationController popToViewController:[controllers objectAtIndex:3] animated:YES];
 }
 
 -(instancetype)initWithOptions:(NSArray*)options andFeedback:(NSDictionary*)feedback

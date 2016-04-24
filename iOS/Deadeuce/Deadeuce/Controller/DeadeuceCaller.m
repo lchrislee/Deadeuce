@@ -130,7 +130,6 @@
 - (BOOL) createGame: (NSDictionary *) gameInfo{
     NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@createGame/", self.baseRestUrl] ];
     NSURLRequest *request = [self createRequestForURL:url withData:gameInfo andRequestType:[self.requestToType objectForKey:@"createGame"]];
-    
     if (!request)
     {
         return false;
@@ -141,6 +140,7 @@
             }else{
                 NSError *error;
                 NSDictionary *output = [NSJSONSerialization JSONObjectWithData:data options:0 error:&error];
+                NSLog(@"%@", output);
                 [delegate createdGame:[output objectForKey:@"gameID"]];
             }
         }];
