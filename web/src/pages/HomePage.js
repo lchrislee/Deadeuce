@@ -14,28 +14,17 @@ var HomePage = React.createClass({
   render: function() {
     return (
      <div>
-      <div className="outercontainer">
-        <div className="hero_img"> 
-          <h1 className="center">Oh Shit... There's Been a Murder!</h1>        
+      <div className="outercontainer" style={{paddingBottom: '0px'}}>
+        
+
+        <div className="main_page">
+          <p className="main_page_title">Deadeuce</p>
+          <p className="main_page_bigfont">FOUND:</p>
+          <p className="main_page_midfont">EVKitty dead</p>
+          <p className="main_page_small">University offering reward for the killer</p>
         </div>
-        <div className="primary_content">
-          <h3> FOUND: EVKitty dead. University offering reward for the killer.</h3>
-        </div>
-        <div style={{fontSize: '14px'}} className="secondary_content">
-          <h3> Game winning accusations: </h3>
-          <br/>
-          George Tirebiter with empty beer bottles at the 90
-          <br/><br/>
-          Will Ferrell with Tommy's Sword at Bovard
-          <br/><br/>
-          President Nikias with a U-lock at the Row 
-          <br/><br/>
-          Tommy Trojan with Viterbi Classes at Traddies
-          <br/><br/>
-        </div>
-       	<div className="center"></div>
-        <div className="center white_text">
-        </div> 
+        
+       	
       </div>  
      </div>
     );
