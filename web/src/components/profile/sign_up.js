@@ -5,6 +5,9 @@ var $ = require('jquery');
 
 
 var SignUp = React.createClass({
+    contextTypes: {
+        router: React.PropTypes.object.isRequired
+    },
     getInitialState: function(){
         return{
             name: "",
@@ -31,8 +34,15 @@ var SignUp = React.createClass({
                 }else if (response.loginSuccess == true){
                     console.log(response.loginSucess);
                     sessionStorage.setItem("userID", this.state.email);
+                    sessionStorage.setItem("gameID", response.gameID);
+                    sessionStorage.setItem("nickName", response.nickName);
                 }else{
-                    console.log("improper login");
+                    alert("improper login");
+                }
+                if(sessionStorage.gameID == undefined){
+                    this.context.router.push('join_game');
+                } else {
+                    this.context.router.push('game_home');
                 }
             }.bind(this),
             error: function(err){
@@ -98,7 +108,9 @@ var SignUp = React.createClass({
                         console.log("DONE: " + response.userID);
                         sessionStorage.setItem("userID", response.userID);
                         sessionStorage.setItem("name",this.state.name);
+                        sessionStorage.setItem("nickName", response.nickName);
                     }
+                this.context.router.push('join_game');
               }.bind(this),
               error: function(xhr, status, err) {
                 this.setState({
