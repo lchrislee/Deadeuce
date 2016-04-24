@@ -466,6 +466,7 @@ Profile Page
     border-radius: 5px;
     padding: 10px;
 }
+
 .prof-img {
     width: 50%;
     margin:auto;
@@ -490,8 +491,8 @@ Profile Page
 .my-wins .my-losses {
     font-size: 18pt;
     float: right;
-    border: 1px solid black;
-    text-align: center;
+/*    border: 1px solid black;
+*/    text-align: center;
     display:block;
 }
 .my-wins {
@@ -501,20 +502,23 @@ Profile Page
     color: #000;
 }
 
+.signContainer {
+    background-color: #CCC;
+    height: 330px;
+    border-radius: 5px;
+}
+
+
 /**************************************************************
 Sign In
 ***************************************************************/
 
 .sign-in {
-
-    border: 1px solid black;
-    clear: both;
     text-align: center;
     width: 300px;
     padding: 50px;
     margin: auto;
     margin-left: 4%;
-    background-color:#CCC;
     border-radius: 5px;
     float:left;
 }
@@ -544,17 +548,17 @@ Sign Up
 ***************************************************************/
 
 .sign-up{
-    border:1px solid black;
     clear: both;
     text-align: left;
     width: 350px;
     padding: 50px;
     margin: auto;
-    margin-top: -272px;
+    margin-top: -230px ;
     margin-right: 4%;
-    background-color:#CCC;
-    border-radius: 5px;
     float: right;
+    border-left: 1px solid black;
+    padding-top: 0px;
+    padding-bottom: 0px;
 }
 
 .sign-up-header{
