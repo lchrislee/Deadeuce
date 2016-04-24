@@ -207,8 +207,11 @@ const CGFloat kPadding3 = 6;
         [weakSelf.pullToRefreshView stopAnimating];
     }];
     
-    self.suggestButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    [self.suggestButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    if(!_suggestButton){
+        self.suggestButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        [self.suggestButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+        [self.suggestButton setTitleColor:[UIColor colorWithRed:200.0/255.0 green:200.0/255.0 blue:200.0/255.0 alpha:0.3] forState:UIControlStateDisabled];
+    }
     self.suggestButton.clipsToBounds = YES;
     [self.suggestButton.layer setBackgroundColor:[[UIColor colorWithRed:(134/255.0) green:(134/255.0) blue:(134/255.0) alpha:1.0] CGColor]];
     [self.suggestButton addTarget:self
@@ -288,17 +291,17 @@ const CGFloat kPadding3 = 6;
 #pragma mark - Deadeuce Delegate
 -(void) setGameStatus:(NSDictionary *)gameStatus
 {
-    /*
-     response.json({
-     "turnPlayerID":game.turnPlayerEmail
-     */
     if(!_currentTurnLabel){
         _currentTurnLabel = [[UILabel alloc] init];
     }
     if(!_gameNameLabel){
         _gameNameLabel = [[UILabel alloc] init];
     }
-    //TODO GET MORE STUFF
+    if(!_suggestButton){
+        self.suggestButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        [self.suggestButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+        [self.suggestButton setTitleColor:[UIColor colorWithRed:200.0/255.0 green:200.0/255.0 blue:200.0/255.0 alpha:0.3] forState:UIControlStateDisabled];
+    }
     
     if([gameStatus objectForKey:@"gameWinner"]){
         _gameNameLabel.text = @"GAME OVER";
@@ -307,8 +310,10 @@ const CGFloat kPadding3 = 6;
         _gameNameLabel.text = [NSString stringWithFormat:@"Game: %@", [gameStatus objectForKey:@"gameName"]];
         
         if([[gameStatus objectForKey:@"turnPlayerID"] isEqualToString:[[DeadeuceCaller sharedInstance] getUserID]]){
+            _suggestButton.enabled = YES;
             _currentTurnLabel.text = [NSString stringWithFormat:@"Current Turn: %@ (You)", [gameStatus objectForKey:@"turnPlayerNickname"]];
         } else {
+            _suggestButton.enabled = NO;
            _currentTurnLabel.text = [NSString stringWithFormat:@"Current Turn: %@", [gameStatus objectForKey:@"turnPlayerNickname"]];
         }
     }
