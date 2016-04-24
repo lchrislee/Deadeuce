@@ -12,9 +12,7 @@ render: function(){
     return(
             <div className="gamefeed firstRow">
                 <div className="FeedHeader">
-                     <div className="divFeedRow-header">
-                         <p id="header" className="gamefeed-header">Game Feed</p>
-                     </div>
+                         <div className="gamefeed-header">Game Feed</div>
                  </div>
                  <div className="divFeedTable">
                      {this.props.gameFeed.map(function(gameStatus){
