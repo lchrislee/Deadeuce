@@ -151,6 +151,7 @@
         CGRect passwordTextFieldConfirmRect = CGRectMake(20.0, screenHeight/2.0 +88.0, screenWidth - 40.0, 44.0);
         self.passwordTextFieldConfirm = [[UITextField alloc] initWithFrame:passwordTextFieldConfirmRect];
         self.passwordTextFieldConfirm.delegate = self;
+        self.passwordTextFieldConfirm.secureTextEntry = YES;
         self.passwordTextFieldConfirm.borderStyle = UITextBorderStyleRoundedRect;
         self.passwordTextFieldConfirm.placeholder = @"Confirm Password";
         [self.passwordTextFieldConfirm setReturnKeyType:UIReturnKeyDone];
@@ -182,6 +183,7 @@
     CGRect passwordTextFieldRect = CGRectMake(20.0, screenHeight/2.0 + 6.0, screenWidth - 40.0, 44.0);
     self.passwordTextField = [[UITextField alloc] initWithFrame:passwordTextFieldRect];
     self.passwordTextField.delegate = self;
+    self.passwordTextField.secureTextEntry = YES;
     self.passwordTextField.borderStyle = UITextBorderStyleRoundedRect;
     self.passwordTextField.placeholder = @"Password";
     [self.passwordTextField setReturnKeyType:UIReturnKeyDone];

@@ -26,7 +26,7 @@
     dispatch_async(queue, ^{
         // Perform on main thread/queue
         dispatch_async(dispatch_get_main_queue(), ^{
-            DecisionResultViewController * dRVc = [[DecisionResultViewController alloc] initWithOptions:[self.data copy] andFeedback:feedback];
+            DecisionResultViewController * dRVc = [[DecisionResultViewController alloc] initWithOptions:[self.data copy]andFeedback:feedback];
             [self.navigationController pushViewController:dRVc animated:YES];
         });
     });
@@ -50,7 +50,7 @@
                                      model.delegate = self;
                                      NSMutableDictionary* upload = [[NSMutableDictionary alloc] init];
                                      [upload setObject:[model getGameID] forKey:@"gameID"];
-                                     [upload setObject:@"Omar" forKey:@"userID"];
+                                     [upload setObject:[model getUserID] forKey:@"userID"];
                                      [upload setObject:_data[0] forKey:@"location"];
                                      [upload setObject:_data[1] forKey:@"weapon"];
                                      [upload setObject:_data[2] forKey:@"suspect"];
@@ -80,7 +80,7 @@
                                     model.delegate = self;
                                     NSMutableDictionary* upload = [[NSMutableDictionary alloc] init];
                                     [upload setObject:[model getGameID] forKey:@"gameID"];
-                                    [upload setObject:@"Omar" forKey:@"userID"];
+                                    [upload setObject:[model getUserID] forKey:@"userID"];
                                     [upload setObject:_data[0] forKey:@"location"];
                                     [upload setObject:_data[1] forKey:@"weapon"];
                                     [upload setObject:_data[2] forKey:@"suspect"];

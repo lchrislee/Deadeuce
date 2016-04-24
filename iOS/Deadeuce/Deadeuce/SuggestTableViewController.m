@@ -35,12 +35,14 @@
 
 -(void) setGameCheckList: (NSDictionary *)gameCheckList
 {
-    NSDictionary* checklist = [gameCheckList objectForKey:@"checkList"];
-    
-    _locations = [checklist objectForKey:@"locations"];
-    _weapons = [checklist objectForKey:@"weapons"];
-    _people = [checklist objectForKey:@"suspects"];
-    [self.tableView reloadData];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        NSDictionary* checklist = [gameCheckList objectForKey:@"checkList"];
+        
+        _locations = [checklist objectForKey:@"locations"];
+        _weapons = [checklist objectForKey:@"weapons"];
+        _people = [checklist objectForKey:@"suspects"];
+        [self.tableView reloadData];
+    });
 }
 
 - (instancetype)initWithStyle:(UITableViewStyle)style
