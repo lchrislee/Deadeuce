@@ -2,7 +2,6 @@ var React = require('react');
 var ReactDOM = require('react-dom');
 var Link = require('react-router').Link;
 var $ = require('jquery');
-var SignIn = require('./sign_in');
 var SignUp = require('./sign_up');
 
 var MyProfile = React.createClass({
@@ -39,7 +38,6 @@ var MyProfile = React.createClass({
     render: function(){
         return(
             <div className="outercontainer-profile">
-                <SignIn />
                 <SignUp />
             </div>
 

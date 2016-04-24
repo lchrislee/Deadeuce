@@ -49,7 +49,6 @@ var SAContent = React.createClass({
       dataType: 'json',
       data: stringified,
       success: function(data) {
-        document.querySelector('.accuse-response').style.visibility="visible";
         console.log("gameWinner: " + data.gameWinner);
         if (data.gameWinner != undefined){
           sessionStorage.gameID = undefined;

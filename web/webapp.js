@@ -575,7 +575,7 @@ app.put('/game/action', function(request, response){
             return;
           }else{
             if (outputOptions.length == 0){ // correct suggestion
-              response.json({"action":action,"correct":true, "feedback":"GUESS THIS!"});
+              response.json({"action":action,"correct":true, "feedback":"Accuse this on your next turn!"});
               return;
             }else{ // incorrect
               var outPutHint = Math.floor(Math.random()*outputOptions.length);
@@ -677,7 +677,7 @@ app.post('/loginUser', function(request, response){
   var password = request.body.password;
   var cursor = db.collection('users').findOne({"email": email}, function(err, doc){
     if (doc != undefined && doc.password == password) {
-      response.json({"loginSuccess":true, "gameID":doc.name});
+      response.json({"loginSuccess":true, "gameID":doc.gameID});
     } else {
       response.json({"loginSuccess":false, "gameID":""});
     }

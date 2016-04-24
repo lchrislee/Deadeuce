@@ -50,7 +50,7 @@ var CreateGameForm = React.createClass({
   render: function() {
     return (
 	    <div>
-          <div className="primary_content">  
+          <div className="only_content">  
 
 
             <div className="create_game_form">
@@ -62,9 +62,6 @@ var CreateGameForm = React.createClass({
               
               
             </div>
-          </div>
-          <div className="secondary_content">
-            Story or stats can go here
           </div>
       </div>
 	);
