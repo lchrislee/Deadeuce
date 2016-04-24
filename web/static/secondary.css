@@ -161,6 +161,9 @@ body {
 .current-turn {
 	float: left;
 }
+.create_game_form {
+	text-align: center;
+}
  .submit {
  	padding: 10px 20px;
  	background-color: rgba(0,0,0,0.6);
