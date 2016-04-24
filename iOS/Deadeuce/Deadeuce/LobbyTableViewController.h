@@ -9,8 +9,9 @@
 #import <UIKit/UIKit.h>
 #import "DeadeuceCaller.h"
 
-@interface LobbyTableViewController : UITableViewController<DeadeuceDelegate>
+@interface LobbyTableViewController : UITableViewController<DeadeuceDelegate, UITextFieldDelegate>
 
 @property (nonatomic, strong) NSMutableArray* data;
+@property (nonatomic, strong) NSString* gameName;
 
 @end

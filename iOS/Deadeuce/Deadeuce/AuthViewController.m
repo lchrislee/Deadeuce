@@ -155,7 +155,6 @@
         self.passwordTextFieldConfirm.placeholder = @"Confirm Password";
         [self.passwordTextFieldConfirm setReturnKeyType:UIReturnKeyDone];
         
-        
         [self.view addSubview:_nameLabel];
         [self.view addSubview:_nameTextField];
         [self.view addSubview:_passwordLabelConfirm];

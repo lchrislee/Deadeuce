@@ -198,8 +198,20 @@ const CGFloat kPadding3 = 6;
     [_tableView setDataSource:self];
     [_tableView setDelegate:self];
     
-    self.suggestButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    [self.suggestButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    __weak UITableView *weakSelf = _tableView;
+    [_tableView addPullToRefreshWithActionHandler:^{
+        _data = [[NSMutableArray alloc] init];
+        DeadeuceCaller* model = [DeadeuceCaller sharedInstance];
+        NSString * gameID = [model getGameID];
+        [model getGameStatus:@{@"gameID":gameID}];
+        [weakSelf.pullToRefreshView stopAnimating];
+    }];
+    
+    if(!_suggestButton){
+        self.suggestButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        [self.suggestButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+        [self.suggestButton setTitleColor:[UIColor colorWithRed:200.0/255.0 green:200.0/255.0 blue:200.0/255.0 alpha:0.3] forState:UIControlStateDisabled];
+    }
     self.suggestButton.clipsToBounds = YES;
     [self.suggestButton.layer setBackgroundColor:[[UIColor colorWithRed:(134/255.0) green:(134/255.0) blue:(134/255.0) alpha:1.0] CGColor]];
     [self.suggestButton addTarget:self
@@ -285,8 +297,27 @@ const CGFloat kPadding3 = 6;
     if(!_gameNameLabel){
         _gameNameLabel = [[UILabel alloc] init];
     }
-    _gameNameLabel.text = [NSString stringWithFormat:@"Game: %@", [gameStatus objectForKey:@"gameName"]];
-    _currentTurnLabel.text = [NSString stringWithFormat:@"Current Turn: %@", [gameStatus objectForKey:@"turnPlayerNickname"]];
+    if(!_suggestButton){
+        self.suggestButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        [self.suggestButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+        [self.suggestButton setTitleColor:[UIColor colorWithRed:200.0/255.0 green:200.0/255.0 blue:200.0/255.0 alpha:0.3] forState:UIControlStateDisabled];
+    }
+    
+    if([gameStatus objectForKey:@"gameWinner"]){
+        _gameNameLabel.text = @"GAME OVER";
+        _currentTurnLabel.text = [NSString stringWithFormat:@"Winner: %@", [gameStatus objectForKey:@"gameWinner"]];
+    } else {
+        _gameNameLabel.text = [NSString stringWithFormat:@"Game: %@", [gameStatus objectForKey:@"gameName"]];
+        
+        if([[gameStatus objectForKey:@"turnPlayerID"] isEqualToString:[[DeadeuceCaller sharedInstance] getUserID]]){
+            _suggestButton.enabled = YES;
+            _currentTurnLabel.text = [NSString stringWithFormat:@"Current Turn: %@ (You)", [gameStatus objectForKey:@"turnPlayerNickname"]];
+        } else {
+            _suggestButton.enabled = NO;
+           _currentTurnLabel.text = [NSString stringWithFormat:@"Current Turn: %@", [gameStatus objectForKey:@"turnPlayerNickname"]];
+        }
+    }
+
     
     NSArray* feedPayload = [gameStatus objectForKey:@"feed"];
     for(int i = 0; i < feedPayload.count; i++){

@@ -1,10 +1,13 @@
 PODS:
+  - SVPullToRefresh (0.4.1)
   - SWRevealViewController (2.3.0)
 
 DEPENDENCIES:
+  - SVPullToRefresh
   - SWRevealViewController (~> 2.3)
 
 SPEC CHECKSUMS:
+  SVPullToRefresh: ba2e718695a43253d8bea6852d2960097dc15d8c
   SWRevealViewController: 6d3fd97f70112fd7cef9de14df4260eacce4c63a
 
 COCOAPODS: 0.39.0

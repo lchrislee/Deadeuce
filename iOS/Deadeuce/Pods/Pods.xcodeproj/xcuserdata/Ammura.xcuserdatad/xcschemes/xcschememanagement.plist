@@ -9,6 +9,11 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>SVPullToRefresh.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>SWRevealViewController.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -17,12 +22,17 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>10E3581C386598EFF325C86116F8F8D5</key>
+		<key>C07901ED19A2E5A2D09056930D06D176</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>1885BC2B7E003DAEA38DF0B7E0038A31</key>
+		<key>D0903553E512DFBD8BF99F56A744D163</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>F99331365867EBAB8D362FC494A913D1</key>
 		<dict>
 			<key>primary</key>
 			<true/>
