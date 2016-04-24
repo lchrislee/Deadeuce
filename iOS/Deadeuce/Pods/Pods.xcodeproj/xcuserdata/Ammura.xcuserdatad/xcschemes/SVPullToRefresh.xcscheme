@@ -14,10 +14,10 @@
             buildForArchiving = "YES">
             <BuildableReference
                BuildableIdentifier = 'primary'
-               BlueprintIdentifier = 'CB5786426ECC4F1FBD7F4D76'
-               BlueprintName = 'SWRevealViewController'
+               BlueprintIdentifier = '83A9506F52C44C93F44DA992'
+               BlueprintName = 'SVPullToRefresh'
                ReferencedContainer = 'container:Pods.xcodeproj'
-               BuildableName = 'libSWRevealViewController.a'>
+               BuildableName = 'libSVPullToRefresh.a'>
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>

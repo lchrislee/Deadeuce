@@ -129,6 +129,8 @@ const CGFloat kPadding = 6;
 @property (nonatomic, strong) UIView* background;
 @property (nonatomic, strong) UIView* innerBackground;
 @property (nonatomic, strong) UILabel *introLabel;
+@property (nonatomic, strong) UITextField *createGameName;
+@property (nonatomic, strong) UIButton* createGameButton;
 
 @end
 
@@ -150,8 +152,24 @@ const CGFloat kPadding = 6;
         [self.introLabel setFont:[UIFont systemFontOfSize:22]];
         self.introLabel.numberOfLines = 2;
         [self.introLabel setTextAlignment:NSTextAlignmentCenter];
-        [self.introLabel setText:@"You have no ongoing games. Pick a game to join!"];
+        [self.introLabel setText:@"You have no ongoing games. Pick a game to join or Create a Game!"];
         [self.contentView addSubview:self.introLabel];
+        
+        _createGameName = [[UITextField alloc] init];
+        _createGameName.textAlignment = NSTextAlignmentCenter;
+        [_createGameName setBorderStyle:UITextBorderStyleRoundedRect];
+        [_createGameName setPlaceholder:@"Omar's Occults"];
+        [self.contentView addSubview:_createGameName];
+        
+        _createGameButton = [[UIButton alloc] init];
+        _createGameButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+        [_createGameButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+        _createGameButton.layer.cornerRadius = 5;
+        _createGameButton.clipsToBounds = YES;
+        [_createGameButton.layer setBackgroundColor:[[UIColor colorWithRed:(22/255.0) green:(104/255.0) blue:(249/255.0) alpha:1.0] CGColor]];
+        _createGameButton.titleLabel.font = [UIFont boldSystemFontOfSize:[UIFont systemFontSize]];
+        [_createGameButton setTitle:@"Create Game" forState:UIControlStateNormal];
+        [self.contentView addSubview:_createGameButton];
     }
     
     return self;
@@ -177,11 +195,21 @@ const CGFloat kPadding = 6;
     introLabelFrame.origin.x += kPadding;
     introLabelFrame.size.width -= 2*kPadding;
     self.introLabel.frame = introLabelFrame;
+    
+    CGRect createGameNameFrame = introLabelFrame;
+    createGameNameFrame.origin.y += kPadding/2 + introLabelFrame.size.height;
+    createGameNameFrame.size.height = kLabelHeight;
+    self.createGameName.frame = createGameNameFrame;
+    
+    CGRect createGameButtonFrame = createGameNameFrame;
+    createGameButtonFrame.origin.y += kPadding/2 + kLabelHeight;
+    createGameButtonFrame.size.height = kLabelHeight;
+    self.createGameButton.frame = createGameButtonFrame;
 }
 
 + (CGFloat)cellHeight
 {
-    return kLabelHeight*2 + 4*kPadding;
+    return kLabelHeight*4 + 7*kPadding;
 }
 
 - (void)prepareForReuse
@@ -198,6 +226,16 @@ const CGFloat kPadding = 6;
 
 @implementation LobbyTableViewController
 
+- (void)textFieldDidEndEditing:(UITextField *)textField {
+    _gameName = textField.text;
+    [textField resignFirstResponder];
+}
+- (BOOL)textFieldShouldReturn:(UITextField *)textField {
+    _gameName = textField.text;
+    [textField resignFirstResponder];
+    return YES;
+}
+
 -(void) joinGameButtonPressed:(UIButton*)sender
 {
     GameObject* currentObj = _data[sender.tag];
@@ -210,10 +248,24 @@ const CGFloat kPadding = 6;
     [model joinGame:gameInfo];
 }
 
+-(void) createGameButtonPressed:(UIButton*)sender
+{
+    [self.view endEditing:YES];
+    if(![_gameName isEqualToString:@""]){//this does not update properly
+        NSMutableDictionary* gameInfo = [[NSMutableDictionary alloc] init];
+        [gameInfo setObject:_gameName forKey:@"gameName"];
+        
+        DeadeuceCaller* model = [DeadeuceCaller sharedInstance];
+        [gameInfo setObject:[model getUserID] forKey:@"hostID"];
+        [model createGame:gameInfo];
+    }
+}
+
 - (instancetype)initWithStyle:(UITableViewStyle)style
 {
     if (self = [super initWithStyle:style])
     {
+        _gameName = [[NSString alloc] init];
         [self.tableView registerClass:[LobbyTableViewCell class] forCellReuseIdentifier:@"LobbyTableViewCell"];
         [self.tableView registerClass:[CreateGameTableViewCell class] forCellReuseIdentifier:@"CreateGameTableViewCell"];
         self.tableView.estimatedRowHeight = [LobbyTableViewCell cellHeight];
@@ -295,6 +347,19 @@ const CGFloat kPadding = 6;
     }
 }
 
+-(void) createdGame:(NSString*)gameID
+{
+    [[DeadeuceCaller sharedInstance] setGameID:gameID];
+    dispatch_queue_t queue = dispatch_queue_create("myqueue", NULL);
+    dispatch_async(queue, ^{
+        // Perform on main thread/queue
+        dispatch_async(dispatch_get_main_queue(), ^{
+            CurrentGameViewController *cGVc = [[CurrentGameViewController alloc] init];
+            [self.navigationController pushViewController:cGVc animated:YES];
+        });
+    });
+}
+
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
@@ -322,6 +387,10 @@ const CGFloat kPadding = 6;
     //Intro cell
     if(indexPath.row == 0){
         CreateGameTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"CreateGameTableViewCell" forIndexPath:indexPath];
+        cell.createGameName.delegate = self;
+        [cell.createGameButton addTarget:self
+                                action:@selector(createGameButtonPressed:)
+                      forControlEvents:UIControlEventTouchUpInside];
         [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
         
         return cell;

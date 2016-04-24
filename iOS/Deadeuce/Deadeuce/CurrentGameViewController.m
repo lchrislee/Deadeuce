@@ -198,6 +198,15 @@ const CGFloat kPadding3 = 6;
     [_tableView setDataSource:self];
     [_tableView setDelegate:self];
     
+    __weak UITableView *weakSelf = _tableView;
+    [_tableView addPullToRefreshWithActionHandler:^{
+        _data = [[NSMutableArray alloc] init];
+        DeadeuceCaller* model = [DeadeuceCaller sharedInstance];
+        NSString * gameID = [model getGameID];
+        [model getGameStatus:@{@"gameID":gameID}];
+        [weakSelf.pullToRefreshView stopAnimating];
+    }];
+    
     self.suggestButton = [UIButton buttonWithType:UIButtonTypeCustom];
     [self.suggestButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     self.suggestButton.clipsToBounds = YES;
@@ -279,14 +288,31 @@ const CGFloat kPadding3 = 6;
 #pragma mark - Deadeuce Delegate
 -(void) setGameStatus:(NSDictionary *)gameStatus
 {
+    /*
+     response.json({
+     "turnPlayerID":game.turnPlayerEmail
+     */
     if(!_currentTurnLabel){
         _currentTurnLabel = [[UILabel alloc] init];
     }
     if(!_gameNameLabel){
         _gameNameLabel = [[UILabel alloc] init];
     }
-    _gameNameLabel.text = [NSString stringWithFormat:@"Game: %@", [gameStatus objectForKey:@"gameName"]];
-    _currentTurnLabel.text = [NSString stringWithFormat:@"Current Turn: %@", [gameStatus objectForKey:@"turnPlayerNickname"]];
+    //TODO GET MORE STUFF
+    
+    if([gameStatus objectForKey:@"gameWinner"]){
+        _gameNameLabel.text = @"GAME OVER";
+        _currentTurnLabel.text = [NSString stringWithFormat:@"Winner: %@", [gameStatus objectForKey:@"gameWinner"]];
+    } else {
+        _gameNameLabel.text = [NSString stringWithFormat:@"Game: %@", [gameStatus objectForKey:@"gameName"]];
+        
+        if([[gameStatus objectForKey:@"turnPlayerID"] isEqualToString:[[DeadeuceCaller sharedInstance] getUserID]]){
+            _currentTurnLabel.text = [NSString stringWithFormat:@"Current Turn: %@ (You)", [gameStatus objectForKey:@"turnPlayerNickname"]];
+        } else {
+           _currentTurnLabel.text = [NSString stringWithFormat:@"Current Turn: %@", [gameStatus objectForKey:@"turnPlayerNickname"]];
+        }
+    }
+
     
     NSArray* feedPayload = [gameStatus objectForKey:@"feed"];
     for(int i = 0; i < feedPayload.count; i++){

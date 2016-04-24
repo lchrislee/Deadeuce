@@ -127,6 +127,27 @@
     }
 }
 
+- (BOOL) createGame: (NSDictionary *) gameInfo{
+    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@createGame/", self.baseRestUrl] ];
+    NSURLRequest *request = [self createRequestForURL:url withData:gameInfo andRequestType:[self.requestToType objectForKey:@"createGame"]];
+    
+    if (!request)
+    {
+        return false;
+    }else{
+        [self sendRequest:request withHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
+            if (error || ((NSHTTPURLResponse *)response).statusCode != 200){
+                NSLog(@"Error: %@", [error localizedDescription]);
+            }else{
+                NSError *error;
+                NSDictionary *output = [NSJSONSerialization JSONObjectWithData:data options:0 error:&error];
+                [delegate createdGame:[output objectForKey:@"gameID"]];
+            }
+        }];
+        return true;
+    }
+}
+
 - (void) getGames
 {
     NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@game/all/", self.baseRestUrl]];
@@ -282,6 +303,7 @@
                            @"login": @"POST",
                            @"signup": @"POST",
                            @"joinGame": @"PUT",
+                           @"createGame":@"POST",
                            @"getGames": @"GET",
                            @"getGameStatus": @"POST", /*Get POST haxxxor*/
                            @"getGameMap": @"POST",
