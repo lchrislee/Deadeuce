@@ -38,7 +38,7 @@ var SignUp = React.createClass({
                     sessionStorage.setItem("userID", this.state.email);
                     sessionStorage.setItem("gameID", response.gameID);
                     sessionStorage.setItem("nickName", response.nickName);
-                    if(sessionStorage.gameID == undefined){
+                    if(response.gameID == undefined){
                         this.context.router.push('join_game');
                         window.location.reload();
                     } else {
@@ -115,6 +115,7 @@ var SignUp = React.createClass({
                         sessionStorage.setItem("name",this.state.name);
                         sessionStorage.setItem("nickName", response.nickName);
                     }
+                window.location.reload();
                 this.context.router.push('join_game');
               }.bind(this),
               error: function(xhr, status, err) {
