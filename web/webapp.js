@@ -233,7 +233,7 @@ console.log("gameName: " + gameName);
           response.json({"gameID":undefined});
           return;
         }else{
-          User.update({"email":hostID}, {"gameID":game.name}, function(err, raw){
+          User.update({"email":hostID}, {"gameID":game.name, "nickName":"President Nikias"}, function(err, raw){
             if (err){
               console.log("createGame error: " + err);
               response.json({"gameID":undefined});
@@ -408,7 +408,7 @@ app.put('/joinGame', function(request, response){
         game.save(function(err, game){
 	  var playerNickName = game.checklist.suspects[game.numPlayers];
           game.addPlayer({name:playerNickName, email:email}, function(){
-            User.update({"email":email}, {"gameID":game.name}, function(err, raw){
+            User.update({"email":email}, {"gameID":game.name, "nickName":playerNickName}, function(err, raw){
               if (err){
                 console.log("error: " + err);
                 response.json({
@@ -544,7 +544,7 @@ app.put('/game/action', function(request, response){
               response.sendStatus(400);
             }else{
               game.removePlayer(userID, function(){
-                User.update({"email":userID}, {"gameID":undefined}, function(err, raw){
+                User.update({"email":userID}, {"gameID":undefined, "nickName":undefined}, function(err, raw){
                   response.json({"action":action,"correct":true, "gameWinner":selectedUser.name}); // won!
                 });
               });
@@ -560,7 +560,7 @@ app.put('/game/action', function(request, response){
               return;
             }else{
               game.removePlayer(userID, function(){
-                User.update({"email":userID}, {"gameID":undefined}, function(err, raw){
+                User.update({"email":userID}, {"gameID":undefined, "nickName":undefined}, function(err, raw){
                   response.json({"action":action,"correct":false}); // lost!
                 });
               });
@@ -677,7 +677,7 @@ app.post('/loginUser', function(request, response){
   var password = request.body.password;
   var cursor = db.collection('users').findOne({"email": email}, function(err, doc){
     if (doc != undefined && doc.password == password) {
-      response.json({"loginSuccess":true, "gameID":doc.gameID});
+      response.json({"nickName":doc.nickName,"loginSuccess":true, "gameID":doc.gameID});
     } else {
       response.json({"loginSuccess":false, "gameID":""});
     }
