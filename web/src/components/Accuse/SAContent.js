@@ -112,7 +112,7 @@ var SAContent = React.createClass({
             Make a Suggestion
           </div>
           <div className="suggestAccuse">
-                <label>Suspect:</label>
+                <label className="firstSuggestLabel">Suspect:</label>
                 <select onChange={this.selectSuspect} name="suspect">
                   {modifiedSuspects.map(function(suspect){
                     return <option value={suspect} key={suspect}>{suspect}</option>
