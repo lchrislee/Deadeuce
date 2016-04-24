@@ -133,6 +133,7 @@ var GameHome = React.createClass({
                     <SuggestAccuse suspects = {suspects} weapons = {weapons} locations = {locations} gameID = {this.state.gameID} userID = {this.state.userID}/>
                     <GameMap locations = {this.state.map}/>
                     <Checklist suspects = {suspects} weapons = {weapons} locations = {locations} />
+                
                 </div>
             </div>
         );

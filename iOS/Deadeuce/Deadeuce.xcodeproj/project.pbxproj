@@ -16,16 +16,11 @@
 		2B21FF5F1CB361980021D028 /* reveal-icon11.png in Resources */ = {isa = PBXBuildFile; fileRef = 2B21FF5E1CB361980021D028 /* reveal-icon11.png */; };
 		2B21FF611CB362D20021D028 /* griffy.regular.png in Resources */ = {isa = PBXBuildFile; fileRef = 2B21FF601CB362D20021D028 /* griffy.regular.png */; };
 		2B21FF631CB3646B0021D028 /* google_logo.png in Resources */ = {isa = PBXBuildFile; fileRef = 2B21FF621CB3646B0021D028 /* google_logo.png */; };
-		2B21FF781CB366660021D028 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 2B21FF771CB366660021D028 /* GoogleService-Info.plist */; };
-		2B21FF811CB36E540021D028 /* GoogleSignIn.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 2B21FF7F1CB36E540021D028 /* GoogleSignIn.bundle */; };
-		2B21FF821CB36E540021D028 /* GoogleSignIn.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2B21FF801CB36E540021D028 /* GoogleSignIn.framework */; };
 		2B21FF841CB36EC40021D028 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2B21FF831CB36EC40021D028 /* CoreData.framework */; };
 		2B21FF861CB36ED30021D028 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2B21FF851CB36ED30021D028 /* SystemConfiguration.framework */; };
 		2B21FF881CB36EE10021D028 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 2B21FF871CB36EE10021D028 /* libz.tbd */; };
 		2B21FF8A1CB36EED0021D028 /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 2B21FF891CB36EED0021D028 /* libsqlite3.tbd */; };
 		2B21FF8C1CB36F310021D028 /* AddressBook.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2B21FF8B1CB36F310021D028 /* AddressBook.framework */; };
-		2B21FF8E1CB36F3B0021D028 /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2B21FF8D1CB36F3B0021D028 /* AdSupport.framework */; };
-		2B21FF901CB36F4F0021D028 /* SafariServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2B21FF8F1CB36F4F0021D028 /* SafariServices.framework */; };
 		2B21FF921CB36F6D0021D028 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2B21FF911CB36F6D0021D028 /* StoreKit.framework */; };
 		2B21FF941CB36FD40021D028 /* reveal-icon111.png in Resources */ = {isa = PBXBuildFile; fileRef = 2B21FF931CB36FD40021D028 /* reveal-icon111.png */; };
 		2B21FF961CB370320021D028 /* reveal-icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 2B21FF951CB370320021D028 /* reveal-icon.png */; };
@@ -50,8 +45,6 @@
 		AA7E1E9D1CA2128D0060901E /* GameObject.m in Sources */ = {isa = PBXBuildFile; fileRef = AA7E1E9C1CA2128D0060901E /* GameObject.m */; };
 		AA7E1EA01CA215080060901E /* reveal-icon1.png in Resources */ = {isa = PBXBuildFile; fileRef = AA7E1E9F1CA215070060901E /* reveal-icon1.png */; };
 		AA7E1EA21CA2592E0060901E /* facebook.png in Resources */ = {isa = PBXBuildFile; fileRef = AA7E1EA11CA2592E0060901E /* facebook.png */; };
-		AA7E1EA41CA25CE00060901E /* FBSDKCoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AA7E1EA31CA25CE00060901E /* FBSDKCoreKit.framework */; };
-		AA7E1EA61CA25CE80060901E /* FBSDKLoginKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AA7E1EA51CA25CE80060901E /* FBSDKLoginKit.framework */; };
 		AA8542641C93DF1A006EA952 /* LobbyTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AA8542631C93DF1A006EA952 /* LobbyTableViewController.m */; };
 		AA8542671C93DFAC006EA952 /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AA8542661C93DFAC006EA952 /* LoginViewController.m */; };
 		AA85426F1C93E8F6006EA952 /* LeftPanelViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AA85426E1C93E8F6006EA952 /* LeftPanelViewController.m */; };
@@ -75,16 +68,11 @@
 		2B21FF5E1CB361980021D028 /* reveal-icon11.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "reveal-icon11.png"; sourceTree = "<group>"; };
 		2B21FF601CB362D20021D028 /* griffy.regular.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = griffy.regular.png; sourceTree = "<group>"; };
 		2B21FF621CB3646B0021D028 /* google_logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = google_logo.png; sourceTree = "<group>"; };
-		2B21FF771CB366660021D028 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
-		2B21FF7F1CB36E540021D028 /* GoogleSignIn.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = GoogleSignIn.bundle; sourceTree = "<group>"; };
-		2B21FF801CB36E540021D028 /* GoogleSignIn.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = GoogleSignIn.framework; sourceTree = "<group>"; };
 		2B21FF831CB36EC40021D028 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		2B21FF851CB36ED30021D028 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		2B21FF871CB36EE10021D028 /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
 		2B21FF891CB36EED0021D028 /* libsqlite3.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.tbd; path = usr/lib/libsqlite3.tbd; sourceTree = SDKROOT; };
 		2B21FF8B1CB36F310021D028 /* AddressBook.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AddressBook.framework; path = System/Library/Frameworks/AddressBook.framework; sourceTree = SDKROOT; };
-		2B21FF8D1CB36F3B0021D028 /* AdSupport.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AdSupport.framework; path = System/Library/Frameworks/AdSupport.framework; sourceTree = SDKROOT; };
-		2B21FF8F1CB36F4F0021D028 /* SafariServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SafariServices.framework; path = System/Library/Frameworks/SafariServices.framework; sourceTree = SDKROOT; };
 		2B21FF911CB36F6D0021D028 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		2B21FF931CB36FD40021D028 /* reveal-icon111.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "reveal-icon111.png"; sourceTree = "<group>"; };
 		2B21FF951CB370320021D028 /* reveal-icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "reveal-icon.png"; sourceTree = "<group>"; };
@@ -116,8 +104,6 @@
 		AA7E1E9C1CA2128D0060901E /* GameObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameObject.m; sourceTree = "<group>"; };
 		AA7E1E9F1CA215070060901E /* reveal-icon1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "reveal-icon1.png"; sourceTree = "<group>"; };
 		AA7E1EA11CA2592E0060901E /* facebook.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = facebook.png; sourceTree = "<group>"; };
-		AA7E1EA31CA25CE00060901E /* FBSDKCoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBSDKCoreKit.framework; sourceTree = "<group>"; };
-		AA7E1EA51CA25CE80060901E /* FBSDKLoginKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBSDKLoginKit.framework; sourceTree = "<group>"; };
 		AA8542621C93DF1A006EA952 /* LobbyTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LobbyTableViewController.h; sourceTree = "<group>"; };
 		AA8542631C93DF1A006EA952 /* LobbyTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LobbyTableViewController.m; sourceTree = "<group>"; };
 		AA8542651C93DFAC006EA952 /* LoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginViewController.h; sourceTree = "<group>"; };
@@ -144,17 +130,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				2B21FF921CB36F6D0021D028 /* StoreKit.framework in Frameworks */,
-				2B21FF901CB36F4F0021D028 /* SafariServices.framework in Frameworks */,
-				2B21FF8E1CB36F3B0021D028 /* AdSupport.framework in Frameworks */,
 				2B21FF8C1CB36F310021D028 /* AddressBook.framework in Frameworks */,
 				2B21FF8A1CB36EED0021D028 /* libsqlite3.tbd in Frameworks */,
 				2B21FF881CB36EE10021D028 /* libz.tbd in Frameworks */,
 				2B21FF861CB36ED30021D028 /* SystemConfiguration.framework in Frameworks */,
 				2B21FF841CB36EC40021D028 /* CoreData.framework in Frameworks */,
 				658381D40B455AB211108C0F /* libPods-Deadeuce.a in Frameworks */,
-				AA7E1EA41CA25CE00060901E /* FBSDKCoreKit.framework in Frameworks */,
-				AA7E1EA61CA25CE80060901E /* FBSDKLoginKit.framework in Frameworks */,
-				2B21FF821CB36E540021D028 /* GoogleSignIn.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -168,15 +149,6 @@
 				28B421921CB1780E00D5CE48 /* DeadeuceCaller.m */,
 			);
 			name = Controller;
-			sourceTree = "<group>";
-		};
-		2B21FF681CB365860021D028 /* GoogleDependencies */ = {
-			isa = PBXGroup;
-			children = (
-				2B21FF7F1CB36E540021D028 /* GoogleSignIn.bundle */,
-				2B21FF801CB36E540021D028 /* GoogleSignIn.framework */,
-			);
-			name = GoogleDependencies;
 			sourceTree = "<group>";
 		};
 		9CE8477FB5DB3827B4C4DF26 /* Pods */ = {
@@ -271,7 +243,6 @@
 				AAC311C41C9FAFA6003862A8 /* DetectivePadTableViewController.m */,
 				AAF129841C93D73400BAE9F4 /* Assets.xcassets */,
 				AAF129861C93D73400BAE9F4 /* LaunchScreen.storyboard */,
-				2B21FF771CB366660021D028 /* GoogleService-Info.plist */,
 				AAF129891C93D73400BAE9F4 /* Info.plist */,
 				AAF129781C93D73400BAE9F4 /* Supporting Files */,
 				AA4F954B1CAB27B000B2C2EA /* GameMapViewController.h */,
@@ -296,16 +267,11 @@
 			isa = PBXGroup;
 			children = (
 				2B21FF911CB36F6D0021D028 /* StoreKit.framework */,
-				2B21FF8F1CB36F4F0021D028 /* SafariServices.framework */,
-				2B21FF8D1CB36F3B0021D028 /* AdSupport.framework */,
 				2B21FF8B1CB36F310021D028 /* AddressBook.framework */,
 				2B21FF891CB36EED0021D028 /* libsqlite3.tbd */,
 				2B21FF871CB36EE10021D028 /* libz.tbd */,
 				2B21FF851CB36ED30021D028 /* SystemConfiguration.framework */,
 				2B21FF831CB36EC40021D028 /* CoreData.framework */,
-				2B21FF681CB365860021D028 /* GoogleDependencies */,
-				AA7E1EA51CA25CE80060901E /* FBSDKLoginKit.framework */,
-				AA7E1EA31CA25CE00060901E /* FBSDKCoreKit.framework */,
 				F8CEAF6A7C2AD9DC5D9B6BE5 /* libPods-Deadeuce.a */,
 			);
 			name = Frameworks;
@@ -373,7 +339,6 @@
 			files = (
 				AA0A53A11CB091BC005BA0A2 /* chevron small left.svg in Resources */,
 				AA0A539C1CB091BC005BA0A2 /* selected.png in Resources */,
-				2B21FF781CB366660021D028 /* GoogleService-Info.plist in Resources */,
 				2B21FF611CB362D20021D028 /* griffy.regular.png in Resources */,
 				2B21FF961CB370320021D028 /* reveal-icon.png in Resources */,
 				AAF129881C93D73400BAE9F4 /* LaunchScreen.storyboard in Resources */,
@@ -383,7 +348,6 @@
 				AA0A53A51CB094D0005BA0A2 /* cropdark-curve-forest-rails.png in Resources */,
 				2B21FF4F1CB3556E0021D028 /* search.png in Resources */,
 				AA7E1EA21CA2592E0060901E /* facebook.png in Resources */,
-				2B21FF811CB36E540021D028 /* GoogleSignIn.bundle in Resources */,
 				2B21FF5F1CB361980021D028 /* reveal-icon11.png in Resources */,
 				2B21FF5D1CB35E5A0021D028 /* suggest_icon.png in Resources */,
 				AA0A53A31CB091BC005BA0A2 /* fingerprint.svg in Resources */,

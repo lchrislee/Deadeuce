@@ -10,9 +10,6 @@
 #import <SWRevealViewController.h>
 #import "GameObject.h"
 #import "AppDelegate.h"
-#import <FBSDKCoreKit/FBSDKCoreKit.h>
-#import <FBSDKLoginKit/FBSDKLoginKit.h>
-#import <GoogleSignIn/GoogleSignIn.h>
 #import "CurrentGameViewController.h"
 #import "DeadeuceCaller.h"
 
@@ -292,14 +289,6 @@ const CGFloat kPadding = 6;
     
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
-}
-
-- (void)logoutPressed:(id)sender
-{
-    FBSDKLoginManager *loginManager = [[FBSDKLoginManager alloc] init];
-    [loginManager logOut];
-    [[GIDSignIn sharedInstance] signOut];
-    [[GIDSignIn sharedInstance] disconnect];
 }
 
 -(void)viewWillAppear:(BOOL)animated
