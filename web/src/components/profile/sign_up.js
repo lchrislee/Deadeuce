@@ -13,6 +13,45 @@ var SignUp = React.createClass({
             confirmPassword: ""
         }
     },
+
+    signIn: function(){
+        var dataSend = {"userID":this.state.email, "password":this.state.password};
+        var output = JSON.stringify(dataSend);
+        console.log(output);
+
+        $.ajax({
+            url: '/loginUser',
+            type: 'POST',
+            data: output,
+            contentType: 'application/json',
+            success: function(response){
+                console.log(response);
+                if (response.loginSuccess == undefined){
+                    console.log("BROKEN");
+                }else if (response.loginSuccess == true){
+                    console.log(response.loginSucess);
+                    sessionStorage.setItem("userID", this.state.email);
+                }else{
+                    console.log("improper login");
+                }
+            }.bind(this),
+            error: function(err){
+                console.log(err);
+            }.bind(this)
+        })
+    },
+    emailChange: function(e){
+        e.preventDefault();
+        this.setState({
+            email:e.target.value
+        });
+    },
+    passwordChange: function(e){
+        e.preventDefault();
+        this.setState({
+            password:e.target.value
+        });
+    },
     nameChanged: function(e){
         e.preventDefault();
         this.setState({
@@ -73,27 +112,43 @@ var SignUp = React.createClass({
     },
     render: function(){
         return(
-            <div className="sign-up">
-            <div className="sign-up-header">Sign Up for an Account</div>
-                <div className="signup-form">
-                    <label className="sign-label" htmlFor="username"> Name:</label> <input onChange={this.nameChanged} type="text"
-                        placeholder="Name"
-                        className="sign-up-username sign-up-input"/><br/>
-                    <label className="sign-label"htmlFor="e-mail">Email:</label><input type="text" onChange={this.emailChanged}
-                        placeholder="Email" 
-                        name="sign-up-email" 
-                        className="sign-up-email sign-up-input" /><br/>
-                    <label className="sign-label" htmlFor="password">Password:</label><input onChange={this.passwordChanged}
-                        type="password" 
-                        placeholder="Password" 
-                        name="sign-up-pw1" 
-                        className="sign-up-pw sign-up-input" /><br/>
-                    <label className="sign-label" htmlFor="confirm-password">Confirm Password:</label> <input onChange={this.confirmPasswordChanged}
-                        type="password" 
-                        placeholder="Confirm Password"
-                        name="sign-up-pw2" 
-                        className="sign-up-pw sign-up-input"/><br/> <br/>
-                    <button className="sign-button" onClick={this.createUser}>SIGN UP</button>
+            <div className="signContainer">
+                <div className="sign-in">
+                    Sign In<br/><br/>
+                    <input type="text" 
+                        onChange={this.emailChange}
+                        name="username" 
+                        placeholder="Username" 
+                        className="sign-in-username" 
+                        autofocus /><br/>
+                    <input type="password" 
+                        onChange={this.passwordChange} 
+                        name="password" placeholder="Password" 
+                        className="sign-in-password" /><br/>
+                    <button className="sign-button" onClick={this.signIn}>SIGN IN</button>
+                </div>
+                <div className="sign-up">
+                <div className="sign-up-header">Sign Up for an Account</div>
+                    <div className="signup-form">
+                        <label className="sign-label" htmlFor="username"> Name:</label> <input onChange={this.nameChanged} type="text"
+                            placeholder="Name"
+                            className="sign-up-username sign-up-input"/><br/>
+                        <label className="sign-label"htmlFor="e-mail">Email:</label><input type="text" onChange={this.emailChanged}
+                            placeholder="Email" 
+                            name="sign-up-email" 
+                            className="sign-up-email sign-up-input" /><br/>
+                        <label className="sign-label" htmlFor="password">Password:</label><input onChange={this.passwordChanged}
+                            type="password" 
+                            placeholder="Password" 
+                            name="sign-up-pw1" 
+                            className="sign-up-pw sign-up-input" /><br/>
+                        <label className="sign-label" htmlFor="confirm-password">Confirm Password:</label> <input onChange={this.confirmPasswordChanged}
+                            type="password" 
+                            placeholder="Confirm Password"
+                            name="sign-up-pw2" 
+                            className="sign-up-pw sign-up-input"/><br/> <br/>
+                        <button className="sign-button" onClick={this.createUser}>SIGN UP</button>
+                    </div>
                 </div>
             </div>
         );

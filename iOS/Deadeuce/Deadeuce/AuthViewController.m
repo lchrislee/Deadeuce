@@ -62,7 +62,7 @@
         dispatch_async(queue, ^{
             // Perform on main thread/queue
             dispatch_async(dispatch_get_main_queue(), ^{
-                if([[DeadeuceCaller sharedInstance] getGameID]){
+                if([[DeadeuceCaller sharedInstance] getGameID] && ![[[DeadeuceCaller sharedInstance] getGameID] isEqualToString:@""]){
                     CurrentGameViewController *cGVc = [[CurrentGameViewController alloc] init];
                     [self.navigationController pushViewController:cGVc animated:YES];
                 } else {
@@ -143,6 +143,7 @@
         self.nameTextField.borderStyle = UITextBorderStyleRoundedRect;
         self.nameTextField.placeholder = @"John Smith";
         [self.nameTextField setReturnKeyType:UIReturnKeyDone];
+        self.nameTextField.autocapitalizationType = UITextAutocapitalizationTypeNone;
         
         CGRect passwordLabelConfirmRect = CGRectMake(20.0, screenHeight/2.0 +44.0, screenWidth - 40.0, 44.0);
         self.passwordLabelConfirm = [[UILabel alloc] initWithFrame:passwordLabelConfirmRect];
@@ -171,6 +172,7 @@
     CGRect emailTextFieldRect = CGRectMake(20.0, screenHeight/2.0 - 122.0, screenWidth - 40.0, 44.0);
     self.emailTextField = [[UITextField alloc] initWithFrame:emailTextFieldRect];
     self.emailTextField.delegate = self;
+    self.emailTextField.autocapitalizationType = UITextAutocapitalizationTypeNone;
     self.emailTextField.borderStyle = UITextBorderStyleRoundedRect;
     self.emailTextField.placeholder = @"example@example.com";
     [self.emailTextField setReturnKeyType:UIReturnKeyDone];
