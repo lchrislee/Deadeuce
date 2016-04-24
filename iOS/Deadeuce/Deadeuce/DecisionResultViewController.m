@@ -32,17 +32,27 @@
 
 -(void)gameListButtonPressed:(UIButton*)sender
 {
+    BOOL flag = NO;
     [[DeadeuceCaller sharedInstance] setGameID:@""];
     NSMutableArray *allViewControllers = [NSMutableArray arrayWithArray:[self.navigationController viewControllers]];
     for (UIViewController *aViewController in allViewControllers) {
         if ([aViewController isKindOfClass:[LobbyTableViewController class]]) {
+            flag = YES;
             [self.navigationController popToViewController:aViewController animated:YES];
-        } else if([aViewController isKindOfClass:[AuthViewController class]]) {
-            [self.navigationController popToViewController:aViewController animated:NO];
-            LobbyTableViewController *lVc = [[LobbyTableViewController alloc] initWithStyle:UITableViewStylePlain];
-            [self.navigationController pushViewController:lVc animated:YES];
+            return;
         }
     }
+    
+    if(!flag){
+        for (UIViewController *aViewController in allViewControllers) {
+            if([aViewController isKindOfClass:[AuthViewController class]]) {
+                LobbyTableViewController *lVc = [[LobbyTableViewController alloc] initWithStyle:UITableViewStylePlain];
+                [self.navigationController pushViewController:lVc animated:YES];
+                return;
+            }
+        }
+    }
+    
 }
 -(void)gameFeedButtonPressed:(id)sender
 {
@@ -88,7 +98,7 @@
     
     CGFloat startingHeight = self.navigationController.navigationBar.frame.size.height;
     
-    CGFloat tableViewHeight = (_isSuggestion) ? 232 : 280;
+    CGFloat tableViewHeight = 280;
     CGRect tableViewFrame = CGRectMake(0.0, 0.0, self.view.frame.size.width, tableViewHeight);
     _tableView = [[UITableView alloc] initWithFrame:tableViewFrame style:UITableViewStylePlain];
     _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
