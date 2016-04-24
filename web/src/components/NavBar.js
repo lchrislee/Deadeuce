@@ -19,6 +19,7 @@ var NavBar = React.createClass({
                 join: "Join Game",
                 profile: "",
                 game_home: "Current Game",
+                logout: "Log Out"
 
             });
         } else if(sessionStorage.length === 0) {
@@ -27,9 +28,14 @@ var NavBar = React.createClass({
                 join: "",
                 profile: "Sign Up/Sign In",
                 game_home: "",
+                logout: ""
 
             });
         }
+    },
+    logout: function(){
+        sessionStorage.clear();
+        this.componentDidMount();
     },
     render: function(){
         return(
@@ -40,6 +46,7 @@ var NavBar = React.createClass({
                         <li><Link to="create_game" activeClassName="active">{this.state.create}</Link></li>
                         <li><Link to="join_game" activeClassName="active">{this.state.join}</Link></li>
                         <li><Link to="game_home" activeClassName="active">{this.state.game_home}</Link></li>
+                        <li><Link to="/" onClick={this.logout}>{this.state.logout}</Link></li>
                         <li><Link to="Profile" activeClassName="active">{this.state.profile}</Link></li>
                     </ul>
                 </div>
