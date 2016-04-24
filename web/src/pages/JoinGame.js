@@ -37,6 +37,7 @@ var JoinGame = React.createClass({
                 console.log(response);
                 if (response.joinSuccess){
                     sessionStorage.gameID = this.state.selectedGame;
+                    sessionStorage.nickName = data.nickName;
                     //maybe load the next page?
                     this.context.router.push('game_home');
                 }else{
