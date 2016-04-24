@@ -49,7 +49,7 @@ var CreateGameForm = React.createClass({
   render: function() {
     return (
 	    <div>
-          <div className="only_content" style={{padding: '0px',width: '100%', margin:'0px', marginTop: '30px',marginBottom: '30px',borderRadius: '0px', paddingBottom: '30px'}}>  
+          <div className="only_content" style={{padding: '0px',width: '100%', margin:'0px',borderRadius: '0px', paddingBottom: '30px'}}>  
 
 
             <div className="create_game_form">

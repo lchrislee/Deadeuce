@@ -18,7 +18,8 @@ var AccuseFeed = React.createClass({
     }
     return (
       <div className="AccuseFeed-wrapper">
-        <div className="AccuseFeed-header">Responses</div>
+      <hr/>
+        <div> <h3>Responses:</h3></div>
         <div className="AccuseFeed-Feed">
           {contentInject}
         </div>

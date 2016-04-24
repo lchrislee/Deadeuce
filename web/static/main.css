@@ -188,11 +188,11 @@ Game Tables
 .gamefeed{
     width: 72%;
     min-width:500px;
-    height: 528px;
+    height: 418px;
     padding:0;
     float:left;
     background-color:#CCC;
-    border: solid #444 1px;
+    border-radius: 5px;
     overflow: hidden;
 
     display: inline-block;
@@ -211,7 +211,7 @@ Game Tables
 .gamefeed-header{
     font-size:14pt;
     font-weight:bold;
-    padding:10px 0 10px 10px;
+    padding:15px 0 15px 10px;
     color:white;
     background-color: #444;
 }
@@ -623,7 +623,7 @@ Suggest/Accuse
     font-size: 14pt;
     font-weight: bold;
     color: white;
-    padding: 5%;
+    padding: 15px 5%;
 }
 
 .suggestAccuse {
@@ -631,7 +631,7 @@ Suggest/Accuse
     border-radius: 0 0 5px 5px;
     width: 90%;
     margin-bottom: 20px;
-    padding: 0 5% 5% 5%;
+    padding: 10px 5% 0 5%;
 
     display: inline-block;
     vertical-align: top;
@@ -671,19 +671,18 @@ Suggest/Accuse
     background-color: #444;
     padding: 5px;
     margin-left: -5px;
-
 }
 
 .AccuseFeed-Feed{
     width: 100%;
-    height:185px;
+    height:40px;
     margin-bottom:15px;
     overflow: scroll;
     font-size: 10pt;
     background-color: #CCC;
 }
 .firstSuggestLabel{
-    padding-top:15px;
+    padding-top:25px;
 }
 
 /******************************************************************

@@ -97,7 +97,6 @@ body {
 	background-color: rgba(244,244,244,0.9);
 	border-radius: 5px;
 	padding: 2%;
-	margin:2%;
 	float: left;
 
     overflow-y: scroll;
@@ -186,6 +185,8 @@ body {
 	width: 90%;
 	border-radius: 5px;
 	margin-top: 20px;
+	padding-bottom: 20px;
+
  }
 .user-nickname {
 	float: right;
