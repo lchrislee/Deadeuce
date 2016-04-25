@@ -188,8 +188,7 @@ Game Components
 Game Tables
 *******************************************************************/
 .gamefeed{
-    margin-top:20px;
-    width: 72%;
+    width: 74%;
     min-width:500px;
     height: 418px;
     padding:0;
@@ -340,7 +339,7 @@ Game Map
 }*/
 
 .gameMap-wrapper{
-    margin: 0 2% 0 0;
+    margin: 0;
     width: 72%;
     min-width:250px;
     height: 530px;
@@ -373,10 +372,37 @@ Game Map
     float:left;
     background-color: #000000;
     border-right: solid #444 1px;
-    background-image: url(assets/the90.png);
-    background-size: 130%;
+    background-size: 110%;
     opacity: 50%;
 }   
+#img0{
+    background-image: url(assets/thelyoncenter.png);
+}
+#img1{
+    background-image: url(assets/Leavey.jpg);
+} 
+#img2{
+    background-image: url(assets/Traddies.jpeg);
+} 
+#img3{
+    background-image: url(assets/Ground.jpg);
+} 
+#img4{
+    background-image: url(assets/the90.png);
+} 
+#img5{
+    background-image: url(assets/Bovard.jpg);
+} 
+#img6{
+    background-image: url(assets/EVK.jpg);
+} 
+#img7{
+    background-image: url(assets/Row.jpg);
+} 
+#img8{
+    background-image: url(assets/Campus.jpg);
+}   
+
 .mapHeader{
     font-size:8.5pt;
     font-weight:bold;

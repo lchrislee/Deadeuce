@@ -21,13 +21,12 @@ var GameMapContentBox = React.createClass({
         return('className="gameMapBoxBody ' + i + '"');
     },
     render: function(){
-
         return(
             <div className="mapBox">
                 <div className="gameMapBoxHeader">
                  <p className="mapHeader">{this.props.data.name}</p>
                 </div>
-                <div className="gameMapBoxBody">
+                <div id={this.props.num} className="gameMapBoxBody">
                     <p className="mapContent">  {this.props.data.players} </p>
                 </div>
             </div>
