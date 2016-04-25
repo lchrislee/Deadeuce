@@ -13,7 +13,7 @@ render: function(){
     // console.log("userID: " + sessionStorage.userID);
     // console.log("nickname: " + sessionStorage.nickName);
     if (this.props.currentTurnID == sessionStorage.userID){
-        out = <p><span>CURRENT TURN: {this.props.currentTurnNickname}</span> <span>(YOU)</span> <button onClick={this.props.refresh}>Refresh</button></p>
+        out = <p><span>CURRENT TURN: {this.props.currentTurnNickname}</span> <span>(YOU)</span></p>
     }else{
         out = <p><span>CURRENT TURN: {this.props.currentTurnNickname}</span> <button onClick={this.props.refresh}>Refresh</button></p>
     }
