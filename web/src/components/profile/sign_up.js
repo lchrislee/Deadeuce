@@ -40,10 +40,10 @@ var SignUp = React.createClass({
                     sessionStorage.setItem("nickName", response.nickName);
                     if(response.gameID == undefined){
                         this.context.router.push('join_game');
-                        window.location.reload();
+                        // window.location.reload();
                     } else {
                         this.context.router.push('game_home');
-                        window.location.reload();
+                        // window.location.reload();
                     }
                 }else{
                     alert("improper login");
@@ -116,7 +116,7 @@ var SignUp = React.createClass({
                         sessionStorage.setItem("nickName", response.nickName);
                     }
                 this.context.router.push('join_game');
-                window.location.reload();
+                // window.location.reload();
               }.bind(this),
               error: function(xhr, status, err) {
                 this.setState({

@@ -13,11 +13,11 @@ var NavBar = React.createClass({
         }
     },
     componentDidMount: function(){
-        if (sessionStorage.length >= 1) {
+        if (sessionStorage.length === 0) {
             this.setState({
                 create: "Create Game",
                 join: "Join Game",
-                profile: "",
+                profile: "SignIn/SignUp",
                 game_home: "Current Game",
                 logout: "Log Out"
 

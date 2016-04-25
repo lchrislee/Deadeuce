@@ -6,6 +6,7 @@ var AccuseFeed = React.createClass({
 	},
   render: function() {
     var res = this.props.response;
+    console.log(res);
 
     var contentInject = [];
     var line = "";
