@@ -63,6 +63,7 @@ var SAContent = React.createClass({
           this.setState({
             response: "YOU LOSE!"
           });
+          alert('loser');
         } else if(data.correct == true && this.state.action == 'suggest') {
           this.setState({
             response: "Guess this on your next turn."
@@ -71,6 +72,7 @@ var SAContent = React.createClass({
           this.setState({
             response: "YOU WIN"
           });
+          alert('winner');
         }
       }.bind(this),
       error: function(xhr, status, err) {
