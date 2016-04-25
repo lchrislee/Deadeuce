@@ -50,6 +50,7 @@
         
         self.navigationItem.title = [self.option capitalizedString];
         self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Back" style:UIBarButtonItemStylePlain target:self action:@selector(dismissModal)];
+
     }
     
     return self;
@@ -135,6 +136,7 @@
         CGRect nameLabelRect = CGRectMake(20.0, screenHeight/2.0 - 266.0, screenWidth - 40.0, 44.0);
         self.nameLabel = [[UILabel alloc] initWithFrame:nameLabelRect];
         [self.nameLabel setText:@"Name"];
+        [_nameLabel setFont:[UIFont boldSystemFontOfSize:30]];
         
         //Init Name UITextField
         CGRect nameTextFieldRect = CGRectMake(20.0, screenHeight/2.0 - 222.0, screenWidth - 40.0, 44.0);
@@ -145,16 +147,17 @@
         [self.nameTextField setReturnKeyType:UIReturnKeyDone];
         self.nameTextField.autocapitalizationType = UITextAutocapitalizationTypeNone;
         
-        CGRect passwordLabelConfirmRect = CGRectMake(20.0, screenHeight/2.0 +44.0, screenWidth - 40.0, 44.0);
+        CGRect passwordLabelConfirmRect = CGRectMake(20.0, screenHeight/2.0 +60.0, screenWidth - 40.0, 44.0);
         self.passwordLabelConfirm = [[UILabel alloc] initWithFrame:passwordLabelConfirmRect];
         [self.passwordLabelConfirm setText:@"Confirm Password"];
+        [_passwordLabelConfirm setFont:[UIFont boldSystemFontOfSize:30]];
         
-        CGRect passwordTextFieldConfirmRect = CGRectMake(20.0, screenHeight/2.0 +88.0, screenWidth - 40.0, 44.0);
+        CGRect passwordTextFieldConfirmRect = CGRectMake(20.0, screenHeight/2.0 +108.0, screenWidth - 40.0, 44.0);
         self.passwordTextFieldConfirm = [[UITextField alloc] initWithFrame:passwordTextFieldConfirmRect];
         self.passwordTextFieldConfirm.delegate = self;
         self.passwordTextFieldConfirm.secureTextEntry = YES;
         self.passwordTextFieldConfirm.borderStyle = UITextBorderStyleRoundedRect;
-        self.passwordTextFieldConfirm.placeholder = @"Confirm Password";
+        self.passwordTextFieldConfirm.placeholder = @"Repeat Password";
         [self.passwordTextFieldConfirm setReturnKeyType:UIReturnKeyDone];
         
         [self.view addSubview:_nameLabel];
@@ -167,6 +170,7 @@
     CGRect emailLabelRect = CGRectMake(20.0, screenHeight/2.0 - 166.0, screenWidth - 40.0, 44.0);
     self.emailLabel = [[UILabel alloc] initWithFrame:emailLabelRect];
     [self.emailLabel setText:@"Email"];
+    [_emailLabel setFont:[UIFont boldSystemFontOfSize:30]];
     
     //Init Email UITextField
     CGRect emailTextFieldRect = CGRectMake(20.0, screenHeight/2.0 - 122.0, screenWidth - 40.0, 44.0);
@@ -180,6 +184,7 @@
     CGRect passwordLabelRect = CGRectMake(20.0, screenHeight/2.0 -34.0, screenWidth - 40.0, 44.0);
     self.passwordLabel = [[UILabel alloc] initWithFrame:passwordLabelRect];
     [self.passwordLabel setText:@"Password"];
+    [_passwordLabel setFont:[UIFont boldSystemFontOfSize:30]];
     
     //Init Password UITextField
     CGRect passwordTextFieldRect = CGRectMake(20.0, screenHeight/2.0 + 6.0, screenWidth - 40.0, 44.0);
@@ -202,11 +207,22 @@
                           action:@selector(submitButtonPressed:)
                 forControlEvents:UIControlEventTouchUpInside];
     _submitButton.exclusiveTouch = YES;
+    [_submitButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    _submitButton.layer.cornerRadius = 2;
+    _submitButton.clipsToBounds = YES;
+    [_submitButton.layer setBackgroundColor:[[UIColor colorWithRed:(223/255.0) green:(74/255.0) blue:(50/255.0) alpha:1.0] CGColor]];
+    _submitButton.contentHorizontalAlignment = UIControlContentHorizontalAlignmentCenter;
+    if (screenWidth < 340)
+    {
+        _submitButton.titleLabel.font = [UIFont fontWithName:@"HelveticaNeue" size:17.0];
+    } else {
+        _submitButton.titleLabel.font = [UIFont fontWithName:@"HelveticaNeue" size:22.0];
+    }
 
     _submitButton.userInteractionEnabled = YES;
 
     [self.submitButton setTitle:self.option forState:UIControlStateNormal];
-    self.submitButton.frame = CGRectMake(0.0, screenHeight - 88.0, screenWidth, 44.0);
+    self.submitButton.frame = CGRectMake(20.0, screenHeight - 88.0, screenWidth - 40, 44.0);
     
     [self.view addSubview:_submitButton];
 }

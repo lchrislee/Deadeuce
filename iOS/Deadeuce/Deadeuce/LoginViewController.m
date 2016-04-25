@@ -55,9 +55,9 @@
     
     self.loginButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
     [self.loginButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-    self.loginButton.layer.cornerRadius = 5;
+    self.loginButton.layer.cornerRadius = 2;
     self.loginButton.clipsToBounds = YES;
-    [self.loginButton.layer setBackgroundColor:[[UIColor colorWithRed:(44/255.0) green:(67/255.0) blue:(136/255.0) alpha:1.0] CGColor]];
+    [self.loginButton.layer setBackgroundColor:[[UIColor colorWithRed:(223/255.0) green:(74/255.0) blue:(50/255.0) alpha:1.0] CGColor]];
     
     [self.loginButton addTarget:self
                          action:@selector(loginButtonPressed:)
@@ -75,7 +75,7 @@
     
     self.signupButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
     [self.signupButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-    self.signupButton.layer.cornerRadius = 5;
+    self.signupButton.layer.cornerRadius = 2;
     self.signupButton.clipsToBounds = YES;
     [self.signupButton.layer setBackgroundColor:[[UIColor colorWithRed:(223/255.0) green:(74/255.0) blue:(50/255.0) alpha:1.0] CGColor]];
     
