@@ -15,7 +15,7 @@ render: function(){
     if (this.props.currentTurnID == sessionStorage.userID){
         out = <p><span>CURRENT TURN: {this.props.currentTurnNickname}</span> <span>(YOU)</span></p>
     }else{
-        out = <p><span>CURRENT TURN: {this.props.currentTurnNickname}</span> <button onClick={this.props.refresh}>Refresh</button></p>
+        out = <p><span>CURRENT TURN: {this.props.currentTurnNickname}</span></p>
     }
     return(
         <div className="turnBox-wrapper">

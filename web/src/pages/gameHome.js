@@ -20,7 +20,9 @@ var GameHome = React.createClass({
             console.log("go home");
             this.context.router.push('home');
         }
-        this.refreshGame();
+        this.retrieveCheckList(gameID);
+        this.findGameFeed(gameID);
+        this.retrieveGameMap(gameID);
         return {
             "gameID": gameID,
             "userID": sessionStorage.userID,
@@ -117,9 +119,11 @@ var GameHome = React.createClass({
         this.retrieveCheckList(this.state.gameID);
         this.findGameFeed(this.state.gameID);
         this.retrieveGameMap(this.state.gameID);
-        setTimeout(this.refreshGame, 15000);
+        setTimeout(this.refreshGame, 10000);
     },
-
+    componentDidMount: function(){
+        this.refreshGame();
+    },
     render: function() {
         var suspects = this.state.suspects;
         var weapons = this.state.weapons;
@@ -127,7 +131,7 @@ var GameHome = React.createClass({
         return (
             <div>
                 <div className="gameContainer">
-                    <TurnBox currentTurnNickname = {this.state.currentTurnNickname} currentTurnID = {this.state.currentTurnID} />
+                    <TurnBox currentTurnNickname = {this.state.currentTurnNickname} currentTurnID = {this.state.currentTurnID} refresh={this.refreshGame}/>
                     <GameFeed gameFeed = {this.state.gameFeed}/>
                     <SuggestAccuse suspects = {suspects} weapons = {weapons} locations = {locations} gameID = {this.state.gameID} userID = {this.state.userID}/>
                     <GameMap locations = {this.state.map}/>
