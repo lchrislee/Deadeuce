@@ -336,6 +336,7 @@ const CGFloat kPadding3 = 6;
             }
         }
         
+        [_data removeAllObjects];
         NSArray* feedPayload = [gameStatus objectForKey:@"feed"];
         for(int i = 0; i < feedPayload.count; i++){
             NSDictionary* feedItem = feedPayload[i];

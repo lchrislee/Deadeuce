@@ -11,6 +11,8 @@
 
 @interface DetectivePadTableViewController ()
 
+@property (nonatomic, strong) NSMutableArray* checked;
+
 @end
 
 @implementation DetectivePadTableViewController
@@ -42,7 +44,7 @@
         _locations = [[NSMutableArray alloc] init];
         _weapons = [[NSMutableArray alloc] init];
         _people = [[NSMutableArray alloc] init];
-        _selectedRows = [[NSMutableDictionary alloc] init];
+
         DeadeuceCaller* model = [DeadeuceCaller sharedInstance];
         model.delegate = self;
         NSString * gameID = [model getGameID];
@@ -62,11 +64,18 @@
 
 -(void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
+
+    _selectedRows = [[[NSUserDefaults standardUserDefaults] objectForKey:@"detective_checklist"] mutableCopy];
+    if(!_selectedRows){
+        _selectedRows = [[NSMutableDictionary alloc] init];
+    }
     self.revealViewController.panGestureRecognizer.enabled=NO;
 }
 
 -(void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
+    [[NSUserDefaults standardUserDefaults] setObject:_selectedRows forKey:@"detective_checklist"];
+    [[NSUserDefaults standardUserDefaults] synchronize];
     self.revealViewController.panGestureRecognizer.enabled=YES;
 }
 
