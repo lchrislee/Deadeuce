@@ -173,8 +173,6 @@ var initialMap = [
 app.post('/createGame', function(request, response){
  var hostID = request.body.hostID;
  var gameName = request.body.gameName;
-console.log("hostID: " + hostID);
-console.log("gameName: " + gameName);
   if (hostID === undefined || gameName === undefined){
     response.sendStatus(400);
     return;
@@ -229,13 +227,11 @@ console.log("gameName: " + gameName);
 
       newGame.save(function(err, game){
         if (err){
-          console.log("error creating game: " + err);
           response.json({"gameID":undefined});
           return;
         }else{
           User.update({"email":hostID}, {"gameID":game.name, "nickName":"President Nikias"}, function(err, raw){
             if (err){
-              console.log("createGame error: " + err);
               response.json({"gameID":undefined});
               return;
             }else{
@@ -270,14 +266,12 @@ app.post('/game/status', function(request, response){
     response.sendStatus(400);
     return;
   }
-  console.log("working");
   var query = Game.where({"name":gameID});
   query.findOne(function(err, game){
     if (err || game == undefined){
       response.json({"feed":undefined});
       return;
     }else{
-      console.log(game);
       var gamePlayerID = undefined;
       if (game.numPlayers == 6){
       	gamePlayerID = game.turnPlayerEmail;
@@ -311,12 +305,9 @@ app.post('/game/checklist', function(request, response){
     response.sendStatus(400);
     return;
   }
-  console.log("CHECKLIST");
   var query = Game.where({"name":gameID});
   query.findOne(function(err, game){
     if (err || game == undefined){
-      console.log(err);
-      console.log(game);
       response.json({"checkList":undefined});
       return;
     }else{
@@ -340,7 +331,6 @@ app.post('/game/checklist', function(request, response){
 */
 app.post('/game/map', function(request, response){
   var gameID = request.body.gameID;
-  console.log(gameID);
   if (gameID === undefined){
     response.sendStatus(400);
     return;
@@ -383,10 +373,6 @@ app.put('/joinGame', function(request, response){
   var name = request.body.name; //TODO push up to server on ios
   var email = request.body.email;
 
-  console.log("gameName: " + gameName);
-  console.log("name: " + name);
-  console.log("email: " + email);
-
   if (gameName === undefined || email === undefined){
     response.sendStatus(400);
     return;
@@ -410,7 +396,6 @@ app.put('/joinGame', function(request, response){
           game.addPlayer({name:playerNickName, email:email}, function(){
             User.update({"email":email}, {"gameID":game.name, "nickName":playerNickName}, function(err, raw){
               if (err){
-                console.log("error: " + err);
                 response.json({
                   joinSuccess: false
                 });
@@ -531,16 +516,18 @@ app.put('/game/action', function(request, response){
           "suspect": suspect,
           "weapon": weapon,
           "location": location,
-          "time": Date.now()
+	  "action": action,
+          "time": Date.now(),
+	  "win": false
       };
       var newFeed = game.feed.slice(0);
       newFeed.unshift(feedInput);
 
       if (action == "accuse"){
         if (outputOptions.length == 0){ // correct accusation
+	  newFeed[0].win = true;
           Game.update({"name":gameID}, {"gameWinner":selectedUser.name, "feed":newFeed}, function(err, raw){
             if (err){
-              console.log("game/action win error: " + err);
               response.sendStatus(400);
             }else{
               game.removePlayer(userID, function(){
@@ -553,9 +540,8 @@ app.put('/game/action', function(request, response){
         }else{ // wrong accusation
           var updatedArray = game.users.slice(0);
           updatedArray.splice(selectedUserIndex, 1);
-          Game.update({"name":gameID}, {"turnPlayerNickname":nextPlayer.name, "turnPlayerEmail":nextPlayer.email, "users":updatedArray}, function(err, raw){
+          Game.update({"name":gameID}, {"feed":newFeed,"turnPlayerNickname":nextPlayer.name, "turnPlayerEmail":nextPlayer.email, "users":updatedArray}, function(err, raw){
             if (err){
-              console.log("game/action lose error: " + err);
               response.sendStatus(400);
               return;
             }else{
@@ -570,7 +556,6 @@ app.put('/game/action', function(request, response){
       }else if (action == "suggest"){
         Game.update({"name":gameID}, {"feed":newFeed, "turnPlayerNickname":nextPlayer.name, "turnPlayerEmail":nextPlayer.email}, function(err, raw){
           if (err){
-            console.log("game/action suggest error: " + err);
             response.sendStatus(400);
             return;
           }else{
@@ -661,7 +646,6 @@ app.post('/createUser', function(request, response){
   });
   newUser.save(function (err, newUser) {
     if (err) return console.error(err);
-    console.log(newUser.name);
     response.json({
       userID: newUser.email
     });
