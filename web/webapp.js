@@ -136,7 +136,7 @@ var checkList = {
   ],
   "suspects":[
     "President Nikias",
-    "EVKitty",
+    "Traveler",
     "George Tirebiter",
     "Will Ferrell",
     "Tommy Trojan",
