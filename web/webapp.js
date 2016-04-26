@@ -116,12 +116,12 @@ var GamePostFunctions = require ('./scripts/game/GamePostFunctions.js');
 
 var checkList = {
   "locations":[
-    "Lyon Center",
+    "Bovard",
     "Leavey Library",
     "Traddies",
     "Ground Zero",
     "The 90",
-    "Bovard",
+    "Lyon Center",
     "EVK",
     "The Row",
     "Campus Center"
@@ -145,12 +145,12 @@ var checkList = {
 };
 
 var initialMap = [
-          {"name": "Lyon Center", "players":["President Nikias"]},
+          {"name": "Bovard", "players":["President Nikias"]},
           {"name": "Leavey Library", "players":[]},
           {"name": "Traddies", "players": []},
           {"name": "Ground Zero", "players": []},
           {"name": "The 90", "players": []},
-          {"name": "Bovard", "players": []},
+          {"name": "Lyon Center", "players": []},
           {"name": "EVK", "players": []},
           {"name": "The Row", "players": []},
           {"name": "Campus Center", "players": []}
@@ -262,6 +262,7 @@ app.post('/createGame', function(request, response){
 */
 app.post('/game/status', function(request, response){
   var gameID = request.body.gameID;
+  var userID = request.body.gameID;
   if (gameID === undefined){
     response.sendStatus(400);
     return;
@@ -276,12 +277,29 @@ app.post('/game/status', function(request, response){
       if (game.numPlayers == 6){
       	gamePlayerID = game.turnPlayerEmail;
       }
-      response.json({
-        "gameName":game.name,
-        "feed":game.feed,
-        "turnPlayerNickname":game.turnPlayerNickname,
-        "turnPlayerID":gamePlayerID,
-        "gameWinner":game.gameWinner});
+      var output = undefined;
+      if (userID == undefined){
+        output ={
+          "gameName":game.name,
+          "feed":game.feed,
+          "turnPlayerNickname":game.turnPlayerNickname,
+          "turnPlayerID":gamePlayerID,
+          "gameWinner":game.gameWinner};
+      }else{
+        for (var i = 0; i < game.users.length; i++){
+          if (game.users[i].email == userID){
+            output = {
+              "myNickname": game.users[i].email,
+              "gameName":game.name,
+              "feed":game.feed,
+              "turnPlayerNickname":game.turnPlayerNickname,
+              "turnPlayerID":gamePlayerID,
+              "gameWinner":game.gameWinner};
+            }
+          }
+        }
+      }
+      response.json(output);
       return;
     }
   });
@@ -392,7 +410,7 @@ app.put('/joinGame', function(request, response){
         return;
       } else {
         game.save(function(err, game){
-	  var playerNickName = game.checklist.suspects[game.numPlayers];
+          var playerNickName = game.checklist.suspects[game.numPlayers];
           game.addPlayer({name:playerNickName, email:email}, function(){
             User.update({"email":email}, {"gameID":game.name, "nickName":playerNickName}, function(err, raw){
               if (err){
@@ -516,16 +534,16 @@ app.put('/game/action', function(request, response){
           "suspect": suspect,
           "weapon": weapon,
           "location": location,
-	  "action": action,
+          "action": action,
           "time": Date.now(),
-	  "win": false
+          "win": false
       };
       var newFeed = game.feed.slice(0);
       newFeed.unshift(feedInput);
 
       if (action == "accuse"){
         if (outputOptions.length == 0){ // correct accusation
-	  newFeed[0].win = true;
+          newFeed[0].win = true;
           Game.update({"name":gameID}, {"gameWinner":selectedUser.name, "feed":newFeed}, function(err, raw){
             if (err){
               response.sendStatus(400);
