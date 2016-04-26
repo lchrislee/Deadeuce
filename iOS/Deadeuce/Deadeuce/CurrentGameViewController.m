@@ -393,11 +393,13 @@ const CGFloat kPadding3 = 6;
     
     cell.eventLabel.text = [NSString stringWithFormat:@"%@ suggested %@ used the %@ at %@",
                             obj.suggester, obj.suggestedTo, obj.suggestedWeapon, obj.suggestedLocation];
-    cell.locationLabel.text = [NSString stringWithFormat:@"Revealed: %@",obj.revealedLocation];
+    NSString* suggestString = (obj.isSuggest) ? @"Suggest" : @"Accuse";
+    cell.locationLabel.text = [NSString stringWithFormat:@"Action Type: %@", suggestString];
     
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
     [dateFormatter setDateFormat:@"EEE, d MMM yyyy HH:mm:ss z"];
-    [dateFormatter setTimeZone:[NSTimeZone timeZoneForSecondsFromGMT:0]];
+    [dateFormatter setTimeStyle:NSDateFormatterLongStyle];
+    [dateFormatter setTimeZone:[NSTimeZone timeZoneWithName:@"PST"]];
 
     NSString *dateString = [dateFormatter stringFromDate:obj.timeStamp];
     cell.timeStampLabel.text = dateString;
