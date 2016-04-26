@@ -69,12 +69,14 @@
             if (error || ((NSHTTPURLResponse *)response).statusCode != 200){
                 NSLog(@"Error: %@", [error localizedDescription]);
                 [delegate loginSuccess:NO andGameID:nil];
-            } else{
-                NSError *error;
-                NSDictionary *output = [NSJSONSerialization JSONObjectWithData:data options:0 error:&error];
-                NSNumber * isSuccessNumber = (NSNumber *)[output objectForKey:@"loginSuccess"];
-                [self setUserID:info[@"userID"]];
-                ([isSuccessNumber boolValue] == YES) ? [delegate loginSuccess:YES andGameID:[output objectForKey:@"gameID"]] : [delegate loginSuccess:NO andGameID:nil];
+            } else {
+                if([delegate respondsToSelector:@selector(loginSuccess:andGameID:)]){
+                    NSError *error;
+                    NSDictionary *output = [NSJSONSerialization JSONObjectWithData:data options:0 error:&error];
+                    NSNumber * isSuccessNumber = (NSNumber *)[output objectForKey:@"loginSuccess"];
+                    [self setUserID:info[@"userID"]];
+                    ([isSuccessNumber boolValue] == YES) ? [delegate loginSuccess:YES andGameID:[output objectForKey:@"gameID"]] : [delegate loginSuccess:NO andGameID:nil];
+                }
             }
         }];
         return true;
@@ -94,12 +96,16 @@
         [self sendRequest:request withHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
             if (error || ((NSHTTPURLResponse *)response).statusCode != 200){
                 NSLog(@"Error: %@", [error localizedDescription]);
-                [delegate signupSuccess:nil];
+                if([delegate respondsToSelector:@selector(signupSuccess:)]){
+                    [delegate signupSuccess:nil];
+                }
             } else{
                 NSError *error;
                 NSDictionary *output = [NSJSONSerialization JSONObjectWithData:data options:0 error:&error];
                 [self setUserID:output[@"userID"]];
-                [delegate signupSuccess:output[@"userID"]];
+                if([delegate respondsToSelector:@selector(signupSuccess:)]){
+                    [delegate signupSuccess:output[@"userID"]];
+                }
             }
         }];
         return true;
@@ -120,7 +126,9 @@
             }else{
                 NSError *error;
                 NSDictionary *output = [NSJSONSerialization JSONObjectWithData:data options:0 error:&error];
-                [delegate joinedGame:[output objectForKey:@"joinSuccess"] withGameID:[output objectForKey:@"gameID"]];
+                if([delegate respondsToSelector:@selector(joinedGame:withGameID:)]){
+                    [delegate joinedGame:[output objectForKey:@"joinSuccess"] withGameID:[output objectForKey:@"gameID"]];
+                }
             }
         }];
         return true;
@@ -141,7 +149,9 @@
                 NSError *error;
                 NSDictionary *output = [NSJSONSerialization JSONObjectWithData:data options:0 error:&error];
                 NSLog(@"%@", output);
-                [delegate createdGame:[output objectForKey:@"gameID"]];
+                if([delegate respondsToSelector:@selector(createdGame:)]){
+                    [delegate createdGame:[output objectForKey:@"gameID"]];
+                }
             }
         }];
         return true;
@@ -162,7 +172,9 @@
             }else{
                 NSError *error;
                 NSDictionary *output = [NSJSONSerialization JSONObjectWithData:data options:0 error:&error];
-                [delegate listOfGames:output];
+                if([delegate respondsToSelector:@selector(listOfGames:)]){
+                    [delegate listOfGames:output];
+                }
             }
         }];
     }
@@ -184,7 +196,9 @@
             }else{
                 NSError *error;
                 NSDictionary *output = [NSJSONSerialization JSONObjectWithData:data options:0 error:&error];
-                [delegate setGameStatus:output];
+                if([delegate respondsToSelector:@selector(setGameStatus:)]){
+                    [delegate setGameStatus:output];
+                }
             }
         }];
     }
@@ -206,7 +220,9 @@
             }else{
                 NSError *error;
                 NSDictionary *output = [NSJSONSerialization JSONObjectWithData:data options:0 error:&error];
-                [delegate setGameCheckList:output];
+                if([delegate respondsToSelector:@selector(setGameCheckList:)]){
+                    [delegate setGameCheckList:output];
+                }
             }
         }];
     }
@@ -228,7 +244,9 @@
             }else{
                 NSError *error;
                 NSDictionary *output = [NSJSONSerialization JSONObjectWithData:data options:0 error:&error];
-                [delegate setGameMap:output];
+                if([delegate respondsToSelector:@selector(setGameMap:)]){
+                    [delegate setGameMap:output];
+                }
             }
         }];
     }
@@ -249,7 +267,9 @@
             }else{
                 NSError *error;
                 NSDictionary *output = [NSJSONSerialization JSONObjectWithData:data options:0 error:&error];
-                [delegate receiveFeedback:output];
+                if([delegate respondsToSelector:@selector(receiveFeedback:)]){
+                    [delegate receiveFeedback:output];
+                }
             }
         }];
         return;
