@@ -116,6 +116,9 @@ const CGFloat kPadding3 = 6;
 
 - (void)prepareForReuse
 {
+    self.eventLabel.text = @"Loading Clue";
+    self.timeStampLabel.text = @"Loading";
+    self.locationLabel.text = @"Loading";
     /*   Keep this as is   */
 }
 
@@ -200,7 +203,7 @@ const CGFloat kPadding3 = 6;
     NSString* userID = [model getUserID];
     [model getGameStatus:@{@"gameID":gameID,
                            @"userID":userID}];
-    _timer = [NSTimer scheduledTimerWithTimeInterval:3 target:self selector:@selector(refresh) userInfo:nil repeats:YES];
+    _timer = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(refresh) userInfo:nil repeats:YES];
 }
 -(void) viewDidDisappear:(BOOL)animated
 {
