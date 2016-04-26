@@ -114,12 +114,11 @@ var GameHome = React.createClass({
             }.bind(this)
         })
     },
-
     refreshGame: function(){
         this.retrieveCheckList(this.state.gameID);
         this.findGameFeed(this.state.gameID);
         this.retrieveGameMap(this.state.gameID);
-        setTimeout(this.refreshGame, 10000);
+        setTimeout(this.refreshGame, 5000);
     },
     componentDidMount: function(){
         this.refreshGame();
