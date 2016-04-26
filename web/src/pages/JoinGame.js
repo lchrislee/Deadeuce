@@ -80,6 +80,7 @@ var JoinGame = React.createClass({
                 });
             }.bind(this)
         });
+        setTimeout(this.findAllGames, 10000);
     },
   render: function() {
     return (
