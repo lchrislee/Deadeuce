@@ -195,12 +195,14 @@ const CGFloat kMPadding = 3;
 #pragma mark Deadeuce Delegate
 -(void) setGameMap:(NSDictionary *)gameMapInfo
 {
-    if(!_currentGameValueLabel){
-        _currentGameValueLabel = [[UILabel alloc] init];
-    }
-    _currentGameValueLabel.text = [gameMapInfo objectForKey:@"gameName"];
-    _locations = [gameMapInfo objectForKey:@"locations"];
-    [_collectionView reloadData];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        if(!_currentGameValueLabel){
+            _currentGameValueLabel = [[UILabel alloc] init];
+        }
+        _currentGameValueLabel.text = [gameMapInfo objectForKey:@"gameName"];
+        _locations = [gameMapInfo objectForKey:@"locations"];
+        [_collectionView reloadData];
+    });
 }
 
 #pragma mark UICollectionViewDelegate
