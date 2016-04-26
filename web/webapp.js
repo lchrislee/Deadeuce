@@ -536,13 +536,15 @@ app.put('/game/action', function(request, response){
           "weapon": weapon,
           "location": location,
           "action": action,
-          "time": Date.now(),
+          "JUNK": "THIS IS THE JUNK THAT NEVER ENDS. IT GOES ON AND ON MY FRIEND.",
+	  "time": Date.now(),
 	  "epoch": epochTime,
           "win": false
       };
+	console.log(feedInput);
       var newFeed = game.feed.slice(0);
       newFeed.unshift(feedInput);
-
+	console.log(newFeed);
       if (action == "accuse"){
         if (outputOptions.length == 0){ // correct accusation
           newFeed[0].win = true;
