@@ -60,19 +60,15 @@ var SAContent = React.createClass({
             response: feed
           });
         } else if(data.correct == false && this.state.action == 'accuse') {
-          this.setState({
-            response: "YOU LOSE!"
-          });
-          alert('loser');
+          alert("Sorry, you lost");
+          this.context.router.push('join_game');
         } else if(data.correct == true && this.state.action == 'suggest') {
           this.setState({
             response: "Guess this on your next turn."
           });
         } else if(data.correct == true && this.state.action == 'accuse'){
-          this.setState({
-            response: "YOU WIN"
-          });
-          alert('winner');
+          alert('You WON!!!');
+          this.context.router.push('join_game');
         }
       }.bind(this),
       error: function(xhr, status, err) {

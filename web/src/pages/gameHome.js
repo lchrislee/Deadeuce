@@ -114,7 +114,6 @@ var GameHome = React.createClass({
             }.bind(this)
         })
     },
-
     refreshGame: function(){
         this.retrieveCheckList(this.state.gameID);
         this.findGameFeed(this.state.gameID);
