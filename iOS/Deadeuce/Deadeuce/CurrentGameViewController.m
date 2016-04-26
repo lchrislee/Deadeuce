@@ -133,6 +133,7 @@ const CGFloat kPadding3 = 6;
 @property (nonatomic, strong) UIImageView* detectiveIcon;
 
 @property (nonatomic, strong) NSTimer* timer;
+@property BOOL timerFlag;
 
 @end
 
@@ -145,25 +146,30 @@ const CGFloat kPadding3 = 6;
 
 -(void)suggestButtonPressed:(id)sender
 {
+    _timerFlag = YES;
     SuggestTableViewController * sVc = [[SuggestTableViewController alloc] initWithStyle:UITableViewStyleGrouped];
     [self.navigationController pushViewController:sVc animated:YES];
+    
 }
 
 -(void)detectivePadButtonPressed:(id)sender
 {
+    _timerFlag = YES;
     DetectivePadTableViewController * detectivePadVc = [[DetectivePadTableViewController alloc] initWithStyle:UITableViewStyleGrouped];
     [self.navigationController pushViewController:detectivePadVc animated:YES];
 }
 
 -(void)refresh
 {
-    _data = [[NSMutableArray alloc] init];
-    DeadeuceCaller* model = [DeadeuceCaller sharedInstance];
-    model.delegate = self;
-    NSString * gameID = [model getGameID];
-    NSString* userID = [model getUserID];
-    [model getGameStatus:@{@"gameID":gameID,
-                           @"userID":userID}];
+    if(!_timerFlag){
+        _data = [[NSMutableArray alloc] init];
+        DeadeuceCaller* model = [DeadeuceCaller sharedInstance];
+        model.delegate = self;
+        NSString * gameID = [model getGameID];
+        NSString* userID = [model getUserID];
+        [model getGameStatus:@{@"gameID":gameID,
+                               @"userID":userID}];
+    }
 }
 
 - (instancetype)init
@@ -188,6 +194,7 @@ const CGFloat kPadding3 = 6;
 
 -(void) viewWillAppear:(BOOL)animated
 {
+    _timerFlag = NO;
     _data = [[NSMutableArray alloc] init];
     DeadeuceCaller* model = [DeadeuceCaller sharedInstance];
     model.delegate = self;
@@ -197,9 +204,10 @@ const CGFloat kPadding3 = 6;
                            @"userID":userID}];
     _timer = [NSTimer scheduledTimerWithTimeInterval:3 target:self selector:@selector(refresh) userInfo:nil repeats:YES];
 }
--(void) viewWillDisappear:(BOOL)animated
+-(void) viewDidDisappear:(BOOL)animated
 {
     [_timer invalidate];
+    _timer = nil;
 }
 
 - (void)loadView
