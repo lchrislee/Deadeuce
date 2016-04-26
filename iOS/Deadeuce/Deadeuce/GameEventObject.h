@@ -12,6 +12,7 @@
 
 - (instancetype)initWithPayload:(NSDictionary*)payload;
 
+@property BOOL isSuggest;
 @property (nonatomic, strong) NSString* suggester;
 @property (nonatomic, strong) NSString* suggestedTo;
 @property (nonatomic, strong) NSString* suggestedWeapon;

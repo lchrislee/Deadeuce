@@ -17,6 +17,8 @@ var gameSchema = mongoose.Schema({
     players: [String]
   }],
   feed: [{
+    action : String,
+    epoch : String,
     accuser : String,
     suspect : String,
     weapon : String,
@@ -60,17 +62,13 @@ gameSchema.methods.addPlayer = function (user, cb) {
 }
 
 gameSchema.methods.removePlayer = function(userID, cb){
-  console.log("userID: " + userID);
-  console.log("length: " + this.users.length);
   var length = this.users.length;
   for (var i = 0; i < length; i++){
-    console.log("email " + i + ": " + this.users[i].email);
     if (this.users[i].email == userID){
       this.users.splice(i, 1);
       break;
     }
   }
-  console.log(this.users);
   this.save(cb);
 }
 

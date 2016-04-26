@@ -80,7 +80,6 @@ app.post('/test_slice', function(req, res){
 /****************************\
  *           GET            *
 \****************************/
-var GameGetFunctions = require('./scripts/game/GameGetFunctions.js');
 
 /* 
   Returns Object to Client
@@ -112,16 +111,15 @@ app.get('/game/all', function(request, response){
 /****************************\
  *           POST           *
 \****************************/
-var GamePostFunctions = require ('./scripts/game/GamePostFunctions.js');
 
 var checkList = {
   "locations":[
-    "Lyon Center",
+    "Bovard",
     "Leavey Library",
     "Traddies",
     "Ground Zero",
     "The 90",
-    "Bovard",
+    "Lyon Center",
     "EVK",
     "The Row",
     "Campus Center"
@@ -145,12 +143,12 @@ var checkList = {
 };
 
 var initialMap = [
-          {"name": "Lyon Center", "players":["President Nikias"]},
+          {"name": "Bovard", "players":["President Nikias"]},
           {"name": "Leavey Library", "players":[]},
           {"name": "Traddies", "players": []},
           {"name": "Ground Zero", "players": []},
           {"name": "The 90", "players": []},
-          {"name": "Bovard", "players": []},
+          {"name": "Lyon Center", "players": []},
           {"name": "EVK", "players": []},
           {"name": "The Row", "players": []},
           {"name": "Campus Center", "players": []}
@@ -262,6 +260,7 @@ app.post('/createGame', function(request, response){
 */
 app.post('/game/status', function(request, response){
   var gameID = request.body.gameID;
+  var userID = request.body.userID;
   if (gameID === undefined){
     response.sendStatus(400);
     return;
@@ -273,16 +272,32 @@ app.post('/game/status', function(request, response){
       return;
     }else{
       var gamePlayerID = undefined;
-      if (game.numPlayers == 6){
+      if (game.numPlayers == 1){ // turn this to 6
       	gamePlayerID = game.turnPlayerEmail;
       }
-      response.json({
-        "gameName":game.name,
-        "feed":game.feed,
-        "turnPlayerNickname":game.turnPlayerNickname,
-        "turnPlayerID":gamePlayerID,
-        "gameWinner":game.gameWinner});
-      return;
+      var output = undefined;
+      if (userID == undefined){
+        response.json({
+          "gameName":game.name,
+          "feed":game.feed,
+          "turnPlayerNickname":game.turnPlayerNickname,
+          "turnPlayerID":gamePlayerID,
+          "gameWinner":game.gameWinner});
+      	return;
+      }else{
+        for (var i = 0; i < game.users.length; i++){
+	  if (game.users[i].email == userID){
+            response.json({
+              "myNickname": game.users[i].name,
+              "gameName":game.name,
+              "feed":game.feed,
+              "turnPlayerNickname":game.turnPlayerNickname,
+              "turnPlayerID":gamePlayerID,
+              "gameWinner":game.gameWinner});
+            return;
+	  }
+        }
+      }
     }
   });
 });
@@ -351,7 +366,6 @@ app.post('/game/map', function(request, response){
 /****************************\
  *           PUT            *
 \****************************/
-var GamePutFunctions = require('./scripts/game/GamePutFunctions.js');
 
 // JOIN GAME
 /*
@@ -392,7 +406,7 @@ app.put('/joinGame', function(request, response){
         return;
       } else {
         game.save(function(err, game){
-	  var playerNickName = game.checklist.suspects[game.numPlayers];
+          var playerNickName = game.checklist.suspects[game.numPlayers];
           game.addPlayer({name:playerNickName, email:email}, function(){
             User.update({"email":email}, {"gameID":game.name, "nickName":playerNickName}, function(err, raw){
               if (err){
@@ -466,7 +480,7 @@ app.put('/game/action', function(request, response){
             response.json({"action":action,"correct": false, "feedback": game.gameWinner + " has found the murderer!", "gameWinner":game.gameWinner});
           });
         });
-      }else if (game.numPlayers < 6){
+      }else if (game.numPlayers < 1){ // change to 6
         response.json({"action":action, "correct":false, "feedback": "There are not enough players!"});
         return;
       }
@@ -510,22 +524,28 @@ app.put('/game/action', function(request, response){
       if (answer.location != location){
         outputOptions.push(location);
       }
-
+	console.log("action: " + action);
+	console.log("epoch: " + (new Date).getTime());
+	var epochTime = (new Date).getTime();
       var feedInput = {
           "accuser": selectedUser.name,
           "suspect": suspect,
           "weapon": weapon,
           "location": location,
-	  "action": action,
-          "time": Date.now(),
-	  "win": false
+          "action": action,
+          "JUNK": "THIS IS THE JUNK THAT NEVER ENDS. IT GOES ON AND ON MY FRIEND.",
+	  "time": Date.now(),
+	  "epoch": epochTime,
+          "win": false
       };
+	console.log(feedInput);
       var newFeed = game.feed.slice(0);
       newFeed.unshift(feedInput);
-
+	console.log(newFeed);
       if (action == "accuse"){
         if (outputOptions.length == 0){ // correct accusation
-	  newFeed[0].win = true;
+          newFeed[0].win = true;
+          console.log("new feed: " + newFeed[0]);
           Game.update({"name":gameID}, {"gameWinner":selectedUser.name, "feed":newFeed}, function(err, raw){
             if (err){
               response.sendStatus(400);
