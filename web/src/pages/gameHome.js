@@ -114,13 +114,15 @@ var GameHome = React.createClass({
             }.bind(this)
         })
     },
-
     refreshGame: function(){
         this.retrieveCheckList(this.state.gameID);
         this.findGameFeed(this.state.gameID);
         this.retrieveGameMap(this.state.gameID);
+        setTimeout(this.refreshGame, 1000);
     },
-
+    componentDidMount: function(){
+        this.refreshGame();
+    },
     render: function() {
         var suspects = this.state.suspects;
         var weapons = this.state.weapons;

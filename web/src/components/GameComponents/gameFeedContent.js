@@ -15,6 +15,16 @@ var GameFeedContent = React.createClass({
         };
     },
     render: function(){
+    	var win = undefined;
+    	if (this.props.data.win != undefined){
+    		win = <span className="suggested"> and won</span>
+    	}
+        var action = undefined;
+        if (this.props.data.action == "suggest"){
+            action = <span className="actionSuggest">suggested</span>
+        }else if (this.props.data.action == "accuse"){
+            action = <span className="actionAccuse">accused</span>
+        }
 
         return(
             <div className="divFeedRow">
@@ -24,10 +34,10 @@ var GameFeedContent = React.createClass({
                 </div>
                 <div className="divFeedColumn2 column">
                     <p className="suggest-body">
-                        <span className="suggested"> {this.props.data.accuser} </span> suggested
+                        <span className="suggested"> {this.props.data.accuser} </span> {action}
                         <span className="suggested"> {this.props.data.suspect} </span>
                         with the <span className="suggested">{this.props.data.weapon} </span>
-                        at <span className="suggested">{this.props.data.location}</span>.
+                        at <span className="suggested">{this.props.data.location}</span> {win}.
                     </p>
                 </div>
                 <div className="divFeedColumn3 column">On {new Date(this.props.data.time).toDateString()}</div>

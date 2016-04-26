@@ -19,7 +19,11 @@
         NSString* weapon = [payload objectForKey:@"weapon"];
         NSString* location = [payload objectForKey:@"location"];
         
-        _timeStamp = [NSDate date];
+        NSString* epochTime = [payload objectForKey:@"epoch"];
+        NSTimeInterval seconds = [epochTime doubleValue]/1000.0;
+        
+        _isSuggest = [[payload objectForKey:@"action"] isEqualToString:@"suggest"];
+        _timeStamp = [[NSDate alloc] initWithTimeIntervalSince1970:seconds];
         
         _suggester = accuser;
         _suggestedTo = suspect;

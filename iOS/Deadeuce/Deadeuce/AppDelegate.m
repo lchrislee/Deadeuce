@@ -23,6 +23,7 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     UIWindow *window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     self.window = window;
+    [[NSUserDefaults standardUserDefaults] setObject:nil forKey:@"detective_checklist"];
     
     LoginViewController *frontViewController = [[LoginViewController alloc] init];
     LeftPanelViewController *rearViewController = [[LeftPanelViewController alloc] init];
