@@ -274,7 +274,7 @@ app.post('/game/status', function(request, response){
       return;
     }else{
       var gamePlayerID = undefined;
-      if (game.numPlayers == 6){
+      if (game.numPlayers == 1){ // turn this to 6
       	gamePlayerID = game.turnPlayerEmail;
       }
       var output = undefined;
@@ -483,7 +483,7 @@ app.put('/game/action', function(request, response){
             response.json({"action":action,"correct": false, "feedback": game.gameWinner + " has found the murderer!", "gameWinner":game.gameWinner});
           });
         });
-      }else if (game.numPlayers < 6){
+      }else if (game.numPlayers < 1){ // change to 6
         response.json({"action":action, "correct":false, "feedback": "There are not enough players!"});
         return;
       }
@@ -527,7 +527,9 @@ app.put('/game/action', function(request, response){
       if (answer.location != location){
         outputOptions.push(location);
       }
-
+	console.log("action: " + action);
+	console.log("epoch: " + (new Date).getTime());
+	var epochTime = (new Date).getTime();
       var feedInput = {
           "accuser": selectedUser.name,
           "suspect": suspect,
@@ -535,6 +537,7 @@ app.put('/game/action', function(request, response){
           "location": location,
           "action": action,
           "time": Date.now(),
+	  "epoch": epochTime,
           "win": false
       };
       var newFeed = game.feed.slice(0);
