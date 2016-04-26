@@ -125,6 +125,7 @@ const CGFloat kPadding3 = 6;
 
 @property (nonatomic, strong) UILabel *gameNameLabel;
 @property (nonatomic, strong) UILabel *currentTurnLabel;
+@property (nonatomic, strong) UILabel *myNickname;
 
 @property (nonatomic, strong) UIButton *suggestButton;
 @property (nonatomic, strong) UIButton *detectivePadButton;
@@ -160,7 +161,9 @@ const CGFloat kPadding3 = 6;
     DeadeuceCaller* model = [DeadeuceCaller sharedInstance];
     model.delegate = self;
     NSString * gameID = [model getGameID];
-    [model getGameStatus:@{@"gameID":gameID}];
+    NSString* userID = [model getUserID];
+    [model getGameStatus:@{@"gameID":gameID,
+                           @"userID":userID}];
 }
 
 - (instancetype)init
@@ -189,7 +192,9 @@ const CGFloat kPadding3 = 6;
     DeadeuceCaller* model = [DeadeuceCaller sharedInstance];
     model.delegate = self;
     NSString * gameID = [model getGameID];
-    [model getGameStatus:@{@"gameID":gameID}];
+    NSString* userID = [model getUserID];
+    [model getGameStatus:@{@"gameID":gameID,
+                           @"userID":userID}];
 }
 
 - (void)loadView
@@ -203,7 +208,7 @@ const CGFloat kPadding3 = 6;
     
     CGFloat startingHeight = self.navigationController.navigationBar.frame.size.height + 20.0;
     
-    CGRect tableViewFrame = CGRectMake(0.0, 144.0, self.view.frame.size.width, screenHeight - 144.0);
+    CGRect tableViewFrame = CGRectMake(0.0, 174.0, self.view.frame.size.width, screenHeight - 144.0);
     _tableView = [[UITableView alloc] initWithFrame:tableViewFrame style:UITableViewStylePlain];
     [_tableView registerClass:[GameEventTableViewCell class] forCellReuseIdentifier:@"GameEventTableViewCell"];
     _tableView.rowHeight = [GameEventTableViewCell cellHeight];
@@ -260,6 +265,9 @@ const CGFloat kPadding3 = 6;
     if(!_gameNameLabel){
         _gameNameLabel = [[UILabel alloc] init];
     }
+    if(!_myNickname){
+        _myNickname = [[UILabel alloc] init];
+    }
     [self.gameNameLabel setFrame:CGRectMake(0.0, startingHeight + 44.0, screenWidth, 26.0)];
     self.gameNameLabel.textColor=[UIColor blackColor];
     self.gameNameLabel.backgroundColor = [UIColor whiteColor];
@@ -272,6 +280,12 @@ const CGFloat kPadding3 = 6;
     self.currentTurnLabel.userInteractionEnabled = NO;
     self.currentTurnLabel.textAlignment = NSTextAlignmentCenter;
     [self.currentTurnLabel setFont:[UIFont fontWithName:@"HelveticaNeue" size:20]];
+    [_myNickname setFrame:CGRectMake(0.0, startingHeight + 96.0, screenWidth, 26.0)];
+    _myNickname.textColor=[UIColor blackColor];
+    _myNickname.backgroundColor = [UIColor whiteColor];
+    _myNickname.userInteractionEnabled = NO;
+    _myNickname.textAlignment = NSTextAlignmentCenter;
+    [_myNickname setFont:[UIFont fontWithName:@"HelveticaNeue" size:20]];
     
     _refreshButton = [UIButton buttonWithType:UIButtonTypeCustom];
     [_refreshButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
@@ -283,13 +297,14 @@ const CGFloat kPadding3 = 6;
     [_refreshButton setTitle:@"Refresh Feed" forState:UIControlStateNormal];
     _refreshButton.titleLabel.font = [UIFont fontWithName:@"HelveticaNeue" size:20];
     [_refreshButton.layer setBorderColor:[[UIColor whiteColor] CGColor]];
-    _refreshButton.frame = CGRectMake(0.0, startingHeight + 100.0, screenWidth, 44.0);
+    _refreshButton.frame = CGRectMake(0.0, startingHeight + 130.0, screenWidth, 44.0);
  
     [self.view addSubview:_tableView];
     [self.view addSubview:self.suggestButton];
     [self.view addSubview:self.detectivePadButton];
     [self.view addSubview:self.gameNameLabel];
     [self.view addSubview:self.currentTurnLabel];
+    [self.view addSubview:_myNickname];
     [self.view addSubview:_refreshButton];
     
     [self.view.layer addSublayer:shapeLayer];
@@ -315,12 +330,16 @@ const CGFloat kPadding3 = 6;
         if(!_gameNameLabel){
             _gameNameLabel = [[UILabel alloc] init];
         }
+        if(!_myNickname){
+            _myNickname = [[UILabel alloc] init];
+        }
         if(!_suggestButton){
             self.suggestButton = [UIButton buttonWithType:UIButtonTypeCustom];
             [self.suggestButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
             [self.suggestButton setTitleColor:[UIColor colorWithRed:200.0/255.0 green:200.0/255.0 blue:200.0/255.0 alpha:0.3] forState:UIControlStateDisabled];
         }
         NSLog(@"%@", gameStatus);
+        _myNickname.text = [NSString stringWithFormat:@"You are: %@", [gameStatus objectForKey:@"myNickname"]];
         if([gameStatus objectForKey:@"gameWinner"]){
             _gameNameLabel.text = @"GAME OVER";
             _currentTurnLabel.text = [NSString stringWithFormat:@"Winner: %@", [gameStatus objectForKey:@"gameWinner"]];
