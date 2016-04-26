@@ -80,7 +80,6 @@ app.post('/test_slice', function(req, res){
 /****************************\
  *           GET            *
 \****************************/
-var GameGetFunctions = require('./scripts/game/GameGetFunctions.js');
 
 /* 
   Returns Object to Client
@@ -112,7 +111,6 @@ app.get('/game/all', function(request, response){
 /****************************\
  *           POST           *
 \****************************/
-var GamePostFunctions = require ('./scripts/game/GamePostFunctions.js');
 
 var checkList = {
   "locations":[
@@ -368,7 +366,6 @@ app.post('/game/map', function(request, response){
 /****************************\
  *           PUT            *
 \****************************/
-var GamePutFunctions = require('./scripts/game/GamePutFunctions.js');
 
 // JOIN GAME
 /*
@@ -548,6 +545,7 @@ app.put('/game/action', function(request, response){
       if (action == "accuse"){
         if (outputOptions.length == 0){ // correct accusation
           newFeed[0].win = true;
+          console.log("new feed: " + newFeed[0]);
           Game.update({"name":gameID}, {"gameWinner":selectedUser.name, "feed":newFeed}, function(err, raw){
             if (err){
               response.sendStatus(400);
@@ -605,7 +603,6 @@ app.put('/game/action', function(request, response){
 /****************************\
  *           GET            *
 \****************************/
-var UserGetFunctions = require('./scripts/user/UserGetFunctions.js');
 
 // USER INFORMATION
 /*
@@ -655,7 +652,6 @@ app.get('/user/game', function(request, response){
 /****************************\
  *           POST           *
 \****************************/
-var UserPostFunctions = require('./scripts/user/UserPostFunctions.js');
 // CREATE USER
 //input userInfo {name, email, password}
 //output userID (user email)
@@ -693,7 +689,6 @@ app.post('/loginUser', function(request, response){
 /****************************\
  *           PUT            *
 \****************************/
-var UserPutFunctions = require('./scripts/user/UserPutFunctions.js');
 
 // UPDATE USER
 app.put('/updateUser', function(request, response){

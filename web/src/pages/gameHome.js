@@ -49,10 +49,6 @@ var GameHome = React.createClass({
             data: stringified,
 
             success: function(data) {
-		console.log("gameFeed: " + data);
-		console.log("feed's stuff: " + data.feed.epoch);
-		console.log("feed's stuff: " + data.feed.JUNK);
-		console.log("feed's stuff: " + data.feed.action);
                 this.setState({
                     "gameFeed": data.feed,
                     "currentTurnNickname": data.turnPlayerNickname,
@@ -122,7 +118,7 @@ var GameHome = React.createClass({
         this.retrieveCheckList(this.state.gameID);
         this.findGameFeed(this.state.gameID);
         this.retrieveGameMap(this.state.gameID);
-        setTimeout(this.refreshGame, 5000);
+        setTimeout(this.refreshGame, 2000);
     },
     componentDidMount: function(){
         this.refreshGame();

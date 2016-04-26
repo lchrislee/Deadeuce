@@ -376,7 +376,7 @@ Game Map
     opacity: 50%;
 }   
 #img0{
-    background-image: url(assets/thelyoncenter.png);
+    background-image: url(assets/Bovard.jpg);
 }
 #img1{
     background-image: url(assets/Leavey.jpg);
@@ -391,7 +391,7 @@ Game Map
     background-image: url(assets/the90.png);
 } 
 #img5{
-    background-image: url(assets/Bovard.jpg);
+    background-image: url(assets/thelyoncenter.png);
 } 
 #img6{
     background-image: url(assets/EVK.jpg);
