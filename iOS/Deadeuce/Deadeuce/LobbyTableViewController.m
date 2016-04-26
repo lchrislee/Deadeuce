@@ -67,6 +67,7 @@ const CGFloat kPadding = 6;
         self.joinGameButton.titleLabel.font = [UIFont boldSystemFontOfSize:[UIFont systemFontSize]];
         [self.joinGameButton setTitle:@"Join" forState:UIControlStateNormal];
         [self.contentView addSubview:self.joinGameButton];
+
     }
     
     return self;
@@ -219,6 +220,8 @@ const CGFloat kPadding = 6;
 
 @interface LobbyTableViewController ()
 
+@property (nonatomic, strong) NSTimer* timer;
+
 @end
 
 
@@ -232,6 +235,13 @@ const CGFloat kPadding = 6;
     _gameName = textField.text;
     [textField resignFirstResponder];
     return YES;
+}
+
+-(void)refresh
+{
+    DeadeuceCaller* model = [DeadeuceCaller sharedInstance];
+    model.delegate = self;
+    [model getGames];
 }
 
 -(void) joinGameButtonPressed:(UIButton*)sender
@@ -298,11 +308,14 @@ const CGFloat kPadding = 6;
     DeadeuceCaller* model = [DeadeuceCaller sharedInstance];
     model.delegate = self;
     [model getGames];
+    _timer = [NSTimer scheduledTimerWithTimeInterval:5 target:self selector:@selector(refresh) userInfo:nil repeats:YES];
 }
 
 -(void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
     self.revealViewController.panGestureRecognizer.enabled=YES;
+    [_timer invalidate];
+    
 }
 
 - (void)didReceiveMemoryWarning {
