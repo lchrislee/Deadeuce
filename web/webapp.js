@@ -262,7 +262,7 @@ app.post('/createGame', function(request, response){
 */
 app.post('/game/status', function(request, response){
   var gameID = request.body.gameID;
-  var userID = request.body.gameID;
+  var userID = request.body.userID;
   if (gameID === undefined){
     response.sendStatus(400);
     return;
@@ -279,28 +279,27 @@ app.post('/game/status', function(request, response){
       }
       var output = undefined;
       if (userID == undefined){
-        output ={
+        response.json({
           "gameName":game.name,
           "feed":game.feed,
           "turnPlayerNickname":game.turnPlayerNickname,
           "turnPlayerID":gamePlayerID,
-          "gameWinner":game.gameWinner};
+          "gameWinner":game.gameWinner});
+      	return;
       }else{
         for (var i = 0; i < game.users.length; i++){
-          if (game.users[i].email == userID){
-            output = {
-              "myNickname": game.users[i].email,
+	  if (game.users[i].email == userID){
+            response.json({
+              "myNickname": game.users[i].name,
               "gameName":game.name,
               "feed":game.feed,
               "turnPlayerNickname":game.turnPlayerNickname,
               "turnPlayerID":gamePlayerID,
-              "gameWinner":game.gameWinner};
-            }
-          }
+              "gameWinner":game.gameWinner});
+            return;
+	  }
         }
       }
-      response.json(output);
-      return;
     }
   });
 });
