@@ -72,6 +72,30 @@ gameSchema.methods.removePlayer = function(userID, cb){
   this.save(cb);
 }
 
+gameSchema.methods.movePlayer = function(userID, location, cb){
+  var userName;
+  for (var i = 0; i < this.users.length; i++){
+    if (this.users[i].email == userID){
+      userName = this.users[i].name;
+      break;
+    }
+  }
+
+  for (var i = 0; i < this.map.length; i++){
+    for (var j = 0; j < this.map[i].players.length; j++){
+      if (this.map[i].players[j] == userName){
+        this.map[i].players.splice(j, 1);
+        break;
+      }
+    }
+    if (this.map[i].name == location){
+      this.map[i].players.push(userName);
+    }
+  }
+  
+  this.save(cb);
+}
+
 var Game = mongoose.model('Game', gameSchema);
 
 module.exports = Game;

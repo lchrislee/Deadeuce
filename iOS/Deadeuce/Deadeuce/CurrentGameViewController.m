@@ -132,7 +132,7 @@ const CGFloat kPadding3 = 6;
 @property (nonatomic, strong) UIImageView* suggestIcon;
 @property (nonatomic, strong) UIImageView* detectiveIcon;
 
-@property (nonatomic, strong) UIButton *refreshButton;
+@property (nonatomic, strong) NSTimer* timer;
 
 @end
 
@@ -155,7 +155,7 @@ const CGFloat kPadding3 = 6;
     [self.navigationController pushViewController:detectivePadVc animated:YES];
 }
 
--(void)refresh:(id)sender
+-(void)refresh
 {
     _data = [[NSMutableArray alloc] init];
     DeadeuceCaller* model = [DeadeuceCaller sharedInstance];
@@ -186,7 +186,7 @@ const CGFloat kPadding3 = 6;
     return self;
 }
 
--(void)viewWillAppear:(BOOL)animated
+-(void) viewWillAppear:(BOOL)animated
 {
     _data = [[NSMutableArray alloc] init];
     DeadeuceCaller* model = [DeadeuceCaller sharedInstance];
@@ -195,6 +195,11 @@ const CGFloat kPadding3 = 6;
     NSString* userID = [model getUserID];
     [model getGameStatus:@{@"gameID":gameID,
                            @"userID":userID}];
+    _timer = [NSTimer scheduledTimerWithTimeInterval:3 target:self selector:@selector(refresh) userInfo:nil repeats:YES];
+}
+-(void) viewWillDisappear:(BOOL)animated
+{
+    [_timer invalidate];
 }
 
 - (void)loadView
@@ -208,11 +213,14 @@ const CGFloat kPadding3 = 6;
     
     CGFloat startingHeight = self.navigationController.navigationBar.frame.size.height + 20.0;
     
-    CGRect tableViewFrame = CGRectMake(0.0, 174.0, self.view.frame.size.width, screenHeight - 144.0);
+    CGFloat tableViewOffset = startingHeight + 126.0;
+    CGRect tableViewFrame = CGRectMake(0.0, tableViewOffset, self.view.frame.size.width,
+                                       screenHeight - tableViewOffset);
     _tableView = [[UITableView alloc] initWithFrame:tableViewFrame style:UITableViewStylePlain];
     [_tableView registerClass:[GameEventTableViewCell class] forCellReuseIdentifier:@"GameEventTableViewCell"];
     _tableView.rowHeight = [GameEventTableViewCell cellHeight];
     _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    _tableView.contentInset = UIEdgeInsetsMake(-70.0f, 0.0f, 0.0f, 0.0);
     [_tableView setDataSource:self];
     [_tableView setDelegate:self];
     
@@ -286,18 +294,6 @@ const CGFloat kPadding3 = 6;
     _myNickname.userInteractionEnabled = NO;
     _myNickname.textAlignment = NSTextAlignmentCenter;
     [_myNickname setFont:[UIFont fontWithName:@"HelveticaNeue" size:20]];
-    
-    _refreshButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    [_refreshButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-    _refreshButton.clipsToBounds = YES;
-    [_refreshButton.layer setBackgroundColor:[[UIColor colorWithRed:(134/255.0) green:(134/255.0) blue:(134/255.0) alpha:1.0] CGColor]];
-    [_refreshButton addTarget:self
-                                action:@selector(refresh:)
-                      forControlEvents:UIControlEventTouchUpInside];
-    [_refreshButton setTitle:@"Refresh Feed" forState:UIControlStateNormal];
-    _refreshButton.titleLabel.font = [UIFont fontWithName:@"HelveticaNeue" size:20];
-    [_refreshButton.layer setBorderColor:[[UIColor whiteColor] CGColor]];
-    _refreshButton.frame = CGRectMake(0.0, startingHeight + 130.0, screenWidth, 44.0);
  
     [self.view addSubview:_tableView];
     [self.view addSubview:self.suggestButton];
@@ -305,7 +301,6 @@ const CGFloat kPadding3 = 6;
     [self.view addSubview:self.gameNameLabel];
     [self.view addSubview:self.currentTurnLabel];
     [self.view addSubview:_myNickname];
-    [self.view addSubview:_refreshButton];
     
     [self.view.layer addSublayer:shapeLayer];
 }
