@@ -272,7 +272,7 @@ app.post('/game/status', function(request, response){
       return;
     }else{
       var gamePlayerID = undefined;
-      if (game.numPlayers == 1){ // turn this to 6
+      if (game.numPlayers == 6){ // turn this to 6
       	gamePlayerID = game.turnPlayerEmail;
       }
       var output = undefined;
@@ -480,7 +480,7 @@ app.put('/game/action', function(request, response){
             response.json({"action":action,"correct": false, "feedback": game.gameWinner + " has found the murderer!", "gameWinner":game.gameWinner});
           });
         });
-      }else if (game.numPlayers < 1){ // change to 6
+      }else if (game.numPlayers < 6){ // change to 6
         response.json({"action":action, "correct":false, "feedback": "There are not enough players!"});
         return;
       }
@@ -502,7 +502,7 @@ app.put('/game/action', function(request, response){
         response.sendStatus(400);
         return;
       }else if (game.turnPlayerNickname != selectedUser.name){
-        response.json({"action":action,"correct":false, "feedback": "Not your turn!"});
+        response.json({"action":action,"correct":false, "feedback": "Stop trying to cheat or the EVKiller will come after you next!"});
         return;
       }
 
