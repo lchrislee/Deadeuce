@@ -27,7 +27,7 @@ var GameMapContentBox = React.createClass({
                  <p className="mapHeader">{this.props.data.name}</p>
                 </div>
                 <div id={this.props.num} className="gameMapBoxBody">
-                    <p className="mapContent">  {this.props.data.players} </p>
+                    <p className="mapContent">{this.props.data.players}, </p>
                 </div>
             </div>
 
