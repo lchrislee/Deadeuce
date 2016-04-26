@@ -24,7 +24,6 @@
 @property (nonatomic, strong) UILabel *resultLabel;
 
 @property (nonatomic, strong) UIButton *gameFeedButton;
-@property (nonatomic, strong) UIButton *gamesListButton;
 
 @end
 
@@ -126,38 +125,30 @@
     
     [self.resultLabel setFont:[UIFont fontWithName:@"HelveticaNeue" size:20]];
     
-    if(!_isSuggestion){
-        self.gamesListButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-        [self.gamesListButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-        self.gamesListButton.layer.cornerRadius = 5;
-        self.gamesListButton.clipsToBounds = YES;
-        [self.gamesListButton.layer setBackgroundColor:[[UIColor colorWithRed:(134/255.0) green:(134/255.0) blue:(134/255.0) alpha:1.0] CGColor]];
-        [self.gamesListButton addTarget:self
-                                 action:@selector(gameListButtonPressed:)
-                       forControlEvents:UIControlEventTouchUpInside];
-        [self.gamesListButton setTitle:@"Return to Games List" forState:UIControlStateNormal];
-        self.gamesListButton.titleLabel.font = [UIFont fontWithName:@"HelveticaNeue" size:20];
-        self.gamesListButton.frame = CGRectMake(20.0, screenHeight - 143.0, screenWidth - 40.0, 64.0);
-    }
     
     self.gameFeedButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+    //Bad practice, should be one selector but whatever
+    if(!_isSuggestion){
+        [self.gameFeedButton addTarget:self
+                                 action:@selector(gameListButtonPressed:)
+                       forControlEvents:UIControlEventTouchUpInside];
+        [self.gameFeedButton setTitle:@"Return to Games List" forState:UIControlStateNormal];
+    } else {
+        [self.gameFeedButton addTarget:self
+                                action:@selector(gameFeedButtonPressed:)
+                      forControlEvents:UIControlEventTouchUpInside];
+        [self.gameFeedButton setTitle:@"Return to Game Feed" forState:UIControlStateNormal];
+    }
     [self.gameFeedButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     self.gameFeedButton.layer.cornerRadius = 5;
     self.gameFeedButton.clipsToBounds = YES;
     [self.gameFeedButton.layer setBackgroundColor:[[UIColor colorWithRed:(134/255.0) green:(134/255.0) blue:(134/255.0) alpha:1.0] CGColor]];
-    [self.gameFeedButton addTarget:self
-                         action:@selector(gameFeedButtonPressed:)
-               forControlEvents:UIControlEventTouchUpInside];
     
-    [self.gameFeedButton setTitle:@"Return to Game Feed" forState:UIControlStateNormal];
     self.gameFeedButton.titleLabel.font = [UIFont fontWithName:@"HelveticaNeue" size:20];
     self.gameFeedButton.frame = CGRectMake(20.0, screenHeight - 74.0, screenWidth - 40.0, 64.0);
     
     [self.view addSubview:_tableView];
     [self.view addSubview:self.resultLabel];
-    if(!_isSuggestion){
-        [self.view addSubview:self.gamesListButton];
-    }
     [self.view addSubview:self.gameFeedButton];
 }
 

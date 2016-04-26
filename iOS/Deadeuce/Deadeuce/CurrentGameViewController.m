@@ -410,8 +410,6 @@ const CGFloat kPadding3 = 6;
     if(indexPath.row < _data.count){
         GameEventObject *obj = _data[indexPath.row];
         
-        cell.eventLabel.text = [NSString stringWithFormat:@"%@ suggested %@ used the %@ at %@",
-                                obj.suggester, obj.suggestedTo, obj.suggestedWeapon, obj.suggestedLocation];
         NSString* suggestString = (obj.isSuggest) ? @"Suggest" : @"Accuse";
         cell.locationLabel.text = [NSString stringWithFormat:@"Action Type: %@", suggestString];
         
@@ -422,6 +420,26 @@ const CGFloat kPadding3 = 6;
 
         NSString *dateString = [dateFormatter stringFromDate:obj.timeStamp];
         cell.timeStampLabel.text = dateString;
+        
+        NSString* totalString = [NSString stringWithFormat:@"%@ suggested %@ used the %@ at %@",
+                                 obj.suggester, obj.suggestedTo, obj.suggestedWeapon, obj.suggestedLocation];
+        cell.eventLabel.text = totalString;
+        
+        int charLocation = 0;
+        NSMutableAttributedString *text = [[NSMutableAttributedString alloc] initWithString:totalString];
+        [text addAttribute:NSFontAttributeName value:[UIFont boldSystemFontOfSize:12]
+                     range:NSMakeRange(charLocation, obj.suggester.length)];
+        charLocation += obj.suggester.length + 11;
+        [text addAttribute:NSFontAttributeName value:[UIFont boldSystemFontOfSize:12]
+                     range:NSMakeRange(charLocation, obj.suggestedTo.length)];
+        charLocation += obj.suggestedTo.length + 10;
+        [text addAttribute:NSFontAttributeName value:[UIFont boldSystemFontOfSize:12]
+                     range:NSMakeRange(charLocation, obj.suggestedWeapon.length)];
+        charLocation += obj.suggestedWeapon.length + 4;
+        [text addAttribute:NSFontAttributeName value:[UIFont boldSystemFontOfSize:12]
+                     range:NSMakeRange(charLocation, obj.suggestedLocation.length)];
+        
+        [cell.eventLabel setAttributedText:text];
 
         [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
     }
