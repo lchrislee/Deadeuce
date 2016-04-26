@@ -272,7 +272,7 @@ app.post('/game/status', function(request, response){
       return;
     }else{
       var gamePlayerID = undefined;
-      if (game.numPlayers == 1){ // turn this to 6
+      if (game.numPlayers == 6){ // turn this to 6
       	gamePlayerID = game.turnPlayerEmail;
       }
       var output = undefined;
@@ -480,7 +480,7 @@ app.put('/game/action', function(request, response){
             response.json({"action":action,"correct": false, "feedback": game.gameWinner + " has found the murderer!", "gameWinner":game.gameWinner});
           });
         });
-      }else if (game.numPlayers < 1){ // change to 6
+      }else if (game.numPlayers < 6){ // change to 6
         response.json({"action":action, "correct":false, "feedback": "There are not enough players!"});
         return;
       }
@@ -502,7 +502,7 @@ app.put('/game/action', function(request, response){
         response.sendStatus(400);
         return;
       }else if (game.turnPlayerNickname != selectedUser.name){
-        response.json({"action":action,"correct":false, "feedback": "Not your turn!"});
+        response.json({"action":action,"correct":false, "feedback": "Stop trying to cheat or the EVKiller will come after you next!"});
         return;
       }
 
@@ -524,9 +524,8 @@ app.put('/game/action', function(request, response){
       if (answer.location != location){
         outputOptions.push(location);
       }
-	console.log("action: " + action);
-	console.log("epoch: " + (new Date).getTime());
-	var epochTime = (new Date).getTime();
+	
+      var epochTime = (new Date).getTime();
       var feedInput = {
           "accuser": selectedUser.name,
           "suspect": suspect,
@@ -538,58 +537,59 @@ app.put('/game/action', function(request, response){
 	  "epoch": epochTime,
           "win": false
       };
-	console.log(feedInput);
+
       var newFeed = game.feed.slice(0);
       newFeed.unshift(feedInput);
-	console.log(newFeed);
-      if (action == "accuse"){
-        if (outputOptions.length == 0){ // correct accusation
-          newFeed[0].win = true;
-          console.log("new feed: " + newFeed[0]);
-          Game.update({"name":gameID}, {"gameWinner":selectedUser.name, "feed":newFeed}, function(err, raw){
-            if (err){
-              response.sendStatus(400);
-            }else{
-              game.removePlayer(userID, function(){
-                User.update({"email":userID}, {"gameID":undefined, "nickName":undefined}, function(err, raw){
-                  response.json({"action":action,"correct":true, "gameWinner":selectedUser.name}); // won!
+
+      game.movePlayer(userID, location, function(){
+        if (action == "accuse"){
+          if (outputOptions.length == 0){ // correct accusation
+            newFeed[0].win = true;
+            Game.update({"name":gameID}, {"gameWinner":selectedUser.name, "feed":newFeed}, function(err, raw){
+              if (err){
+                response.sendStatus(400);
+              }else{
+                game.removePlayer(userID, function(){
+                  User.update({"email":userID}, {"gameID":undefined, "nickName":undefined}, function(err, raw){
+                    response.json({"action":action,"correct":true, "gameWinner":selectedUser.name}); // won!
+                  });
                 });
-              });
-            }
-          });
-        }else{ // wrong accusation
-          var updatedArray = game.users.slice(0);
-          updatedArray.splice(selectedUserIndex, 1);
-          Game.update({"name":gameID}, {"feed":newFeed,"turnPlayerNickname":nextPlayer.name, "turnPlayerEmail":nextPlayer.email, "users":updatedArray}, function(err, raw){
+              }
+            });
+          }else{ // wrong accusation
+            var updatedArray = game.users.slice(0);
+            updatedArray.splice(selectedUserIndex, 1);
+            Game.update({"name":gameID}, {"feed":newFeed,"turnPlayerNickname":nextPlayer.name, "turnPlayerEmail":nextPlayer.email, "users":updatedArray}, function(err, raw){
+              if (err){
+                response.sendStatus(400);
+                return;
+              }else{
+                game.removePlayer(userID, function(){
+                  User.update({"email":userID}, {"gameID":undefined, "nickName":undefined}, function(err, raw){
+                    response.json({"action":action,"correct":false}); // lost!
+                  });
+                });
+              }
+            });
+          }
+        }else if (action == "suggest"){
+          Game.update({"name":gameID}, {"feed":newFeed, "turnPlayerNickname":nextPlayer.name, "turnPlayerEmail":nextPlayer.email}, function(err, raw){
             if (err){
               response.sendStatus(400);
               return;
             }else{
-              game.removePlayer(userID, function(){
-                User.update({"email":userID}, {"gameID":undefined, "nickName":undefined}, function(err, raw){
-                  response.json({"action":action,"correct":false}); // lost!
-                });
-              });
+              if (outputOptions.length == 0){ // correct suggestion
+                response.json({"action":action,"correct":true, "feedback":"Accuse this on your next turn!"});
+                return;
+              }else{ // incorrect
+                var outPutHint = Math.floor(Math.random()*outputOptions.length);
+                response.json({"action":action,"correct":false, "feedback":"It is not " + outputOptions[outPutHint] + "."});
+                return;
+              }
             }
           });
         }
-      }else if (action == "suggest"){
-        Game.update({"name":gameID}, {"feed":newFeed, "turnPlayerNickname":nextPlayer.name, "turnPlayerEmail":nextPlayer.email}, function(err, raw){
-          if (err){
-            response.sendStatus(400);
-            return;
-          }else{
-            if (outputOptions.length == 0){ // correct suggestion
-              response.json({"action":action,"correct":true, "feedback":"Accuse this on your next turn!"});
-              return;
-            }else{ // incorrect
-              var outPutHint = Math.floor(Math.random()*outputOptions.length);
-              response.json({"action":action,"correct":false, "feedback":"It is not " + outputOptions[outPutHint] + "."});
-              return;
-            }
-          }
-        });
-      }
+      });
     }
   });
 });

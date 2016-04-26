@@ -12,7 +12,7 @@ var AccuseFeed = React.createClass({
     var line = "";
     for(var i = 0 ; i < res.length; i++){
       line+=res[i];
-      if(res[i] == '.'){
+      if(res[i] == '.' || res[i] == '!'){
         contentInject.push(<div>{line}</div>);
         line = "";
       }
