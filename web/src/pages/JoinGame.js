@@ -10,7 +10,7 @@ var JoinGame = React.createClass({
         router: React.PropTypes.object.isRequired
     },
     getInitialState: function() {
-        this.refreshGames();
+        this.findAllGames();
         return{
             "allGames": [{gameName:"Commander Chris's Crew", numberOfPlayers:"6"},
                 {gameName:"Rampant Ronas", numberOfPlayers:"6"}
@@ -80,10 +80,7 @@ var JoinGame = React.createClass({
                 });
             }.bind(this)
         });
-    },
-    refreshGames: function(){
-      this.findAllGames();
-      setTimeout(refresh, 5000);
+        setTimeout(this.findAllGames, 10000);
     },
   render: function() {
     return (
