@@ -603,7 +603,6 @@ app.put('/game/action', function(request, response){
 /****************************\
  *           GET            *
 \****************************/
-var UserGetFunctions = require('./scripts/user/UserGetFunctions.js');
 
 // USER INFORMATION
 /*
@@ -653,7 +652,6 @@ app.get('/user/game', function(request, response){
 /****************************\
  *           POST           *
 \****************************/
-var UserPostFunctions = require('./scripts/user/UserPostFunctions.js');
 // CREATE USER
 //input userInfo {name, email, password}
 //output userID (user email)
@@ -691,7 +689,6 @@ app.post('/loginUser', function(request, response){
 /****************************\
  *           PUT            *
 \****************************/
-var UserPutFunctions = require('./scripts/user/UserPutFunctions.js');
 
 // UPDATE USER
 app.put('/updateUser', function(request, response){
