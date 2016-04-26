@@ -262,7 +262,7 @@ app.post('/createGame', function(request, response){
 */
 app.post('/game/status', function(request, response){
   var gameID = request.body.gameID;
-  var userID = request.body.gameID;
+  var userID = request.body.userID;
   if (gameID === undefined){
     response.sendStatus(400);
     return;
@@ -274,33 +274,32 @@ app.post('/game/status', function(request, response){
       return;
     }else{
       var gamePlayerID = undefined;
-      if (game.numPlayers == 6){
+      if (game.numPlayers == 1){ // turn this to 6
       	gamePlayerID = game.turnPlayerEmail;
       }
       var output = undefined;
       if (userID == undefined){
-        output ={
+        response.json({
           "gameName":game.name,
           "feed":game.feed,
           "turnPlayerNickname":game.turnPlayerNickname,
           "turnPlayerID":gamePlayerID,
-          "gameWinner":game.gameWinner};
+          "gameWinner":game.gameWinner});
+      	return;
       }else{
         for (var i = 0; i < game.users.length; i++){
-          if (game.users[i].email == userID){
-            output = {
-              "myNickname": game.users[i].email,
+	  if (game.users[i].email == userID){
+            response.json({
+              "myNickname": game.users[i].name,
               "gameName":game.name,
               "feed":game.feed,
               "turnPlayerNickname":game.turnPlayerNickname,
               "turnPlayerID":gamePlayerID,
-              "gameWinner":game.gameWinner};
-            }
-          }
+              "gameWinner":game.gameWinner});
+            return;
+	  }
         }
       }
-      response.json(output);
-      return;
     }
   });
 });
@@ -484,7 +483,7 @@ app.put('/game/action', function(request, response){
             response.json({"action":action,"correct": false, "feedback": game.gameWinner + " has found the murderer!", "gameWinner":game.gameWinner});
           });
         });
-      }else if (game.numPlayers < 6){
+      }else if (game.numPlayers < 1){ // change to 6
         response.json({"action":action, "correct":false, "feedback": "There are not enough players!"});
         return;
       }
@@ -528,19 +527,24 @@ app.put('/game/action', function(request, response){
       if (answer.location != location){
         outputOptions.push(location);
       }
-
+	console.log("action: " + action);
+	console.log("epoch: " + (new Date).getTime());
+	var epochTime = (new Date).getTime();
       var feedInput = {
           "accuser": selectedUser.name,
           "suspect": suspect,
           "weapon": weapon,
           "location": location,
           "action": action,
-          "time": Date.now(),
+          "JUNK": "THIS IS THE JUNK THAT NEVER ENDS. IT GOES ON AND ON MY FRIEND.",
+	  "time": Date.now(),
+	  "epoch": epochTime,
           "win": false
       };
+	console.log(feedInput);
       var newFeed = game.feed.slice(0);
       newFeed.unshift(feedInput);
-
+	console.log(newFeed);
       if (action == "accuse"){
         if (outputOptions.length == 0){ // correct accusation
           newFeed[0].win = true;

@@ -49,6 +49,10 @@ var GameHome = React.createClass({
             data: stringified,
 
             success: function(data) {
+		console.log("gameFeed: " + data);
+		console.log("feed's stuff: " + data.feed.epoch);
+		console.log("feed's stuff: " + data.feed.JUNK);
+		console.log("feed's stuff: " + data.feed.action);
                 this.setState({
                     "gameFeed": data.feed,
                     "currentTurnNickname": data.turnPlayerNickname,

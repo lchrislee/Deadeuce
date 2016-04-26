@@ -17,6 +17,8 @@ var gameSchema = mongoose.Schema({
     players: [String]
   }],
   feed: [{
+    action : String,
+    epoch : String,
     accuser : String,
     suspect : String,
     weapon : String,
