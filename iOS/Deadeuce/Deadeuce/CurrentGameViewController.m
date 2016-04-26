@@ -133,7 +133,7 @@ const CGFloat kPadding3 = 6;
 @property (nonatomic, strong) UIImageView* detectiveIcon;
 
 @property (nonatomic, strong) NSTimer* timer;
-@property BOOL timerFlag;
+@property BOOL flag;
 
 @end
 
@@ -146,7 +146,6 @@ const CGFloat kPadding3 = 6;
 
 -(void)suggestButtonPressed:(id)sender
 {
-    _timerFlag = YES;
     SuggestTableViewController * sVc = [[SuggestTableViewController alloc] initWithStyle:UITableViewStyleGrouped];
     [self.navigationController pushViewController:sVc animated:YES];
     
@@ -154,14 +153,13 @@ const CGFloat kPadding3 = 6;
 
 -(void)detectivePadButtonPressed:(id)sender
 {
-    _timerFlag = YES;
     DetectivePadTableViewController * detectivePadVc = [[DetectivePadTableViewController alloc] initWithStyle:UITableViewStyleGrouped];
     [self.navigationController pushViewController:detectivePadVc animated:YES];
 }
 
 -(void)refresh
 {
-    if(!_timerFlag){
+    if(_flag){
         _data = [[NSMutableArray alloc] init];
         DeadeuceCaller* model = [DeadeuceCaller sharedInstance];
         model.delegate = self;
@@ -176,6 +174,7 @@ const CGFloat kPadding3 = 6;
 {
     if (self = [super init])
     {
+        _flag = YES;
         self.navigationItem.title = @"Deadeuce";
         
         SWRevealViewController *revealController = (SWRevealViewController*)[[(AppDelegate*)[[UIApplication sharedApplication]delegate] window] rootViewController];
@@ -194,7 +193,6 @@ const CGFloat kPadding3 = 6;
 
 -(void) viewWillAppear:(BOOL)animated
 {
-    _timerFlag = NO;
     _data = [[NSMutableArray alloc] init];
     DeadeuceCaller* model = [DeadeuceCaller sharedInstance];
     model.delegate = self;
@@ -323,49 +321,63 @@ const CGFloat kPadding3 = 6;
     // Dispose of any resources that can be recreated.
 }
 
+- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView
+{
+    _flag = NO;
+    NSLog(@"Begin Scroll");
+}
+
+-(void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView
+{
+    _flag = YES;
+    NSLog(@"End Scroll");
+}
+
 #pragma mark - Deadeuce Delegate
 -(void) setGameStatus:(NSDictionary *)gameStatus
 {
-    dispatch_async(dispatch_get_main_queue(), ^{
-        if(!_currentTurnLabel){
-            _currentTurnLabel = [[UILabel alloc] init];
-        }
-        if(!_gameNameLabel){
-            _gameNameLabel = [[UILabel alloc] init];
-        }
-        if(!_myNickname){
-            _myNickname = [[UILabel alloc] init];
-        }
-        if(!_suggestButton){
-            self.suggestButton = [UIButton buttonWithType:UIButtonTypeCustom];
-            [self.suggestButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-            [self.suggestButton setTitleColor:[UIColor colorWithRed:200.0/255.0 green:200.0/255.0 blue:200.0/255.0 alpha:0.3] forState:UIControlStateDisabled];
-        }
-        NSLog(@"%@", gameStatus);
-        _myNickname.text = [NSString stringWithFormat:@"You are: %@", [gameStatus objectForKey:@"myNickname"]];
-        if([gameStatus objectForKey:@"gameWinner"]){
-            _gameNameLabel.text = @"GAME OVER";
-            _currentTurnLabel.text = [NSString stringWithFormat:@"Winner: %@", [gameStatus objectForKey:@"gameWinner"]];
-        } else {
-            _gameNameLabel.text = [NSString stringWithFormat:@"Game: %@", [gameStatus objectForKey:@"gameName"]];
-            
-            if([[gameStatus objectForKey:@"turnPlayerID"] isEqualToString:[[DeadeuceCaller sharedInstance] getUserID]]){
-                _suggestButton.enabled = YES;
-                _currentTurnLabel.text = [NSString stringWithFormat:@"Current Turn: %@ (You)", [gameStatus objectForKey:@"turnPlayerNickname"]];
-            } else {
-                _suggestButton.enabled = NO;
-               _currentTurnLabel.text = [NSString stringWithFormat:@"Current Turn: %@", [gameStatus objectForKey:@"turnPlayerNickname"]];
+    if(_flag){
+        dispatch_async(dispatch_get_main_queue(), ^{
+            if(!_currentTurnLabel){
+                _currentTurnLabel = [[UILabel alloc] init];
             }
-        }
-        
-        [_data removeAllObjects];
-        NSArray* feedPayload = [gameStatus objectForKey:@"feed"];
-        for(int i = 0; i < feedPayload.count; i++){
-            NSDictionary* feedItem = feedPayload[i];
-            [_data addObject:[[GameEventObject alloc] initWithPayload:feedItem]];
-        }
-        [_tableView reloadData];
-    });
+            if(!_gameNameLabel){
+                _gameNameLabel = [[UILabel alloc] init];
+            }
+            if(!_myNickname){
+                _myNickname = [[UILabel alloc] init];
+            }
+            if(!_suggestButton){
+                self.suggestButton = [UIButton buttonWithType:UIButtonTypeCustom];
+                [self.suggestButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+                [self.suggestButton setTitleColor:[UIColor colorWithRed:200.0/255.0 green:200.0/255.0 blue:200.0/255.0 alpha:0.3] forState:UIControlStateDisabled];
+            }
+            NSLog(@"%@", gameStatus);
+            _myNickname.text = [NSString stringWithFormat:@"You are: %@", [gameStatus objectForKey:@"myNickname"]];
+            if([gameStatus objectForKey:@"gameWinner"]){
+                _gameNameLabel.text = @"GAME OVER";
+                _currentTurnLabel.text = [NSString stringWithFormat:@"Winner: %@", [gameStatus objectForKey:@"gameWinner"]];
+            } else {
+                _gameNameLabel.text = [NSString stringWithFormat:@"Game: %@", [gameStatus objectForKey:@"gameName"]];
+                
+                if([[gameStatus objectForKey:@"turnPlayerID"] isEqualToString:[[DeadeuceCaller sharedInstance] getUserID]]){
+                    _suggestButton.enabled = YES;
+                    _currentTurnLabel.text = [NSString stringWithFormat:@"Current Turn: %@ (You)", [gameStatus objectForKey:@"turnPlayerNickname"]];
+                } else {
+                    _suggestButton.enabled = NO;
+                   _currentTurnLabel.text = [NSString stringWithFormat:@"Current Turn: %@", [gameStatus objectForKey:@"turnPlayerNickname"]];
+                }
+            }
+            
+            [_data removeAllObjects];
+            NSArray* feedPayload = [gameStatus objectForKey:@"feed"];
+            for(int i = 0; i < feedPayload.count; i++){
+                NSDictionary* feedItem = feedPayload[i];
+                [_data addObject:[[GameEventObject alloc] initWithPayload:feedItem]];
+            }
+            [_tableView reloadData];
+        });
+    }
 }
 
 #pragma mark - Table view data source
