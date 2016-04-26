@@ -369,9 +369,9 @@ const CGFloat kPadding3 = 6;
                 }
             }
             
-            [_data removeAllObjects];
+            NSInteger currentCount = _data.count;
             NSArray* feedPayload = [gameStatus objectForKey:@"feed"];
-            for(int i = 0; i < feedPayload.count; i++){
+            for(NSInteger i = currentCount; i < feedPayload.count; i++){
                 NSDictionary* feedItem = feedPayload[i];
                 [_data addObject:[[GameEventObject alloc] initWithPayload:feedItem]];
             }
@@ -404,22 +404,24 @@ const CGFloat kPadding3 = 6;
     //Normal cell
     GameEventTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"GameEventTableViewCell" forIndexPath:indexPath];
     
-    GameEventObject *obj = _data[indexPath.row];
-    
-    cell.eventLabel.text = [NSString stringWithFormat:@"%@ suggested %@ used the %@ at %@",
-                            obj.suggester, obj.suggestedTo, obj.suggestedWeapon, obj.suggestedLocation];
-    NSString* suggestString = (obj.isSuggest) ? @"Suggest" : @"Accuse";
-    cell.locationLabel.text = [NSString stringWithFormat:@"Action Type: %@", suggestString];
-    
-    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-    [dateFormatter setDateFormat:@"EEE, d MMM yyyy HH:mm:ss z"];
-    [dateFormatter setTimeStyle:NSDateFormatterLongStyle];
-    [dateFormatter setTimeZone:[NSTimeZone timeZoneWithName:@"PST"]];
+    if(indexPath.row < _data.count){
+        GameEventObject *obj = _data[indexPath.row];
+        
+        cell.eventLabel.text = [NSString stringWithFormat:@"%@ suggested %@ used the %@ at %@",
+                                obj.suggester, obj.suggestedTo, obj.suggestedWeapon, obj.suggestedLocation];
+        NSString* suggestString = (obj.isSuggest) ? @"Suggest" : @"Accuse";
+        cell.locationLabel.text = [NSString stringWithFormat:@"Action Type: %@", suggestString];
+        
+        NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+        [dateFormatter setDateFormat:@"EEE, d MMM yyyy HH:mm:ss z"];
+        [dateFormatter setTimeStyle:NSDateFormatterLongStyle];
+        [dateFormatter setTimeZone:[NSTimeZone timeZoneWithName:@"PST"]];
 
-    NSString *dateString = [dateFormatter stringFromDate:obj.timeStamp];
-    cell.timeStampLabel.text = dateString;
+        NSString *dateString = [dateFormatter stringFromDate:obj.timeStamp];
+        cell.timeStampLabel.text = dateString;
 
-    [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
+        [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
+    }
     
     return cell;
 }
