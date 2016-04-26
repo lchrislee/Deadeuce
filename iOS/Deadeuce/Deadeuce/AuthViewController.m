@@ -63,7 +63,7 @@
         dispatch_async(queue, ^{
             // Perform on main thread/queue
             dispatch_async(dispatch_get_main_queue(), ^{
-                if([[DeadeuceCaller sharedInstance] getGameID] && ![[[DeadeuceCaller sharedInstance] getGameID] isEqualToString:@""]){
+                if(gameID && ![[[DeadeuceCaller sharedInstance] getGameID] isEqualToString:@""]){
                     CurrentGameViewController *cGVc = [[CurrentGameViewController alloc] init];
                     [self.navigationController pushViewController:cGVc animated:YES];
                 } else {
